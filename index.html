@@ -1,157 +1,157 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en"> <!-- Changed language to English -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 반응형 대시보드</title>
+    <title>My Responsive Dashboard</title> <!-- Title in English -->
     <link rel="stylesheet" href="styles/main.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="dashboard-grid">
         <header>
-            <h1>실시간 대시보드</h1>
-            <p id="last-updated">마지막 업데이트: 2025년 7월 22일 15:18</p>
+            <h1>Real-time Dashboard</h1> <!-- Header title in English -->
+            <p id="last-updated">Last Updated: 2025-07-22 3:56 PM</p> <!-- Updated placeholder text to English -->
         </header>
 
-        <!-- 고정될 정보 카드들 -->
+        <!-- Fixed Info Cards -->
         <section class="card weather-card">
-            <h2>현재 날씨</h2>
+            <h2>Current Weather</h2> <!-- Header in English -->
             <div class="weather-info">
-                <p id="city-name">서울</p>
+                <p id="city-name">Seoul</p> <!-- City name in English -->
                 <p id="temperature">28°C</p>
-                <p id="description">맑음</p>
-                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="날씨 아이콘">
+                <p id="description">Clear Sky</p> <!-- Description in English -->
+                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather Icon"> <!-- Alt text in English -->
             </div>
-            <p class="placeholder-text">여기에 Google Sheets의 날씨 데이터가 표시됩니다.</p>
+            <p class="placeholder-text">Google Sheets weather data will be displayed here.</p> <!-- Placeholder in English -->
         </section>
 
         <section class="card exchange-rate-card">
-            <h2>환율 정보</h2>
+            <h2>Exchange Rates</h2> <!-- Header in English -->
             <div class="exchange-rates">
                 <p>USD/KRW: <span id="usd-krw">1,380.50</span></p>
-                <p>JPY/KRW (100엔): <span id="jpy-krw">8.85</span></p>
+                <p>JPY/KRW (100 Yen): <span id="jpy-krw">8.85</span></p> <!-- Label in English -->
                 <p>EUR/KRW: <span id="eur-krw">1,490.20</span></p>
             </div>
-            <p class="placeholder-text">여기에 Google Sheets의 환율 데이터가 표시됩니다.</p>
+            <p class="placeholder-text">Google Sheets exchange rate data will be displayed here.</p> <!-- Placeholder in English -->
         </section>
 
         <section class="card world-clock-card">
-            <h2>세계 시간</h2>
+            <h2>World Clock</h2> <!-- Header in English -->
             <div class="clocks-container">
                 <div class="clock-item">
-                    <h3>LA</h3>
+                    <h3>Los Angeles</h3> <!-- City name in English -->
                     <p id="time-la"></p>
                 </div>
                 <div class="clock-item">
-                    <h3>뉴욕</h3>
+                    <h3>New York</h3> <!-- City name in English -->
                     <p id="time-ny"></p>
                 </div>
                 <div class="clock-item">
-                    <h3>파리</h3>
+                    <h3>Paris</h3> <!-- City name in English -->
                     <p id="time-paris"></p>
                 </div>
                 <div class="clock-item">
-                    <h3>상하이</h3>
+                    <h3>Shanghai</h3> <!-- City name in English -->
                     <p id="time-shanghai"></p>
                 </div>
                 <div class="clock-item">
-                    <h3>서울</h3>
+                    <h3>Seoul</h3> <!-- City name in English -->
                     <p id="time-seoul"></p>
                 </div>
                 <div class="clock-item">
-                    <h3>시드니</h3>
+                    <h3>Sydney</h3> <!-- City name in English -->
                     <p id="time-sydney"></p>
                 </div>
             </div>
-            <p class="placeholder-text">각 도시의 현재 시간이 표시됩니다.</p>
+            <p class="placeholder-text">Current time for each city will be displayed here.</p> <!-- Placeholder in English -->
         </section>
 
         <section class="card info-card">
-            <h2>공지사항</h2>
-            <!-- 여기에 제공된 공지사항 내용 삽입 -->
-            <p>• 식사 후 건더기를 제외한 국물은 그라인더를 켠 상태로 싱크대에 비워주시고 나머지 쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통에 버려주세요.</p>
-            <p>• 버리러 갈 때는 Warehouse 계단이 아닌 Office 계단을 통해 이동해주시고 한 쪽에 쓰레기가 몰리지 않도록 2개의 쓰레기 통에 적절히 분배해주세요.</p>
-            <p>• 건물 내 커피 및 국물 등 액체류를 흘리는 경우 본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지해주세요.</p>
-            <p>• 쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.</p>
-            <p>• 미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 책상의 먼지 및 얼룩을 닦아서 제거해주세요.</p>
-            <!-- <p class="placeholder-text">여기에 다른 중요한 정보나 공지사항을 추가할 수 있습니다.</p> -->
+            <h2>Announcements</h2> <!-- Header in English -->
+            <!-- Announcement content inserted here -->
+            <p>• After meals, please empty liquids (excluding solids) into the sink with the grinder on. Dispose of other waste in the trash cans located in front of the men's restroom on the 1st floor Warehouse.</p>
+            <p>• When disposing of waste, please use the Office stairs, not the Warehouse stairs. Distribute waste appropriately into the two trash cans to prevent accumulation on one side.</p>
+            <p>• If you spill liquids like coffee or soup inside the building, please clean it up immediately to prevent stains on the floor.</p>
+            <p>• To prevent pests such as mice, cockroaches, and flies, do not store snacks or other food items on your desk when leaving work; dispose of them or take them home.</p>
+            <p>• For aesthetics and respiratory health, please wipe down dust and stains from your desk and surrounding areas before leaving work every Friday.</p>
+            <!-- <p class="placeholder-text">Other important information or announcements can be added here.</p> -->
         </section>
 
-        <!-- 차트 슬라이더 컨테이너: 이 안에 7개의 차트가 슬라이드로 들어갑니다 -->
+        <!-- Chart Slider Container: This will hold 7 charts that slide every 10 seconds -->
         <div class="chart-slider-container">
-            <!-- 첫 번째 차트 슬라이드 -->
+            <!-- First Chart Slide -->
             <div class="chart-slide active">
                 <section class="card chart-card">
-                    <h2>주간 매출 추이</h2>
+                    <h2>Weekly Sales Trend</h2> <!-- Header in English -->
                     <div class="chart-container">
                         <canvas id="salesChart"></canvas>
                     </div>
-                    <p class="placeholder-text">주간 매출 데이터를 기반으로 차트가 표시됩니다.</p>
+                    <p class="placeholder-text">Chart based on weekly sales data will be displayed here.</p> <!-- Placeholder in English -->
                 </section>
             </div>
 
-            <!-- 두 번째 차트 슬라이드 -->
+            <!-- Second Chart Slide -->
             <div class="chart-slide">
                 <section class="card chart-card">
-                    <h2>월별 비용 추이</h2>
+                    <h2>Monthly Expense Trend</h2> <!-- Header in English -->
                     <div class="chart-container">
                         <canvas id="expensesChart"></canvas>
                     </div>
-                    <p class="placeholder-text">월별 비용 데이터를 기반으로 차트가 표시됩니다.</p>
+                    <p class="placeholder-text">Chart based on monthly expense data will be displayed here.</p> <!-- Placeholder in English -->
                 </section>
             </div>
 
-            <!-- 세 번째 차트 슬라이드 -->
+            <!-- Third Chart Slide -->
             <div class="chart-slide">
                 <section class="card chart-card">
-                    <h2>제품별 판매량</h2>
+                    <h2>Product Sales Volume</h2> <!-- Header in English -->
                     <div class="chart-container">
                         <canvas id="productSalesChart"></canvas>
                     </div>
-                    <p class="placeholder-text">제품별 판매량 데이터를 기반으로 차트가 표시됩니다.</p>
+                    <p class="placeholder-text">Chart based on product sales volume data will be displayed here.</p> <!-- Placeholder in English -->
                 </section>
             </div>
 
-            <!-- 여기에 나머지 4개의 차트 슬라이드를 같은 형식으로 추가하여 총 7개가 되도록 만드세요 -->
-            <!-- 예시: 네 번째 차트 슬라이드 -->
+            <!-- Add the remaining 4 chart slides in the same format to make a total of 7 -->
+            <!-- Example: Fourth Chart Slide -->
             <div class="chart-slide">
                 <section class="card chart-card">
-                    <h2>재고 현황</h2>
+                    <h2>Inventory Status</h2> <!-- Header in English -->
                     <div class="chart-container">
                         <canvas id="inventoryChart"></canvas>
                     </div>
-                    <p class="placeholder-text">현재 재고 현황을 보여주는 차트입니다.</p>
+                    <p class="placeholder-text">Chart showing current inventory status.</p> <!-- Placeholder in English -->
                 </section>
             </div>
-            <!-- 예시: 다섯 번째 차트 슬라이드 -->
+            <!-- Example: Fifth Chart Slide -->
             <div class="chart-slide">
                 <section class="card chart-card">
-                    <h2>고객 만족도</h2>
+                    <h2>Customer Satisfaction</h2> <!-- Header in English -->
                     <div class="chart-container">
                         <canvas id="satisfactionChart"></canvas>
                     </div>
-                    <p class="placeholder-text">고객 만족도 점수 추이 차트입니다.</p>
+                    <p class="placeholder-text">Chart showing customer satisfaction score trends.</p> <!-- Placeholder in English -->
                 </section>
             </div>
-            <!-- 예시: 여섯 번째 차트 슬라이드 -->
+            <!-- Example: Sixth Chart Slide -->
             <div class="chart-slide">
                 <section class="card chart-card">
-                    <h2>웹사이트 트래픽</h2>
+                    <h2>Website Traffic</h2> <!-- Header in English -->
                     <div class="chart-container">
                         <canvas id="trafficChart"></canvas>
                     </div>
-                    <p class="placeholder-text">일별 웹사이트 방문자 수 차트입니다.</p>
+                    <p class="placeholder-text">Chart showing daily website visitor count.</p> <!-- Placeholder in English -->
                 </section>
             </div>
-            <!-- 예시: 일곱 번째 차트 슬라이드 -->
+            <!-- Example: Seventh Chart Slide -->
             <div class="chart-slide">
                 <section class="card chart-card">
-                    <h2>직원 생산성</h2>
+                    <h2>Employee Productivity</h2> <!-- Header in English -->
                     <div class="chart-container">
                         <canvas id="productivityChart"></canvas>
                     </div>
-                    <p class="placeholder-text">직원별 작업 완료율 차트입니다.</p>
+                    <p class="placeholder-text">Chart showing employee task completion rates.</p> <!-- Placeholder in English -->
                 </section>
             </div>
 
