@@ -1,1 +1,164 @@
-<h1>Hello GitHub Pages!</h1>
+<!DOCTYPE html>
+<html lang="en"> <!-- Changed language to English -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Responsive Dashboard</title> <!-- Title in English -->
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-grid">
+        <header>
+            <h1>Real-time Dashboard</h1> <!-- Header title in English -->
+            <p id="last-updated">Last Updated: 2025-07-22 3:56 PM</p> <!-- Updated placeholder text to English -->
+        </header>
+
+        <!-- Fixed Info Cards -->
+        <section class="card weather-card">
+            <h2>Current Weather</h2> <!-- Header in English -->
+            <div class="weather-info">
+                <p id="city-name">Seoul</p> <!-- City name in English -->
+                <p id="temperature">28°C</p>
+                <p id="description">Clear Sky</p> <!-- Description in English -->
+                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather Icon"> <!-- Alt text in English -->
+            </div>
+            <p class="placeholder-text">Google Sheets weather data will be displayed here.</p> <!-- Placeholder in English -->
+        </section>
+
+        <section class="card exchange-rate-card">
+            <h2>Exchange Rates</h2> <!-- Header in English -->
+            <div class="exchange-rates">
+                <p>USD/KRW: <span id="usd-krw">1,380.50</span></p>
+                <p>JPY/KRW (100 Yen): <span id="jpy-krw">8.85</span></p> <!-- Label in English -->
+                <p>EUR/KRW: <span id="eur-krw">1,490.20</span></p>
+            </div>
+            <p class="placeholder-text">Google Sheets exchange rate data will be displayed here.</p> <!-- Placeholder in English -->
+        </section>
+
+        <section class="card world-clock-card">
+            <h2>World Clock</h2> <!-- Header in English -->
+            <div class="clocks-container">
+                <div class="clock-item">
+                    <h3>Los Angeles</h3> <!-- City name in English -->
+                    <p id="time-la"></p>
+                </div>
+                <div class="clock-item">
+                    <h3>New York</h3> <!-- City name in English -->
+                    <p id="time-ny"></p>
+                </div>
+                <div class="clock-item">
+                    <h3>Paris</h3> <!-- City name in English -->
+                    <p id="time-paris"></p>
+                </div>
+                <div class="clock-item">
+                    <h3>Shanghai</h3> <!-- City name in English -->
+                    <p id="time-shanghai"></p>
+                </div>
+                <div class="clock-item">
+                    <h3>Seoul</h3> <!-- City name in English -->
+                    <p id="time-seoul"></p>
+                </div>
+                <div class="clock-item">
+                    <h3>Sydney</h3> <!-- City name in English -->
+                    <p id="time-sydney"></p>
+                </div>
+            </div>
+            <p class="placeholder-text">Current time for each city will be displayed here.</p> <!-- Placeholder in English -->
+        </section>
+
+        <section class="card info-card">
+            <h2>Announcements</h2> <!-- Header in English -->
+            <!-- Announcement content inserted here -->
+            <p>• After meals, please empty liquids (excluding solids) into the sink with the grinder on. Dispose of other waste in the trash cans located in front of the men's restroom on the 1st floor Warehouse.</p>
+            <p>• When disposing of waste, please use the Office stairs, not the Warehouse stairs. Distribute waste appropriately into the two trash cans to prevent accumulation on one side.</p>
+            <p>• If you spill liquids like coffee or soup inside the building, please clean it up immediately to prevent stains on the floor.</p>
+            <p>• To prevent pests such as mice, cockroaches, and flies, do not store snacks or other food items on your desk when leaving work; dispose of them or take them home.</p>
+            <p>• For aesthetics and respiratory health, please wipe down dust and stains from your desk and surrounding areas before leaving work every Friday.</p>
+            <!-- <p class="placeholder-text">Other important information or announcements can be added here.</p> -->
+        </section>
+
+        <!-- Chart Slider Container: This will hold 7 charts that slide every 10 seconds -->
+        <div class="chart-slider-container">
+            <!-- First Chart Slide -->
+            <div class="chart-slide active">
+                <section class="card chart-card">
+                    <h2>Weekly Sales Trend</h2> <!-- Header in English -->
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    <p class="placeholder-text">Chart based on weekly sales data will be displayed here.</p> <!-- Placeholder in English -->
+                </section>
+            </div>
+
+            <!-- Second Chart Slide -->
+            <div class="chart-slide">
+                <section class="card chart-card">
+                    <h2>Monthly Expense Trend</h2> <!-- Header in English -->
+                    <div class="chart-container">
+                        <canvas id="expensesChart"></canvas>
+                    </div>
+                    <p class="placeholder-text">Chart based on monthly expense data will be displayed here.</p> <!-- Placeholder in English -->
+                </section>
+            </div>
+
+            <!-- Third Chart Slide -->
+            <div class="chart-slide">
+                <section class="card chart-card">
+                    <h2>Product Sales Volume</h2> <!-- Header in English -->
+                    <div class="chart-container">
+                        <canvas id="productSalesChart"></canvas>
+                    </div>
+                    <p class="placeholder-text">Chart based on product sales volume data will be displayed here.</p> <!-- Placeholder in English -->
+                </section>
+            </div>
+
+            <!-- Add the remaining 4 chart slides in the same format to make a total of 7 -->
+            <!-- Example: Fourth Chart Slide -->
+            <div class="chart-slide">
+                <section class="card chart-card">
+                    <h2>Inventory Status</h2> <!-- Header in English -->
+                    <div class="chart-container">
+                        <canvas id="inventoryChart"></canvas>
+                    </div>
+                    <p class="placeholder-text">Chart showing current inventory status.</p> <!-- Placeholder in English -->
+                </section>
+            </div>
+            <!-- Example: Fifth Chart Slide -->
+            <div class="chart-slide">
+                <section class="card chart-card">
+                    <h2>Customer Satisfaction</h2> <!-- Header in English -->
+                    <div class="chart-container">
+                        <canvas id="satisfactionChart"></canvas>
+                    </div>
+                    <p class="placeholder-text">Chart showing customer satisfaction score trends.</p> <!-- Placeholder in English -->
+                </section>
+            </div>
+            <!-- Example: Sixth Chart Slide -->
+            <div class="chart-slide">
+                <section class="card chart-card">
+                    <h2>Website Traffic</h2> <!-- Header in English -->
+                    <div class="chart-container">
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                    <p class="placeholder-text">Chart showing daily website visitor count.</p> <!-- Placeholder in English -->
+                </section>
+            </div>
+            <!-- Example: Seventh Chart Slide -->
+            <div class="chart-slide">
+                <section class="card chart-card">
+                    <h2>Employee Productivity</h2> <!-- Header in English -->
+                    <div class="chart-container">
+                        <canvas id="productivityChart"></canvas>
+                    </div>
+                    <p class="placeholder-text">Chart showing employee task completion rates.</p> <!-- Placeholder in English -->
+                </section>
+            </div>
+
+        </div> <!-- /.chart-slider-container -->
+
+    </div> <!-- /.dashboard-grid -->
+
+    <script src="js/chart.js"></script>
+</body>
+</html>
