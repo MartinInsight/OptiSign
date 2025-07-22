@@ -14,6 +14,7 @@
             <p id="last-updated">마지막 업데이트: 2025년 7월 22일 15:18</p>
         </header>
 
+        <!-- 고정될 정보 카드들 -->
         <section class="card weather-card">
             <h2>현재 날씨</h2>
             <div class="weather-info">
@@ -68,11 +69,18 @@
 
         <section class="card info-card">
             <h2>공지사항</h2>
-            <p>새로운 대시보드가 성공적으로 구축되었습니다!</p>
-            <p class="placeholder-text">여기에 다른 중요한 정보나 공지사항을 추가할 수 있습니다.</p>
+            <!-- 여기에 제공된 공지사항 내용 삽입 -->
+            <p>• 식사 후 건더기를 제외한 국물은 그라인더를 켠 상태로 싱크대에 비워주시고 나머지 쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통에 버려주세요.</p>
+            <p>• 버리러 갈 때는 Warehouse 계단이 아닌 Office 계단을 통해 이동해주시고 한 쪽에 쓰레기가 몰리지 않도록 2개의 쓰레기 통에 적절히 분배해주세요.</p>
+            <p>• 건물 내 커피 및 국물 등 액체류를 흘리는 경우 본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지해주세요.</p>
+            <p>• 쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.</p>
+            <p>• 미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 책상의 먼지 및 얼룩을 닦아서 제거해주세요.</p>
+            <!-- <p class="placeholder-text">여기에 다른 중요한 정보나 공지사항을 추가할 수 있습니다.</p> -->
         </section>
 
+        <!-- 차트 슬라이더 컨테이너: 이 안에 7개의 차트가 슬라이드로 들어갑니다 -->
         <div class="chart-slider-container">
+            <!-- 첫 번째 차트 슬라이드 -->
             <div class="chart-slide active">
                 <section class="card chart-card">
                     <h2>주간 매출 추이</h2>
@@ -83,6 +91,7 @@
                 </section>
             </div>
 
+            <!-- 두 번째 차트 슬라이드 -->
             <div class="chart-slide">
                 <section class="card chart-card">
                     <h2>월별 비용 추이</h2>
@@ -93,6 +102,7 @@
                 </section>
             </div>
 
+            <!-- 세 번째 차트 슬라이드 -->
             <div class="chart-slide">
                 <section class="card chart-card">
                     <h2>제품별 판매량</h2>
@@ -103,6 +113,8 @@
                 </section>
             </div>
 
+            <!-- 여기에 나머지 4개의 차트 슬라이드를 같은 형식으로 추가하여 총 7개가 되도록 만드세요 -->
+            <!-- 예시: 네 번째 차트 슬라이드 -->
             <div class="chart-slide">
                 <section class="card chart-card">
                     <h2>재고 현황</h2>
@@ -112,6 +124,7 @@
                     <p class="placeholder-text">현재 재고 현황을 보여주는 차트입니다.</p>
                 </section>
             </div>
+            <!-- 예시: 다섯 번째 차트 슬라이드 -->
             <div class="chart-slide">
                 <section class="card chart-card">
                     <h2>고객 만족도</h2>
@@ -121,6 +134,7 @@
                     <p class="placeholder-text">고객 만족도 점수 추이 차트입니다.</p>
                 </section>
             </div>
+            <!-- 예시: 여섯 번째 차트 슬라이드 -->
             <div class="chart-slide">
                 <section class="card chart-card">
                     <h2>웹사이트 트래픽</h2>
@@ -130,6 +144,7 @@
                     <p class="placeholder-text">일별 웹사이트 방문자 수 차트입니다.</p>
                 </section>
             </div>
+            <!-- 예시: 일곱 번째 차트 슬라이드 -->
             <div class="chart-slide">
                 <section class="card chart-card">
                     <h2>직원 생산성</h2>
@@ -140,6 +155,10 @@
                 </section>
             </div>
 
-        </div> </div> <script src="js/chart.js"></script>
+        </div> <!-- /.chart-slider-container -->
+
+    </div> <!-- /.dashboard-grid -->
+
+    <script src="js/chart.js"></script>
 </body>
 </html>
