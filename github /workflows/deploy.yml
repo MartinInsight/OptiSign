@@ -13,20 +13,13 @@ jobs:
     - name: Checkout repository # 저장소 코드 체크아웃
       uses: actions/checkout@v4
 
-    - name: Setup Node.js (선택 사항 - 빌드 스크립트가 있다면)
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20' # 원하는 Node.js 버전 지정
-
-    # - name: Install dependencies (선택 사항 - package.json이 있다면)
-    #   run: npm install
-
-    # - name: Build project (선택 사항 - 빌드 과정이 있다면)
-    #   run: npm run build # 예: npm run build 또는 yarn build
+    # - name: Setup Node.js (필요 시 주석 해제하여 사용)
+    #   uses: actions/setup-node@v4
+    #   with:
+    #     node-version: '20'
 
     - name: Deploy to GitHub Pages # GitHub Pages에 배포
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub Pages 배포를 위한 토큰
-        publish_dir: ./ # 프로젝트의 루트 디렉토리를 배포 (index.html이 루트에 있을 때)
-        # publish_branch: gh-pages # 기본적으로 gh-pages 브랜치에 배포 (변경 가능)
+        publish_dir: ./ # 프로젝트의 루트 디렉토리를 배포
