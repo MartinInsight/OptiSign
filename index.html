@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 반응형 대시보드</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-grid">
+        <header>
+            <h1>실시간 대시보드</h1>
+            <p id="last-updated">마지막 업데이트: 2025년 7월 22일 15:18</p>
+        </header>
+
+        <section class="card chart-card">
+            <h2>주간 매출 추이</h2>
+            <div class="chart-container">
+                <canvas id="salesChart"></canvas>
+            </div>
+            <p class="placeholder-text">여기에 매출 데이터를 기반으로 차트가 표시됩니다.</p>
+        </section>
+
+        <section class="card weather-card">
+            <h2>현재 날씨</h2>
+            <div class="weather-info">
+                <p id="city-name">서울</p>
+                <p id="temperature">28°C</p>
+                <p id="description">맑음</p>
+                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="날씨 아이콘">
+            </div>
+            <p class="placeholder-text">여기에 Google Sheets의 날씨 데이터가 표시됩니다.</p>
+        </section>
+
+        <section class="card exchange-rate-card">
+            <h2>환율 정보</h2>
+            <div class="exchange-rates">
+                <p>USD/KRW: <span id="usd-krw">1,380.50</span></p>
+                <p>JPY/KRW (100엔): <span id="jpy-krw">8.85</span></p>
+                <p>EUR/KRW: <span id="eur-krw">1,490.20</span></p>
+            </div>
+            <p class="placeholder-text">여기에 Google Sheets의 환율 데이터가 표시됩니다.</p>
+        </section>
+
+        <section class="card info-card">
+            <h2>공지사항</h2>
+            <p>새로운 대시보드가 성공적으로 구축되었습니다!</p>
+            <p class="placeholder-text">여기에 다른 중요한 정보나 공지사항을 추가할 수 있습니다.</p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
