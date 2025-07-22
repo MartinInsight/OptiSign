@@ -1,115 +1,32 @@
-name: Deploy
+name: Deploy to GitHub Pages
 
 on:
-  schedule:
-    - cron: '0 12 * * *'
-  workflow_dispatch: # 이 줄을 추가하여 수동 실행 활성화
+  push:
+    branches:
+      - main # main 브랜치에 푸시될 때마다 워크플로우 실행
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
+  build-and-deploy:
+    runs-on: ubuntu-latest # 최신 우분투 환경에서 실행
 
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-          
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install pandas gspread google-auth
-          
-      - name: Create data directory
-        run: mkdir -p data
-        
-      - name: Fetch Trucking Data
-        env:
-          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-          GOOGLE_CREDENTIAL_JSON: ${{ secrets.GOOGLE_CREDENTIAL_JSON }}
-        run: |
-          python scripts/fetch_truck_data.py
-          echo "Generated files:"
-          ls -la data/
-          echo -e "\nJSON content sample:"
-          jq '.["TN"]' data/us-truck.json || echo "JSON parsing failed"
+    - name: Checkout repository # 저장소 코드 체크아웃
+      uses: actions/checkout@v4
 
-      - name: Fetch Rail Data
-        env:
-          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-          GOOGLE_CREDENTIAL_JSON: ${{ secrets.GOOGLE_CREDENTIAL_JSON }}
-        run: |
-          python scripts/fetch_rail_data.py
-          echo "Rail data file:"
-          ls -la data/us-rail.json || echo "Rail data file not found"
-          echo -e "\nRail data sample:"
-          if [ -f "data/us-rail.json" ]; then
-            jq '.[0]' data/us-rail.json
-          else
-            echo "No rail data file exists"
-          fi
+    - name: Setup Node.js (선택 사항 - 빌드 스크립트가 있다면)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # 원하는 Node.js 버전 지정
 
-      - name: Fetch Ocean Data
-        env:
-          GOOGLE_CREDENTIAL_JSON: ${{ secrets.GOOGLE_CREDENTIAL_JSON }}
-          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-        run: |
-          python scripts/fetch_ocean_data.py
-          echo "Ocean data file:"
-          ls -la data/us-ocean.json || echo "Ocean data file not found"
-          echo -e "\nOcean data sample:"
-          if [ -f "data/us-ocean.json" ]; then
-            jq '.[0]' data/us-ocean.json
-          else
-            echo "No ocean data file exists"
-          fi
+    # - name: Install dependencies (선택 사항 - package.json이 있다면)
+    #   run: npm install
 
-      - name: Fetch Air Data
-        env:
-          GOOGLE_CREDENTIAL_JSON: ${{ secrets.GOOGLE_CREDENTIAL_JSON }}
-          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
-        run: |
-          python scripts/fetch_air_data.py
-          echo "Air data file:"
-          ls -la data/us-air.json || echo "Air data file not found"
-          echo -e "\nAir data sample:"
-          if [ -f "data/us-air.json" ]; then
-            jq '.[0]' data/us-air.json
-          else
-            echo "No air data file exists"
-          fi
+    # - name: Build project (선택 사항 - 빌드 과정이 있다면)
+    #   run: npm run build # 예: npm run build 또는 yarn build
 
-      - name: Verify JSON files
-        run: |
-          echo "Trucking data sample:"
-          if [ -f "data/us-truck.json" ]; then
-            jq -r '.["TN"]' data/us-truck.json
-          else
-            echo "No truck data file exists"
-          fi
-          echo -e "\nRail data sample:"
-          if [ -f "data/us-rail.json" ]; then
-            jq -r '.[0]' data/us-rail.json
-          else
-            echo "No rail data file exists"
-          fi
-          echo -e "\nAir data sample:"
-          if [ -f "data/us-air.json" ]; then
-            jq -r '.[0]' data/us-air.json
-          else
-            echo "No air data file exists"
-          fi
-          echo -e "\nFile sizes:"
-          ls -lh data/
-          
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
-          keep_files: true
+    - name: Deploy to GitHub Pages # GitHub Pages에 배포
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub Pages 배포를 위한 토큰
+        publish_dir: ./ # 프로젝트의 루트 디렉토리를 배포 (index.html이 루트에 있을 때)
+        # publish_branch: gh-pages # 기본적으로 gh-pages 브랜치에 배포 (변경 가능)
