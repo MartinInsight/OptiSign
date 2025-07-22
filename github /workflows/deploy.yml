@@ -1,4 +1,4 @@
-name: Deploy Dashboard Layout
+name: Deploy Dashboard with Data
 
 on:
   push: # main 브랜치에 푸시될 때마다 워크플로우 자동 실행
@@ -15,6 +15,27 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4 # 저장소 코드 체크아웃 (main 브랜치의 파일들을 가져옴)
+
+      # --- Python 환경 설정 및 데이터 페칭 스텝 ---
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' # Python 3.10 버전 사용
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install gspread pandas # gspread와 pandas 라이브러리 설치
+
+      - name: Create data directory
+        run: mkdir -p data # JSON 파일을 저장할 data/ 폴더 생성
+
+      - name: Fetch and Process Data from Google Sheet
+        env:
+          SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+          GOOGLE_CREDENTIAL_JSON: ${{ secrets.GOOGLE_CREDENTIAL_JSON }}
+        run: python scripts/fetch_chart_data.py # <--- 스크립트 파일 이름 변경!
+      # --- Python 관련 스텝 끝 ---
 
       - name: Deploy to GitHub Pages # GitHub Pages 배포 스텝
         uses: peaceiris/actions-gh-pages@v3 # 사용하는 액션 버전 (v3)
