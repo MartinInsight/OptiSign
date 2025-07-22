@@ -104,7 +104,7 @@ header_mapping = {
     "북유럽 → 남미동안": "North_Europe_South_America_East_Coast_XSI",
 
     # MBCI Chart Headers (Chart 8 - if needed later)
-    "MBCIIndex(종합지수), $/day(정기용선, Time charter)MBCI": "MBCI_Index"
+    "Index(종합지수), $/day(정기용선, Time charter)MBCI": "MBCI_Index" # Corrected header from raw data
 }
 # --- End Header Mapping ---
 
@@ -139,6 +139,7 @@ def fetch_and_process_data():
         # 4. 데이터 파싱 및 처리
         header_row_index = -1
         for i, row in enumerate(all_data):
+            # Find the header row by looking for "date" (case-insensitive, trimmed)
             if any(cell.strip().lower() == "date" for cell in row):
                 header_row_index = i
                 break
@@ -150,7 +151,6 @@ def fetch_and_process_data():
         raw_headers_original = [h.strip().replace('"', '') for h in all_data[header_row_index]]
         
         # Replace empty header strings with unique placeholders
-        # This ensures every column has a name, even if it was blank in the sheet.
         raw_headers = []
         empty_col_counter = 0
         for h in raw_headers_original:
@@ -160,18 +160,37 @@ def fetch_and_process_data():
             else:
                 raw_headers.append(h)
 
-        data_rows = all_data[header_row_index + 1:]
+        data_rows_raw = all_data[header_row_index + 1:]
+        
+        # --- NEW LOGIC: Ensure all data rows have the same number of columns as headers ---
+        num_expected_cols = len(raw_headers)
+        data_rows = []
+        for i, row in enumerate(data_rows_raw):
+            if len(row) < num_expected_cols:
+                # Pad shorter rows with None
+                padded_row = row + [None] * (num_expected_cols - len(row))
+                data_rows.append(padded_row)
+                print(f"WARNING: Row {i+header_row_index+2} was shorter ({len(row)} cols). Padded to {num_expected_cols} cols.")
+            elif len(row) > num_expected_cols:
+                # Truncate longer rows
+                truncated_row = row[:num_expected_cols]
+                data_rows.append(truncated_row)
+                print(f"WARNING: Row {i+header_row_index+2} was longer ({len(row)} cols). Truncated to {num_expected_cols} cols.")
+            else:
+                data_rows.append(row)
+        # --- END NEW LOGIC ---
 
         # --- Additional Debugging Prints for DataFrame creation ---
         print(f"DEBUG: Total rows fetched (all_data): {len(all_data)}")
         print(f"DEBUG: Header row index: {header_row_index}")
         print(f"DEBUG: Raw headers (original from sheet): {raw_headers_original}")
-        print(f"DEBUG: Raw headers (used for DataFrame): {raw_headers}") # New print
-        print(f"DEBUG: Number of raw headers (used for DataFrame): {len(raw_headers)}") # New print
-        print(f"DEBUG: Number of data rows: {len(data_rows)}")
+        print(f"DEBUG: Raw headers (used for DataFrame): {raw_headers}")
+        print(f"DEBUG: Number of raw headers (used for DataFrame): {len(raw_headers)}")
+        print(f"DEBUG: Number of data rows (after processing): {len(data_rows)}") # Updated print
         if len(data_rows) > 0:
-            print(f"DEBUG: First data row: {data_rows[0]}")
-            print(f"DEBUG: Number of columns in first data row: {len(data_rows[0])}")
+            print(f"DEBUG: First processed data row: {data_rows[0]}") # Updated print
+            print(f"DEBUG: Number of columns in first processed data row: {len(data_rows[0])}") # Updated print
+            # This warning should now ideally not appear if padding/truncating works
             if len(raw_headers) != len(data_rows[0]):
                 print("WARNING: Number of headers (used for DataFrame) does NOT match number of columns in the first data row!")
         # --- End Additional Debugging Prints ---
@@ -181,22 +200,35 @@ def fetch_and_process_data():
         df.rename(columns={k: v for k, v in header_mapping.items() if k in df.columns}, inplace=True)
 
         date_col_name = None
-        if 'date' in df.columns:
+        # Prioritize 'date' column if it exists and is not an empty placeholder
+        if 'date' in df.columns and df['date'].any(): # Check if 'date' column exists and has non-empty values
             date_col_name = 'date'
-        elif 'Date_Blank_Sailing' in df.columns:
+        elif 'Date_Blank_Sailing' in df.columns and df['Date_Blank_Sailing'].any(): # Fallback for BLANK_SAILING
             date_col_name = 'Date_Blank_Sailing'
+        elif '_EMPTY_COL_4' in df.columns and df['_EMPTY_COL_4'].any(): # Fallback for IACI if 'date' is in _EMPTY_COL_4
+             # This is a guess based on the raw headers provided earlier, where 'date' was at index 44 (0-indexed)
+             # which could become _EMPTY_COL_4 if the header before it was empty.
+            date_col_name = '_EMPTY_COL_4' # This needs to be the actual header name pandas uses
 
         if date_col_name:
+            # Convert to datetime, coercing errors (invalid dates become NaT)
             df[date_col_name] = pd.to_datetime(df[date_col_name], errors='coerce')
+            # Drop rows where the date is NaT (Not a Time)
             df.dropna(subset=[date_col_name], inplace=True)
+            # Sort by date
             df = df.sort_values(by=date_col_name, ascending=True)
+            # Format date to YYYY-MM-DD string for consistency in JSON/JS
             df['date'] = df[date_col_name].dt.strftime('%Y-%m-%d')
+            # If the original date column was not named 'date', rename it for consistency
             if date_col_name != 'date':
                 df.rename(columns={date_col_name: 'date'}, inplace=True)
         else:
-            print("Warning: No recognized date column found in the DataFrame. Charts might not display correctly.")
+            print("Warning: No recognized date column found in the DataFrame or it contains no valid dates. Charts might not display correctly.")
+            # If no date column, consider using row index or a different approach for X-axis in JS.
+            # For now, we proceed without a dedicated 'date' column if it's missing or invalid.
 
         for col in df.columns:
+            # Skip the 'date' column as it's already processed and might be string
             if col != 'date':
                 df[col] = pd.to_numeric(df[col], errors='coerce')
 
@@ -213,6 +245,9 @@ def fetch_and_process_data():
 
     except Exception as e:
         print(f"Error during data processing: {e}")
+        # Print full traceback for better debugging
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
     fetch_and_process_data()
