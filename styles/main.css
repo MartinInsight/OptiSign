@@ -2,8 +2,8 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f6f9;
-    color: #333;
+    background-color: #f4f6f9; /* 연한 회색 배경 */
+    color: #333; /* 기본 글자색 (진한 회색) */
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -12,19 +12,18 @@ body {
 
 .dashboard-grid {
     display: grid;
-    /* 기본 3열 레이아웃 (날씨, 환율, 공지 / 차트 슬라이더, 세계 시간) */
     grid-template-columns: repeat(3, minmax(300px, 1fr));
-    gap: 25px; /* 카드 사이의 간격 */
+    gap: 25px;
     padding: 25px;
-    max-width: 1600px; /* 전체 대시보드 최대 너비 */
+    max-width: 1600px;
     width: 100%;
     box-sizing: border-box;
 }
 
 header {
-    grid-column: 1 / -1; /* 헤더는 전체 너비를 차지 */
-    background-color: #0056b3;
-    color: white;
+    grid-column: 1 / -1;
+    background-color: #003A52; /* 남색 헤더 배경 */
+    color: white; /* 헤더 글자색 흰색 */
     padding: 20px 25px;
     border-radius: 12px;
     text-align: center;
@@ -35,6 +34,7 @@ header {
 header h1 {
     margin: 0;
     font-size: 2.5em;
+    color: white; /* 헤더 제목 글자색 흰색 (남색 배경 위) */
 }
 
 header p {
@@ -60,7 +60,7 @@ header p {
 }
 
 .card h2 {
-    color: #0056b3;
+    color: #003A52; /* 카드 제목 글자색 남색 */
     font-size: 1.8em;
     margin-top: 0;
     margin-bottom: 15px;
@@ -70,16 +70,16 @@ header p {
 
 /* 차트 슬라이더 컨테이너 */
 .chart-slider-container {
-    grid-column: span 2; /* 차트 슬라이더 컨테이너가 2열을 차지하도록 */
+    grid-column: span 2;
     position: relative;
     overflow: hidden;
-    height: 100%; /* 부모 요소에 따라 높이 조정 */
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 350px; /* 차트 높이에 맞게 최소 높이 설정 */
-    background-color: white; /* 카드와 동일한 배경색 */
+    min-height: 350px;
+    background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -88,39 +88,38 @@ header p {
 .chart-slide {
     width: 100%;
     height: 100%;
-    display: none; /* 기본적으로 숨김 */
-    opacity: 0; /* 투명도를 0으로 설정 */
-    transition: opacity 1s ease-in-out; /* 부드러운 전환 효과 */
-    position: absolute; /* 겹치도록 설정 */
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    position: absolute;
     top: 0;
     left: 0;
-    padding: 25px; /* 슬라이드 내부 여백 */
+    padding: 25px;
     box-sizing: border-box;
 
-    /* 슬라이드 내부 차트 카드 정렬 */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* 카드 중앙 정렬 */
-    align-items: center; /* 카드 중앙 정렬 */
+    justify-content: center;
+    align-items: center;
 }
 
 .chart-slide.active {
-    display: flex; /* 활성화된 슬라이드만 보이도록 */
-    opacity: 1; /* 투명도를 1로 설정하여 보이게 함 */
-    position: relative; /* 활성화된 슬라이드는 상대 위치 */
+    display: flex;
+    opacity: 1;
+    position: relative;
 }
 
 /* 차트 컨테이너 */
 .chart-container {
     position: relative;
     width: 100%;
-    height: 250px; /* 차트 높이 고정 */
+    height: 250px;
     margin-bottom: 15px;
 }
 
 .placeholder-text {
     font-size: 0.9em;
-    color: #666;
+    color: #666; /* 회색 */
     text-align: center;
     width: 100%;
     margin-top: 10px;
@@ -137,12 +136,12 @@ header p {
 .weather-card #temperature {
     font-size: 3.5em;
     font-weight: bold;
-    color: #e67e22;
+    color: #00657e; /* 청록색 포인트 */
     margin: 5px 0;
 }
 .weather-card #description {
     font-size: 1.2em;
-    color: #555;
+    color: #555; /* 회색 */
     text-transform: capitalize;
 }
 .weather-card #weather-icon {
@@ -152,8 +151,7 @@ header p {
 .weather-card #city-name {
     font-size: 1.5em;
     font-weight: bold;
-    color: #34495e;
-    margin-bottom: 5px;
+    color: #34495e; /* 기존 남색 계열 유지 또는 #003A52로 변경 가능 */
 }
 
 /* 환율 카드 */
@@ -168,31 +166,30 @@ header p {
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
-    border-bottom: 1px dashed #eee;
+    border-bottom: 1px dashed #eee; /* 연한 회색 테두리 */
 }
 .exchange-rate-card .exchange-rates p:last-child {
     border-bottom: none;
 }
 .exchange-rate-card .exchange-rates span {
     font-weight: bold;
-    color: #27ae60;
+    color: #00657e; /* 청록색 포인트 */
 }
 
 /* 세계 시간 카드 */
 .world-clock-card {
-    /* 세계 시간 카드는 grid-template-columns 설정에 따라 자동으로 배치 */
-    /* 필요하다면 grid-column: span X; 를 추가할 수 있습니다. */
+    /* grid-column: span 2; */ /* 기본 그리드 설정에 따라 자동으로 배치 */
 }
 .clocks-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
-    gap: 15px; /* 시계 아이템 간 간격 */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
     width: 100%;
     margin-top: 10px;
 }
 .clock-item {
-    background-color: #f8f9fa;
-    border: 1px solid #e0e0e0;
+    background-color: #f8f9fa; /* 연한 회색 배경 */
+    border: 1px solid #e0e0e0; /* 연한 회색 테두리 */
     border-radius: 8px;
     padding: 15px 10px;
     text-align: center;
@@ -201,24 +198,24 @@ header p {
 .clock-item h3 {
     margin: 0 0 8px 0;
     font-size: 1.2em;
-    color: #0056b3;
+    color: #003A52; /* 남색 */
 }
 .clock-item p {
     font-size: 1.8em;
     font-weight: bold;
-    color: #343a40;
+    color: #343a40; /* 진한 회색 */
     margin: 0;
 }
 
 
 /* 공지사항 카드 */
 .info-card {
-    /* 공지사항 카드는 grid-template-columns 설정에 따라 자동으로 배치 */
+    /* grid-column: span 2; */ /* 필요하다면 2열로 확장 */
 }
 .info-card p {
     font-size: 1.1em;
     line-height: 1.6;
-    color: #555;
+    color: #555; /* 회색 */
     text-align: center;
     margin-top: 10px;
 }
@@ -229,7 +226,7 @@ header p {
 /* 태블릿 및 소형 데스크톱 (768px ~ 1200px) */
 @media (min-width: 768px) and (max-width: 1200px) {
     .dashboard-grid {
-        grid-template-columns: repeat(2, minmax(300px, 1fr)); /* 2열로 변경 */
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
         padding: 20px;
         gap: 20px;
     }
@@ -240,14 +237,14 @@ header p {
         font-size: 1.5em;
     }
     .chart-slider-container {
-        grid-column: span 2; /* 차트 슬라이더는 여전히 2열 차지 */
+        grid-column: span 2;
         min-height: 300px;
     }
     .chart-container {
         height: 200px;
     }
     .clocks-container {
-        grid-template-columns: repeat(2, 1fr); /* 2열로 변경 */
+        grid-template-columns: repeat(2, 1fr);
         gap: 10px;
     }
     .clock-item p {
@@ -258,7 +255,7 @@ header p {
 /* 모바일 (최대 767px) */
 @media (max-width: 767px) {
     .dashboard-grid {
-        grid-template-columns: 1fr; /* 모바일에서는 1열 */
+        grid-template-columns: 1fr;
         padding: 15px;
         gap: 15px;
     }
@@ -280,7 +277,7 @@ header p {
         font-size: 1.3em;
     }
     .chart-slider-container {
-        grid-column: span 1; /* 차트 슬라이더도 1열 차지 */
+        grid-column: span 1;
         min-height: 280px;
     }
     .chart-container {
@@ -296,7 +293,7 @@ header p {
         font-size: 1.1em;
     }
     .clocks-container {
-        grid-template-columns: 1fr; /* 1열로 변경 */
+        grid-template-columns: 1fr;
         gap: 10px;
     }
     .clock-item h3 {
