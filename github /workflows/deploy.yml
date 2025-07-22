@@ -1,46 +1,47 @@
 name: Deploy Dashboard with Data
 
 on:
-  push: # main 브랜치에 푸시될 때마다 워크플로우 자동 실행
+  push: # Automatically run workflow on push to main branch
     branches:
       - main
-  workflow_dispatch: # GitHub Actions 탭에서 수동 실행 가능하도록 유지
+  workflow_dispatch: # Allow manual triggering from GitHub Actions tab
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest # 실행 환경은 최신 Ubuntu
+    runs-on: ubuntu-latest # Run on the latest Ubuntu environment
 
     permissions:
-      contents: write # 이 워크플로우가 gh-pages 브랜치에 파일을 쓸 수 있도록 권한 부여
+      contents: write # Grant permission to write files to the repository (for gh-pages branch)
 
     steps:
-      - uses: actions/checkout@v4 # 저장소 코드 체크아웃 (main 브랜치의 파일들을 가져옴)
+      - name: Checkout repository # Checkout the repository code (from main branch)
+        uses: actions/checkout@v4
 
-      # --- Python 환경 설정 및 데이터 페칭 스텝 ---
+      # --- Python environment setup and data fetching steps ---
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10' # Python 3.10 버전 사용
+          python-version: '3.10' # Use Python 3.10
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install gspread pandas # gspread와 pandas 라이브러리 설치
+          pip install gspread pandas # Install gspread and pandas libraries
 
       - name: Create data directory
-        run: mkdir -p data # JSON 파일을 저장할 data/ 폴더 생성
+        run: mkdir -p data # Create 'data/' directory to save the JSON file
 
       - name: Fetch and Process Data from Google Sheet
         env:
           SPREADSHEET_ID: ${{ secrets.SPREADSHEET_ID }}
           GOOGLE_CREDENTIAL_JSON: ${{ secrets.GOOGLE_CREDENTIAL_JSON }}
-        run: python scripts/fetch_chart_data.py # <--- 스크립트 파일 이름 변경!
-      # --- Python 관련 스텝 끝 ---
+        run: python scripts/fetch_chart_data.py # Execute the Python script to fetch data
+      # --- End Python related steps ---
 
-      - name: Deploy to GitHub Pages # GitHub Pages 배포 스텝
-        uses: peaceiris/actions-gh-pages@v3 # 사용하는 액션 버전 (v3)
+      - name: Deploy to GitHub Pages # Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3 # Use peaceiris/actions-gh-pages action v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub가 자동으로 제공하는 토큰 사용
-          publish_dir: ./ # 현재 워크플로우가 실행되는 저장소의 루트 디렉토리에 있는 파일들을 배포 대상으로 삼음
-          keep_files: true # 기존 gh-pages 브랜치의 파일들을 유지하고 변경된 파일만 업데이트
-          publish_branch: gh-pages # 배포된 파일들을 'gh-pages' 브랜치로 푸시
+          github_token: ${{ secrets.GITHUB_TOKEN }} # Use the GitHub-provided token for deployment
+          publish_dir: ./ # Publish files from the root directory of the repository
+          keep_files: true # Keep existing files in the gh-pages branch (only update changed files)
+          publish_branch: gh-pages # Publish the deployed files to the 'gh-pages' branch
