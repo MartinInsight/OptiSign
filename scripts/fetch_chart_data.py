@@ -193,7 +193,6 @@ def fetch_and_process_data():
             date_col_name = 'date'
         elif 'Date_Blank_Sailing' in df.columns and not df['Date_Blank_Sailing'].empty and df['Date_Blank_Sailing'].astype(str).str.strip().any():
             date_col_name = 'Date_Blank_Sailing'
-        # Removed _EMPTY_COL_4 fallback for date_col_name as it's a guess and might be incorrect.
 
         if date_col_name:
             # Convert to datetime, coercing errors (invalid dates become NaT)
@@ -209,15 +208,21 @@ def fetch_and_process_data():
                 df.rename(columns={date_col_name: 'date'}, inplace=True)
         else:
             print("Warning: No recognized date column found in the DataFrame or it contains no valid dates. Charts might not display correctly.")
-            # If no date column, consider using row index or a different approach for X-axis in JS.
-            # For now, we proceed without a dedicated 'date' column if it's missing or invalid.
 
-        # --- NEW LOGIC: Convert all numeric columns by iterating and handling commas ---
+        # --- NEW LOGIC: Convert all numeric columns by iterating and using .apply(float) ---
         numeric_cols = [col for col in df.columns if col != 'date']
         for col in numeric_cols:
-            # Convert to string first to handle potential non-string types that might have commas (e.g., numbers from sheet)
-            # Then remove commas and convert to numeric
-            df[col] = df[col].astype(str).str.replace(',', '', regex=False).apply(pd.to_numeric, errors='coerce')
+            # Define a helper function to clean and convert each cell
+            def clean_and_convert_to_float(value):
+                if pd.isna(value) or value == '': # Handle NaN/None/empty string values
+                    return None
+                try:
+                    # Convert to string, remove commas, then convert to float
+                    return float(str(value).replace(',', ''))
+                except ValueError:
+                    return None # Return None for values that cannot be converted
+
+            df[col] = df[col].apply(clean_and_convert_to_float)
         # --- END NEW LOGIC ---
 
         df = df.fillna(value=None)
