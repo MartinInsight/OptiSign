@@ -29,49 +29,49 @@
         <div class="chart-slider-container bg-white rounded-xl shadow-md p-6 relative overflow-hidden col-span-2 min-h-[350px] flex flex-col items-center justify-center">
             <!-- Chart Slides -->
             <div class="chart-slide active absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">KCCI Composite Index & Routes</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: KCCI</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="salesChart"></canvas>
                 </div>
             </div>
             <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">SCFI Composite Index & Routes</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: SCFI</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="expensesChart"></canvas>
                 </div>
             </div>
             <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">WCI Composite Index & Routes</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: WCI</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="productSalesChart"></canvas>
                 </div>
             </div>
             <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">IACI Composite Index</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: IACI</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="inventoryChart"></canvas>
                 </div>
             </div>
             <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Blank Sailings by Alliance</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: Blank Sailings</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="satisfactionChart"></canvas>
                 </div>
             </div>
             <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">FBX Composite Index & Routes</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: FBX</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="trafficChart"></canvas>
                 </div>
             </div>
             <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">XSI Routes</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: XSI</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="productivityChart"></canvas>
                 </div>
             </div>
             <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">MBCI Index</h2>
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: MBCI</h2>
                 <div class="chart-container relative w-full h-[250px]">
                     <canvas id="mbciChart"></canvas>
                 </div>
@@ -218,7 +218,10 @@
                     const processedDatasets = datasets.map(dataset => ({
                         ...dataset,
                         // Removed hidden: true, so all datasets will be visible by default
-                        fill: dataset.fill !== undefined ? dataset.fill : (type === 'line' || type === 'radar' || type === 'polarArea')
+                        fill: dataset.fill !== undefined ? dataset.fill : (type === 'line' || type === 'radar' || type === 'polarArea'),
+                        pointRadius: dataset.pointRadius !== undefined ? dataset.pointRadius : 3, // Default point radius
+                        tension: dataset.tension !== undefined ? dataset.tension : 0.4, // Default tension for smoother lines
+                        spanGaps: true // Connect lines across null/NaN values
                     }));
 
 
@@ -365,7 +368,6 @@
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'KCCI US East Coast',
@@ -374,7 +376,6 @@
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'KCCI Europe',
@@ -383,7 +384,6 @@
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'KCCI Mediterranean',
@@ -392,7 +392,6 @@
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI Middle East',
@@ -401,7 +400,6 @@
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI Australia',
@@ -410,7 +408,6 @@
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI South America East Coast',
@@ -419,7 +416,6 @@
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI South America West Coast',
@@ -428,7 +424,6 @@
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI South Africa',
@@ -437,7 +432,6 @@
                                 borderColor: borderColors[10],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI West Africa',
@@ -446,7 +440,6 @@
                                 borderColor: borderColors[11],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI China',
@@ -455,7 +448,6 @@
                                 borderColor: borderColors[12],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI Japan',
@@ -464,7 +456,6 @@
                                 borderColor: borderColors[13],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                              {
                                 label: 'KCCI Southeast Asia',
@@ -473,7 +464,6 @@
                                 borderColor: borderColors[14],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             }
                         ],
                         dates
@@ -498,7 +488,6 @@
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI US East Coast',
@@ -507,7 +496,6 @@
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI North Europe',
@@ -516,7 +504,6 @@
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI Mediterranean',
@@ -525,7 +512,6 @@
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI Southeast Asia',
@@ -534,7 +520,6 @@
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI Middle East',
@@ -543,7 +528,6 @@
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI Australia/New Zealand',
@@ -552,7 +536,6 @@
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI South America',
@@ -561,7 +544,6 @@
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI Japan West Coast',
@@ -570,7 +552,6 @@
                                 borderColor: borderColors[10],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI Japan East Coast',
@@ -579,7 +560,6 @@
                                 borderColor: borderColors[11],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI Korea',
@@ -588,7 +568,6 @@
                                 borderColor: borderColors[12],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI East/West Africa',
@@ -597,7 +576,6 @@
                                 borderColor: borderColors[13],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'SCFI South Africa',
@@ -606,7 +584,6 @@
                                 borderColor: borderColors[14],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             }
                         ],
                         dates
@@ -631,7 +608,6 @@
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'WCI Rotterdam → Shanghai',
@@ -640,7 +616,6 @@
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'WCI Shanghai → Genoa',
@@ -649,7 +624,6 @@
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'WCI Shanghai → Los Angeles',
@@ -658,7 +632,6 @@
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'WCI Los Angeles → Shanghai',
@@ -667,7 +640,6 @@
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'WCI Shanghai → New York',
@@ -676,7 +648,6 @@
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'WCI New York → Rotterdam',
@@ -685,7 +656,6 @@
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'WCI Rotterdam → New York',
@@ -694,7 +664,6 @@
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             }
                         ],
                         dates
@@ -734,7 +703,6 @@
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'MSC Alliance',
@@ -743,7 +711,6 @@
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'OCEAN Alliance',
@@ -752,7 +719,6 @@
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'Premier Alliance',
@@ -761,7 +727,6 @@
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'Others/Independent',
@@ -770,7 +735,6 @@
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             }
                         ],
                         dates
@@ -795,7 +759,6 @@
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX US West Coast → China/EA',
@@ -804,7 +767,6 @@
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX China/EA → US East Coast',
@@ -813,7 +775,6 @@
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX US East Coast → China/EA',
@@ -822,7 +783,6 @@
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX China/EA → North Europe',
@@ -831,7 +791,6 @@
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX North Europe → China/EA',
@@ -840,7 +799,6 @@
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX China/EA → Mediterranean',
@@ -849,7 +807,6 @@
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX Mediterranean → China/EA',
@@ -858,7 +815,6 @@
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX US East Coast → North Europe',
@@ -867,7 +823,6 @@
                                 borderColor: borderColors[10],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX North Europe → US East Coast',
@@ -876,7 +831,6 @@
                                 borderColor: borderColors[11],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX Europe → South America East Coast',
@@ -885,7 +839,6 @@
                                 borderColor: borderColors[12],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'FBX Europe → South America West Coast',
@@ -894,7 +847,6 @@
                                 borderColor: borderColors[13],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             }
                         ],
                         dates
@@ -919,7 +871,6 @@
                                 borderColor: borderColors[1],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'XSI East Asia → US West Coast',
@@ -928,7 +879,6 @@
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'XSI US West Coast → East Asia',
@@ -937,7 +887,6 @@
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'XSI East Asia → South America East Coast',
@@ -946,7 +895,6 @@
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'XSI North Europe → US East Coast',
@@ -955,7 +903,6 @@
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'XSI US East Coast → North Europe',
@@ -964,7 +911,6 @@
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             },
                             {
                                 label: 'XSI North Europe → South America East Coast',
@@ -973,7 +919,6 @@
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
                                 fill: false
-                                // hidden: true removed
                             }
                         ],
                         dates
