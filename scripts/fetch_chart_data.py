@@ -2,14 +2,27 @@ import gspread
 import pandas as pd
 import json
 from datetime import datetime, timedelta
+import os # Import os module to handle file paths
 
 # Configuration for Google Sheets API
 # Ensure your service account key file is named 'service_account.json'
 # and is located in the same directory or accessible path.
 # For local development, you might need to set GOOGLE_APPLICATION_CREDENTIALS
 # environment variable or place the key file in a known location.
+
+# Determine the base directory of the script
+# This helps in locating service_account.json relative to the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Assume service_account.json is in the project root (one level up from 'scripts')
+service_account_path = os.path.join(script_dir, '..', 'service_account.json')
+
 try:
-    gc = gspread.service_account()
+    # Explicitly specify the path to the service account key file
+    gc = gspread.service_account(filename=service_account_path)
+except FileNotFoundError:
+    print(f"Error: service_account.json not found at {service_account_path}")
+    print("Please ensure 'service_account.json' is correctly configured and accessible in the project root.")
+    exit()
 except Exception as e:
     print(f"Error authenticating with Google Sheets API: {e}")
     print("Please ensure 'service_account.json' is correctly configured and accessible.")
@@ -208,147 +221,119 @@ def process_table_data(raw_data):
     table_data = {}
 
     # KCCI Table Data
-    kcci_headers = [
-        "Code", "Comprehensive Index", "USWC", "USEC", "Europe", "Mediterranean",
-        "Middle East", "Australia", "Latin America East Coast", "Latin America West Coast",
-        "South Africa", "West Africa", "China", "Japan", "South East Asia"
-    ]
-    kcci_data_rows = []
     # Find the row containing "KCCIGroupIndexMainlaneMainlane" to start parsing KCCI
     kcci_start_row_idx = -1
     for i, row in enumerate(raw_data):
+        # Check for a unique header that indicates the start of the KCCI table data
+        # Based on the image, 'KCCIGroupIndexMainlaneMainlane' is in the first column of that section
         if row.get('KCCIGroupIndexMainlaneMainlane') == 'KCCIGroupIndexMainlaneMainlane':
             kcci_start_row_idx = i
             break
 
     if kcci_start_row_idx != -1:
-        # Assuming headers are in the row after 'KCCIGroupIndexMainlaneMainlane'
-        # and data starts from 'Comprehensive Index' row
-        # Adjust indices based on the actual image/sheet structure
-        kcci_label_row = raw_data[kcci_start_row_idx + 1] # Row with "종합지수(Point)"
+        # These indices are relative to kcci_start_row_idx
+        # The actual column headers from the sheet are crucial here.
+        # I'm using placeholder column names based on the image provided.
+        # You MUST verify these against the actual column names returned by gspread.
+        kcci_headers_row = raw_data[kcci_start_row_idx + 1] # Row with "Code", "종합지수(Point)" etc.
         kcci_weight_row = raw_data[kcci_start_row_idx + 2] # Row with "Weight"
         kcci_current_row = raw_data[kcci_start_row_idx + 3] # Row with "Current Index (2025-07-21)"
         kcci_previous_row = raw_data[kcci_start_row_idx + 4] # Row with "Previous Index (2025-07-14)"
         kcci_weekly_change_row = raw_data[kcci_start_row_idx + 5] # Row with "Weekly Change"
 
-        # Map the column headers to the actual data keys based on the image
-        # This is a manual mapping and needs to be precise.
-        kcci_mapping = {
-            '종합지수(Point)': 'Comprehensive Index',
-            'USWC': 'USWC', 'USEC': 'USEC', 'Europe': 'Europe',
-            'Mediterranean': 'Mediterranean', 'Middle East': 'Middle East',
-            'Australia': 'Australia', 'Latin America East Coast': 'Latin America East Coast',
-            'Latin America West Coast': 'Latin America West Coast',
-            'South Africa': 'South Africa', 'West Africa': 'West Africa',
-            'China': 'China', 'Japan': 'Japan', 'South East Asia': 'South East Asia'
-        }
+        # Extract actual headers from the sheet's header row for KCCI
+        # This assumes the headers are in a specific row and order.
+        # Adjust these keys based on what gspread returns for `kcci_headers_row`.
+        # For example, if '종합지수(Point)' is the actual key for 'Comprehensive Index' column.
+        actual_kcci_cols = [
+            'Code', '종합지수(Point)', 'USWC', 'USEC', 'Europe', 'Mediterranean',
+            'Middle East', 'Australia', 'Latin America East Coast', 'Latin America West Coast',
+            'South Africa', 'West Africa', 'China', 'Japan', 'South East Asia'
+        ]
 
-        # Extracting KCCI data
         kcci_table = {
-            "headers": ["Category", "Comprehensive Index", "USWC", "USEC", "Europe", "Mediterranean",
-                        "Middle East", "Australia", "Latin America East Coast", "Latin America West Coast",
-                        "South Africa", "West Africa", "China", "Japan", "South East Asia"],
+            "headers": ["Category"] + [kcci_headers_row.get(col, col) for col in actual_kcci_cols[1:]],
             "rows": []
         }
 
-        # Helper to get value from row based on column name (using the mapping)
-        def get_kcci_value(row_data, col_name):
-            # Find the key in row_data that matches the value in kcci_label_row
-            # This is a bit complex due to the merged cells/header structure in the image
-            # We'll rely on the order and assume consistent column positions
-            if col_name == "Comprehensive Index":
-                return row_data.get('종합지수(Point)') # Or the actual column header from raw_data
-            elif col_name == "USWC":
-                return row_data.get('USWC')
-            # ... continue for all other headers based on your sheet's actual column names
-            # For now, let's simplify and use direct key access based on the image's effective columns
-            # This will need careful adjustment if the actual sheet has different column headers
-            # than what appears as "labels" in the image.
-
-            # A more robust way would be to find the column index for each header
-            # from the actual header row (e.g., kcci_label_row) and then get data by index.
-            # For simplicity, let's assume direct mapping for now, but be aware of this.
-            return row_data.get(col_name) # This might need to be more dynamic
-
-        # Simplified extraction based on image structure, assuming direct column names exist
-        # This is a placeholder and needs to be adjusted to your actual sheet's column names
-        # and how gspread reads them.
-        def extract_kcci_row(data_row, label):
-            row_values = [label]
-            # These column names are derived from the image, adjust if your sheet has different headers
-            col_names_in_sheet = [
-                '종합지수(Point)', 'USWC', 'USEC', 'Europe', 'Mediterranean', 'Middle East',
-                'Australia', 'Latin America East Coast', 'Latin America West Coast',
-                'South Africa', 'West Africa', 'China', 'Japan', 'South East Asia'
-            ]
-            for col in col_names_in_sheet:
-                value = data_row.get(col)
-                # Handle cases where value might be empty or non-numeric for percentages
-                if isinstance(value, (int, float)):
-                    row_values.append(value)
-                elif isinstance(value, str) and '%' in value:
-                    row_values.append(value) # Keep percentage as string
-                else:
-                    row_values.append(value if value is not None else '-') # Use '-' for missing data
-            return row_values
-
-        # Extracting data for KCCI table
-        # Note: The actual column names from your Google Sheet's raw data might differ
-        # from the displayed "labels" in the image. You need to use the actual column names
-        # that `worksheet.get_all_records()` returns.
-        # For this example, I'm making an educated guess based on the image.
-        kcci_table["rows"].append(["Weight"] + [kcci_weight_row.get(col) for col in kcci_headers[1:]])
-        kcci_table["rows"].append([kcci_current_row.get('Code')] + [kcci_current_row.get(col) for col in kcci_headers[1:]])
-        kcci_table["rows"].append([kcci_previous_row.get('Code')] + [kcci_previous_row.get(col) for col in kcci_headers[1:]])
-        kcci_table["rows"].append([kcci_weekly_change_row.get('Code')] + [kcci_weekly_change_row.get(col) for col in kcci_headers[1:]])
-
+        # Populate rows using the actual column names from the sheet
+        kcci_table["rows"].append(["Weight"] + [kcci_weight_row.get(col) for col in actual_kcci_cols[1:]])
+        kcci_table["rows"].append([kcci_current_row.get('Code')] + [kcci_current_row.get(col) for col in actual_kcci_cols[1:]])
+        kcci_table["rows"].append([kcci_previous_row.get('Code')] + [kcci_previous_row.get(col) for col in actual_kcci_cols[1:]])
+        kcci_table["rows"].append([kcci_weekly_change_row.get('Code')] + [kcci_weekly_change_row.get(col) for col in actual_kcci_cols[1:]])
 
         table_data["KCCI"] = kcci_table
 
-    # SCFI Table Data (similar logic, needs precise column mapping)
+    # SCFI Table Data
     scfi_start_row_idx = -1
     for i, row in enumerate(raw_data):
-        if row.get('Description') == 'Description': # Assuming 'Description' is a unique header for SCFI
+        if row.get('Description') == 'Description' and row.get('Weighting') == 'Weighting':
             scfi_start_row_idx = i
             break
 
     if scfi_start_row_idx != -1:
-        scfi_desc_row = raw_data[scfi_start_row_idx]
-        scfi_weighting_row = raw_data[scfi_start_row_idx + 1]
-        scfi_current_row = raw_data[scfi_start_row_idx + 2]
-        scfi_previous_row = raw_data[scfi_start_row_idx + 3]
-        scfi_compare_row = raw_data[scfi_start_row_idx + 4]
+        scfi_headers_row = raw_data[scfi_start_row_idx] # Row with "Description", "Comprehensive Index"
+        scfi_weighting_row = raw_data[scfi_start_row_idx + 1] # Row with "Weighting"
+        scfi_current_row = raw_data[scfi_start_row_idx + 2] # Row with "Current Index (2025-07-18)"
+        scfi_previous_row = raw_data[scfi_start_row_idx + 3] # Row with "Previous Index (2025-07-11)"
+        scfi_compare_row = raw_data[scfi_start_row_idx + 4] # Row with "Compare With Last Week"
 
-        # Extracting SCFI data
+        actual_scfi_cols = [
+            'Description', 'Comprehensive Index', 'Europe (Base port)', 'Mediterranean (Base port)',
+            'USWC (Base port)', 'USEC (Base port)', 'Persian Gulf and Red Sea (Dubai)',
+            'Australia/New Zealand (Melbourne)', 'East/West Africa (Lagos)', 'South Africa (Durban)',
+            'West Japan (Base port)', 'East Japan (Base port)', 'Southeast Asia (Singapore)',
+            'Korea (Pusan)', 'Central/South America West Coast(Manzanillo)'
+        ]
+
         scfi_table = {
-            "headers": ["Category", "Comprehensive Index", "Europe (Base port)", "Mediterranean (Base port)",
-                        "USWC (Base port)", "USEC (Base port)", "Persian Gulf and Red Sea (Dubai)",
-                        "Australia/New Zealand (Melbourne)", "East/West Africa (Lagos)", "South Africa (Durban)",
-                        "West Japan (Base port)", "East Japan (Base port)", "Southeast Asia (Singapore)",
-                        "Korea (Pusan)", "Central/South America West Coast(Manzanillo)"],
+            "headers": ["Category"] + [scfi_headers_row.get(col, col) for col in actual_scfi_cols[1:]],
             "rows": []
         }
-        # This is highly dependent on the exact column headers from your sheet,
-        # which might be 'Description', 'Weighting', 'Current Index (2025-07-18)', etc.
-        # You need to adjust the .get('ColumnName') based on what gspread returns.
 
-        # Example for SCFI, assuming direct column names like in the image
-        # This part is highly speculative without the actual sheet's column names.
-        scfi_table["rows"].append(["Weighting"] + [scfi_weighting_row.get(col) for col in scfi_table["headers"][1:]])
-        scfi_table["rows"].append([scfi_current_row.get('Description')] + [scfi_current_row.get(col) for col in scfi_table["headers"][1:]])
-        scfi_table["rows"].append([scfi_previous_row.get('Description')] + [scfi_previous_row.get(col) for col in scfi_table["headers"][1:]])
-        scfi_table["rows"].append([scfi_compare_row.get('Description')] + [scfi_compare_row.get(col) for col in scfi_table["headers"][1:]])
+        scfi_table["rows"].append(["Weighting"] + [scfi_weighting_row.get(col) for col in actual_scfi_cols[1:]])
+        scfi_table["rows"].append([scfi_current_row.get('Description')] + [scfi_current_row.get(col) for col in actual_scfi_cols[1:]])
+        scfi_table["rows"].append([scfi_previous_row.get('Description')] + [scfi_previous_row.get(col) for col in actual_scfi_cols[1:]])
+        scfi_table["rows"].append([scfi_compare_row.get('Description')] + [scfi_compare_row.get(col) for col in actual_scfi_cols[1:]])
 
         table_data["SCFI"] = scfi_table
 
-    # Continue for CCFI, WCI, IACI, Blank Sailing, FBX, XSI, MBCI
-    # The logic will be similar: find start row, extract relevant rows,
-    # map to headers, and populate table_data.
+    # SCFI2 Table Data
+    scfi2_start_row_idx = -1
+    for i, row in enumerate(raw_data):
+        if row.get('SCFI2종합지수($/TEU)') == 'SCFI2종합지수($/TEU)':
+            scfi2_start_row_idx = i
+            break
 
-    # Example for CCFI
+    if scfi2_start_row_idx != -1:
+        scfi2_headers_row = raw_data[scfi2_start_row_idx]
+        scfi2_current_row = raw_data[scfi2_start_row_idx + 1]
+        scfi2_previous_row = raw_data[scfi2_start_row_idx + 2]
+        scfi2_compare_row = raw_data[scfi2_start_row_idx + 3]
+
+        actual_scfi2_cols = [
+            'SCFI2종합지수($/TEU)', 'USWC (Base port)', 'USEC (Base port)', 'Europe (Base port)',
+            'Mediterranean (Base port)', 'Southeast Asia (Singapore)', 'Persian Gulf and Red Sea (Dubai)',
+            'Australia/New Zealand (Melbourne)', 'South America (Santos)', 'West Japan (Base port)',
+            'East Japan (Base port)', 'Korea (Pusan)', 'East/West Africa (Lagos)', 'South Africa (Durban)'
+        ]
+
+        scfi2_table = {
+            "headers": ["Category"] + [scfi2_headers_row.get(col, col) for col in actual_scfi2_cols[1:]],
+            "rows": []
+        }
+
+        scfi2_table["rows"].append([scfi2_current_row.get('Current Index (2025-07-18)')] + [scfi2_current_row.get(col) for col in actual_scfi2_cols[1:]])
+        scfi2_table["rows"].append([scfi2_previous_row.get('Previous Index (2025-07-11)')] + [scfi2_previous_row.get(col) for col in actual_scfi2_cols[1:]])
+        scfi2_table["rows"].append([scfi2_compare_row.get('Compare With Last Week')] + [scfi2_compare_row.get(col) for col in actual_scfi2_cols[1:]])
+
+        table_data["SCFI2"] = scfi2_table
+
+
+    # CCFI Table Data
     ccfi_start_row_idx = -1
     for i, row in enumerate(raw_data):
-        if row.get('COMPOSITE INDEX') == 'COMPOSITE INDEX': # Assuming this is a unique header
+        if row.get('COMPOSITE INDEX') == 'COMPOSITE INDEX' and row.get('JAPAN') == 'JAPAN':
             ccfi_start_row_idx = i
             break
     if ccfi_start_row_idx != -1:
@@ -357,18 +342,24 @@ def process_table_data(raw_data):
         ccfi_previous_row = raw_data[ccfi_start_row_idx + 2]
         ccfi_weekly_growth_row = raw_data[ccfi_start_row_idx + 3]
 
+        actual_ccfi_cols = [
+            'COMPOSITE INDEX', 'JAPAN', 'EUROPE', 'W/C AMERICA', 'E/C AMERIC',
+            'KOREA', 'SOUTHEAST', 'MEDITERRANEAN', 'AUSTRALIA/NEW ZEALAND',
+            'SOUTH AFRICA', 'SOUTH AMERICA', 'WEST EAST AFRICA', 'PERSIAN GULF/RED SEA'
+        ]
+
         ccfi_table = {
-            "headers": ["Category", "COMPOSITE INDEX", "JAPAN", "EUROPE", "W/C AMERICA", "E/C AMERICA",
-                        "KOREA", "SOUTHEAST", "MEDITERRANEAN", "AUSTRALIA/NEW ZEALAND",
-                        "SOUTH AFRICA", "SOUTH AMERICA", "WEST EAST AFRICA", "PERSIAN GULF/RED SEA"],
+            "headers": ["Category"] + [ccfi_headers_row.get(col, col) for col in actual_ccfi_cols],
             "rows": []
         }
-        ccfi_table["rows"].append([ccfi_current_row.get('COMPOSITE INDEX')] + [ccfi_current_row.get(col) for col in ccfi_table["headers"][1:]])
-        ccfi_table["rows"].append([ccfi_previous_row.get('COMPOSITE INDEX')] + [ccfi_previous_row.get(col) for col in ccfi_table["headers"][1:]])
-        ccfi_table["rows"].append([ccfi_weekly_growth_row.get('COMPOSITE INDEX')] + [ccfi_weekly_growth_row.get(col) for col in ccfi_table["headers"][1:]])
+        # The first column for rows is the actual value of the first header, not a label like "Current Index"
+        ccfi_table["rows"].append([ccfi_current_row.get(col) for col in actual_ccfi_cols])
+        ccfi_table["rows"].append([ccfi_previous_row.get(col) for col in actual_ccfi_cols])
+        ccfi_table["rows"].append([ccfi_weekly_growth_row.get(col) for col in actual_ccfi_cols])
+
         table_data["CCFI"] = ccfi_table
 
-    # Example for WCI
+    # WCI Table Data
     wci_table_start_row_idx = -1
     for i, row in enumerate(raw_data):
         if row.get('Composite Index') == 'Composite Index' and row.get('Shanghai-Rotterdam') == 'Shanghai-Rotterdam':
@@ -381,19 +372,23 @@ def process_table_data(raw_data):
         wci_annual_row = raw_data[wci_table_start_row_idx + 3] # Annual(%)
         wci_previous_row = raw_data[wci_table_start_row_idx + 4] # 10-Jul-25
 
+        actual_wci_cols = [
+            'Composite Index', 'Shanghai-Rotterdam', 'Rotterdam-Shanghai',
+            'Shanghai-Genoa', 'Shanghai-LosAngeles', 'LosAngeles-Shanghai',
+            'Shanghai-NewYork', 'NewYork-Rotterdam', 'Rotterdam-NewYork'
+        ]
+
         wci_table = {
-            "headers": ["Category", "Composite Index", "Shanghai-Rotterdam", "Rotterdam-Shanghai",
-                        "Shanghai-Genoa", "Shanghai-LosAngeles", "LosAngeles-Shanghai",
-                        "Shanghai-NewYork", "NewYork-Rotterdam", "Rotterdam-NewYork"],
+            "headers": ["Category"] + [wci_headers_row.get(col, col) for col in actual_wci_cols],
             "rows": []
         }
-        wci_table["rows"].append([wci_current_row.get('Composite Index')] + [wci_current_row.get(col) for col in wci_table["headers"][1:]])
-        wci_table["rows"].append([wci_weekly_row.get('Composite Index')] + [wci_weekly_row.get(col) for col in wci_table["headers"][1:]])
-        wci_table["rows"].append([wci_annual_row.get('Composite Index')] + [wci_annual_row.get(col) for col in wci_table["headers"][1:]])
-        wci_table["rows"].append([wci_previous_row.get('Composite Index')] + [wci_previous_row.get(col) for col in wci_table["headers"][1:]])
+        wci_table["rows"].append([wci_current_row.get(col) for col in actual_wci_cols])
+        wci_table["rows"].append([wci_weekly_row.get('Weekly(%)')] + [wci_weekly_row.get(col) for col in actual_wci_cols[1:]])
+        wci_table["rows"].append([wci_annual_row.get('Annual(%)')] + [wci_annual_row.get(col) for col in actual_wci_cols[1:]])
+        wci_table["rows"].append([wci_previous_row.get('10-Jul-25')] + [wci_previous_row.get(col) for col in actual_wci_cols[1:]])
         table_data["WCI"] = wci_table
 
-    # Example for IACI (assuming it's a small table)
+    # IACI Table Data
     iaci_table_start_row_idx = -1
     for i, row in enumerate(raw_data):
         if row.get('IACIdate') == 'IACIdate':
@@ -404,15 +399,17 @@ def process_table_data(raw_data):
         iaci_current_row = raw_data[iaci_table_start_row_idx + 1]
         iaci_previous_row = raw_data[iaci_table_start_row_idx + 2]
 
+        actual_iaci_cols = ["IACIdate", "US$/40ft"]
+
         iaci_table = {
-            "headers": ["Date", "US$/40ft"],
+            "headers": ["Category"] + [iaci_headers_row.get(col, col) for col in actual_iaci_cols],
             "rows": []
         }
         iaci_table["rows"].append([iaci_current_row.get('IACIdate')] + [iaci_current_row.get('US$/40ft')])
         iaci_table["rows"].append([iaci_previous_row.get('IACIdate')] + [iaci_previous_row.get('US$/40ft')])
-        table_data["IACI_Table"] = iaci_table # Renamed to avoid conflict with chart data
+        table_data["IACI_Table"] = iaci_table
 
-    # Example for Blank Sailing Table
+    # Blank Sailing Table
     blank_sailing_table_start_row_idx = -1
     for i, row in enumerate(raw_data):
         if row.get('Index') == 'Index' and row.get('Gemini Cooperation') == 'Gemini Cooperation':
@@ -423,18 +420,22 @@ def process_table_data(raw_data):
         blank_sailing_current_row = raw_data[blank_sailing_table_start_row_idx + 1]
         blank_sailing_previous_row = raw_data[blank_sailing_table_start_row_idx + 2]
 
+        actual_blank_sailing_cols = [
+            'Index', 'Gemini Cooperation', 'MSC', 'OCEAN Alliance', 'Premier Alliance', 'Others/Independent', 'Total'
+        ]
+
         blank_sailing_table = {
-            "headers": ["Index", "Gemini Cooperation", "MSC", "OCEAN Alliance", "Premier Alliance", "Others/Independent", "Total"],
+            "headers": ["Category"] + [blank_sailing_headers_row.get(col, col) for col in actual_blank_sailing_cols],
             "rows": []
         }
-        blank_sailing_table["rows"].append([blank_sailing_current_row.get('Index')] + [blank_sailing_current_row.get(col) for col in blank_sailing_table["headers"][1:]])
-        blank_sailing_table["rows"].append([blank_sailing_previous_row.get('Index')] + [blank_sailing_previous_row.get(col) for col in blank_sailing_table["headers"][1:]])
-        table_data["BLANK_SAILING_Table"] = blank_sailing_table # Renamed to avoid conflict with chart data
+        blank_sailing_table["rows"].append([blank_sailing_current_row.get('Index')] + [blank_sailing_current_row.get(col) for col in actual_blank_sailing_cols[1:]])
+        blank_sailing_table["rows"].append([blank_sailing_previous_row.get('Index')] + [blank_sailing_previous_row.get(col) for col in actual_blank_sailing_cols[1:]])
+        table_data["BLANK_SAILING_Table"] = blank_sailing_table
 
-    # Example for FBX
+    # FBX Table Data
     fbx_table_start_row_idx = -1
     for i, row in enumerate(raw_data):
-        if row.get('Global Container Freight Index') == 'Global Container Freight Index':
+        if row.get('Global Container Freight Index') == 'Global Container Freight Index' and row.get('China/East Asia - North America West Coast') == 'China/East Asia - North America West Coast':
             fbx_table_start_row_idx = i
             break
     if fbx_table_start_row_idx != -1:
@@ -442,21 +443,25 @@ def process_table_data(raw_data):
         fbx_current_row = raw_data[fbx_table_start_row_idx + 1]
         fbx_previous_row = raw_data[fbx_table_start_row_idx + 2]
 
+        actual_fbx_cols = [
+            'Global Container Freight Index', 'China/East Asia - North America West Coast',
+            'North America West Coast - China/East Asia', 'China/East Asia - North America East Coast',
+            'North America East Coast - China/East Asia', 'China/East Asia - North Europe',
+            'North Europe - China/East Asia', 'China/East Asia - Mediterranean',
+            'Mediterranean - China/East Asia', 'North America East Coast - North Europe',
+            'North Europe - North America East Coast', 'Europe - South America East Coast',
+            'Europe - South America West Coast'
+        ]
+
         fbx_table = {
-            "headers": ["Date", "Global Container Freight Index", "China/East Asia - North America West Coast",
-                        "North America West Coast - China/East Asia", "China/East Asia - North America East Coast",
-                        "North America East Coast - China/East Asia", "China/East Asia - North Europe",
-                        "North Europe - China/East Asia", "China/East Asia - Mediterranean",
-                        "Mediterranean - China/East Asia", "North America East Coast - North Europe",
-                        "North Europe - North America East Coast", "Europe - South America East Coast",
-                        "Europe - South America West Coast"],
+            "headers": ["Date"] + [fbx_headers_row.get(col, col) for col in actual_fbx_cols],
             "rows": []
         }
-        fbx_table["rows"].append([fbx_current_row.get('Global Container Freight Index')] + [fbx_current_row.get(col) for col in fbx_table["headers"][1:]])
-        fbx_table["rows"].append([fbx_previous_row.get('Global Container Freight Index')] + [fbx_previous_row.get(col) for col in fbx_table["headers"][1:]])
+        fbx_table["rows"].append([fbx_current_row.get('2025-07-18')] + [fbx_current_row.get(col) for col in actual_fbx_cols])
+        fbx_table["rows"].append([fbx_previous_row.get('2025-07-11')] + [fbx_previous_row.get(col) for col in actual_fbx_cols])
         table_data["FBX"] = fbx_table
 
-    # Example for XSI
+    # XSI Table Data
     xsi_table_start_row_idx = -1
     for i, row in enumerate(raw_data):
         if row.get('Far East - N. Europe') == 'Far East - N. Europe' and row.get('N. Europe - Far East') == 'N. Europe - Far East':
@@ -467,20 +472,22 @@ def process_table_data(raw_data):
         xsi_current_row = raw_data[xsi_table_start_row_idx + 1] # 07-22-2025
         xsi_weekly_row = raw_data[xsi_table_start_row_idx + 2] # WoW(%)
         xsi_monthly_row = raw_data[xsi_table_start_row_idx + 3] # MoM(%)
-        # Note: The subsequent daily data (07-21-2025 etc.) are for charts, not the summary table.
+
+        actual_xsi_cols = [
+            'Far East - N. Europe', 'N. Europe - Far East', 'Far East - USWC', 'USWC - Far East',
+            'Far East - SAEC', 'N. Europe - USEC', 'USEC - N. Europe', 'N. Europe - SAEC'
+        ]
 
         xsi_table = {
-            "headers": ["Category", "Far East - N. Europe", "N. Europe - Far East",
-                        "Far East - USWC", "USWC - Far East", "Far East - SAEC",
-                        "N. Europe - USEC", "USEC - N. Europe", "N. Europe - SAEC"],
+            "headers": ["Category"] + [xsi_headers_row.get(col, col) for col in actual_xsi_cols],
             "rows": []
         }
-        xsi_table["rows"].append([xsi_current_row.get('Far East - N. Europe')] + [xsi_current_row.get(col) for col in xsi_table["headers"][1:]])
-        xsi_table["rows"].append([xsi_weekly_row.get('Far East - N. Europe')] + [xsi_weekly_row.get(col) for col in xsi_table["headers"][1:]])
-        xsi_table["rows"].append([xsi_monthly_row.get('Far East - N. Europe')] + [xsi_monthly_row.get(col) for col in xsi_table["headers"][1:]])
+        xsi_table["rows"].append([xsi_current_row.get('07-22-2025')] + [xsi_current_row.get(col) for col in actual_xsi_cols])
+        xsi_table["rows"].append([xsi_weekly_row.get('WoW(%)')] + [xsi_weekly_row.get(col) for col in actual_xsi_cols])
+        xsi_table["rows"].append([xsi_monthly_row.get('MoM(%)')] + [xsi_monthly_row.get(col) for col in actual_xsi_cols])
         table_data["XSI"] = xsi_table
 
-    # Example for MBCI
+    # MBCI Table Data
     mbci_table_start_row_idx = -1
     for i, row in enumerate(raw_data):
         if row.get('Index(종합지수)') == 'Index(종합지수)':
@@ -491,13 +498,15 @@ def process_table_data(raw_data):
         mbci_current_row = raw_data[mbci_table_start_row_idx + 1] # Latest 2025-07-18
         mbci_previous_row = raw_data[mbci_table_start_row_idx + 2] # 2025-07-11
 
+        actual_mbci_cols = ["Index(종합지수)", "$/day(정기용선, Time charter)"]
+
         mbci_table = {
-            "headers": ["Category", "Index(종합지수)", "$/day(정기용선, Time charter)"],
+            "headers": ["Category"] + [mbci_headers_row.get(col, col) for col in actual_mbci_cols],
             "rows": []
         }
-        mbci_table["rows"].append([mbci_current_row.get('Index(종합지수)')] + [mbci_current_row.get(col) for col in mbci_table["headers"][1:]])
-        mbci_table["rows"].append([mbci_previous_row.get('Index(종합지수)')] + [mbci_previous_row.get(col) for col in mbci_table["headers"][1:]])
-        table_data["MBCI_Table"] = mbci_table # Renamed to avoid conflict with chart data
+        mbci_table["rows"].append([mbci_current_row.get('Latest')] + [mbci_current_row.get(col) for col in actual_mbci_cols])
+        mbci_table["rows"].append([mbci_previous_row.get('2025-07-11')] + [mbci_previous_row.get(col) for col in actual_mbci_cols])
+        table_data["MBCI_Table"] = mbci_table
 
 
     return table_data
@@ -532,6 +541,8 @@ def main():
     output_dir = "data"
     output_file = f"{output_dir}/crawling_data.json"
     try:
+        # Create the 'data' directory if it doesn't exist
+        os.makedirs(output_dir, exist_ok=True)
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(all_data, f, ensure_ascii=False, indent=4)
         print(f"Successfully saved all dashboard data to {output_file}")
