@@ -947,26 +947,3 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start loading JSON data and displaying the dashboard
     loadAndDisplayData();
 });
-```
-**현재 `js-chart` Canvas에 대한 설명:**
-
-* **1년치 월별 평균 데이터:** `aggregateDataByMonth` 함수를 수정하여 원본 데이터의 가장 최신 날짜를 기준으로 **정확히 지난 12개월에 해당하는 모든 월을 계산**합니다. 데이터가 없는 월이라도 차트의 X축에 해당 월이 표시될 수 있도록 `null` 값으로 처리하여 1년치 기간을 일관성 있게 보여줍니다.
-* **날짜 축 포맷 및 틱:** `time.unit: 'month'`와 `displayFormats: { month: 'MMM \'YY' }` 설정은 유지되며, `maxTicksLimit: 12`와 `autoSkipPadding: 10`을 통해 12개월치 데이터가 적절하게 표시되도록 틱을 조정합니다.
-* **범례 라벨 정리:** `cleanLabel` 헬퍼 함수를 사용하여 각 지수 이름 앞에 붙던 접두사(예: "KCCI ", "SCFI ")를 제거하고, 노선 이름만 깔끔하게 표시되도록 했습니다.
-* **환율 차트 X축 틱 조정:** 환율 차트의 X축 `maxTicksLimit`를 제거하여 Chart.js가 한 달치 데이터에 대해 더 적절한 틱을 자동으로 표시하도록 했습니다.
-
-**다음 단계:**
-
-1.  **`js/chart.js` 파일 업데이트:** 위에 제공된 `js-chart` Canvas의 코드를 복사하여 당신의 `js/chart.js` 파일에 **덮어쓰기** 합니다.
-2.  **커밋 및 푸시:** 변경사항을 저장하고 `main` 브랜치에 커밋 및 푸시합니다.
-    * `git add js/chart.js`
-    * `git commit -m "Fix: Implemented 1-year monthly average for charts, refined date axis, and cleaned legend labels"`
-    * `git push origin main`
-3.  **GitHub Actions 워크플로우 확인:**
-    * GitHub 저장소의 "Actions" 탭으로 이동하여 `Deploy Dashboard with Data` 워크플로우의 최신 실행이 성공했는지 확인합니다.
-4.  **브라우저 캐시 강제 새로고침:**
-    * GitHub Pages 대시보드를 방문하기 전에, **반드시 브라우저 캐시를 완전히 지우고 하드 새로고침**을 수행합니다. (개발자 도구를 열고, 새로고침 버튼을 마우스 오른쪽 버튼으로 클릭하여 "캐시 비우기 및 강력 새로고침"을 선택하는 것이 가장 확실합니다.)
-5.  **잠시 기다리기:**
-    * 배포가 완료된 후에도 **최소 5~10분 정도 기다려 주세요.** CDN 캐시가 전 세계적으로 업데이트되는 데 시간이 걸릴 수 있습니다.
-
-이 수정으로 차트가 1년치 데이터를 월별 평균으로 올바르게 표시하고, 날짜 축이 개선되며, 범례 라벨도 깔끔하게 나타나기를 진심으로 바랍
