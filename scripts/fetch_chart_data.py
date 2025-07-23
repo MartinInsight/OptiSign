@@ -25,7 +25,7 @@ OUTPUT_JSON_PATH = "data/crawling_data.json"
 SECTION_MARKER_SEQUENCE = [
     ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
     ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
-    ("종합지수와 각 항로별($/FEU)", "WCI"),
+    ("종합지수와 각 항로별($/FEU)", "WCI"), # First occurrence of this string
     ("IACIdate종합지수", "IACI"),
     ("Index", "BLANK_SAILING"), # Special case for Blank Sailing 'Index' which acts as a date
     ("종합지수와 각 항로별($/FEU)", "FBX"), # Second occurrence of this string, mapped to FBX
@@ -159,24 +159,29 @@ def fetch_and_process_data():
 
             # Rule priority: Section Marker (by sequence) > Specific Rename > Common Prefixed > Special fixed > Empty > Default (Original Korean)
 
-            # 1. Check if it's the next expected section marker in the sequence
-            if section_marker_sequence_index < len(SECTION_MARKER_SEQUENCE) and \
-               cleaned_h_orig == SECTION_MARKER_SEQUENCE[section_marker_sequence_index][0]:
-                
-                section_info = SECTION_MARKER_SEQUENCE[section_marker_sequence_index]
-                section_prefix_base = section_info[1]
-                
-                # Special handling for the 'Index' section marker for Blank Sailing
-                if section_prefix_base == "BLANK_SAILING":
-                    final_name_candidate = "Date_Blank_Sailing"
-                    current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
-                    print(f"DEBUG:   Blank Sailing Section Marker found. final_name_candidate: '{final_name_candidate}'")
-                else:
-                    final_name_candidate = f"{section_prefix_base}_Section_Header"
-                    current_section_prefix = f"{section_prefix_base}_"
-                    print(f"DEBUG:   Section marker found (sequence match). New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
-                
-                section_marker_sequence_index += 1 # Move to the next expected section marker
+            # 1. Check if it's the next expected section marker in the sequence (or any subsequent marker)
+            found_section_marker_in_sequence = False
+            for i in range(section_marker_sequence_index, len(SECTION_MARKER_SEQUENCE)):
+                marker_string, marker_prefix_base = SECTION_MARKER_SEQUENCE[i]
+                if cleaned_h_orig == marker_string:
+                    # This is a section marker!
+                    current_section_prefix = f"{marker_prefix_base}_"
+                    
+                    # Special handling for the 'Index' section marker for Blank Sailing
+                    if marker_prefix_base == "BLANK_SAILING":
+                        final_name_candidate = "Date_Blank_Sailing"
+                        current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
+                        print(f"DEBUG:   Blank Sailing Section Marker found. final_name_candidate: '{final_name_candidate}'")
+                    else:
+                        final_name_candidate = f"{marker_prefix_base}_Section_Header"
+                        print(f"DEBUG:   Section marker found (sequence match). New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
+                    
+                    section_marker_sequence_index = i + 1 # Advance sequence index to *after* this found marker
+                    found_section_marker_in_sequence = True
+                    break # Found the section marker, break from inner loop
+            
+            if found_section_marker_in_sequence:
+                pass # Already handled by the section marker logic above
             # 2. Apply SPECIFIC_RENAMES (these are unique and should not be prefixed by section)
             elif cleaned_h_orig in SPECIFIC_RENAMES:
                 final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
