@@ -6422,7 +6422,7 @@
         "current": {
             "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 77.27,
+            "LA_Temperature": 77.29,
             "LA_Humidity": 59.0,
             "LA_WindSpeed": 17.27,
             "LA_Pressure": 1016.0,
@@ -6434,8 +6434,8 @@
         "forecast": [
             {
                 "date": "7/23/2025",
-                "min_temp": 70.7,
-                "max_temp": 77.3,
+                "min_temp": 70.6,
+                "max_temp": 77.0,
                 "status": "맑음(clear sky)",
                 "icon": ""
             },
@@ -6569,5 +6569,38 @@
             "date": "07-23",
             "rate": 1375.0
         }
-    ]
+    ],
+    "table_data": {
+        "BLANK_SAILING_Table": {
+            "headers": [
+                "Index",
+                "Gemini Cooperation",
+                "MSC",
+                "OCEAN Alliance",
+                "Premier Alliance",
+                "Others/Independent",
+                "Total"
+            ],
+            "rows": [
+                [
+                    "07/18/2025",
+                    "0",
+                    "4.6",
+                    "6.6",
+                    "5.6",
+                    "1.6",
+                    "3.6"
+                ],
+                [
+                    "07/11/2025",
+                    "0.7",
+                    "5.7",
+                    "8.7",
+                    "6.7",
+                    "3.7",
+                    "4.7"
+                ]
+            ]
+        }
+    }
 }
