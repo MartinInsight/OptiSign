@@ -1677,13 +1677,13 @@
         "current": {
             "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 76.26,
+            "LA_Temperature": 76.46,
             "LA_Humidity": 61.0,
             "LA_WindSpeed": 9.22,
             "LA_Pressure": 1017.0,
             "LA_Visibility": 6.2,
-            "LA_Sunrise": "5:58:02 AM",
-            "LA_Sunset": "8:00:34 PM",
+            "LA_Sunrise": "5:58:01 AM",
+            "LA_Sunset": "8:00:35 PM",
             "LA_FineDust": null
         },
         "forecast": [
