@@ -217,7 +217,8 @@ def fetch_and_process_data():
             df[col] = df[col].apply(lambda x: pd.to_numeric(str(x).replace(',', ''), errors='coerce'))
         # --- END NEW LOGIC ---
 
-        df = df.fillna(value=None)
+        # Modified: Use pd.NA for fillna
+        df = df.fillna(pd.NA) # Changed value=None to pd.NA
 
         processed_data = df.to_dict(orient='records')
 
