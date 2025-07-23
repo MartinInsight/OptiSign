@@ -1,335 +1,345 @@
-/* Base Styles */
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f0f2f5;
-    color: #333;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 1600px; /* Increased max-width for wider layout */
-    margin: 20px auto;
-    padding: 10px; /* Reduced padding */
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-}
-
-header h1 {
-    font-size: 2.5em;
-    color: #003A52; /* Navy */
-    margin-bottom: 10px;
-    font-weight: 700;
-}
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px; /* Reduced gap */
-}
-
-@media (min-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr 2fr; /* Left sidebar, right main content */
+    /* Base Styles */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f0f2f5;
+        color: #333;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
     }
-}
 
-.sidebar {
-    background-color: #f8f8f8;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-}
+    .container {
+        max-width: 1600px; /* Increased max-width for wider layout */
+        margin: 20px auto;
+        padding: 10px; /* Reduced padding */
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-.sidebar h2 {
-    font-size: 1.5em;
-    color: #00657e; /* Teal */
-    margin-bottom: 10px;
-    font-weight: 600;
-    border-bottom: 2px solid #00657e;
-    padding-bottom: 5px;
-}
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
 
-.world-clock-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px dashed #eee;
-}
+    header h1 {
+        font-size: 2.5em;
+        color: #003A52; /* Navy */
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
 
-.world-clock-item:last-child {
-    border-bottom: none;
-}
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* Changed to single column */
+        gap: 10px; /* Reduced gap */
+    }
 
-.world-clock-item span {
-    font-weight: 600;
-    color: #003A52;
-}
+    /* Removed media query for 2-column layout as requested for single column */
+    /* @media (min-width: 768px) {
+        .dashboard-grid {
+            grid-template-columns: 1fr 2fr;
+        }
+    } */
 
-/* Chart Section Styles */
-.chart-section {
-    background-color: #fff;
-    padding: 10px; /* Reduced padding */
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 15px;
-}
+    .sidebar {
+        /* Sidebar is now empty or can be removed, so its styles might not be strictly needed */
+        display: none; /* Hide sidebar if no content is intended */
+    }
 
-.chart-section h2 {
-    font-size: 1.8em;
-    color: #003A52;
-    margin-bottom: 15px;
-    text-align: center;
-    font-weight: 700;
-}
+    /* Main content area styles */
+    main {
+        padding: 0; /* Remove padding from main to allow full width for its children */
+    }
 
-.chart-container {
-    position: relative;
-    height: 450px; /* Adjusted height for charts */
-    width: 100%;
-    margin: 0 auto;
-}
 
-.chart-slider-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    background-color: #e9ecef;
-    padding: 5px; /* Reduced padding significantly to give charts more space */
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    height: 500px; /* Adjusted height for chart slider container */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+    .sidebar h2 {
+        font-size: 1.5em;
+        color: #00657e; /* Teal */
+        margin-bottom: 10px;
+        font-weight: 600;
+        border-bottom: 2px solid #00657e;
+        padding-bottom: 5px;
+    }
 
-.chart-slide {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 5px; /* Reduced padding significantly */
-    box-sizing: border-box; /* Include padding in element's total width and height */
+    .world-clock-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px dashed #eee;
+    }
 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 0;
-}
+    .world-clock-item:last-child {
+        border-bottom: none;
+    }
 
-.chart-slide.active {
-    opacity: 1;
-    visibility: visible;
-    z-index: 10;
-}
+    .world-clock-item span {
+        font-weight: 600;
+        color: #003A52;
+    }
 
-/* Ensure canvas takes full width/height of its parent container */
-.chart-container canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
+    /* Chart Section Styles */
+    .chart-section {
+        background-color: #fff;
+        padding: 10px; /* Reduced padding */
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 15px;
+    }
 
-.placeholder-text {
-    text-align: center;
-    color: #666;
-    font-style: italic;
-    padding: 30px;
-}
+    .chart-section h2 {
+        font-size: 1.8em;
+        color: #003A52;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 700;
+    }
 
-footer {
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 15px;
-    border-top: 1px solid #eee;
-    color: #777;
-    font-size: 0.9em;
-}
+    .chart-container {
+        position: relative;
+        height: 450px; /* Adjusted height for charts */
+        width: 100%;
+        margin: 0 auto;
+    }
 
-/* Top Info Slider Styles */
-.top-info-slider-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    background-color: #e9ecef;
-    padding: 10px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    height: 480px; /* Increased height for top info slider */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-}
+    .chart-slider-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        background-color: #e9ecef;
+        padding: 5px; /* Reduced padding significantly to give charts more space */
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        height: 500px; /* Adjusted height for chart slider container */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px; /* Add margin to separate from announcements */
+    }
 
-.top-info-slide {
-    display: none;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    font-size: 1.1em;
-    color: #003A52;
-    flex-direction: column;
-    justify-content: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-}
+    .chart-slide {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 5px; /* Reduced padding significantly */
+        box-sizing: border-box; /* Include padding in element's total width and height */
 
-.top-info-slide.active {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
-}
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 0;
+    }
 
-.top-info-slide h3 {
-    font-size: 1.6em;
-    margin-bottom: 8px;
-    color: #00657e;
-}
+    .chart-slide.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 10;
+    }
 
-.top-info-slide p {
-    font-size: 1em;
-    color: #333;
-}
+    /* Ensure canvas takes full width/height of its parent container */
+    .chart-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
 
-/* Announcements Section */
-.announcements-section {
-    background-color: #fff;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 15px;
-}
+    .placeholder-text {
+        text-align: center;
+        color: #666;
+        font-style: italic;
+        padding: 30px;
+    }
 
-.announcements-section h2 {
-    font-size: 1.6em;
-    color: #003A52;
-    margin-bottom: 15px;
-    text-align: center;
-    font-weight: 700;
-}
+    footer {
+        text-align: center;
+        margin-top: 30px;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+        color: #777;
+        font-size: 0.9em;
+    }
 
-.announcements-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
+    /* Top Info Slider Styles */
+    .top-info-slider-container {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        background-color: #e9ecef;
+        padding: 10px;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        height: 480px; /* Increased height for top info slider */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px; /* Add margin to separate from charts */
+    }
 
-.announcements-list li {
-    padding: 8px 0;
-    border-bottom: 1px dashed #eee;
-    color: #555;
-    font-size: 0.9em;
-    text-align: left; /* Align text to left */
-}
+    .top-info-slide {
+        display: none;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        font-size: 1.1em;
+        color: #003A52;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+    }
 
-.announcements-list li:last-child {
-    border-bottom: none;
-}
+    .top-info-slide.active {
+        display: flex;
+        opacity: 1;
+        visibility: visible;
+    }
 
-/* Weather Specific Styles */
-.weather-current-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
-}
+    .top-info-slide h3 {
+        font-size: 1.6em;
+        margin-bottom: 8px;
+        color: #00657e;
+    }
 
-.weather-current-info #weather-icon-current {
-    width: 70px;
-    height: 70px;
-    margin-bottom: 5px;
-}
+    .top-info-slide p {
+        font-size: 1em;
+        color: #333;
+    }
 
-.weather-current-info #temperature-current {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #00657e;
-}
+    /* Announcements Section */
+    .announcements-section {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        margin-bottom: 15px; /* Add margin to separate from top info slider */
+        /* Ensure it takes full width of its parent (main) */
+        width: 100%; 
+        box-sizing: border-box; /* Include padding in total width */
+    }
 
-.weather-current-info #status-current {
-    font-size: 1.1em;
-    color: #555;
-    text-transform: capitalize;
-}
+    .announcements-section h2 {
+        font-size: 1.6em;
+        color: #003A52;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 700;
+    }
 
-.weather-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    width: 95%; /* Increased width */
-    margin-top: 10px;
-    font-size: 0.8em;
-}
+    .announcements-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
 
-.weather-details div {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    border-bottom: 1px dotted #ccc;
-}
+    .announcements-list li {
+        padding: 8px 0;
+        border-bottom: 1px dashed #eee;
+        color: #555;
+        font-size: 0.9em;
+        text-align: left; /* Align text to left */
+    }
 
-.weather-details div:last-child, .weather-details div:nth-last-child(2) {
-    border-bottom: none;
-}
+    .announcements-list li:last-child {
+        border-bottom: none;
+    }
 
-.forecast-table {
-    width: 95%; /* Increased width */
-    margin-top: 15px;
-    border-collapse: collapse;
-    font-size: 0.75em;
-}
+    /* Weather Specific Styles */
+    .weather-current-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 
-.forecast-table th, .forecast-table td {
-    border: 1px solid #eee;
-    padding: 6px;
-    text-align: center;
-}
+    .weather-current-info #weather-icon-current {
+        width: 70px;
+        height: 70px;
+        margin-bottom: 5px;
+    }
 
-.forecast-table th {
-    background-color: #f0f0f0;
-    color: #003A52;
-}
+    .weather-current-info #temperature-current {
+        font-size: 2.5em;
+        font-weight: bold;
+        color: #00657e;
+    }
 
-/* Exchange Rate Specific Styles */
-.exchange-rate-info {
-    margin-bottom: 10px;
-}
+    .weather-current-info #status-current {
+        font-size: 1.1em;
+        color: #555;
+        text-transform: capitalize;
+    }
 
-.exchange-rate-info #current-exchange-rate-value {
-    font-size: 2em;
-    font-weight: bold;
-    color: #00657e;
-    margin-bottom: 8px;
-}
+    .weather-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        width: 95%; /* Increased width */
+        margin-top: 10px;
+        font-size: 0.8em;
+    }
 
-.exchange-rate-chart-container {
-    position: relative;
-    height: 200px; /* Increased height for exchange rate chart */
-    width: 95%; /* Increased width */
-    margin: 0 auto;
-}
+    .weather-details div {
+        display: flex;
+        justify-content: space-between;
+        padding: 4px 0;
+        border-bottom: 1px dotted #ccc;
+    }
 
-/* Ensure canvas inside exchange rate chart container takes full space */
-.exchange-rate-chart-container canvas {
-    width: 100% !important;
-    height: 100% !important;
-}
+    .weather-details div:last-child, .weather-details div:nth-last-child(2) {
+        border-bottom: none;
+    }
+
+    .forecast-table {
+        width: 95%; /* Increased width */
+        margin-top: 15px;
+        border-collapse: collapse;
+        font-size: 0.75em;
+    }
+
+    .forecast-table th, .forecast-table td {
+        border: 1px solid #eee;
+        padding: 6px;
+        text-align: center;
+    }
+
+    .forecast-table th {
+        background-color: #f0f0f0;
+        color: #003A52;
+    }
+
+    /* Exchange Rate Specific Styles */
+    .exchange-rate-info {
+        margin-bottom: 10px;
+    }
+
+    .exchange-rate-info #current-exchange-rate-value {
+        font-size: 2em;
+        font-weight: bold;
+        color: #00657e;
+        margin-bottom: 8px;
+    }
+
+    .exchange-rate-chart-container {
+        position: relative;
+        height: 200px; /* Increased height for exchange rate chart */
+        width: 95%; /* Increased width */
+        margin: 0 auto;
+    }
+
+    /* Ensure canvas inside exchange rate chart container takes full space */
+    .exchange-rate-chart-container canvas {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    
