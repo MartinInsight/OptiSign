@@ -126,10 +126,8 @@ def fetch_and_process_data():
         main_header_row_index = -1
         for i in range(len(all_data)):
             row = all_data[i]
-            # Look for a row that contains 'date' and at least one of the main section markers
-            # This heuristic helps find the most relevant header row
-            if any(cell.strip().lower() == "date" for cell in row) and \
-               any(marker[0] in cell for marker in SECTION_MARKER_SEQUENCE):
+            # Corrected NameError: iterate over cells in row
+            if any(marker[0] in str(cell) for cell in row for marker in SECTION_MARKER_SEQUENCE):
                 main_header_row_index = i
                 break
         
@@ -137,14 +135,14 @@ def fetch_and_process_data():
         if main_header_row_index == -1:
             for i in range(len(all_data)):
                 row = all_data[i]
-                if any(cell.strip().lower() == "date" for cell in row):
+                if any(str(cell).strip().lower() == "date" for cell in row): # Ensure 'date' is explicitly checked
                     main_header_row_index = i
                     break
 
         print(f"DEBUG: Main chart data header row index: {main_header_row_index}")
 
         if main_header_row_index == -1:
-            print("Error: Could not find a suitable header row containing 'date' in main chart data.")
+            print("Error: Could not find a suitable header row containing 'date' or section markers in main chart data.")
             return
 
         # Get raw headers from the identified header row
@@ -283,17 +281,16 @@ def fetch_and_process_data():
         for section_key, details in section_col_details.items():
             date_col_name_in_df = details["date_col_name"]
             
-            # Get the actual column names for data within this section, excluding its date column
+            # Get the actual column names for data within this section, including its date column
+            # We need to ensure the date column is present in the final output for each section
             section_data_col_names = []
             for col_idx in range(details["start_col"], details["end_col"] + 1):
-                if col_idx != details["start_col"]: # Exclude the date column itself
-                    # Ensure the column exists in the df_raw_full (after dropping empty placeholders)
-                    mapped_name = col_idx_to_final_header_name.get(col_idx)
-                    if mapped_name and mapped_name in df_raw_full.columns:
-                        section_data_col_names.append(mapped_name)
+                mapped_name = col_idx_to_final_header_name.get(col_idx)
+                if mapped_name and mapped_name in df_raw_full.columns:
+                    section_data_col_names.append(mapped_name)
             
             # Select only the date column and relevant data columns for this section
-            cols_to_select = [date_col_name_in_df] + section_data_col_names
+            cols_to_select = [date_col_name_in_df] + [col for col in section_data_col_names if col != date_col_name_in_df]
             
             # Ensure all selected columns actually exist in df_raw_full
             existing_cols_to_select = [col for col in cols_to_select if col in df_raw_full.columns]
@@ -324,8 +321,9 @@ def fetch_and_process_data():
             df_section.dropna(subset=['parsed_date'], inplace=True) # Drop rows where date parsing failed for this section
             print(f"DEBUG: DataFrame shape for {section_key} after date parsing and dropna: {df_section.shape}")
 
-            # Convert numeric columns for this section
-            for col in section_data_col_names:
+            # Convert numeric columns for this section (excluding the original date column and the new parsed_date column)
+            cols_to_convert_to_numeric = [col for col in section_data_col_names if col != date_col_name_in_df]
+            for col in cols_to_convert_to_numeric:
                 df_section[col] = pd.to_numeric(df_section[col].astype(str).str.replace(',', ''), errors='coerce')
             
             df_section = df_section.replace({pd.NA: None, float('nan'): None})
@@ -335,7 +333,8 @@ def fetch_and_process_data():
             df_section['date'] = df_section['parsed_date'].dt.strftime('%Y-%m-%d')
             
             # Select final columns for output (rename the specific date column back to 'date')
-            output_cols = ['date'] + section_data_col_names
+            # The output should contain 'date' (formatted) and all other data columns
+            output_cols = ['date'] + cols_to_convert_to_numeric
             processed_chart_data_by_section[section_key] = df_section[output_cols].to_dict(orient='records')
 
         # --- Fetch Weather Data ---
