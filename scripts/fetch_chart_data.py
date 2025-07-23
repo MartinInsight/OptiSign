@@ -254,30 +254,25 @@ def fetch_and_process_data():
 
 
         # --- Date column processing ---
-        # Create a new 'date' column that will hold the final parsed dates
-        df['date'] = None
+        # The 'date' column already exists from DataFrame creation and contains primary dates.
+        # Convert the main 'date' column to datetime objects first
+        df['date'] = pd.to_datetime(df['date'], errors='coerce')
 
-        # Populate the final 'date' column by prioritizing available date sources
+        # Fill missing dates in the main 'date' column using IACI_Parsed_Date if available
         if 'IACI_Parsed_Date' in df.columns:
-            # Fill 'date' column with IACI_Parsed_Date where available
-            df['date'] = df['IACI_Parsed_Date']
-            # Drop the temporary IACI_Parsed_Date column
-            df.drop(columns=['IACI_Parsed_Date'], inplace=True)
+            df['date'] = df['date'].fillna(pd.to_datetime(df['IACI_Parsed_Date'], errors='coerce'))
+            df.drop(columns=['IACI_Parsed_Date'], inplace=True) # Drop temporary column
 
+        # Fill remaining missing dates using Date_Blank_Sailing if available
         if 'Date_Blank_Sailing' in df.columns:
-            # Fill 'date' column with Date_Blank_Sailing where 'date' is still None
-            # and Date_Blank_Sailing is not None
-            df['date'] = df['date'].fillna(df['Date_Blank_Sailing'])
-            df.drop(columns=['Date_Blank_Sailing'], inplace=True)
-
-        if '_EMPTY_COL_0' in df.columns: # Assuming the original 'date' column might be named this if it was empty
-            # Fill 'date' column with original 'date' column if it exists and is not None
-            df['date'] = df['date'].fillna(df['_EMPTY_COL_0'])
+            df['date'] = df['date'].fillna(pd.to_datetime(df['Date_Blank_Sailing'], errors='coerce'))
+            df.drop(columns=['Date_Blank_Sailing'], inplace=True) # Drop temporary column
+        
+        # Drop any remaining _EMPTY_COL_0 if it's not the primary date column
+        if '_EMPTY_COL_0' in df.columns:
             df.drop(columns=['_EMPTY_COL_0'], inplace=True)
 
 
-        # Convert the final 'date' column to datetime objects
-        df['date'] = pd.to_datetime(df['date'], errors='coerce')
         df.dropna(subset=['date'], inplace=True) # Drop rows where final date parsing failed
         df = df.sort_values(by='date', ascending=True)
         df['date'] = df['date'].dt.strftime('%Y-%m-%d') # Format to YYYY-MM-DD
