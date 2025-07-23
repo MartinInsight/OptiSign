@@ -153,9 +153,9 @@ def fetch_and_process_data():
             final_name_candidate = cleaned_h_orig # Default to original Korean name
 
             # Debug print
-            print(f"DEBUG: Processing original header: '{cleaned_h_orig}'")
-            print(f"DEBUG:   current_section_prefix before check: '{current_section_prefix}'")
-            print(f"DEBUG:   section_marker_sequence_index: {section_marker_sequence_index}")
+            # print(f"DEBUG: Processing original header: '{cleaned_h_orig}'")
+            # print(f"DEBUG:   current_section_prefix before check: '{current_section_prefix}'")
+            # print(f"DEBUG:   section_marker_sequence_index: {section_marker_sequence_index}")
 
             # Rule priority: Section Marker (by sequence) > Specific Rename > Common Prefixed > Special fixed > Empty > Default (Original Korean)
 
@@ -171,10 +171,10 @@ def fetch_and_process_data():
                     if marker_prefix_base == "BLANK_SAILING":
                         final_name_candidate = "Date_Blank_Sailing"
                         current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
-                        print(f"DEBUG:   Blank Sailing Section Marker found. final_name_candidate: '{final_name_candidate}'")
+                        # print(f"DEBUG:   Blank Sailing Section Marker found. final_name_candidate: '{final_name_candidate}'")
                     else:
                         final_name_candidate = f"{marker_prefix_base}_Section_Header"
-                        print(f"DEBUG:   Section marker found (sequence match). New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
+                        # print(f"DEBUG:   Section marker found (sequence match). New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
                     
                     section_marker_sequence_index = i + 1 # Advance sequence index to *after* this found marker
                     found_section_marker_in_sequence = True
@@ -185,29 +185,29 @@ def fetch_and_process_data():
             # 2. Apply SPECIFIC_RENAMES (these are unique and should not be prefixed by section)
             elif cleaned_h_orig in SPECIFIC_RENAMES:
                 final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
-                print(f"DEBUG:   Specific rename found. final_name_candidate: '{final_name_candidate}'")
+                # print(f"DEBUG:   Specific rename found. final_name_candidate: '{final_name_candidate}'")
             # 3. Apply COMMON_DATA_HEADERS_TO_PREFIX (these should be prefixed if a section is active)
             elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
                 base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
                 if current_section_prefix: # Apply prefix if one is active
                     final_name_candidate = f"{current_section_prefix}{base_name}"
-                    print(f"DEBUG:   Common data header found. Applied section prefix. final_name_candidate: '{final_name_candidate}'")
+                    # print(f"DEBUG:   Common data header found. Applied section prefix. final_name_candidate: '{final_name_candidate}'")
                 else: # Fallback if no active prefix (e.g., for KCCI section if it's the first data column)
                     final_name_candidate = base_name
-                    print(f"DEBUG:   Common data header found. No active section prefix. final_name_candidate: '{final_name_candidate}'")
+                    # print(f"DEBUG:   Common data header found. No active section prefix. final_name_candidate: '{final_name_candidate}'")
             # 4. Handle special fixed names (like 'date') - 'Index' is handled by SECTION_MARKER_SEQUENCE
             elif cleaned_h_orig == 'date':
                 final_name_candidate = 'date'
-                print(f"DEBUG:   Date header found. final_name_candidate: '{final_name_candidate}'")
+                # print(f"DEBUG:   Date header found. final_name_candidate: '{final_name_candidate}'")
             # 5. Handle empty cells
             elif cleaned_h_orig == '':
                 final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
                 empty_col_counter += 1
-                print(f"DEBUG:   Empty column found. final_name_candidate: '{final_name_candidate}'")
+                # print(f"DEBUG:   Empty column found. final_name_candidate: '{final_name_candidate}'")
             # 6. Default: Keep original cleaned Korean name if no specific rule applies
             else:
                 final_name_candidate = cleaned_h_orig
-                print(f"DEBUG:   No specific mapping, keeping original: '{final_name_candidate}'")
+                # print(f"DEBUG:   No specific mapping, keeping original: '{final_name_candidate}'")
             
             # Ensure the final name is absolutely unique by appending a suffix if needed
             final_unique_name = final_name_candidate
@@ -218,7 +218,7 @@ def fetch_and_process_data():
             
             seen_final_names_set.add(final_unique_name)
             final_column_names.append(final_unique_name)
-            print(f"DEBUG:   Final unique name added: '{final_unique_name}'")
+            # print(f"DEBUG:   Final unique name added: '{final_unique_name}'")
         # --- END NEW LOGIC ---
 
         # Add this new debug print to confirm the final_column_names list
@@ -291,9 +291,10 @@ def fetch_and_process_data():
         numeric_cols = [col for col in df.columns if col != 'date' and not col.endswith('_Section_Header')]
         for col in numeric_cols:
             df[col] = df[col].apply(lambda x: pd.to_numeric(str(x).replace(',', ''), errors='coerce'))
+        # --- NEW: Convert NaN to None for JSON serialization ---
+        # This is crucial because json.dumps does not support NaN directly, but converts None to null.
+        df = df.replace({pd.NA: None, float('nan'): None})
         # --- END NEW LOGIC ---
-
-        df = df.fillna(pd.NA) # Changed value=None to pd.NA
 
         processed_data = df.to_dict(orient='records')
 
