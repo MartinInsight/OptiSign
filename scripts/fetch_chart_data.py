@@ -151,50 +151,53 @@ def fetch_and_process_data():
         for h_orig in raw_headers_original:
             cleaned_h_orig = h_orig.strip().replace('"', '')
             
-            base_name_candidate = cleaned_h_orig # Default to original Korean name
+            final_name_candidate = cleaned_h_orig # Default to original Korean name
+
+            # Debug print
+            print(f"DEBUG: Processing original header: '{cleaned_h_orig}'")
 
             # 1. Check if it's a section marker
             if cleaned_h_orig in SECTION_MARKERS:
-                base_name_candidate = f"{SECTION_MARKERS[cleaned_h_orig]}_Section_Header"
+                final_name_candidate = f"{SECTION_MARKERS[cleaned_h_orig]}_Section_Header"
                 current_section_prefix = SECTION_MARKERS[cleaned_h_orig] + "_" # Set prefix for subsequent data columns
+                print(f"DEBUG:   Section marker found. New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
             # 2. Handle special fixed names (like 'date' or 'Index' for Blank Sailing)
             elif cleaned_h_orig == 'date':
-                base_name_candidate = 'date'
-                # current_section_prefix remains as is, as 'date' can be within a section or global
+                final_name_candidate = 'date'
+                print(f"DEBUG:   Date header found. final_name_candidate: '{final_name_candidate}'")
             elif cleaned_h_orig == 'Index' and current_section_prefix == "": # Blank Sailing 'Index' which acts as a date
-                base_name_candidate = 'Date_Blank_Sailing'
-                # current_section_prefix remains as is
+                final_name_candidate = 'Date_Blank_Sailing'
+                print(f"DEBUG:   Blank Sailing Index found. final_name_candidate: '{final_name_candidate}'")
             # 3. Handle empty cells
             elif cleaned_h_orig == '':
-                base_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
+                final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
                 empty_col_counter += 1
-                # current_section_prefix remains as is
+                print(f"DEBUG:   Empty column found. final_name_candidate: '{final_name_candidate}'")
             # 4. Apply COMMON_DATA_HEADERS_TO_PREFIX if applicable
             elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
-                base_name_candidate = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
-                # The prefix will be applied in the final_name_to_add step below
+                # For common data headers, apply section prefix
+                base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
+                final_name_candidate = f"{current_section_prefix}{base_name}"
+                print(f"DEBUG:   Common data header found. final_name_candidate (with prefix): '{final_name_candidate}'")
             # 5. Apply SPECIFIC_RENAMES if applicable
             elif cleaned_h_orig in SPECIFIC_RENAMES:
-                base_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
-                # These are already unique and descriptive, no further prefixing needed.
+                # For specific renames, use the mapped English name directly
+                final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
+                print(f"DEBUG:   Specific rename found. final_name_candidate: '{final_name_candidate}'")
             # 6. Default: Keep original cleaned Korean name if no specific rule applies
-            #    (base_name_candidate is already set to cleaned_h_orig by default)
-            
-            # Now, construct the final name, applying prefix if it's a common data header
-            final_name_to_add = base_name_candidate
-            if cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX and current_section_prefix:
-                # Only apply prefix if it's a common data header AND a prefix is currently set
-                final_name_to_add = f"{current_section_prefix}{base_name_candidate}"
+            else:
+                print(f"DEBUG:   No specific mapping, keeping original: '{final_name_candidate}'")
             
             # Ensure the final name is absolutely unique by appending a suffix if needed
-            final_unique_name = final_name_to_add
+            final_unique_name = final_name_candidate
             suffix = 0
             while final_unique_name in seen_final_names_set:
                 suffix += 1
-                final_unique_name = f"{final_name_to_add}_{suffix}"
+                final_unique_name = f"{final_name_candidate}_{suffix}"
             
             seen_final_names_set.add(final_unique_name)
             final_column_names.append(final_unique_name)
+            print(f"DEBUG:   Final unique name added: '{final_unique_name}'")
         # --- END NEW LOGIC ---
 
         data_rows_raw = all_data[header_row_index + 1:]
