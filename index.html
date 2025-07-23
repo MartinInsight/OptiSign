@@ -1016,21 +1016,3 @@
     </script>
 </body>
 </html>
-```
-
-### 다음 단계:
-
-1.  **`index.html` 파일 업데이트:** 위에 제공된 Canvas의 코드를 복사하여 당신의 `index.html` 파일에 **덮어쓰기** 합니다.
-2.  **`data/crawling_data.json` 파일 내용 확인 (가장 중요):**
-    * GitHub 저장소에서 `data/crawling_data.json` 파일을 직접 열어보세요.
-    * 이 파일에 **최소 12개월치 이상의 고유한 월별 데이터**가 포함되어 있는지 확인해야 합니다. 만약 이 파일에 12개월치 데이터가 없다면, JavaScript는 더 많은 데이터를 표시할 수 없습니다.
-    * 예를 들어, 2024년 7월부터 2025년 6월까지의 데이터가 있어야 12개월치로 인식됩니다.
-    * 만약 데이터가 부족하다면, 원본 Google Sheet에 12개월치 데이터가 충분히 있는지 확인하고, `scripts/fetch_chart_data.py` 스크립트가 모든 데이터를 제대로 가져오는지 다시 확인해야 합니다. (Python 스크립트 자체는 Google Sheet에서 모든 데이터를 가져오도록 되어 있으므로, 문제는 Google Sheet의 데이터 범위에 있을 가능성이 큽니다.)
-3.  **GitHub Actions 워크플로우 확인:**
-    * `deploy.yml` 워크플로우가 성공적으로 실행되었는지 GitHub Actions 탭에서 확인하세요. Python 스크립트가 실행될 때 오류가 발생하지 않았는지 로그를 확인하는 것이 중요합니다.
-4.  **브라우저 개발자 도구 콘솔 확인:**
-    * GitHub Pages 대시보드를 연 후, 브라우저의 개발자 도구(F12 또는 Cmd+Option+I)를 열고 **`Console` 탭**을 확인하세요.
-    * `Total unique monthly data points found in JSON:` 이라는 로그와 함께 실제 JSON 파일에 몇 개의 고유한 월별 데이터 포인트가 있는지 표시될 것입니다.
-    * `Data points used for 12-month charts (max 12):` 와 `Data points used for 6-month Blank Sailings chart (max 6):` 로그도 확인하여 JavaScript가 몇 개의 데이터를 사용하고 있는지 직접 볼 수 있습니다.
-
-이러한 확인을 통해 데이터 소스(`crawling_data.json`)의 문제가 맞는지, 아니면 다른 원인이 있는지 명확히 파악할 수 있을 것입
