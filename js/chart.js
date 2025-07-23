@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         time: {
                             unit: 'month',
                             displayFormats: {
-                                month: 'MMM \'YY' // e.g., Jul '24
+                                month: 'MMM \'yy' // Changed 'YY' to 'yy' for two-digit year
                             },
-                            tooltipFormat: 'M/d/YYYY' // Changed 'M/D/YYYY' to 'M/d/YYYY' (lowercase 'd')
+                            tooltipFormat: 'M/d/yyyy' // Changed 'YYYY' to 'yyyy' for full year in tooltip
                         },
                         ticks: {
                             source: 'auto', // Let Chart.js determine best ticks, but hint for max
@@ -301,6 +301,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Aggregate chart data into monthly averages for 1-year view
             const { aggregatedData: finalChartData, monthlyLabels: chartDates } = aggregateDataByMonth(rawChartData, 12);
             
+            // --- DEBUGGING LOGS ---
+            console.log("Aggregated Chart Data (finalChartData):", finalChartData);
+            console.log("Chart Dates Labels (chartDates):", chartDates);
+            // --- END DEBUGGING LOGS ---
+
             if (finalChartData.length === 0) {
                 console.warn("No aggregated chart data for the last 12 months.");
                 document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available for the last year.</p>';
