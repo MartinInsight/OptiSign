@@ -2,6 +2,7 @@ import gspread
 import json
 import os
 import pandas as pd
+import traceback # Import traceback for full error details
 
 # --- Configuration ---
 # Get credentials and spreadsheet ID from GitHub Secrets environment variables
@@ -19,11 +20,7 @@ WORKSHEET_NAME = "Crawling_Data"
 OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping (Moved to Global Scope) ---
-# This dictionary maps original (complex/Korean) headers to cleaned (English-like) headers.
-# It is crucial for consistent data access in JavaScript.
-# Please ensure these original headers exactly match your Google Sheet's header row.
 header_mapping = {
-    # KCCI Chart Headers (Chart 1)
     "KCCI종합지수(Point)": "KCCI_Composite_Index",
     "미주서안": "US_West_Coast",
     "미주동안": "US_East_Coast",
@@ -39,14 +36,13 @@ header_mapping = {
     "일본": "Japan",
     "동남아시아": "Southeast_Asia",
 
-    # SCFI Chart Headers (Chart 2)
     "SCFI종합지수($/TEU)": "SCFI_Composite_Index",
-    "미주서안미주서안": "US_West_Coast_SCFI", # Assuming this is a typo in provided data, should be unique
-    "미주동안미주동안": "US_East_Coast_SCFI", # Assuming this is a typo
+    "미주서안미주서안": "US_West_Coast_SCFI",
+    "미주동안미주동안": "US_East_Coast_SCFI",
     "북유럽": "North_Europe_SCFI",
-    "지중해지중해": "Mediterranean_SCFI", # Assuming typo
-    "동남아시아동남아시아": "Southeast_Asia_SCFI", # Assuming typo
-    "중동중동": "Middle_East_SCFI", # Assuming typo
+    "지중해지중해": "Mediterranean_SCFI",
+    "동남아시아동남아시아": "Southeast_Asia_SCFI",
+    "중동중동": "Middle_East_SCFI",
     "호주/뉴질랜드": "Australia_New_Zealand_SCFI",
     "남아메리카": "South_America_SCFI",
     "일본서안": "Japan_West_Coast_SCFI",
@@ -55,7 +51,6 @@ header_mapping = {
     "동부/서부 아프리카": "East_West_Africa_SCFI",
     "남아공": "South_Africa_SCFI",
 
-    # WCI Chart Headers (Chart 3)
     "WCI종합지수": "WCI_Composite_Index",
     "상하이 → 로테르담": "Shanghai_Rotterdam",
     "로테르담 → 상하이": "Rotterdam_Shanghai",
@@ -66,19 +61,16 @@ header_mapping = {
     "뉴욕 → 로테르담": "New_York_Rotterdam",
     "로테르담 → 뉴욕": "Rotterdam_New_York",
 
-    # IACI Chart Headers (Chart 4)
-    "IACIdate종합지수": "IACI_Composite_Index", # This header is very ambiguous. Assuming it's the column next to 'date'
+    "IACIdate종합지수": "IACI_Composite_Index",
 
-    # BLANK_SAILING Chart Headers (Chart 5)
-    "Index": "Date_Blank_Sailing", # Assuming 'Index' column is actually the date for this section
+    "Index": "Date_Blank_Sailing",
     "Gemini Cooperation": "Gemini_Cooperation",
-    "MSC": "MSC", # Added MSC as per provided raw headers
+    "MSC": "MSC",
     "OCEAN Alliance": "OCEAN_Alliance",
     "Premier Alliance": "Premier_Alliance",
     "Others/Independent": "Others_Independent",
     "Total": "Total_Blank_Sailings",
 
-    # FBX Chart Headers (Chart 6)
     "FBX종합지수": "FBX_Composite_Index",
     "중국/동아시아 → 미주서안": "China_EA_US_West_Coast",
     "미주서안 → 중국/동아시아": "US_West_Coast_China_EA",
@@ -93,7 +85,6 @@ header_mapping = {
     "유럽 → 남미동안": "Europe_South_America_East_Coast",
     "유럽 → 남미서안": "Europe_South_America_West_Coast",
 
-    # XSI Chart Headers (Chart 7)
     "동아시아 → 북유럽": "East_Asia_North_Europe_XSI",
     "북유럽 → 동아시아": "North_Europe_East_Asia_XSI",
     "동아시아 → 미주서안": "East_Asia_US_West_Coast_XSI",
@@ -103,10 +94,8 @@ header_mapping = {
     "미주동안 → 북유럽": "US_East_Coast_North_Europe_XSI",
     "북유럽 → 남미동안": "North_Europe_South_America_East_Coast_XSI",
 
-    # MBCI Chart Headers (Chart 8 - if needed later)
-    "Index(종합지수), $/day(정기용선, Time charter)MBCI": "MBCI_Index" # Corrected header from raw data
+    "Index(종합지수), $/day(정기용선, Time charter)MBCI": "MBCI_Index"
 }
-# --- End Header Mapping ---
 
 
 def fetch_and_process_data():
@@ -162,23 +151,23 @@ def fetch_and_process_data():
 
         data_rows_raw = all_data[header_row_index + 1:]
         
-        # --- NEW LOGIC: Ensure all data rows have the same number of columns as headers ---
+        # Ensure all data rows have the same number of columns as headers
         num_expected_cols = len(raw_headers)
         data_rows = []
         for i, row in enumerate(data_rows_raw):
-            if len(row) < num_expected_cols:
-                # Pad shorter rows with None
-                padded_row = row + [None] * (num_expected_cols - len(row))
+            # Explicitly convert all cells to string to avoid potential type issues
+            cleaned_row = [str(cell) if cell is not None else '' for cell in row]
+            
+            if len(cleaned_row) < num_expected_cols:
+                padded_row = cleaned_row + [''] * (num_expected_cols - len(cleaned_row)) # Pad with empty strings
                 data_rows.append(padded_row)
-                print(f"WARNING: Row {i+header_row_index+2} was shorter ({len(row)} cols). Padded to {num_expected_cols} cols.")
-            elif len(row) > num_expected_cols:
-                # Truncate longer rows
-                truncated_row = row[:num_expected_cols]
+                print(f"WARNING: Row {i+header_row_index+2} was shorter ({len(cleaned_row)} cols). Padded to {num_expected_cols} cols.")
+            elif len(cleaned_row) > num_expected_cols:
+                truncated_row = cleaned_row[:num_expected_cols]
                 data_rows.append(truncated_row)
-                print(f"WARNING: Row {i+header_row_index+2} was longer ({len(row)} cols). Truncated to {num_expected_cols} cols.")
+                print(f"WARNING: Row {i+header_row_index+2} was longer ({len(cleaned_row)} cols). Truncated to {num_expected_cols} cols.")
             else:
-                data_rows.append(row)
-        # --- END NEW LOGIC ---
+                data_rows.append(cleaned_row) # Use the cleaned_row
 
         # --- Additional Debugging Prints for DataFrame creation ---
         print(f"DEBUG: Total rows fetched (all_data): {len(all_data)}")
@@ -186,26 +175,25 @@ def fetch_and_process_data():
         print(f"DEBUG: Raw headers (original from sheet): {raw_headers_original}")
         print(f"DEBUG: Raw headers (used for DataFrame): {raw_headers}")
         print(f"DEBUG: Number of raw headers (used for DataFrame): {len(raw_headers)}")
-        print(f"DEBUG: Number of data rows (after processing): {len(data_rows)}") # Updated print
+        print(f"DEBUG: Number of data rows (after processing): {len(data_rows)}")
         if len(data_rows) > 0:
-            print(f"DEBUG: First processed data row: {data_rows[0]}") # Updated print
-            print(f"DEBUG: Number of columns in first processed data row: {len(data_rows[0])}") # Updated print
+            print(f"DEBUG: First processed data row: {data_rows[0]}")
+            print(f"DEBUG: Number of columns in first processed data row: {len(data_rows[0])}")
             # This warning should now ideally not appear if padding/truncating works
             if len(raw_headers) != len(data_rows[0]):
                 print("WARNING: Number of headers (used for DataFrame) does NOT match number of columns in the first data row!")
         # --- End Additional Debugging Prints ---
 
-        # Use the modified raw_headers (with placeholders for empty names)
         df = pd.DataFrame(data_rows, columns=raw_headers)
         df.rename(columns={k: v for k, v in header_mapping.items() if k in df.columns}, inplace=True)
 
         date_col_name = None
         # Prioritize 'date' column if it exists and is not an empty placeholder
-        if 'date' in df.columns and df['date'].any(): # Check if 'date' column exists and has non-empty values
+        if 'date' in df.columns and not df['date'].empty and df['date'].astype(str).str.strip().any():
             date_col_name = 'date'
-        elif 'Date_Blank_Sailing' in df.columns and df['Date_Blank_Sailing'].any(): # Fallback for BLANK_SAILING
+        elif 'Date_Blank_Sailing' in df.columns and not df['Date_Blank_Sailing'].empty and df['Date_Blank_Sailing'].astype(str).str.strip().any():
             date_col_name = 'Date_Blank_Sailing'
-        elif '_EMPTY_COL_4' in df.columns and df['_EMPTY_COL_4'].any(): # Fallback for IACI if 'date' is in _EMPTY_COL_4
+        elif '_EMPTY_COL_4' in df.columns and not df['_EMPTY_COL_4'].empty and df['_EMPTY_COL_4'].astype(str).str.strip().any():
              # This is a guess based on the raw headers provided earlier, where 'date' was at index 44 (0-indexed)
              # which could become _EMPTY_COL_4 if the header before it was empty.
             date_col_name = '_EMPTY_COL_4' # This needs to be the actual header name pandas uses
@@ -227,10 +215,11 @@ def fetch_and_process_data():
             # If no date column, consider using row index or a different approach for X-axis in JS.
             # For now, we proceed without a dedicated 'date' column if it's missing or invalid.
 
-        for col in df.columns:
-            # Skip the 'date' column as it's already processed and might be string
-            if col != 'date':
-                df[col] = pd.to_numeric(df[col], errors='coerce')
+        # --- NEW LOGIC: Convert all numeric columns in one go using apply ---
+        numeric_cols = [col for col in df.columns if col != 'date']
+        # Apply pd.to_numeric to each of the selected columns
+        df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
+        # --- END NEW LOGIC ---
 
         df = df.fillna(value=None)
 
@@ -245,7 +234,6 @@ def fetch_and_process_data():
 
     except Exception as e:
         print(f"Error during data processing: {e}")
-        # Print full traceback for better debugging
         import traceback
         traceback.print_exc()
 
