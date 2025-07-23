@@ -44,6 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         ticks: {
                             source: 'auto',
+                            autoSkip: false, // Ensure all ticks are shown
+                            maxRotation: 45, // Allow rotation for labels to prevent overlap
+                            minRotation: 45,
                             autoSkipPadding: 10,
                             // maxTicksLimit is applied only if isAggregated is true, otherwise let Chart.js decide
                             maxTicksLimit: isAggregated ? 12 : undefined // Limit to 12 ticks for aggregated (monthly) data
@@ -58,8 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             display: true,
                             text: 'Value' // Default Y-axis title
                         },
+                        ticks: {
+                            maxTicksLimit: 5 // Limit Y-axis ticks to 5
+                        },
                         grid: {
-                            display: false // Remove horizontal grid lines (Y-axis grid)
+                            display: true // Add horizontal grid lines (Y-axis grid)
                         }
                     }
                 },
@@ -109,25 +115,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Color Palette Helper ---
     const colors = [
-        'rgba(0, 101, 126, 0.8)', // Teal
-        'rgba(0, 58, 82, 0.8)',  // Navy
-        'rgba(40, 167, 69, 0.8)', // Green
-        'rgba(253, 126, 20, 0.8)', // Orange
-        'rgba(111, 66, 193, 0.8)', // Purple
-        'rgba(220, 53, 69, 0.8)', // Red
-        'rgba(23, 162, 184, 0.8)', // Info Blue
-        'rgba(108, 117, 125, 0.8)' // Gray
+        'rgba(0, 101, 126, 0.8)',   // Teal 1
+        'rgba(0, 58, 82, 0.8)',    // Navy 1
+        'rgba(40, 167, 69, 0.8)',   // Green 1
+        'rgba(253, 126, 20, 0.8)',  // Orange 1
+        'rgba(111, 66, 193, 0.8)',  // Purple 1
+        'rgba(220, 53, 69, 0.8)',   // Red 1
+        'rgba(23, 162, 184, 0.8)',  // Info Blue 1
+        'rgba(108, 117, 125, 0.8)', // Gray 1
+        'rgba(75, 192, 192, 0.8)',  // Cyan 1
+        'rgba(153, 102, 255, 0.8)', // Violet 1
+        'rgba(255, 159, 64, 0.8)',  // Orange 2
+        'rgba(255, 99, 132, 0.8)',  // Red 2
+        'rgba(54, 162, 235, 0.8)',  // Blue 1
+        'rgba(255, 206, 86, 0.8)',  // Yellow 1
+        'rgba(199, 199, 199, 0.8)', // Gray 2
+        'rgba(83, 109, 254, 0.8)',  // Indigo 1
+        'rgba(0, 150, 136, 0.8)',   // Dark Teal 2
+        'rgba(139, 195, 74, 0.8)',  // Light Green 2
+        'rgba(255, 87, 34, 0.8)',   // Deep Orange 2
+        'rgba(121, 85, 72, 0.8)',   // Brown 1
+        'rgba(255, 193, 7, 0.8)',   // Amber
+        'rgba(173, 216, 230, 0.8)', // Light Blue
+        'rgba(255, 105, 180, 0.8)', // Hot Pink
+        'rgba(144, 238, 144, 0.8)'  // Light Green
     ];
 
     const borderColors = [
-        '#00657e', // Darker Teal
-        '#003A52', // Darker Navy
-        '#218838', // Darker Green
-        '#e68a00', // Darker Orange
-        '#5a32b2', // Darker Purple
-        '#c82333', // Darker Red
-        '#138496', // Darker Info Blue
-        '#6c757d' // Darker Gray
+        '#00657e', // Darker Teal 1
+        '#003A52', // Darker Navy 1
+        '#218838', // Darker Green 1
+        '#e68a00', // Darker Orange 1
+        '#5a32b2', // Darker Purple 1
+        '#c82333', // Darker Red 1
+        '#138496', // Darker Info Blue 1
+        '#6c757d', // Darker Gray 1
+        '#4a9c9c', // Darker Cyan 1
+        '#7a52cc', // Darker Violet 1
+        '#e68a00', // Darker Orange 2
+        '#c82333', // Darker Red 2
+        '#307ad1', // Darker Blue 1
+        '#cc9900', // Darker Yellow 1
+        '#999999', // Darker Gray 2
+        '#4050c8', // Darker Indigo 1
+        '#00796B', // Darker Dark Teal 2
+        '#8BC34A', // Darker Light Green 2
+        '#D84315', // Darker Deep Orange 2
+        '#5D4037', // Darker Brown 1
+        '#FFB300', // Darker Amber
+        '#87CEFA', // Darker Light Blue
+        '#FF69B4', // Darker Hot Pink
+        '#90EE90'  // Darker Light Green
     ];
 
     let colorIndex = 0;
