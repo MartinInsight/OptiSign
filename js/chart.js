@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'right' // Changed legend position to 'right'
+                        position: 'right' // Legend position is 'right'
                     },
                     tooltip: {
                         mode: 'index',
@@ -87,25 +87,38 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     };
 
-    // --- Chart Slider Logic (Auto-cycling removed) ---
-    // const chartSlides = document.querySelectorAll('.chart-slide'); // No longer needed for auto-cycling
-    // let currentChartSlide = 0; // No longer needed for auto-cycling
-    // const chartSlideInterval = 10000; // No longer needed for auto-cycling
+    // --- Generic Slider Logic ---
+    // This function sets up and controls any carousel/slider.
+    const setupSlider = (slidesSelector, intervalTime) => {
+        const slides = document.querySelectorAll(slidesSelector);
+        let currentSlide = 0;
 
-    // function showChartSlide(index) { // No longer needed for auto-cycling
-    //     chartSlides.forEach((slide, i) => {
-    //         if (i === index) {
-    //             slide.classList.add('active');
-    //         } else {
-    //             slide.classList.remove('active');
-    //         }
-    //     });
-    // }
+        // Function to show a specific slide
+        const showSlide = (index) => {
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        };
 
-    // function nextChartSlide() { // No longer needed for auto-cycling
-    //     currentChartSlide = (currentChartSlide + 1) % chartSlides.length;
-    //     showChartSlide(currentChartSlide);
-    // }
+        // Function to move to the next slide
+        const nextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        };
+
+        // Initial display of the first slide
+        if (slides.length > 0) {
+            showSlide(currentSlide);
+            // Start auto-cycling only if there's more than one slide
+            if (slides.length > 1) {
+                setInterval(nextSlide, intervalTime);
+            }
+        }
+    };
 
     // --- World Clock Logic ---
     // Map of city keys (matching HTML IDs) to IANA time zone identifiers
@@ -192,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 dates
             );
 
-            // Chart 3: WCI Composite Index (Shanghai → Rotterdam)
+            // Chart 3: WCI Shanghai → Rotterdam
             productSalesChart = setupChart(
                 'productSalesChart', 'line', 'WCI Shanghai → Rotterdam ($/FEU)',
                 rawData.map(item => item.Shanghai_Rotterdam_WCI), // Corrected: use Shanghai_Rotterdam_WCI
@@ -295,9 +308,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 dates
             );
 
-            // Removed auto-cycling for charts
-            // showChartSlide(currentChartSlide);
-            // setInterval(nextChartSlide, chartSlideInterval);
+            // Setup and start auto-cycling for both sliders
+            setupSlider('.top-info-slide', 10000); // 10 seconds for top info slider
+            setupSlider('.chart-slide', 10000); // 10 seconds for chart slider
 
         } catch (error) {
             console.error("Error loading or processing JSON data:", error);
