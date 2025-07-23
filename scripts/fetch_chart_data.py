@@ -151,7 +151,7 @@ def fetch_and_process_data():
         for h_orig in raw_headers_original:
             cleaned_h_orig = h_orig.strip().replace('"', '')
             
-            final_name_candidate = cleaned_h_orig # Default to original Korean name
+            final_name_candidate = None # Explicitly None at start of each loop
 
             # Debug print
             print(f"DEBUG: Processing original header: '{cleaned_h_orig}'")
@@ -159,7 +159,7 @@ def fetch_and_process_data():
             # 1. Check if it's a section marker
             if cleaned_h_orig in SECTION_MARKERS:
                 final_name_candidate = f"{SECTION_MARKERS[cleaned_h_orig]}_Section_Header"
-                current_section_prefix = SECTION_MARKERS[cleaned_h_orig] + "_" # Set prefix for subsequent data columns
+                current_section_prefix = SECTION_MARKERS[cleaned_h_orig] + "_"
                 print(f"DEBUG:   Section marker found. New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
             # 2. Handle special fixed names (like 'date' or 'Index' for Blank Sailing)
             elif cleaned_h_orig == 'date':
@@ -173,19 +173,22 @@ def fetch_and_process_data():
                 final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
                 empty_col_counter += 1
                 print(f"DEBUG:   Empty column found. final_name_candidate: '{final_name_candidate}'")
-            # 4. Apply COMMON_DATA_HEADERS_TO_PREFIX if applicable
-            elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
-                # For common data headers, apply section prefix
-                base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
-                final_name_candidate = f"{current_section_prefix}{base_name}"
-                print(f"DEBUG:   Common data header found. final_name_candidate (with prefix): '{final_name_candidate}'")
-            # 5. Apply SPECIFIC_RENAMES if applicable
+            # 4. Apply SPECIFIC_RENAMES (these should not be prefixed)
             elif cleaned_h_orig in SPECIFIC_RENAMES:
-                # For specific renames, use the mapped English name directly
                 final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
                 print(f"DEBUG:   Specific rename found. final_name_candidate: '{final_name_candidate}'")
+            # 5. Apply COMMON_DATA_HEADERS_TO_PREFIX (these should be prefixed if a section is active)
+            elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
+                base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
+                if current_section_prefix: # Apply prefix if one is active
+                    final_name_candidate = f"{current_section_prefix}{base_name}"
+                    print(f"DEBUG:   Common data header found. Applied section prefix. final_name_candidate: '{final_name_candidate}'")
+                else: # No active prefix, use base_name directly (e.g., for KCCI section if it's the first)
+                    final_name_candidate = base_name
+                    print(f"DEBUG:   Common data header found. No section prefix. final_name_candidate: '{final_name_candidate}'")
             # 6. Default: Keep original cleaned Korean name if no specific rule applies
             else:
+                final_name_candidate = cleaned_h_orig
                 print(f"DEBUG:   No specific mapping, keeping original: '{final_name_candidate}'")
             
             # Ensure the final name is absolutely unique by appending a suffix if needed
@@ -199,6 +202,9 @@ def fetch_and_process_data():
             final_column_names.append(final_unique_name)
             print(f"DEBUG:   Final unique name added: '{final_unique_name}'")
         # --- END NEW LOGIC ---
+
+        # Add this new debug print to confirm the final_column_names list
+        print(f"DEBUG: Final column names list before DataFrame creation: {final_column_names}")
 
         data_rows_raw = all_data[header_row_index + 1:]
         
