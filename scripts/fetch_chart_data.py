@@ -2,7 +2,8 @@ import gspread
 import json
 import os
 import pandas as pd
-import traceback # Import traceback for full error details
+import traceback
+import re # Import re for regex operations
 
 # --- Configuration ---
 # Get credentials and spreadsheet ID from GitHub Secrets environment variables
@@ -10,7 +11,6 @@ SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
 GOOGLE_CREDENTIAL_JSON = os.environ.get("GOOGLE_CREDENTIAL_JSON")
 
 # --- Debugging Prints ---
-# Corrected typo: SPREADSHEED_ID -> SPREADSHEET_ID
 print(f"DEBUG: SPREADSHEET_ID from environment: {SPREADSHEET_ID}")
 print(f"DEBUG: GOOGLE_CREDENTIAL_JSON from environment (first 50 chars): {GOOGLE_CREDENTIAL_JSON[:50] if GOOGLE_CREDENTIAL_JSON else 'None'}")
 # --- End Debugging Prints ---
@@ -21,21 +21,17 @@ WORKSHEET_NAME = "Crawling_Data"
 OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping Definitions ---
-# This list defines the sequence of section markers and their corresponding prefixes.
-# This is crucial for handling identical section header strings that appear in different parts of the sheet.
 SECTION_MARKER_SEQUENCE = [
     ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
     ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
-    ("종합지수와 각 항로별($/FEU)", "WCI"), # First occurrence of this string
-    ("IACIdate종합지수", "IACI"),
-    ("Index", "BLANK_SAILING"), # Special case for Blank Sailing 'Index' which acts as a date
-    ("종합지수와 각 항로별($/FEU)", "FBX"), # Second occurrence of this string, mapped to FBX
+    ("종합지수와 각 항로별($/FEU)", "WCI"),
+    ("IACIdate종합지수", "IACI"), # This will map to IACI_Container_Index_Raw
+    ("Index", "BLANK_SAILING"),
+    ("종합지수와 각 항로별($/FEU)", "FBX"),
     ("각 항로별($/FEU)", "XSI"),
     ("Index(종합지수), $/day(정기용선, Time charter)", "MBCI")
 ]
 
-# Maps common data headers (Korean) to their base English names.
-# These will be prefixed by the current section's English name.
 COMMON_DATA_HEADERS_TO_PREFIX = {
     "종합지수": "Composite_Index",
     "미주서안": "US_West_Coast",
@@ -62,11 +58,9 @@ COMMON_DATA_HEADERS_TO_PREFIX = {
     "미주서안 → 동아시아": "US_West_Coast_East_Asia",
     "동아시아 → 남미동안": "East_Asia_South_America_East_Coast",
     "북유럽 → 남미동안": "North_Europe_South_America_East_Coast",
-    "MBCI": "MBCI_Value" # Data column within MBCI section
+    "MBCI": "MBCI_Value"
 }
 
-# Specific mappings for headers that are unique in the raw data
-# but we want to rename for clarity. These will NOT be prefixed by section.
 SPECIFIC_RENAMES = {
     "호주/뉴질랜드": "Australia_New_Zealand_SCFI",
     "남아메리카": "South_America_SCFI",
@@ -167,8 +161,10 @@ def fetch_and_process_data():
                     if marker_prefix_base == "BLANK_SAILING":
                         final_name_candidate = "Date_Blank_Sailing"
                         current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
+                    elif marker_prefix_base == "IACI": # Special handling for IACI
+                        final_name_candidate = "IACI_Container_Index_Raw" # Keep raw string for parsing later
+                        current_section_prefix = "" # IACI has no other prefixed columns
                     else:
-                        # Changed _Section_Header to _Container_Index
                         final_name_candidate = f"{marker_prefix_base}_Container_Index" 
                     
                     section_marker_sequence_index = i + 1 # Advance sequence index to *after* this found marker
@@ -209,20 +205,18 @@ def fetch_and_process_data():
             final_column_names.append(final_unique_name)
         # --- END NEW LOGIC ---
 
-        # Add this new debug print to confirm the final_column_names list
         print(f"DEBUG: Final column names list before DataFrame creation: {final_column_names}")
 
         data_rows_raw = all_data[header_row_index + 1:]
         
         # Ensure all data rows have the same number of columns as headers
-        num_expected_cols = len(final_column_names) # Use the length of the new unique names
+        num_expected_cols = len(final_column_names)
         data_rows = []
         for i, row in enumerate(data_rows_raw):
-            # Explicitly convert all cells to string to avoid potential type issues
             cleaned_row = [str(cell) if cell is not None else '' for cell in row]
             
             if len(cleaned_row) < num_expected_cols:
-                padded_row = cleaned_row + [''] * (num_expected_cols - len(cleaned_row)) # Pad with empty strings
+                padded_row = cleaned_row + [''] * (num_expected_cols - len(cleaned_row))
                 data_rows.append(padded_row)
                 print(f"WARNING: Row {i+header_row_index+2} was shorter ({len(cleaned_row)} cols). Padded to {num_expected_cols} cols.")
             elif len(cleaned_row) > num_expected_cols:
@@ -230,59 +224,76 @@ def fetch_and_process_data():
                 data_rows.append(truncated_row)
                 print(f"WARNING: Row {i+header_row_index+2} was longer ({len(cleaned_row)} cols). Truncated to {num_expected_cols} cols.")
             else:
-                data_rows.append(cleaned_row) # Use the cleaned_row
+                data_rows.append(cleaned_row)
 
-        # --- Additional Debugging Prints for DataFrame creation ---
-        print(f"DEBUG: Total rows fetched (all_data): {len(all_data)}")
-        print(f"DEBUG: Header row index: {header_row_index}")
-        print(f"DEBUG: Raw headers (original from sheet): {raw_headers_original}")
-        print(f"DEBUG: Raw headers (used for DataFrame - unique): {final_column_names}") # Updated print
-        print(f"DEBUG: Number of raw headers (used for DataFrame): {len(final_column_names)}")
-        print(f"DEBUG: Number of data rows (after processing): {len(data_rows)}")
-        if len(data_rows) > 0:
-            print(f"DEBUG: First processed data row: {data_rows[0]}")
-            print(f"DEBUG: Number of columns in first processed data row: {len(data_rows[0])}")
-            if len(final_column_names) != len(data_rows[0]):
-                print("WARNING: Number of headers (used for DataFrame) does NOT match number of columns in the first data row!")
-        # --- End Additional Debugging Prints ---
-
-        # Create DataFrame with the guaranteed unique column names
         df = pd.DataFrame(data_rows, columns=final_column_names)
-        # No need for df.rename(columns=header_mapping) here, as names are set during column generation.
 
-        date_col_name = None
-        # Prioritize 'date' column if it exists and is not empty
-        if 'date' in df.columns and not df['date'].empty and df['date'].astype(str).str.strip().any():
-            date_col_name = 'date'
-        # Fallback for 'Date_Blank_Sailing' if it exists and is not empty
-        elif 'Date_Blank_Sailing' in df.columns and not df['Date_Blank_Sailing'].empty and df['Date_Blank_Sailing'].astype(str).str.strip().any():
-            date_col_name = 'Date_Blank_Sailing'
-        # Fallback for 'IACI_Composite_Index' if it contains dates (this is a guess based on previous logs)
-        elif 'IACI_Composite_Index' in df.columns and not df['IACI_Composite_Index'].empty:
-            # Attempt to parse as date; if successful, use this column
-            temp_series = pd.to_datetime(df['IACI_Composite_Index'], errors='coerce')
-            if not temp_series.dropna().empty: # If there are valid dates after coercion
-                date_col_name = 'IACI_Composite_Index'
-                print(f"DEBUG: Found date column in IACI_Composite_Index: {date_col_name}")
+        # --- Special handling for IACI_Container_Index_Raw to extract date and value ---
+        if 'IACI_Container_Index_Raw' in df.columns:
+            # Regex to capture date (MM/DD/YYYY) and value (digits)
+            iaci_pattern = re.compile(r'(\d{1,2}/\d{1,2}/\d{4})(\d+)')
+            
+            # Create new columns for parsed date and value
+            parsed_iaci_data = df['IACI_Container_Index_Raw'].astype(str).apply(lambda x: pd.Series(iaci_pattern.match(x).groups()) if iaci_pattern.match(x) else pd.Series([None, None]))
+            
+            df['IACI_Parsed_Date'] = parsed_iaci_data[0]
+            df['IACI_Composite_Index'] = parsed_iaci_data[1]
 
-        if date_col_name:
-            df[date_col_name] = pd.to_datetime(df[date_col_name], errors='coerce')
-            df.dropna(subset=[date_col_name], inplace=True)
-            df = df.sort_values(by=date_col_name, ascending=True)
-            df['date'] = df[date_col_name].dt.strftime('%Y-%m-%d')
-            if date_col_name != 'date':
-                df.rename(columns={date_col_name: 'date'}, inplace=True)
+            # Convert the parsed IACI value to numeric
+            df['IACI_Composite_Index'] = pd.to_numeric(df['IACI_Composite_Index'], errors='coerce')
+
+            # Drop the original 'IACI_Container_Index_Raw' column as its content has been parsed
+            df.drop(columns=['IACI_Container_Index_Raw'], inplace=True)
         else:
-            print("Warning: No recognized date column found in the DataFrame or it contains no valid dates. Charts might not display correctly.")
+            # Ensure IACI_Composite_Index column exists even if IACI_Container_Index_Raw wasn't found
+            if 'IACI_Composite_Index' not in df.columns:
+                df['IACI_Composite_Index'] = None
+            # Also ensure IACI_Parsed_Date exists for date processing later
+            if 'IACI_Parsed_Date' not in df.columns:
+                df['IACI_Parsed_Date'] = None
 
-        # --- Convert all numeric columns using apply with a lambda function ---
-        numeric_cols = [col for col in df.columns if col != 'date' and not col.endswith('_Container_Index')] # Updated suffix
+
+        # --- Date column processing ---
+        # Create a new 'date' column that will hold the final parsed dates
+        df['date'] = None
+
+        # Populate the final 'date' column by prioritizing available date sources
+        if 'IACI_Parsed_Date' in df.columns:
+            # Fill 'date' column with IACI_Parsed_Date where available
+            df['date'] = df['IACI_Parsed_Date']
+            # Drop the temporary IACI_Parsed_Date column
+            df.drop(columns=['IACI_Parsed_Date'], inplace=True)
+
+        if 'Date_Blank_Sailing' in df.columns:
+            # Fill 'date' column with Date_Blank_Sailing where 'date' is still None
+            # and Date_Blank_Sailing is not None
+            df['date'] = df['date'].fillna(df['Date_Blank_Sailing'])
+            df.drop(columns=['Date_Blank_Sailing'], inplace=True)
+
+        if '_EMPTY_COL_0' in df.columns: # Assuming the original 'date' column might be named this if it was empty
+            # Fill 'date' column with original 'date' column if it exists and is not None
+            df['date'] = df['date'].fillna(df['_EMPTY_COL_0'])
+            df.drop(columns=['_EMPTY_COL_0'], inplace=True)
+
+
+        # Convert the final 'date' column to datetime objects
+        df['date'] = pd.to_datetime(df['date'], errors='coerce')
+        df.dropna(subset=['date'], inplace=True) # Drop rows where final date parsing failed
+        df = df.sort_values(by='date', ascending=True)
+        df['date'] = df['date'].dt.strftime('%Y-%m-%d') # Format to YYYY-MM-DD
+
+        if df['date'].empty:
+            print("Warning: After all date processing, the 'date' column is empty. Charts might not display correctly.")
+
+
+        # --- Convert all numeric columns ---
+        # Exclude 'date' and any _Container_Index or _Raw columns that are no longer needed
+        numeric_cols = [col for col in df.columns if col != 'date' and not col.endswith('_Container_Index_Raw')]
         for col in numeric_cols:
             df[col] = df[col].apply(lambda x: pd.to_numeric(str(x).replace(',', ''), errors='coerce'))
-        # --- NEW: Convert NaN to None for JSON serialization ---
-        # This is crucial because json.dumps does not support NaN directly, but converts None to null.
+        
+        # Convert NaN to None for JSON serialization
         df = df.replace({pd.NA: None, float('nan'): None})
-        # --- END NEW LOGIC ---
 
         processed_data = df.to_dict(orient='records')
 
@@ -295,7 +306,6 @@ def fetch_and_process_data():
 
     except Exception as e:
         print(f"Error during data processing: {e}")
-        import traceback
         traceback.print_exc()
 
 if __name__ == "__main__":
