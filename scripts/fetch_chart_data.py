@@ -116,12 +116,14 @@ def fetch_and_process_data():
         worksheet = spreadsheet.worksheet(WORKSHEET_NAME)
         all_data = worksheet.get_all_values()
 
+        print(f"DEBUG: Total rows fetched from Google Sheet (raw): {len(all_data)}")
+
         if not all_data:
             print("Error: No data fetched from the main chart sheet.")
             return
 
         main_header_row_index = -1
-        for i in range(1, len(all_data)): # Start from index 1 (Row 2 in Google Sheet)
+        for i in range(len(all_data)): # Start from index 0 (Row 1 in Google Sheet)
             row = all_data[i]
             if any(cell.strip().lower() == "date" for cell in row):
                 main_header_row_index = i
@@ -157,7 +159,7 @@ def fetch_and_process_data():
                             final_name_candidate = "Date_Blank_Sailing"
                             current_section_prefix = ""
                         else:
-                            final_name_candidate = f"{marker_prefix_base}_Container_Index" 
+                            final_name_candidate = f"{marker_prefix_base}_Container_Index"  
                         found_section_marker_in_sequence = True
                         break
                 
@@ -191,6 +193,7 @@ def fetch_and_process_data():
         print(f"DEBUG: Final DataFrame column names after mapping: {final_column_names}")
 
         data_rows_raw = all_data[main_header_row_index + 1:]
+        print(f"DEBUG: Number of data rows extracted after header: {len(data_rows_raw)}")
         
         processed_data_rows = []
         num_expected_cols = len(final_column_names)
@@ -205,6 +208,8 @@ def fetch_and_process_data():
             else:
                 processed_data_rows.append(cleaned_row)
 
+        print(f"DEBUG: Number of processed data rows before DataFrame creation: {len(processed_data_rows)}")
+
         df_final = pd.DataFrame(processed_data_rows, columns=final_column_names)
         
         if 'IACI_Composite_Index' not in df_final.columns:
@@ -215,8 +220,19 @@ def fetch_and_process_data():
             print(f"DEBUG: Dropping empty columns: {cols_to_drop}")
             df_final.drop(columns=cols_to_drop, inplace=True, errors='ignore')
 
-        df_final['date'] = pd.to_datetime(df_final['date'], errors='coerce')
+        print(f"DEBUG: DataFrame shape before date parsing and dropna: {df_final.shape}")
+        
+        # Explicitly set format for date parsing
+        df_final['date'] = pd.to_datetime(df_final['date'], format='%m/%d/%Y', errors='coerce')
+        
+        # Check for NaT values (unparseable dates)
+        nat_dates = df_final[df_final['date'].isna() & df_final['date'].notna()]['date'] # Check original string for NaT
+        if not nat_dates.empty:
+            print(f"WARNING: Some dates could not be parsed and will be dropped. Sample unparseable dates: {df_final[df_final['date'].isna()]['date'].iloc[:5].tolist()}")
+
         df_final.dropna(subset=['date'], inplace=True)
+        print(f"DEBUG: DataFrame shape after date parsing and dropna: {df_final.shape}")
+
         df_final = df_final.sort_values(by='date', ascending=True)
         df_final['date'] = df_final['date'].dt.strftime('%Y-%m-%d')
 
@@ -251,7 +267,7 @@ def fetch_and_process_data():
 
         forecast_weather = []
         if len(weather_data_raw) > 12: # Check if forecast data exists (starts from row 12, index 11)
-            for row in weather_data_raw[11:]: # From row 12 onwards
+            for row in weather_data_raw[11:]: # From row 1 onwards
                 if len(row) >= 5 and row[0]: # Ensure date and basic info exist
                     forecast_day = {
                         'date': row[0],
