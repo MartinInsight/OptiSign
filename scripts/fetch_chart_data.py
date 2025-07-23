@@ -20,21 +20,21 @@ WORKSHEET_NAME = "Crawling_Data"
 OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping Definitions ---
-# These dictionaries define how original (Korean) headers should be translated
-# and how sections should be identified to create unique, meaningful column names.
-
-# Maps section-identifying headers (exact original string) to a short, English prefix
-SECTION_MARKERS = {
-    "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI",
-    "종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)": "SCFI",
-    "종합지수와 각 항로별($/FEU)": "WCI", # This is the first occurrence of this section title
-    "IACIdate종합지수": "IACI", # This is a unique header that acts as a section marker for the IACI data
-    "각 항로별($/FEU)": "XSI", # This is the section header for XSI
-    "Index(종합지수), $/day(정기용선, Time charter)": "MBCI" # Corrected MBCI section header
-}
+# This list defines the sequence of section markers and their corresponding prefixes.
+# This is crucial for handling identical section header strings that appear in different parts of the sheet.
+SECTION_MARKER_SEQUENCE = [
+    ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
+    ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
+    ("종합지수와 각 항로별($/FEU)", "WCI"),
+    ("IACIdate종합지수", "IACI"),
+    ("Index", "BLANK_SAILING"), # Special case for Blank Sailing 'Index' which acts as a date
+    ("종합지수와 각 항로별($/FEU)", "FBX"), # Second occurrence of this string, mapped to FBX
+    ("각 항로별($/FEU)", "XSI"),
+    ("Index(종합지수), $/day(정기용선, Time charter)", "MBCI")
+]
 
 # Maps common data headers (Korean) to their base English names.
-# These will be prefixed by the current section's English name if they are part of a section.
+# These will be prefixed by the current section's English name.
 COMMON_DATA_HEADERS_TO_PREFIX = {
     "종합지수": "Composite_Index",
     "미주서안": "US_West_Coast",
@@ -67,13 +67,13 @@ COMMON_DATA_HEADERS_TO_PREFIX = {
 # Specific mappings for headers that are unique in the raw data
 # but we want to rename for clarity. These will NOT be prefixed by section.
 SPECIFIC_RENAMES = {
-    "호주/뉴질랜드": "Australia_New_Zealand_SCFI", # Unique to SCFI section in raw data
-    "남아메리카": "South_America_SCFI", # Unique to SCFI section
-    "일본서안": "Japan_West_Coast_SCFI", # Unique to SCFI section
-    "일본동안": "Japan_East_Coast_SCFI", # Unique to SCFI section
-    "한국": "Korea_SCFI", # Unique to SCFI section
-    "동부/서부 아프리카": "East_West_Africa_SCFI", # Unique to SCFI section
-    "남아공": "South_Africa_SCFI", # Unique to SCFI section
+    "호주/뉴질랜드": "Australia_New_Zealand_SCFI",
+    "남아메리카": "South_America_SCFI",
+    "일본서안": "Japan_West_Coast_SCFI",
+    "일본동안": "Japan_East_Coast_SCFI",
+    "한국": "Korea_SCFI",
+    "동부/서부 아프리카": "East_West_Africa_SCFI",
+    "남아공": "South_Africa_SCFI",
     "상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
     "로테르담 → 상하이": "Rotterdam_Shanghai_WCI",
     "상하이 → 제노바": "Shanghai_Genoa_WCI",
@@ -82,13 +82,12 @@ SPECIFIC_RENAMES = {
     "상하이 → 뉴욕": "Shanghai_New_York_WCI",
     "뉴욕 → 로테르담": "New_York_Rotterdam_WCI",
     "로테르담 → 뉴욕": "Rotterdam_New_York_WCI",
-    "Index": "Date_Blank_Sailing", # This is the 'Index' for Blank Sailing, acts as date
     "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
     "MSC": "MSC_Alliance_Blank_Sailing",
     "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
     "Premier Alliance": "Premier_Alliance_Blank_Sailing",
     "Others/Independent": "Others_Independent_Blank_Sailing",
-    "Total": "Total_Blank_Sailings", # Specific for Blank Sailings total
+    "Total": "Total_Blank_Sailings",
     "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
     "미주서안 → 중국/동아시아": "US_West_Coast_China_EA_FBX",
     "중국/동아시아 → 미주동안": "China_EA_US_East_Coast_FBX",
@@ -146,25 +145,38 @@ def fetch_and_process_data():
         current_section_prefix = "" # e.g., "KCCI_", "SCFI_", etc.
         empty_col_counter = 0
         seen_final_names_set = set() # To ensure absolute uniqueness of final names
+        section_marker_sequence_index = 0 # To track current position in SECTION_MARKER_SEQUENCE
 
         for h_orig in raw_headers_original:
             cleaned_h_orig = h_orig.strip().replace('"', '')
             
-            final_name_candidate = cleaned_h_orig # Default to original Korean name, will be updated by rules below
+            final_name_candidate = cleaned_h_orig # Default to original Korean name
 
             # Debug print
             print(f"DEBUG: Processing original header: '{cleaned_h_orig}'")
             print(f"DEBUG:   current_section_prefix before check: '{current_section_prefix}'")
-            print(f"DEBUG:   Is '{cleaned_h_orig}' in SECTION_MARKERS? {cleaned_h_orig in SECTION_MARKERS}")
+            print(f"DEBUG:   section_marker_sequence_index: {section_marker_sequence_index}")
 
-            # Rule priority: Section Marker > Specific Rename > Common Prefixed > Special fixed > Empty > Default (Original Korean)
+            # Rule priority: Section Marker (by sequence) > Specific Rename > Common Prefixed > Special fixed > Empty > Default (Original Korean)
 
-            # 1. Check if it's a section marker (sets the prefix for subsequent data columns)
-            if cleaned_h_orig in SECTION_MARKERS:
-                current_section_prefix = SECTION_MARKERS[cleaned_h_orig] + "_"
-                # Section headers themselves get a specific name (e.g., KCCI_Section_Header)
-                final_name_candidate = f"{SECTION_MARKERS[cleaned_h_orig]}_Section_Header"
-                print(f"DEBUG:   Section marker found. New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
+            # 1. Check if it's the next expected section marker in the sequence
+            if section_marker_sequence_index < len(SECTION_MARKER_SEQUENCE) and \
+               cleaned_h_orig == SECTION_MARKER_SEQUENCE[section_marker_sequence_index][0]:
+                
+                section_info = SECTION_MARKER_SEQUENCE[section_marker_sequence_index]
+                section_prefix_base = section_info[1]
+                
+                # Special handling for the 'Index' section marker for Blank Sailing
+                if section_prefix_base == "BLANK_SAILING":
+                    final_name_candidate = "Date_Blank_Sailing"
+                    current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
+                    print(f"DEBUG:   Blank Sailing Section Marker found. final_name_candidate: '{final_name_candidate}'")
+                else:
+                    final_name_candidate = f"{section_prefix_base}_Section_Header"
+                    current_section_prefix = f"{section_prefix_base}_"
+                    print(f"DEBUG:   Section marker found (sequence match). New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
+                
+                section_marker_sequence_index += 1 # Move to the next expected section marker
             # 2. Apply SPECIFIC_RENAMES (these are unique and should not be prefixed by section)
             elif cleaned_h_orig in SPECIFIC_RENAMES:
                 final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
@@ -175,16 +187,13 @@ def fetch_and_process_data():
                 if current_section_prefix: # Apply prefix if one is active
                     final_name_candidate = f"{current_section_prefix}{base_name}"
                     print(f"DEBUG:   Common data header found. Applied section prefix. final_name_candidate: '{final_name_candidate}'")
-                else: # No active prefix, use base_name directly (e.g., for KCCI section if it's the first)
+                else: # Fallback if no active prefix (e.g., for KCCI section if it's the first data column)
                     final_name_candidate = base_name
-                    print(f"DEBUG:   Common data header found. No section prefix. final_name_candidate: '{final_name_candidate}'")
-            # 4. Handle special fixed names (like 'date' or 'Index' for Blank Sailing)
+                    print(f"DEBUG:   Common data header found. No active section prefix. final_name_candidate: '{final_name_candidate}'")
+            # 4. Handle special fixed names (like 'date') - 'Index' is handled by SECTION_MARKER_SEQUENCE
             elif cleaned_h_orig == 'date':
                 final_name_candidate = 'date'
                 print(f"DEBUG:   Date header found. final_name_candidate: '{final_name_candidate}'")
-            elif cleaned_h_orig == 'Index' and not current_section_prefix: # Blank Sailing 'Index' which acts as a date (only if no section prefix is active)
-                final_name_candidate = 'Date_Blank_Sailing'
-                print(f"DEBUG:   Blank Sailing Index found. final_name_candidate: '{final_name_candidate}'")
             # 5. Handle empty cells
             elif cleaned_h_orig == '':
                 final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
