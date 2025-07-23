@@ -222,15 +222,20 @@ def fetch_and_process_data():
 
         print(f"DEBUG: DataFrame shape before date parsing and dropna: {df_final.shape}")
         
+        # Strip whitespace from date column before parsing for robustness
+        df_final['date'] = df_final['date'].astype(str).str.strip()
+        
+        # Log ALL original date strings before parsing attempt
+        print(f"DEBUG: All original date strings before parsing ({len(df_final['date'])} entries): {df_final['date'].tolist()}")
+
         # Removed explicit format to allow pandas to infer common date formats like M/D/YYYY
-        original_date_strings = df_final['date'].copy() # Keep original strings for logging
         df_final['date'] = pd.to_datetime(df_final['date'], errors='coerce') 
         
-        # Check for NaT values (unparseable dates) and log original strings
-        num_unparseable_dates = df_final['date'].isna().sum()
+        # Check for NaT values (unparseable dates) and log ALL original strings that failed
+        unparseable_dates_series = original_date_strings[df_final['date'].isna()] # Use original_date_strings for accurate failure log
+        num_unparseable_dates = unparseable_dates_series.count() # Count non-empty unparseable strings
         if num_unparseable_dates > 0:
-            unparseable_dates_sample = original_date_strings[df_final['date'].isna()].iloc[:5].tolist()
-            print(f"WARNING: {num_unparseable_dates} dates could not be parsed and will be dropped. Sample unparseable dates: {unparseable_dates_sample}")
+            print(f"WARNING: {num_unparseable_dates} dates could not be parsed and will be dropped. All unparseable date strings: {unparseable_dates_series.tolist()}")
 
         df_final.dropna(subset=['date'], inplace=True)
         print(f"DEBUG: DataFrame shape after date parsing and dropna: {df_final.shape}")
