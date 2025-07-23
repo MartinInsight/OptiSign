@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             displayFormats: {
                                 month: 'MMM \'YY' // e.g., Jul '24
                             },
-                            tooltipFormat: 'M/D/YYYY' // Changed 'MMM D, YYYY' to 'M/D/YYYY'
+                            tooltipFormat: 'M/d/YYYY' // Changed 'M/D/YYYY' to 'M/d/YYYY' (lowercase 'd')
                         },
                         ticks: {
                             source: 'auto', // Let Chart.js determine best ticks, but hint for max
