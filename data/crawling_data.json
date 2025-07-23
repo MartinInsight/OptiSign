@@ -2661,7 +2661,9 @@
                 "China_EA_Mediterranean_FBX": 7796,
                 "Mediterranean_China_EA_FBX": 664,
                 "US_East_Coast_North_Europe": 897,
-                "North_Europe_US_East_Coast": 1800
+                "North_Europe_US_East_Coast": 1800,
+                "Europe_South_America_East_Coast": 823,
+                "Europe_South_America_West_Coast": 2104
             },
             {
                 "date": "2024-08-02",
@@ -2675,7 +2677,9 @@
                 "China_EA_Mediterranean_FBX": 7959,
                 "Mediterranean_China_EA_FBX": 664,
                 "US_East_Coast_North_Europe": 897,
-                "North_Europe_US_East_Coast": 1672
+                "North_Europe_US_East_Coast": 1672,
+                "Europe_South_America_East_Coast": 841,
+                "Europe_South_America_West_Coast": 2125
             },
             {
                 "date": "2024-08-09",
@@ -2689,7 +2693,9 @@
                 "China_EA_Mediterranean_FBX": 7493,
                 "Mediterranean_China_EA_FBX": 664,
                 "US_East_Coast_North_Europe": 879,
-                "North_Europe_US_East_Coast": 1618
+                "North_Europe_US_East_Coast": 1618,
+                "Europe_South_America_East_Coast": 815,
+                "Europe_South_America_West_Coast": 2288
             },
             {
                 "date": "2024-08-16",
@@ -2703,7 +2709,9 @@
                 "China_EA_Mediterranean_FBX": 7323,
                 "Mediterranean_China_EA_FBX": 664,
                 "US_East_Coast_North_Europe": 897,
-                "North_Europe_US_East_Coast": 1619
+                "North_Europe_US_East_Coast": 1619,
+                "Europe_South_America_East_Coast": 791,
+                "Europe_South_America_West_Coast": 2281
             },
             {
                 "date": "2024-08-23",
@@ -2717,7 +2725,9 @@
                 "China_EA_Mediterranean_FBX": 7099,
                 "Mediterranean_China_EA_FBX": 664,
                 "US_East_Coast_North_Europe": 897,
-                "North_Europe_US_East_Coast": 1619
+                "North_Europe_US_East_Coast": 1619,
+                "Europe_South_America_East_Coast": 772,
+                "Europe_South_America_West_Coast": 2289
             },
             {
                 "date": "2024-08-30",
@@ -2731,7 +2741,9 @@
                 "China_EA_Mediterranean_FBX": 6274,
                 "Mediterranean_China_EA_FBX": 664,
                 "US_East_Coast_North_Europe": 897,
-                "North_Europe_US_East_Coast": 1622
+                "North_Europe_US_East_Coast": 1622,
+                "Europe_South_America_East_Coast": 780,
+                "Europe_South_America_West_Coast": 2311
             },
             {
                 "date": "2024-09-06",
@@ -2745,7 +2757,9 @@
                 "China_EA_Mediterranean_FBX": 6011,
                 "Mediterranean_China_EA_FBX": 604,
                 "US_East_Coast_North_Europe": 877,
-                "North_Europe_US_East_Coast": 1608
+                "North_Europe_US_East_Coast": 1608,
+                "Europe_South_America_East_Coast": 773,
+                "Europe_South_America_West_Coast": 2410
             },
             {
                 "date": "2024-09-13",
@@ -2759,7 +2773,9 @@
                 "China_EA_Mediterranean_FBX": 5837,
                 "Mediterranean_China_EA_FBX": 604,
                 "US_East_Coast_North_Europe": 808,
-                "North_Europe_US_East_Coast": 1918
+                "North_Europe_US_East_Coast": 1918,
+                "Europe_South_America_East_Coast": 773,
+                "Europe_South_America_West_Coast": 2447
             },
             {
                 "date": "2024-09-20",
@@ -2773,7 +2789,9 @@
                 "China_EA_Mediterranean_FBX": 5277,
                 "Mediterranean_China_EA_FBX": 604,
                 "US_East_Coast_North_Europe": 734,
-                "North_Europe_US_East_Coast": 1918
+                "North_Europe_US_East_Coast": 1918,
+                "Europe_South_America_East_Coast": 773,
+                "Europe_South_America_West_Coast": 2436
             },
             {
                 "date": "2024-09-27",
@@ -2787,7 +2805,9 @@
                 "China_EA_Mediterranean_FBX": 5142,
                 "Mediterranean_China_EA_FBX": 604,
                 "US_East_Coast_North_Europe": 713,
-                "North_Europe_US_East_Coast": 1918
+                "North_Europe_US_East_Coast": 1918,
+                "Europe_South_America_East_Coast": 870,
+                "Europe_South_America_West_Coast": 2552
             },
             {
                 "date": "2024-10-04",
@@ -2801,7 +2821,9 @@
                 "China_EA_Mediterranean_FBX": 4476,
                 "Mediterranean_China_EA_FBX": 438,
                 "US_East_Coast_North_Europe": 706,
-                "North_Europe_US_East_Coast": 2331
+                "North_Europe_US_East_Coast": 2331,
+                "Europe_South_America_East_Coast": 903,
+                "Europe_South_America_West_Coast": 2608
             },
             {
                 "date": "2024-10-11",
@@ -2815,7 +2837,9 @@
                 "China_EA_Mediterranean_FBX": 4118,
                 "Mediterranean_China_EA_FBX": 379,
                 "US_East_Coast_North_Europe": 689,
-                "North_Europe_US_East_Coast": 2365
+                "North_Europe_US_East_Coast": 2365,
+                "Europe_South_America_East_Coast": 849,
+                "Europe_South_America_West_Coast": 2611
             },
             {
                 "date": "2024-10-18",
@@ -2829,7 +2853,9 @@
                 "China_EA_Mediterranean_FBX": 3927,
                 "Mediterranean_China_EA_FBX": 446,
                 "US_East_Coast_North_Europe": 666,
-                "North_Europe_US_East_Coast": 2429
+                "North_Europe_US_East_Coast": 2429,
+                "Europe_South_America_East_Coast": 823,
+                "Europe_South_America_West_Coast": 2641
             },
             {
                 "date": "2024-10-25",
@@ -2843,7 +2869,9 @@
                 "China_EA_Mediterranean_FBX": 3451,
                 "Mediterranean_China_EA_FBX": 432,
                 "US_East_Coast_North_Europe": 536,
-                "North_Europe_US_East_Coast": 2533
+                "North_Europe_US_East_Coast": 2533,
+                "Europe_South_America_East_Coast": 821,
+                "Europe_South_America_West_Coast": 2644
             },
             {
                 "date": "2024-11-01",
@@ -2857,7 +2885,9 @@
                 "China_EA_Mediterranean_FBX": 3504,
                 "Mediterranean_China_EA_FBX": 419,
                 "US_East_Coast_North_Europe": 502,
-                "North_Europe_US_East_Coast": 2583
+                "North_Europe_US_East_Coast": 2583,
+                "Europe_South_America_East_Coast": 811,
+                "Europe_South_America_West_Coast": 2633
             },
             {
                 "date": "2024-11-08",
@@ -2871,7 +2901,9 @@
                 "China_EA_Mediterranean_FBX": 4301,
                 "Mediterranean_China_EA_FBX": 428,
                 "US_East_Coast_North_Europe": 508,
-                "North_Europe_US_East_Coast": 2609
+                "North_Europe_US_East_Coast": 2609,
+                "Europe_South_America_East_Coast": 796,
+                "Europe_South_America_West_Coast": 2609
             },
             {
                 "date": "2024-11-15",
@@ -2885,7 +2917,9 @@
                 "China_EA_Mediterranean_FBX": 4387,
                 "Mediterranean_China_EA_FBX": 444,
                 "US_East_Coast_North_Europe": 505,
-                "North_Europe_US_East_Coast": 2527
+                "North_Europe_US_East_Coast": 2527,
+                "Europe_South_America_East_Coast": 802,
+                "Europe_South_America_West_Coast": 2601
             },
             {
                 "date": "2024-11-22",
@@ -2899,7 +2933,9 @@
                 "China_EA_Mediterranean_FBX": 4859,
                 "Mediterranean_China_EA_FBX": 438,
                 "US_East_Coast_North_Europe": 485,
-                "North_Europe_US_East_Coast": 2525
+                "North_Europe_US_East_Coast": 2525,
+                "Europe_South_America_East_Coast": 800,
+                "Europe_South_America_West_Coast": 2600
             },
             {
                 "date": "2024-11-29",
@@ -2913,7 +2949,9 @@
                 "China_EA_Mediterranean_FBX": 5135,
                 "Mediterranean_China_EA_FBX": 432,
                 "US_East_Coast_North_Europe": 475,
-                "North_Europe_US_East_Coast": 2525
+                "North_Europe_US_East_Coast": 2525,
+                "Europe_South_America_East_Coast": 800,
+                "Europe_South_America_West_Coast": 2598
             },
             {
                 "date": "2024-12-06",
@@ -2927,7 +2965,9 @@
                 "China_EA_Mediterranean_FBX": 5895,
                 "Mediterranean_China_EA_FBX": 439,
                 "US_East_Coast_North_Europe": 558,
-                "North_Europe_US_East_Coast": 2525
+                "North_Europe_US_East_Coast": 2525,
+                "Europe_South_America_East_Coast": 799,
+                "Europe_South_America_West_Coast": 2558
             },
             {
                 "date": "2024-12-13",
@@ -2941,7 +2981,9 @@
                 "China_EA_Mediterranean_FBX": 5761,
                 "Mediterranean_China_EA_FBX": 445,
                 "US_East_Coast_North_Europe": 558,
-                "North_Europe_US_East_Coast": 2525
+                "North_Europe_US_East_Coast": 2525,
+                "Europe_South_America_East_Coast": 797,
+                "Europe_South_America_West_Coast": 2572
             },
             {
                 "date": "2024-12-20",
@@ -2955,7 +2997,9 @@
                 "China_EA_Mediterranean_FBX": 5721,
                 "Mediterranean_China_EA_FBX": 447,
                 "US_East_Coast_North_Europe": 576,
-                "North_Europe_US_East_Coast": 2525
+                "North_Europe_US_East_Coast": 2525,
+                "Europe_South_America_East_Coast": 785,
+                "Europe_South_America_West_Coast": 2566
             },
             {
                 "date": "2025-01-03",
@@ -2969,7 +3013,9 @@
                 "China_EA_Mediterranean_FBX": 5630,
                 "Mediterranean_China_EA_FBX": 480,
                 "US_East_Coast_North_Europe": 684,
-                "North_Europe_US_East_Coast": 2272
+                "North_Europe_US_East_Coast": 2272,
+                "Europe_South_America_East_Coast": 914,
+                "Europe_South_America_West_Coast": 2513
             },
             {
                 "date": "2025-01-10",
@@ -2983,7 +3029,9 @@
                 "China_EA_Mediterranean_FBX": 5685,
                 "Mediterranean_China_EA_FBX": 480,
                 "US_East_Coast_North_Europe": 589,
-                "North_Europe_US_East_Coast": 2265
+                "North_Europe_US_East_Coast": 2265,
+                "Europe_South_America_East_Coast": 931,
+                "Europe_South_America_West_Coast": 2557
             },
             {
                 "date": "2025-01-17",
@@ -2997,7 +3045,9 @@
                 "China_EA_Mediterranean_FBX": 5283,
                 "Mediterranean_China_EA_FBX": 480,
                 "US_East_Coast_North_Europe": 557,
-                "North_Europe_US_East_Coast": 2140
+                "North_Europe_US_East_Coast": 2140,
+                "Europe_South_America_East_Coast": 838,
+                "Europe_South_America_West_Coast": 2452
             },
             {
                 "date": "2025-01-24",
@@ -3011,7 +3061,9 @@
                 "China_EA_Mediterranean_FBX": 5075,
                 "Mediterranean_China_EA_FBX": 480,
                 "US_East_Coast_North_Europe": 569,
-                "North_Europe_US_East_Coast": 2172
+                "North_Europe_US_East_Coast": 2172,
+                "Europe_South_America_East_Coast": 806,
+                "Europe_South_America_West_Coast": 2372
             },
             {
                 "date": "2025-01-31",
@@ -3025,7 +3077,9 @@
                 "China_EA_Mediterranean_FBX": 5069,
                 "Mediterranean_China_EA_FBX": 480,
                 "US_East_Coast_North_Europe": 569,
-                "North_Europe_US_East_Coast": 2132
+                "North_Europe_US_East_Coast": 2132,
+                "Europe_South_America_East_Coast": 765,
+                "Europe_South_America_West_Coast": 2371
             },
             {
                 "date": "2025-02-07",
@@ -3039,7 +3093,9 @@
                 "China_EA_Mediterranean_FBX": 4549,
                 "Mediterranean_China_EA_FBX": 480,
                 "US_East_Coast_North_Europe": 641,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 765,
+                "Europe_South_America_West_Coast": 2128
             },
             {
                 "date": "2025-02-14",
@@ -3053,7 +3109,9 @@
                 "China_EA_Mediterranean_FBX": 4448,
                 "Mediterranean_China_EA_FBX": 480,
                 "US_East_Coast_North_Europe": 622,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 765,
+                "Europe_South_America_West_Coast": 2279
             },
             {
                 "date": "2025-02-21",
@@ -3067,7 +3125,9 @@
                 "China_EA_Mediterranean_FBX": 4129,
                 "Mediterranean_China_EA_FBX": 500,
                 "US_East_Coast_North_Europe": 630,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 854,
+                "Europe_South_America_West_Coast": 2447
             },
             {
                 "date": "2025-02-28",
@@ -3081,7 +3141,9 @@
                 "China_EA_Mediterranean_FBX": 4177,
                 "Mediterranean_China_EA_FBX": 530,
                 "US_East_Coast_North_Europe": 615,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 905,
+                "Europe_South_America_West_Coast": 2532
             },
             {
                 "date": "2025-03-07",
@@ -3095,7 +3157,9 @@
                 "China_EA_Mediterranean_FBX": 4159,
                 "Mediterranean_China_EA_FBX": 542,
                 "US_East_Coast_North_Europe": 591,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 897,
+                "Europe_South_America_West_Coast": 2423
             },
             {
                 "date": "2025-03-14",
@@ -3109,7 +3173,9 @@
                 "China_EA_Mediterranean_FBX": 3792,
                 "Mediterranean_China_EA_FBX": 466,
                 "US_East_Coast_North_Europe": 547,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 897,
+                "Europe_South_America_West_Coast": 2354
             },
             {
                 "date": "2025-03-21",
@@ -3123,7 +3189,9 @@
                 "China_EA_Mediterranean_FBX": 3529,
                 "Mediterranean_China_EA_FBX": 477,
                 "US_East_Coast_North_Europe": 547,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 965,
+                "Europe_South_America_West_Coast": 2314
             },
             {
                 "date": "2025-03-28",
@@ -3137,7 +3205,9 @@
                 "China_EA_Mediterranean_FBX": 3228,
                 "Mediterranean_China_EA_FBX": 633,
                 "US_East_Coast_North_Europe": 511,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 1017,
+                "Europe_South_America_West_Coast": 2340
             },
             {
                 "date": "2025-04-04",
@@ -3151,7 +3221,9 @@
                 "China_EA_Mediterranean_FBX": 2910,
                 "Mediterranean_China_EA_FBX": 642,
                 "US_East_Coast_North_Europe": 601,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 962,
+                "Europe_South_America_West_Coast": 2396
             },
             {
                 "date": "2025-04-11",
@@ -3165,7 +3237,9 @@
                 "China_EA_Mediterranean_FBX": 2751,
                 "Mediterranean_China_EA_FBX": 647,
                 "US_East_Coast_North_Europe": 520,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 914,
+                "Europe_South_America_West_Coast": 2519
             },
             {
                 "date": "2025-04-18",
@@ -3179,7 +3253,9 @@
                 "China_EA_Mediterranean_FBX": 2935,
                 "Mediterranean_China_EA_FBX": 651,
                 "US_East_Coast_North_Europe": 427,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 899,
+                "Europe_South_America_West_Coast": 2750
             },
             {
                 "date": "2025-04-25",
@@ -3193,7 +3269,9 @@
                 "China_EA_Mediterranean_FBX": 3082,
                 "Mediterranean_China_EA_FBX": 648,
                 "US_East_Coast_North_Europe": 426,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 897,
+                "Europe_South_America_West_Coast": 2986
             },
             {
                 "date": "2025-05-02",
@@ -3207,7 +3285,9 @@
                 "China_EA_Mediterranean_FBX": 3027,
                 "Mediterranean_China_EA_FBX": 588,
                 "US_East_Coast_North_Europe": 445,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 814,
+                "Europe_South_America_West_Coast": 3024
             },
             {
                 "date": "2025-05-09",
@@ -3221,7 +3301,9 @@
                 "China_EA_Mediterranean_FBX": 2939,
                 "Mediterranean_China_EA_FBX": 554,
                 "US_East_Coast_North_Europe": 476,
-                "North_Europe_US_East_Coast": 2130
+                "North_Europe_US_East_Coast": 2130,
+                "Europe_South_America_East_Coast": 844,
+                "Europe_South_America_West_Coast": 3037
             },
             {
                 "date": "2025-05-16",
@@ -3235,7 +3317,9 @@
                 "China_EA_Mediterranean_FBX": 2979,
                 "Mediterranean_China_EA_FBX": 588,
                 "US_East_Coast_North_Europe": 484,
-                "North_Europe_US_East_Coast": 1926
+                "North_Europe_US_East_Coast": 1926,
+                "Europe_South_America_East_Coast": 794,
+                "Europe_South_America_West_Coast": 3109
             },
             {
                 "date": "2025-05-23",
@@ -3249,7 +3333,9 @@
                 "China_EA_Mediterranean_FBX": 2985,
                 "Mediterranean_China_EA_FBX": 594,
                 "US_East_Coast_North_Europe": 512,
-                "North_Europe_US_East_Coast": 1926
+                "North_Europe_US_East_Coast": 1926,
+                "Europe_South_America_East_Coast": 796,
+                "Europe_South_America_West_Coast": 3109
             },
             {
                 "date": "2025-05-30",
@@ -3263,7 +3349,9 @@
                 "China_EA_Mediterranean_FBX": 3253,
                 "Mediterranean_China_EA_FBX": 577,
                 "US_East_Coast_North_Europe": 547,
-                "North_Europe_US_East_Coast": 1930
+                "North_Europe_US_East_Coast": 1930,
+                "Europe_South_America_East_Coast": 798,
+                "Europe_South_America_West_Coast": 3109
             },
             {
                 "date": "2025-06-06",
@@ -3277,7 +3365,9 @@
                 "China_EA_Mediterranean_FBX": 4285,
                 "Mediterranean_China_EA_FBX": 630,
                 "US_East_Coast_North_Europe": 624,
-                "North_Europe_US_East_Coast": 1929
+                "North_Europe_US_East_Coast": 1929,
+                "Europe_South_America_East_Coast": 853,
+                "Europe_South_America_West_Coast": 3045
             },
             {
                 "date": "2025-06-13",
@@ -3291,7 +3381,9 @@
                 "China_EA_Mediterranean_FBX": 4846,
                 "Mediterranean_China_EA_FBX": 541,
                 "US_East_Coast_North_Europe": 624,
-                "North_Europe_US_East_Coast": 1929
+                "North_Europe_US_East_Coast": 1929,
+                "Europe_South_America_East_Coast": 881,
+                "Europe_South_America_West_Coast": 3119
             },
             {
                 "date": "2025-06-20",
@@ -3305,7 +3397,9 @@
                 "China_EA_Mediterranean_FBX": 4427,
                 "Mediterranean_China_EA_FBX": 525,
                 "US_East_Coast_North_Europe": 601,
-                "North_Europe_US_East_Coast": 1929
+                "North_Europe_US_East_Coast": 1929,
+                "Europe_South_America_East_Coast": 882,
+                "Europe_South_America_West_Coast": 2907
             },
             {
                 "date": "2025-06-27",
@@ -3319,7 +3413,9 @@
                 "China_EA_Mediterranean_FBX": 4223,
                 "Mediterranean_China_EA_FBX": 547,
                 "US_East_Coast_North_Europe": 557,
-                "North_Europe_US_East_Coast": 1929
+                "North_Europe_US_East_Coast": 1929,
+                "Europe_South_America_East_Coast": 883,
+                "Europe_South_America_West_Coast": 2926
             },
             {
                 "date": "2025-07-04",
@@ -3333,7 +3429,9 @@
                 "China_EA_Mediterranean_FBX": 3967,
                 "Mediterranean_China_EA_FBX": 573,
                 "US_East_Coast_North_Europe": 501,
-                "North_Europe_US_East_Coast": 1929
+                "North_Europe_US_East_Coast": 1929,
+                "Europe_South_America_East_Coast": 780,
+                "Europe_South_America_West_Coast": 3073
             },
             {
                 "date": "2025-07-11",
@@ -3347,7 +3445,9 @@
                 "China_EA_Mediterranean_FBX": 3802,
                 "Mediterranean_China_EA_FBX": 571,
                 "US_East_Coast_North_Europe": 481,
-                "North_Europe_US_East_Coast": 1929
+                "North_Europe_US_East_Coast": 1929,
+                "Europe_South_America_East_Coast": 771,
+                "Europe_South_America_West_Coast": 3129
             },
             {
                 "date": "2025-07-18",
@@ -3361,218 +3461,2960 @@
                 "China_EA_Mediterranean_FBX": 3568,
                 "Mediterranean_China_EA_FBX": 566,
                 "US_East_Coast_North_Europe": 513,
-                "North_Europe_US_East_Coast": 1929
+                "North_Europe_US_East_Coast": 1929,
+                "Europe_South_America_East_Coast": 725,
+                "Europe_South_America_West_Coast": 3241
             }
         ],
-        "XSI": [],
-        "MBCI": [
+        "XSI": [
+            {
+                "date": "2024-07-23",
+                "East_Asia_North_Europe": 8474,
+                "North_Europe_East_Asia": 489,
+                "East_Asia_US_West_Coast": 7322,
+                "US_West_Coast_East_Asia": 693,
+                "East_Asia_South_America_East_Coast": 8872,
+                "North_Europe_US_East_Coast_1": 1786,
+                "US_East_Coast_North_Europe_1": 552,
+                "North_Europe_South_America_East_Coast": 547
+            },
+            {
+                "date": "2024-07-24",
+                "East_Asia_North_Europe": 8475,
+                "North_Europe_East_Asia": 482,
+                "East_Asia_US_West_Coast": 7163,
+                "US_West_Coast_East_Asia": 685,
+                "East_Asia_South_America_East_Coast": 8828,
+                "North_Europe_US_East_Coast_1": 1816,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 548
+            },
+            {
+                "date": "2024-07-25",
+                "East_Asia_North_Europe": 8475,
+                "North_Europe_East_Asia": 482,
+                "East_Asia_US_West_Coast": 7135,
+                "US_West_Coast_East_Asia": 685,
+                "East_Asia_South_America_East_Coast": 8824,
+                "North_Europe_US_East_Coast_1": 1818,
+                "US_East_Coast_North_Europe_1": 555,
+                "North_Europe_South_America_East_Coast": 548
+            },
             {
                 "date": "2024-07-26",
-                "XSI_MBCI_Value": 1278
+                "East_Asia_North_Europe": 8502,
+                "North_Europe_East_Asia": 484,
+                "East_Asia_US_West_Coast": 6999,
+                "US_West_Coast_East_Asia": 691,
+                "East_Asia_South_America_East_Coast": 8820,
+                "North_Europe_US_East_Coast_1": 1818,
+                "US_East_Coast_North_Europe_1": 549,
+                "North_Europe_South_America_East_Coast": 548
+            },
+            {
+                "date": "2024-07-29",
+                "East_Asia_North_Europe": 8531,
+                "North_Europe_East_Asia": 475,
+                "East_Asia_US_West_Coast": 6936,
+                "US_West_Coast_East_Asia": 689,
+                "East_Asia_South_America_East_Coast": 8746,
+                "North_Europe_US_East_Coast_1": 1833,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 551
+            },
+            {
+                "date": "2024-07-30",
+                "East_Asia_North_Europe": 8528,
+                "North_Europe_East_Asia": 489,
+                "East_Asia_US_West_Coast": 6932,
+                "US_West_Coast_East_Asia": 689,
+                "East_Asia_South_America_East_Coast": 8673,
+                "North_Europe_US_East_Coast_1": 1826,
+                "US_East_Coast_North_Europe_1": 553,
+                "North_Europe_South_America_East_Coast": 548
+            },
+            {
+                "date": "2024-07-31",
+                "East_Asia_North_Europe": 8532,
+                "North_Europe_East_Asia": 483,
+                "East_Asia_US_West_Coast": 6877,
+                "US_West_Coast_East_Asia": 687,
+                "East_Asia_South_America_East_Coast": 8676,
+                "North_Europe_US_East_Coast_1": 1825,
+                "US_East_Coast_North_Europe_1": 556,
+                "North_Europe_South_America_East_Coast": 549
+            },
+            {
+                "date": "2024-08-01",
+                "East_Asia_North_Europe": 8398,
+                "North_Europe_East_Asia": 492,
+                "East_Asia_US_West_Coast": 6638,
+                "US_West_Coast_East_Asia": 677,
+                "East_Asia_South_America_East_Coast": 8483,
+                "North_Europe_US_East_Coast_1": 1774,
+                "US_East_Coast_North_Europe_1": 563,
+                "North_Europe_South_America_East_Coast": 513
             },
             {
                 "date": "2024-08-02",
-                "XSI_MBCI_Value": 1262
+                "East_Asia_North_Europe": 8397,
+                "North_Europe_East_Asia": 488,
+                "East_Asia_US_West_Coast": 6623,
+                "US_West_Coast_East_Asia": 677,
+                "East_Asia_South_America_East_Coast": 8435,
+                "North_Europe_US_East_Coast_1": 1757,
+                "US_East_Coast_North_Europe_1": 563,
+                "North_Europe_South_America_East_Coast": 516
+            },
+            {
+                "date": "2024-08-05",
+                "East_Asia_North_Europe": 8386,
+                "North_Europe_East_Asia": 489,
+                "East_Asia_US_West_Coast": 6550,
+                "US_West_Coast_East_Asia": 677,
+                "East_Asia_South_America_East_Coast": 8440,
+                "North_Europe_US_East_Coast_1": 1765,
+                "US_East_Coast_North_Europe_1": 564,
+                "North_Europe_South_America_East_Coast": 519
+            },
+            {
+                "date": "2024-08-06",
+                "East_Asia_North_Europe": 8396,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6552,
+                "US_West_Coast_East_Asia": 673,
+                "East_Asia_South_America_East_Coast": 8459,
+                "North_Europe_US_East_Coast_1": 1755,
+                "US_East_Coast_North_Europe_1": 564,
+                "North_Europe_South_America_East_Coast": 517
+            },
+            {
+                "date": "2024-08-07",
+                "East_Asia_North_Europe": 8387,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6454,
+                "US_West_Coast_East_Asia": 660,
+                "East_Asia_South_America_East_Coast": 8447,
+                "North_Europe_US_East_Coast_1": 1755,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 517
+            },
+            {
+                "date": "2024-08-08",
+                "East_Asia_North_Europe": 8330,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6446,
+                "US_West_Coast_East_Asia": 662,
+                "East_Asia_South_America_East_Coast": 8515,
+                "North_Europe_US_East_Coast_1": 1757,
+                "US_East_Coast_North_Europe_1": 553,
+                "North_Europe_South_America_East_Coast": 504
             },
             {
                 "date": "2024-08-09",
-                "XSI_MBCI_Value": 1284
+                "East_Asia_North_Europe": 8301,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6415,
+                "US_West_Coast_East_Asia": 660,
+                "East_Asia_South_America_East_Coast": 8521,
+                "North_Europe_US_East_Coast_1": 1758,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 506
+            },
+            {
+                "date": "2024-08-12",
+                "East_Asia_North_Europe": 8348,
+                "North_Europe_East_Asia": 486,
+                "East_Asia_US_West_Coast": 6406,
+                "US_West_Coast_East_Asia": 660,
+                "East_Asia_South_America_East_Coast": 8541,
+                "North_Europe_US_East_Coast_1": 1760,
+                "US_East_Coast_North_Europe_1": 546,
+                "North_Europe_South_America_East_Coast": 506
+            },
+            {
+                "date": "2024-08-13",
+                "East_Asia_North_Europe": 8284,
+                "North_Europe_East_Asia": 516,
+                "East_Asia_US_West_Coast": 6358,
+                "US_West_Coast_East_Asia": 664,
+                "East_Asia_South_America_East_Coast": 8563,
+                "North_Europe_US_East_Coast_1": 1848,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 522
+            },
+            {
+                "date": "2024-08-14",
+                "East_Asia_North_Europe": 8250,
+                "North_Europe_East_Asia": 494,
+                "East_Asia_US_West_Coast": 6356,
+                "US_West_Coast_East_Asia": 666,
+                "East_Asia_South_America_East_Coast": 8566,
+                "North_Europe_US_East_Coast_1": 1784,
+                "US_East_Coast_North_Europe_1": 555,
+                "North_Europe_South_America_East_Coast": 514
+            },
+            {
+                "date": "2024-08-15",
+                "East_Asia_North_Europe": 8116,
+                "North_Europe_East_Asia": 500,
+                "East_Asia_US_West_Coast": 6507,
+                "US_West_Coast_East_Asia": 663,
+                "East_Asia_South_America_East_Coast": 8511,
+                "North_Europe_US_East_Coast_1": 1788,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 511
             },
             {
                 "date": "2024-08-16",
-                "XSI_MBCI_Value": 1195
+                "East_Asia_North_Europe": 8027,
+                "North_Europe_East_Asia": 496,
+                "East_Asia_US_West_Coast": 6584,
+                "US_West_Coast_East_Asia": 685,
+                "East_Asia_South_America_East_Coast": 8457,
+                "North_Europe_US_East_Coast_1": 1795,
+                "US_East_Coast_North_Europe_1": 562,
+                "North_Europe_South_America_East_Coast": 509
+            },
+            {
+                "date": "2024-08-19",
+                "East_Asia_North_Europe": 7946,
+                "North_Europe_East_Asia": 496,
+                "East_Asia_US_West_Coast": 6693,
+                "US_West_Coast_East_Asia": 662,
+                "East_Asia_South_America_East_Coast": 8333,
+                "North_Europe_US_East_Coast_1": 1787,
+                "US_East_Coast_North_Europe_1": 557,
+                "North_Europe_South_America_East_Coast": 512
+            },
+            {
+                "date": "2024-08-20",
+                "East_Asia_North_Europe": 7893,
+                "North_Europe_East_Asia": 496,
+                "East_Asia_US_West_Coast": 6737,
+                "US_West_Coast_East_Asia": 663,
+                "East_Asia_South_America_East_Coast": 8278,
+                "North_Europe_US_East_Coast_1": 1789,
+                "US_East_Coast_North_Europe_1": 557,
+                "North_Europe_South_America_East_Coast": 514
+            },
+            {
+                "date": "2024-08-21",
+                "East_Asia_North_Europe": 7866,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6793,
+                "US_West_Coast_East_Asia": 659,
+                "East_Asia_South_America_East_Coast": 8273,
+                "North_Europe_US_East_Coast_1": 1789,
+                "US_East_Coast_North_Europe_1": 552,
+                "North_Europe_South_America_East_Coast": 509
+            },
+            {
+                "date": "2024-08-22",
+                "East_Asia_North_Europe": 7812,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6735,
+                "US_West_Coast_East_Asia": 659,
+                "East_Asia_South_America_East_Coast": 8118,
+                "North_Europe_US_East_Coast_1": 1789,
+                "US_East_Coast_North_Europe_1": 552,
+                "North_Europe_South_America_East_Coast": 524
             },
             {
                 "date": "2024-08-23",
-                "XSI_MBCI_Value": 1176
+                "East_Asia_North_Europe": 7745,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6718,
+                "US_West_Coast_East_Asia": 659,
+                "East_Asia_South_America_East_Coast": 8104,
+                "North_Europe_US_East_Coast_1": 1785,
+                "US_East_Coast_North_Europe_1": 552,
+                "North_Europe_South_America_East_Coast": 527
+            },
+            {
+                "date": "2024-08-26",
+                "East_Asia_North_Europe": 7616,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6695,
+                "US_West_Coast_East_Asia": 661,
+                "East_Asia_South_America_East_Coast": 8039,
+                "North_Europe_US_East_Coast_1": 1788,
+                "US_East_Coast_North_Europe_1": 553,
+                "North_Europe_South_America_East_Coast": 527
+            },
+            {
+                "date": "2024-08-27",
+                "East_Asia_North_Europe": 7593,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6694,
+                "US_West_Coast_East_Asia": 659,
+                "East_Asia_South_America_East_Coast": 7980,
+                "North_Europe_US_East_Coast_1": 1783,
+                "US_East_Coast_North_Europe_1": 553,
+                "North_Europe_South_America_East_Coast": 526
+            },
+            {
+                "date": "2024-08-28",
+                "East_Asia_North_Europe": 7550,
+                "North_Europe_East_Asia": 492,
+                "East_Asia_US_West_Coast": 6670,
+                "US_West_Coast_East_Asia": 666,
+                "East_Asia_South_America_East_Coast": 7950,
+                "North_Europe_US_East_Coast_1": 1783,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 525
+            },
+            {
+                "date": "2024-08-29",
+                "East_Asia_North_Europe": 7538,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6634,
+                "US_West_Coast_East_Asia": 659,
+                "East_Asia_South_America_East_Coast": 7915,
+                "North_Europe_US_East_Coast_1": 1785,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 524
             },
             {
                 "date": "2024-08-30",
-                "XSI_MBCI_Value": 1164
+                "East_Asia_North_Europe": 7476,
+                "North_Europe_East_Asia": 487,
+                "East_Asia_US_West_Coast": 6586,
+                "US_West_Coast_East_Asia": 659,
+                "East_Asia_South_America_East_Coast": 7900,
+                "North_Europe_US_East_Coast_1": 1788,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 524
+            },
+            {
+                "date": "2024-09-02",
+                "East_Asia_North_Europe": 6933,
+                "North_Europe_East_Asia": 470,
+                "East_Asia_US_West_Coast": 6597,
+                "US_West_Coast_East_Asia": 681,
+                "East_Asia_South_America_East_Coast": 7958,
+                "North_Europe_US_East_Coast_1": 2154,
+                "US_East_Coast_North_Europe_1": 562,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2024-09-03",
+                "East_Asia_North_Europe": 6843,
+                "North_Europe_East_Asia": 469,
+                "East_Asia_US_West_Coast": 6482,
+                "US_West_Coast_East_Asia": 681,
+                "East_Asia_South_America_East_Coast": 7980,
+                "North_Europe_US_East_Coast_1": 2169,
+                "US_East_Coast_North_Europe_1": 562,
+                "North_Europe_South_America_East_Coast": 600
+            },
+            {
+                "date": "2024-09-04",
+                "East_Asia_North_Europe": 6816,
+                "North_Europe_East_Asia": 491,
+                "East_Asia_US_West_Coast": 6454,
+                "US_West_Coast_East_Asia": 675,
+                "East_Asia_South_America_East_Coast": 7973,
+                "North_Europe_US_East_Coast_1": 2220,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 600
+            },
+            {
+                "date": "2024-09-05",
+                "East_Asia_North_Europe": 6745,
+                "North_Europe_East_Asia": 493,
+                "East_Asia_US_West_Coast": 6433,
+                "US_West_Coast_East_Asia": 695,
+                "East_Asia_South_America_East_Coast": 7931,
+                "North_Europe_US_East_Coast_1": 2220,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 600
             },
             {
                 "date": "2024-09-06",
-                "XSI_MBCI_Value": 1147
+                "East_Asia_North_Europe": 6651,
+                "North_Europe_East_Asia": 478,
+                "East_Asia_US_West_Coast": 6353,
+                "US_West_Coast_East_Asia": 695,
+                "East_Asia_South_America_East_Coast": 7943,
+                "North_Europe_US_East_Coast_1": 2210,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 602
+            },
+            {
+                "date": "2024-09-09",
+                "East_Asia_North_Europe": 6477,
+                "North_Europe_East_Asia": 469,
+                "East_Asia_US_West_Coast": 6342,
+                "US_West_Coast_East_Asia": 695,
+                "East_Asia_South_America_East_Coast": 7929,
+                "North_Europe_US_East_Coast_1": 2210,
+                "US_East_Coast_North_Europe_1": 570,
+                "North_Europe_South_America_East_Coast": 598
+            },
+            {
+                "date": "2024-09-10",
+                "East_Asia_North_Europe": 6383,
+                "North_Europe_East_Asia": 466,
+                "East_Asia_US_West_Coast": 6325,
+                "US_West_Coast_East_Asia": 695,
+                "East_Asia_South_America_East_Coast": 7934,
+                "North_Europe_US_East_Coast_1": 2238,
+                "US_East_Coast_North_Europe_1": 570,
+                "North_Europe_South_America_East_Coast": 589
+            },
+            {
+                "date": "2024-09-11",
+                "East_Asia_North_Europe": 6367,
+                "North_Europe_East_Asia": 466,
+                "East_Asia_US_West_Coast": 6325,
+                "US_West_Coast_East_Asia": 695,
+                "East_Asia_South_America_East_Coast": 7934,
+                "North_Europe_US_East_Coast_1": 2238,
+                "US_East_Coast_North_Europe_1": 570,
+                "North_Europe_South_America_East_Coast": 589
+            },
+            {
+                "date": "2024-09-12",
+                "East_Asia_North_Europe": 6347,
+                "North_Europe_East_Asia": 466,
+                "East_Asia_US_West_Coast": 6307,
+                "US_West_Coast_East_Asia": 661,
+                "East_Asia_South_America_East_Coast": 7933,
+                "North_Europe_US_East_Coast_1": 2240,
+                "US_East_Coast_North_Europe_1": 555,
+                "North_Europe_South_America_East_Coast": 593
             },
             {
                 "date": "2024-09-13",
-                "XSI_MBCI_Value": 1094
+                "East_Asia_North_Europe": 6267,
+                "North_Europe_East_Asia": 465,
+                "East_Asia_US_West_Coast": 6283,
+                "US_West_Coast_East_Asia": 655,
+                "East_Asia_South_America_East_Coast": 7915,
+                "North_Europe_US_East_Coast_1": 2247,
+                "US_East_Coast_North_Europe_1": 550,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2024-09-16",
+                "East_Asia_North_Europe": 5649,
+                "North_Europe_East_Asia": 471,
+                "East_Asia_US_West_Coast": 6176,
+                "US_West_Coast_East_Asia": 656,
+                "East_Asia_South_America_East_Coast": 7849,
+                "North_Europe_US_East_Coast_1": 2277,
+                "US_East_Coast_North_Europe_1": 552,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2024-09-17",
+                "East_Asia_North_Europe": 5424,
+                "North_Europe_East_Asia": 470,
+                "East_Asia_US_West_Coast": 6137,
+                "US_West_Coast_East_Asia": 646,
+                "East_Asia_South_America_East_Coast": 7811,
+                "North_Europe_US_East_Coast_1": 2318,
+                "US_East_Coast_North_Europe_1": 552,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2024-09-18",
+                "East_Asia_North_Europe": 5347,
+                "North_Europe_East_Asia": 469,
+                "East_Asia_US_West_Coast": 6128,
+                "US_West_Coast_East_Asia": 646,
+                "East_Asia_South_America_East_Coast": 7698,
+                "North_Europe_US_East_Coast_1": 2339,
+                "US_East_Coast_North_Europe_1": 555,
+                "North_Europe_South_America_East_Coast": 597
+            },
+            {
+                "date": "2024-09-19",
+                "East_Asia_North_Europe": 5195,
+                "North_Europe_East_Asia": 469,
+                "East_Asia_US_West_Coast": 6126,
+                "US_West_Coast_East_Asia": 648,
+                "East_Asia_South_America_East_Coast": 7698,
+                "North_Europe_US_East_Coast_1": 2339,
+                "US_East_Coast_North_Europe_1": 560,
+                "North_Europe_South_America_East_Coast": 597
             },
             {
                 "date": "2024-09-20",
-                "XSI_MBCI_Value": 1095
+                "East_Asia_North_Europe": 5050,
+                "North_Europe_East_Asia": 468,
+                "East_Asia_US_West_Coast": 6119,
+                "US_West_Coast_East_Asia": 648,
+                "East_Asia_South_America_East_Coast": 7665,
+                "North_Europe_US_East_Coast_1": 2339,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 598
+            },
+            {
+                "date": "2024-09-23",
+                "East_Asia_North_Europe": 4846,
+                "North_Europe_East_Asia": 467,
+                "East_Asia_US_West_Coast": 6049,
+                "US_West_Coast_East_Asia": 649,
+                "East_Asia_South_America_East_Coast": 7521,
+                "North_Europe_US_East_Coast_1": 2350,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 587
+            },
+            {
+                "date": "2024-09-24",
+                "East_Asia_North_Europe": 4812,
+                "North_Europe_East_Asia": 467,
+                "East_Asia_US_West_Coast": 6040,
+                "US_West_Coast_East_Asia": 649,
+                "East_Asia_South_America_East_Coast": 7497,
+                "North_Europe_US_East_Coast_1": 2350,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 588
+            },
+            {
+                "date": "2024-09-25",
+                "East_Asia_North_Europe": 4694,
+                "North_Europe_East_Asia": 467,
+                "East_Asia_US_West_Coast": 5843,
+                "US_West_Coast_East_Asia": 646,
+                "East_Asia_South_America_East_Coast": 7490,
+                "North_Europe_US_East_Coast_1": 2354,
+                "US_East_Coast_North_Europe_1": 572,
+                "North_Europe_South_America_East_Coast": 589
+            },
+            {
+                "date": "2024-09-26",
+                "East_Asia_North_Europe": 4630,
+                "North_Europe_East_Asia": 467,
+                "East_Asia_US_West_Coast": 5837,
+                "US_West_Coast_East_Asia": 646,
+                "East_Asia_South_America_East_Coast": 7484,
+                "North_Europe_US_East_Coast_1": 2354,
+                "US_East_Coast_North_Europe_1": 572,
+                "North_Europe_South_America_East_Coast": 588
             },
             {
                 "date": "2024-09-27",
-                "XSI_MBCI_Value": 1097
+                "East_Asia_North_Europe": 4514,
+                "North_Europe_East_Asia": 467,
+                "East_Asia_US_West_Coast": 5814,
+                "US_West_Coast_East_Asia": 646,
+                "East_Asia_South_America_East_Coast": 7487,
+                "North_Europe_US_East_Coast_1": 2354,
+                "US_East_Coast_North_Europe_1": 572,
+                "North_Europe_South_America_East_Coast": 593
+            },
+            {
+                "date": "2024-09-30",
+                "East_Asia_North_Europe": 4374,
+                "North_Europe_East_Asia": 467,
+                "East_Asia_US_West_Coast": 5810,
+                "US_West_Coast_East_Asia": 649,
+                "East_Asia_South_America_East_Coast": 7476,
+                "North_Europe_US_East_Coast_1": 2354,
+                "US_East_Coast_North_Europe_1": 562,
+                "North_Europe_South_America_East_Coast": 592
+            },
+            {
+                "date": "2024-10-01",
+                "East_Asia_North_Europe": 3829,
+                "North_Europe_East_Asia": 341,
+                "East_Asia_US_West_Coast": 5630,
+                "US_West_Coast_East_Asia": 738,
+                "East_Asia_South_America_East_Coast": 7086,
+                "North_Europe_US_East_Coast_1": 2851,
+                "US_East_Coast_North_Europe_1": 593,
+                "North_Europe_South_America_East_Coast": 585
+            },
+            {
+                "date": "2024-10-02",
+                "East_Asia_North_Europe": 3829,
+                "North_Europe_East_Asia": 341,
+                "East_Asia_US_West_Coast": 5605,
+                "US_West_Coast_East_Asia": 723,
+                "East_Asia_South_America_East_Coast": 7038,
+                "North_Europe_US_East_Coast_1": 2851,
+                "US_East_Coast_North_Europe_1": 584,
+                "North_Europe_South_America_East_Coast": 584
+            },
+            {
+                "date": "2024-10-03",
+                "East_Asia_North_Europe": 3826,
+                "North_Europe_East_Asia": 341,
+                "East_Asia_US_West_Coast": 5608,
+                "US_West_Coast_East_Asia": 712,
+                "East_Asia_South_America_East_Coast": 7015,
+                "North_Europe_US_East_Coast_1": 3093,
+                "US_East_Coast_North_Europe_1": 586,
+                "North_Europe_South_America_East_Coast": 583
             },
             {
                 "date": "2024-10-04",
-                "XSI_MBCI_Value": 1149
+                "East_Asia_North_Europe": 3818,
+                "North_Europe_East_Asia": 339,
+                "East_Asia_US_West_Coast": 5564,
+                "US_West_Coast_East_Asia": 704,
+                "East_Asia_South_America_East_Coast": 7025,
+                "North_Europe_US_East_Coast_1": 3076,
+                "US_East_Coast_North_Europe_1": 589,
+                "North_Europe_South_America_East_Coast": 589
+            },
+            {
+                "date": "2024-10-07",
+                "East_Asia_North_Europe": 3757,
+                "North_Europe_East_Asia": 351,
+                "East_Asia_US_West_Coast": 5542,
+                "US_West_Coast_East_Asia": 705,
+                "East_Asia_South_America_East_Coast": 6853,
+                "North_Europe_US_East_Coast_1": 3000,
+                "US_East_Coast_North_Europe_1": 570,
+                "North_Europe_South_America_East_Coast": 571
+            },
+            {
+                "date": "2024-10-08",
+                "East_Asia_North_Europe": 3581,
+                "North_Europe_East_Asia": 351,
+                "East_Asia_US_West_Coast": 5489,
+                "US_West_Coast_East_Asia": 707,
+                "East_Asia_South_America_East_Coast": 6813,
+                "North_Europe_US_East_Coast_1": 3018,
+                "US_East_Coast_North_Europe_1": 567,
+                "North_Europe_South_America_East_Coast": 576
+            },
+            {
+                "date": "2024-10-09",
+                "East_Asia_North_Europe": 3544,
+                "North_Europe_East_Asia": 392,
+                "East_Asia_US_West_Coast": 5487,
+                "US_West_Coast_East_Asia": 714,
+                "East_Asia_South_America_East_Coast": 6803,
+                "North_Europe_US_East_Coast_1": 3035,
+                "US_East_Coast_North_Europe_1": 571,
+                "North_Europe_South_America_East_Coast": 578
+            },
+            {
+                "date": "2024-10-10",
+                "East_Asia_North_Europe": 3544,
+                "North_Europe_East_Asia": 392,
+                "East_Asia_US_West_Coast": 5483,
+                "US_West_Coast_East_Asia": 714,
+                "East_Asia_South_America_East_Coast": 6708,
+                "North_Europe_US_East_Coast_1": 3035,
+                "US_East_Coast_North_Europe_1": 571,
+                "North_Europe_South_America_East_Coast": 573
             },
             {
                 "date": "2024-10-11",
-                "XSI_MBCI_Value": 1160
+                "East_Asia_North_Europe": 3505,
+                "North_Europe_East_Asia": 391,
+                "East_Asia_US_West_Coast": 5514,
+                "US_West_Coast_East_Asia": 701,
+                "East_Asia_South_America_East_Coast": 6724,
+                "North_Europe_US_East_Coast_1": 2988,
+                "US_East_Coast_North_Europe_1": 569,
+                "North_Europe_South_America_East_Coast": 574
+            },
+            {
+                "date": "2024-10-14",
+                "East_Asia_North_Europe": 3453,
+                "North_Europe_East_Asia": 390,
+                "East_Asia_US_West_Coast": 5510,
+                "US_West_Coast_East_Asia": 698,
+                "East_Asia_South_America_East_Coast": 6730,
+                "North_Europe_US_East_Coast_1": 2993,
+                "US_East_Coast_North_Europe_1": 568,
+                "North_Europe_South_America_East_Coast": 573
+            },
+            {
+                "date": "2024-10-15",
+                "East_Asia_North_Europe": 3339,
+                "North_Europe_East_Asia": 388,
+                "East_Asia_US_West_Coast": 5433,
+                "US_West_Coast_East_Asia": 708,
+                "East_Asia_South_America_East_Coast": 6710,
+                "North_Europe_US_East_Coast_1": 2979,
+                "US_East_Coast_North_Europe_1": 580,
+                "North_Europe_South_America_East_Coast": 572
+            },
+            {
+                "date": "2024-10-16",
+                "East_Asia_North_Europe": 3280,
+                "North_Europe_East_Asia": 386,
+                "East_Asia_US_West_Coast": 5343,
+                "US_West_Coast_East_Asia": 700,
+                "East_Asia_South_America_East_Coast": 6698,
+                "North_Europe_US_East_Coast_1": 2966,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 569
+            },
+            {
+                "date": "2024-10-17",
+                "East_Asia_North_Europe": 3304,
+                "North_Europe_East_Asia": 386,
+                "East_Asia_US_West_Coast": 5334,
+                "US_West_Coast_East_Asia": 700,
+                "East_Asia_South_America_East_Coast": 6688,
+                "North_Europe_US_East_Coast_1": 2958,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 567
             },
             {
                 "date": "2024-10-18",
-                "XSI_MBCI_Value": 1183
+                "East_Asia_North_Europe": 3262,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5321,
+                "US_West_Coast_East_Asia": 697,
+                "East_Asia_South_America_East_Coast": 6675,
+                "North_Europe_US_East_Coast_1": 3025,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 569
+            },
+            {
+                "date": "2024-10-21",
+                "East_Asia_North_Europe": 3249,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5278,
+                "US_West_Coast_East_Asia": 697,
+                "East_Asia_South_America_East_Coast": 6675,
+                "North_Europe_US_East_Coast_1": 3015,
+                "US_East_Coast_North_Europe_1": 564,
+                "North_Europe_South_America_East_Coast": 568
+            },
+            {
+                "date": "2024-10-22",
+                "East_Asia_North_Europe": 3253,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5256,
+                "US_West_Coast_East_Asia": 695,
+                "East_Asia_South_America_East_Coast": 6652,
+                "North_Europe_US_East_Coast_1": 2982,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 567
+            },
+            {
+                "date": "2024-10-23",
+                "East_Asia_North_Europe": 3235,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5199,
+                "US_West_Coast_East_Asia": 694,
+                "East_Asia_South_America_East_Coast": 6649,
+                "North_Europe_US_East_Coast_1": 2923,
+                "US_East_Coast_North_Europe_1": 559,
+                "North_Europe_South_America_East_Coast": 566
+            },
+            {
+                "date": "2024-10-24",
+                "East_Asia_North_Europe": 3235,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5199,
+                "US_West_Coast_East_Asia": 699,
+                "East_Asia_South_America_East_Coast": 6648,
+                "North_Europe_US_East_Coast_1": 2923,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 567
             },
             {
                 "date": "2024-10-25",
-                "XSI_MBCI_Value": 1169
+                "East_Asia_North_Europe": 3232,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5195,
+                "US_West_Coast_East_Asia": 699,
+                "East_Asia_South_America_East_Coast": 6643,
+                "North_Europe_US_East_Coast_1": 2909,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 568
+            },
+            {
+                "date": "2024-10-28",
+                "East_Asia_North_Europe": 3280,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5195,
+                "US_West_Coast_East_Asia": 701,
+                "East_Asia_South_America_East_Coast": 6632,
+                "North_Europe_US_East_Coast_1": 2894,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 568
+            },
+            {
+                "date": "2024-10-29",
+                "East_Asia_North_Europe": 3280,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5192,
+                "US_West_Coast_East_Asia": 701,
+                "East_Asia_South_America_East_Coast": 6634,
+                "North_Europe_US_East_Coast_1": 2894,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 567
+            },
+            {
+                "date": "2024-10-30",
+                "East_Asia_North_Europe": 3278,
+                "North_Europe_East_Asia": 385,
+                "East_Asia_US_West_Coast": 5190,
+                "US_West_Coast_East_Asia": 701,
+                "East_Asia_South_America_East_Coast": 6634,
+                "North_Europe_US_East_Coast_1": 2894,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 563
+            },
+            {
+                "date": "2024-10-31",
+                "East_Asia_North_Europe": 3293,
+                "North_Europe_East_Asia": 380,
+                "East_Asia_US_West_Coast": 5188,
+                "US_West_Coast_East_Asia": 693,
+                "East_Asia_South_America_East_Coast": 6634,
+                "North_Europe_US_East_Coast_1": 2894,
+                "US_East_Coast_North_Europe_1": 563,
+                "North_Europe_South_America_East_Coast": 569
             },
             {
                 "date": "2024-11-01",
-                "XSI_MBCI_Value": 1195
+                "East_Asia_North_Europe": 4160,
+                "North_Europe_East_Asia": 337,
+                "East_Asia_US_West_Coast": 5140,
+                "US_West_Coast_East_Asia": 702,
+                "East_Asia_South_America_East_Coast": 6822,
+                "North_Europe_US_East_Coast_1": 2863,
+                "US_East_Coast_North_Europe_1": 576,
+                "North_Europe_South_America_East_Coast": 577
+            },
+            {
+                "date": "2024-11-04",
+                "East_Asia_North_Europe": 4101,
+                "North_Europe_East_Asia": 355,
+                "East_Asia_US_West_Coast": 5160,
+                "US_West_Coast_East_Asia": 706,
+                "East_Asia_South_America_East_Coast": 6832,
+                "North_Europe_US_East_Coast_1": 2861,
+                "US_East_Coast_North_Europe_1": 576,
+                "North_Europe_South_America_East_Coast": 582
+            },
+            {
+                "date": "2024-11-05",
+                "East_Asia_North_Europe": 4103,
+                "North_Europe_East_Asia": 355,
+                "East_Asia_US_West_Coast": 5149,
+                "US_West_Coast_East_Asia": 706,
+                "East_Asia_South_America_East_Coast": 6832,
+                "North_Europe_US_East_Coast_1": 2855,
+                "US_East_Coast_North_Europe_1": 579,
+                "North_Europe_South_America_East_Coast": 573
+            },
+            {
+                "date": "2024-11-06",
+                "East_Asia_North_Europe": 4098,
+                "North_Europe_East_Asia": 354,
+                "East_Asia_US_West_Coast": 5141,
+                "US_West_Coast_East_Asia": 706,
+                "East_Asia_South_America_East_Coast": 6680,
+                "North_Europe_US_East_Coast_1": 2854,
+                "US_East_Coast_North_Europe_1": 579,
+                "North_Europe_South_America_East_Coast": 565
+            },
+            {
+                "date": "2024-11-07",
+                "East_Asia_North_Europe": 4072,
+                "North_Europe_East_Asia": 356,
+                "East_Asia_US_West_Coast": 5154,
+                "US_West_Coast_East_Asia": 708,
+                "East_Asia_South_America_East_Coast": 6663,
+                "North_Europe_US_East_Coast_1": 2812,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 560
             },
             {
                 "date": "2024-11-08",
-                "XSI_MBCI_Value": 1169
+                "East_Asia_North_Europe": 4067,
+                "North_Europe_East_Asia": 355,
+                "East_Asia_US_West_Coast": 5130,
+                "US_West_Coast_East_Asia": 699,
+                "East_Asia_South_America_East_Coast": 6498,
+                "North_Europe_US_East_Coast_1": 2801,
+                "US_East_Coast_North_Europe_1": 582,
+                "North_Europe_South_America_East_Coast": 565
+            },
+            {
+                "date": "2024-11-11",
+                "East_Asia_North_Europe": 4070,
+                "North_Europe_East_Asia": 354,
+                "East_Asia_US_West_Coast": 5106,
+                "US_West_Coast_East_Asia": 701,
+                "East_Asia_South_America_East_Coast": 6365,
+                "North_Europe_US_East_Coast_1": 2842,
+                "US_East_Coast_North_Europe_1": 590,
+                "North_Europe_South_America_East_Coast": 560
+            },
+            {
+                "date": "2024-11-12",
+                "East_Asia_North_Europe": 4069,
+                "North_Europe_East_Asia": 352,
+                "East_Asia_US_West_Coast": 5096,
+                "US_West_Coast_East_Asia": 701,
+                "East_Asia_South_America_East_Coast": 6345,
+                "North_Europe_US_East_Coast_1": 2842,
+                "US_East_Coast_North_Europe_1": 590,
+                "North_Europe_South_America_East_Coast": 558
+            },
+            {
+                "date": "2024-11-13",
+                "East_Asia_North_Europe": 4048,
+                "North_Europe_East_Asia": 352,
+                "East_Asia_US_West_Coast": 5060,
+                "US_West_Coast_East_Asia": 718,
+                "East_Asia_South_America_East_Coast": 6345,
+                "North_Europe_US_East_Coast_1": 2843,
+                "US_East_Coast_North_Europe_1": 591,
+                "North_Europe_South_America_East_Coast": 557
+            },
+            {
+                "date": "2024-11-14",
+                "East_Asia_North_Europe": 4061,
+                "North_Europe_East_Asia": 348,
+                "East_Asia_US_West_Coast": 5074,
+                "US_West_Coast_East_Asia": 722,
+                "East_Asia_South_America_East_Coast": 6374,
+                "North_Europe_US_East_Coast_1": 2863,
+                "US_East_Coast_North_Europe_1": 579,
+                "North_Europe_South_America_East_Coast": 552
             },
             {
                 "date": "2024-11-15",
-                "XSI_MBCI_Value": 1168
+                "East_Asia_North_Europe": 4125,
+                "North_Europe_East_Asia": 352,
+                "East_Asia_US_West_Coast": 4972,
+                "US_West_Coast_East_Asia": 708,
+                "East_Asia_South_America_East_Coast": 6037,
+                "North_Europe_US_East_Coast_1": 2850,
+                "US_East_Coast_North_Europe_1": 582,
+                "North_Europe_South_America_East_Coast": 550
+            },
+            {
+                "date": "2024-11-18",
+                "East_Asia_North_Europe": 4161,
+                "North_Europe_East_Asia": 351,
+                "East_Asia_US_West_Coast": 4848,
+                "US_West_Coast_East_Asia": 702,
+                "East_Asia_South_America_East_Coast": 5871,
+                "North_Europe_US_East_Coast_1": 2823,
+                "US_East_Coast_North_Europe_1": 577,
+                "North_Europe_South_America_East_Coast": 548
+            },
+            {
+                "date": "2024-11-19",
+                "East_Asia_North_Europe": 4157,
+                "North_Europe_East_Asia": 351,
+                "East_Asia_US_West_Coast": 4769,
+                "US_West_Coast_East_Asia": 697,
+                "East_Asia_South_America_East_Coast": 5835,
+                "North_Europe_US_East_Coast_1": 2817,
+                "US_East_Coast_North_Europe_1": 576,
+                "North_Europe_South_America_East_Coast": 549
+            },
+            {
+                "date": "2024-11-20",
+                "East_Asia_North_Europe": 4140,
+                "North_Europe_East_Asia": 351,
+                "East_Asia_US_West_Coast": 4740,
+                "US_West_Coast_East_Asia": 697,
+                "East_Asia_South_America_East_Coast": 5834,
+                "North_Europe_US_East_Coast_1": 2817,
+                "US_East_Coast_North_Europe_1": 576,
+                "North_Europe_South_America_East_Coast": 546
+            },
+            {
+                "date": "2024-11-21",
+                "East_Asia_North_Europe": 4101,
+                "North_Europe_East_Asia": 351,
+                "East_Asia_US_West_Coast": 4693,
+                "US_West_Coast_East_Asia": 697,
+                "East_Asia_South_America_East_Coast": 5795,
+                "North_Europe_US_East_Coast_1": 2818,
+                "US_East_Coast_North_Europe_1": 577,
+                "North_Europe_South_America_East_Coast": 545
             },
             {
                 "date": "2024-11-22",
-                "XSI_MBCI_Value": 1169
+                "East_Asia_North_Europe": 4094,
+                "North_Europe_East_Asia": 348,
+                "East_Asia_US_West_Coast": 4673,
+                "US_West_Coast_East_Asia": 693,
+                "East_Asia_South_America_East_Coast": 5682,
+                "North_Europe_US_East_Coast_1": 2818,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 547
+            },
+            {
+                "date": "2024-11-25",
+                "East_Asia_North_Europe": 4097,
+                "North_Europe_East_Asia": 345,
+                "East_Asia_US_West_Coast": 4631,
+                "US_West_Coast_East_Asia": 693,
+                "East_Asia_South_America_East_Coast": 5589,
+                "North_Europe_US_East_Coast_1": 2818,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 547
+            },
+            {
+                "date": "2024-11-26",
+                "East_Asia_North_Europe": 4088,
+                "North_Europe_East_Asia": 345,
+                "East_Asia_US_West_Coast": 4581,
+                "US_West_Coast_East_Asia": 691,
+                "East_Asia_South_America_East_Coast": 5608,
+                "North_Europe_US_East_Coast_1": 2818,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 546
+            },
+            {
+                "date": "2024-11-27",
+                "East_Asia_North_Europe": 4099,
+                "North_Europe_East_Asia": 349,
+                "East_Asia_US_West_Coast": 4627,
+                "US_West_Coast_East_Asia": 691,
+                "East_Asia_South_America_East_Coast": 5574,
+                "North_Europe_US_East_Coast_1": 2818,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 550
+            },
+            {
+                "date": "2024-11-28",
+                "East_Asia_North_Europe": 4117,
+                "North_Europe_East_Asia": 349,
+                "East_Asia_US_West_Coast": 4588,
+                "US_West_Coast_East_Asia": 692,
+                "East_Asia_South_America_East_Coast": 5553,
+                "North_Europe_US_East_Coast_1": 2812,
+                "US_East_Coast_North_Europe_1": 572,
+                "North_Europe_South_America_East_Coast": 555
             },
             {
                 "date": "2024-11-29",
-                "XSI_MBCI_Value": 1159
+                "East_Asia_North_Europe": 4085,
+                "North_Europe_East_Asia": 349,
+                "East_Asia_US_West_Coast": 4525,
+                "US_West_Coast_East_Asia": 689,
+                "East_Asia_South_America_East_Coast": 5477,
+                "North_Europe_US_East_Coast_1": 2801,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 553
+            },
+            {
+                "date": "2024-12-02",
+                "East_Asia_North_Europe": 4878,
+                "North_Europe_East_Asia": 336,
+                "East_Asia_US_West_Coast": 4131,
+                "US_West_Coast_East_Asia": 680,
+                "East_Asia_South_America_East_Coast": 5613,
+                "North_Europe_US_East_Coast_1": 2761,
+                "US_East_Coast_North_Europe_1": 571,
+                "North_Europe_South_America_East_Coast": 591
+            },
+            {
+                "date": "2024-12-03",
+                "East_Asia_North_Europe": 4970,
+                "North_Europe_East_Asia": 327,
+                "East_Asia_US_West_Coast": 4132,
+                "US_West_Coast_East_Asia": 677,
+                "East_Asia_South_America_East_Coast": 5665,
+                "North_Europe_US_East_Coast_1": 2769,
+                "US_East_Coast_North_Europe_1": 567,
+                "North_Europe_South_America_East_Coast": 606
+            },
+            {
+                "date": "2024-12-04",
+                "East_Asia_North_Europe": 5034,
+                "North_Europe_East_Asia": 335,
+                "East_Asia_US_West_Coast": 4081,
+                "US_West_Coast_East_Asia": 677,
+                "East_Asia_South_America_East_Coast": 5665,
+                "North_Europe_US_East_Coast_1": 2769,
+                "US_East_Coast_North_Europe_1": 567,
+                "North_Europe_South_America_East_Coast": 607
+            },
+            {
+                "date": "2024-12-05",
+                "East_Asia_North_Europe": 5035,
+                "North_Europe_East_Asia": 336,
+                "East_Asia_US_West_Coast": 4042,
+                "US_West_Coast_East_Asia": 677,
+                "East_Asia_South_America_East_Coast": 5769,
+                "North_Europe_US_East_Coast_1": 2770,
+                "US_East_Coast_North_Europe_1": 567,
+                "North_Europe_South_America_East_Coast": 609
             },
             {
                 "date": "2024-12-06",
-                "XSI_MBCI_Value": 1146
+                "East_Asia_North_Europe": 5108,
+                "North_Europe_East_Asia": 343,
+                "East_Asia_US_West_Coast": 4019,
+                "US_West_Coast_East_Asia": 675,
+                "East_Asia_South_America_East_Coast": 5784,
+                "North_Europe_US_East_Coast_1": 2724,
+                "US_East_Coast_North_Europe_1": 567,
+                "North_Europe_South_America_East_Coast": 588
+            },
+            {
+                "date": "2024-12-09",
+                "East_Asia_North_Europe": 5055,
+                "North_Europe_East_Asia": 344,
+                "East_Asia_US_West_Coast": 4023,
+                "US_West_Coast_East_Asia": 676,
+                "East_Asia_South_America_East_Coast": 5978,
+                "North_Europe_US_East_Coast_1": 2725,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 586
+            },
+            {
+                "date": "2024-12-10",
+                "East_Asia_North_Europe": 5087,
+                "North_Europe_East_Asia": 344,
+                "East_Asia_US_West_Coast": 3998,
+                "US_West_Coast_East_Asia": 676,
+                "East_Asia_South_America_East_Coast": 5978,
+                "North_Europe_US_East_Coast_1": 2726,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 573
+            },
+            {
+                "date": "2024-12-11",
+                "East_Asia_North_Europe": 5042,
+                "North_Europe_East_Asia": 344,
+                "East_Asia_US_West_Coast": 4000,
+                "US_West_Coast_East_Asia": 677,
+                "East_Asia_South_America_East_Coast": 5988,
+                "North_Europe_US_East_Coast_1": 2750,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 573
+            },
+            {
+                "date": "2024-12-12",
+                "East_Asia_North_Europe": 5033,
+                "North_Europe_East_Asia": 343,
+                "East_Asia_US_West_Coast": 3987,
+                "US_West_Coast_East_Asia": 685,
+                "East_Asia_South_America_East_Coast": 6063,
+                "North_Europe_US_East_Coast_1": 2733,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 572
             },
             {
                 "date": "2024-12-13",
-                "XSI_MBCI_Value": 1235
+                "East_Asia_North_Europe": 5033,
+                "North_Europe_East_Asia": 344,
+                "East_Asia_US_West_Coast": 3994,
+                "US_West_Coast_East_Asia": 686,
+                "East_Asia_South_America_East_Coast": 6043,
+                "North_Europe_US_East_Coast_1": 2822,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 573
+            },
+            {
+                "date": "2024-12-16",
+                "East_Asia_North_Europe": 5144,
+                "North_Europe_East_Asia": 344,
+                "East_Asia_US_West_Coast": 4372,
+                "US_West_Coast_East_Asia": 685,
+                "East_Asia_South_America_East_Coast": 6085,
+                "North_Europe_US_East_Coast_1": 2812,
+                "US_East_Coast_North_Europe_1": 577,
+                "North_Europe_South_America_East_Coast": 576
+            },
+            {
+                "date": "2024-12-17",
+                "East_Asia_North_Europe": 5128,
+                "North_Europe_East_Asia": 345,
+                "East_Asia_US_West_Coast": 4391,
+                "US_West_Coast_East_Asia": 688,
+                "East_Asia_South_America_East_Coast": 6035,
+                "North_Europe_US_East_Coast_1": 2814,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 575
+            },
+            {
+                "date": "2024-12-18",
+                "East_Asia_North_Europe": 5085,
+                "North_Europe_East_Asia": 346,
+                "East_Asia_US_West_Coast": 4440,
+                "US_West_Coast_East_Asia": 691,
+                "East_Asia_South_America_East_Coast": 6023,
+                "North_Europe_US_East_Coast_1": 2838,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 574
+            },
+            {
+                "date": "2024-12-19",
+                "East_Asia_North_Europe": 5066,
+                "North_Europe_East_Asia": 347,
+                "East_Asia_US_West_Coast": 4561,
+                "US_West_Coast_East_Asia": 692,
+                "East_Asia_South_America_East_Coast": 6030,
+                "North_Europe_US_East_Coast_1": 2831,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 570
             },
             {
                 "date": "2024-12-20",
-                "XSI_MBCI_Value": 1234
+                "East_Asia_North_Europe": 5060,
+                "North_Europe_East_Asia": 342,
+                "East_Asia_US_West_Coast": 4559,
+                "US_West_Coast_East_Asia": 692,
+                "East_Asia_South_America_East_Coast": 5924,
+                "North_Europe_US_East_Coast_1": 2831,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 571
+            },
+            {
+                "date": "2024-12-23",
+                "East_Asia_North_Europe": 5037,
+                "North_Europe_East_Asia": 342,
+                "East_Asia_US_West_Coast": 4559,
+                "US_West_Coast_East_Asia": 692,
+                "East_Asia_South_America_East_Coast": 5565,
+                "North_Europe_US_East_Coast_1": 2835,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 570
             },
             {
                 "date": "2024-12-27",
-                "XSI_MBCI_Value": 1203
+                "East_Asia_North_Europe": 5027,
+                "North_Europe_East_Asia": 342,
+                "East_Asia_US_West_Coast": 4592,
+                "US_West_Coast_East_Asia": 692,
+                "East_Asia_South_America_East_Coast": 5561,
+                "North_Europe_US_East_Coast_1": 2819,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 571
+            },
+            {
+                "date": "2024-12-30",
+                "East_Asia_North_Europe": 5020,
+                "North_Europe_East_Asia": 342,
+                "East_Asia_US_West_Coast": 4595,
+                "US_West_Coast_East_Asia": 692,
+                "East_Asia_South_America_East_Coast": 5528,
+                "North_Europe_US_East_Coast_1": 2819,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 569
+            },
+            {
+                "date": "2025-01-02",
+                "East_Asia_North_Europe": 4943,
+                "North_Europe_East_Asia": 329,
+                "East_Asia_US_West_Coast": 5672,
+                "US_West_Coast_East_Asia": 694,
+                "East_Asia_South_America_East_Coast": 5933,
+                "North_Europe_US_East_Coast_1": 2844,
+                "US_East_Coast_North_Europe_1": 562,
+                "North_Europe_South_America_East_Coast": 609
             },
             {
                 "date": "2025-01-03",
-                "XSI_MBCI_Value": 1263
+                "East_Asia_North_Europe": 4936,
+                "North_Europe_East_Asia": 313,
+                "East_Asia_US_West_Coast": 5729,
+                "US_West_Coast_East_Asia": 697,
+                "East_Asia_South_America_East_Coast": 5933,
+                "North_Europe_US_East_Coast_1": 2845,
+                "US_East_Coast_North_Europe_1": 566,
+                "North_Europe_South_America_East_Coast": 602
+            },
+            {
+                "date": "2025-01-06",
+                "East_Asia_North_Europe": 4914,
+                "North_Europe_East_Asia": 303,
+                "East_Asia_US_West_Coast": 5684,
+                "US_West_Coast_East_Asia": 694,
+                "East_Asia_South_America_East_Coast": 5953,
+                "North_Europe_US_East_Coast_1": 2810,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 591
+            },
+            {
+                "date": "2025-01-07",
+                "East_Asia_North_Europe": 4923,
+                "North_Europe_East_Asia": 303,
+                "East_Asia_US_West_Coast": 5687,
+                "US_West_Coast_East_Asia": 694,
+                "East_Asia_South_America_East_Coast": 5904,
+                "North_Europe_US_East_Coast_1": 2790,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 590
+            },
+            {
+                "date": "2025-01-08",
+                "East_Asia_North_Europe": 4895,
+                "North_Europe_East_Asia": 303,
+                "East_Asia_US_West_Coast": 5679,
+                "US_West_Coast_East_Asia": 694,
+                "East_Asia_South_America_East_Coast": 5791,
+                "North_Europe_US_East_Coast_1": 2790,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 586
+            },
+            {
+                "date": "2025-01-09",
+                "East_Asia_North_Europe": 4753,
+                "North_Europe_East_Asia": 303,
+                "East_Asia_US_West_Coast": 5530,
+                "US_West_Coast_East_Asia": 700,
+                "East_Asia_South_America_East_Coast": 5779,
+                "North_Europe_US_East_Coast_1": 2790,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 586
             },
             {
                 "date": "2025-01-10",
-                "XSI_MBCI_Value": 1294
+                "East_Asia_North_Europe": 4665,
+                "North_Europe_East_Asia": 292,
+                "East_Asia_US_West_Coast": 5398,
+                "US_West_Coast_East_Asia": 699,
+                "East_Asia_South_America_East_Coast": 5655,
+                "North_Europe_US_East_Coast_1": 2790,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 584
+            },
+            {
+                "date": "2025-01-13",
+                "East_Asia_North_Europe": 4553,
+                "North_Europe_East_Asia": 305,
+                "East_Asia_US_West_Coast": 5335,
+                "US_West_Coast_East_Asia": 699,
+                "East_Asia_South_America_East_Coast": 5621,
+                "North_Europe_US_East_Coast_1": 2776,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 581
+            },
+            {
+                "date": "2025-01-14",
+                "East_Asia_North_Europe": 4550,
+                "North_Europe_East_Asia": 302,
+                "East_Asia_US_West_Coast": 5313,
+                "US_West_Coast_East_Asia": 699,
+                "East_Asia_South_America_East_Coast": 5525,
+                "North_Europe_US_East_Coast_1": 2765,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 586
+            },
+            {
+                "date": "2025-01-15",
+                "East_Asia_North_Europe": 4340,
+                "North_Europe_East_Asia": 296,
+                "East_Asia_US_West_Coast": 5252,
+                "US_West_Coast_East_Asia": 673,
+                "East_Asia_South_America_East_Coast": 4995,
+                "North_Europe_US_East_Coast_1": 2745,
+                "US_East_Coast_North_Europe_1": 559,
+                "North_Europe_South_America_East_Coast": 598
+            },
+            {
+                "date": "2025-01-16",
+                "East_Asia_North_Europe": 4416,
+                "North_Europe_East_Asia": 294,
+                "East_Asia_US_West_Coast": 5291,
+                "US_West_Coast_East_Asia": 673,
+                "East_Asia_South_America_East_Coast": 5016,
+                "North_Europe_US_East_Coast_1": 2749,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 598
             },
             {
                 "date": "2025-01-17",
-                "XSI_MBCI_Value": 1269
+                "East_Asia_North_Europe": 4268,
+                "North_Europe_East_Asia": 293,
+                "East_Asia_US_West_Coast": 5207,
+                "US_West_Coast_East_Asia": 671,
+                "East_Asia_South_America_East_Coast": 4432,
+                "North_Europe_US_East_Coast_1": 2749,
+                "US_East_Coast_North_Europe_1": 553,
+                "North_Europe_South_America_East_Coast": 596
+            },
+            {
+                "date": "2025-01-20",
+                "East_Asia_North_Europe": 4108,
+                "North_Europe_East_Asia": 296,
+                "East_Asia_US_West_Coast": 5205,
+                "US_West_Coast_East_Asia": 665,
+                "East_Asia_South_America_East_Coast": 4330,
+                "North_Europe_US_East_Coast_1": 2809,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 594
+            },
+            {
+                "date": "2025-01-21",
+                "East_Asia_North_Europe": 4061,
+                "North_Europe_East_Asia": 307,
+                "East_Asia_US_West_Coast": 5162,
+                "US_West_Coast_East_Asia": 662,
+                "East_Asia_South_America_East_Coast": 4267,
+                "North_Europe_US_East_Coast_1": 2809,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 594
+            },
+            {
+                "date": "2025-01-22",
+                "East_Asia_North_Europe": 4039,
+                "North_Europe_East_Asia": 307,
+                "East_Asia_US_West_Coast": 5154,
+                "US_West_Coast_East_Asia": 661,
+                "East_Asia_South_America_East_Coast": 4195,
+                "North_Europe_US_East_Coast_1": 2766,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2025-01-23",
+                "East_Asia_North_Europe": 3970,
+                "North_Europe_East_Asia": 307,
+                "East_Asia_US_West_Coast": 5106,
+                "US_West_Coast_East_Asia": 659,
+                "East_Asia_South_America_East_Coast": 4168,
+                "North_Europe_US_East_Coast_1": 2756,
+                "US_East_Coast_North_Europe_1": 554,
+                "North_Europe_South_America_East_Coast": 593
             },
             {
                 "date": "2025-01-24",
-                "XSI_MBCI_Value": 1247
+                "East_Asia_North_Europe": 3925,
+                "North_Europe_East_Asia": 312,
+                "East_Asia_US_West_Coast": 5100,
+                "US_West_Coast_East_Asia": 660,
+                "East_Asia_South_America_East_Coast": 4168,
+                "North_Europe_US_East_Coast_1": 2756,
+                "US_East_Coast_North_Europe_1": 558,
+                "North_Europe_South_America_East_Coast": 600
+            },
+            {
+                "date": "2025-01-27",
+                "East_Asia_North_Europe": 3728,
+                "North_Europe_East_Asia": 308,
+                "East_Asia_US_West_Coast": 5098,
+                "US_West_Coast_East_Asia": 681,
+                "East_Asia_South_America_East_Coast": 4080,
+                "North_Europe_US_East_Coast_1": 2672,
+                "US_East_Coast_North_Europe_1": 560,
+                "North_Europe_South_America_East_Coast": 599
+            },
+            {
+                "date": "2025-01-28",
+                "East_Asia_North_Europe": 3713,
+                "North_Europe_East_Asia": 308,
+                "East_Asia_US_West_Coast": 5056,
+                "US_West_Coast_East_Asia": 673,
+                "East_Asia_South_America_East_Coast": 4033,
+                "North_Europe_US_East_Coast_1": 2636,
+                "US_East_Coast_North_Europe_1": 560,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2025-01-29",
+                "East_Asia_North_Europe": 3707,
+                "North_Europe_East_Asia": 308,
+                "East_Asia_US_West_Coast": 5055,
+                "US_West_Coast_East_Asia": 673,
+                "East_Asia_South_America_East_Coast": 4033,
+                "North_Europe_US_East_Coast_1": 2597,
+                "US_East_Coast_North_Europe_1": 564,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2025-01-30",
+                "East_Asia_North_Europe": 3683,
+                "North_Europe_East_Asia": 307,
+                "East_Asia_US_West_Coast": 5044,
+                "US_West_Coast_East_Asia": 674,
+                "East_Asia_South_America_East_Coast": 4031,
+                "North_Europe_US_East_Coast_1": 2590,
+                "US_East_Coast_North_Europe_1": 564,
+                "North_Europe_South_America_East_Coast": 598
             },
             {
                 "date": "2025-01-31",
-                "XSI_MBCI_Value": 1265
+                "East_Asia_North_Europe": 3696,
+                "North_Europe_East_Asia": 306,
+                "East_Asia_US_West_Coast": 5017,
+                "US_West_Coast_East_Asia": 674,
+                "East_Asia_South_America_East_Coast": 4020,
+                "North_Europe_US_East_Coast_1": 2574,
+                "US_East_Coast_North_Europe_1": 562,
+                "North_Europe_South_America_East_Coast": 596
+            },
+            {
+                "date": "2025-02-03",
+                "East_Asia_North_Europe": 3378,
+                "North_Europe_East_Asia": 251,
+                "East_Asia_US_West_Coast": 4956,
+                "US_West_Coast_East_Asia": 656,
+                "East_Asia_South_America_East_Coast": 3744,
+                "North_Europe_US_East_Coast_1": 2314,
+                "US_East_Coast_North_Europe_1": 563,
+                "North_Europe_South_America_East_Coast": 623
+            },
+            {
+                "date": "2025-02-04",
+                "East_Asia_North_Europe": 3349,
+                "North_Europe_East_Asia": 250,
+                "East_Asia_US_West_Coast": 4958,
+                "US_West_Coast_East_Asia": 656,
+                "East_Asia_South_America_East_Coast": 3731,
+                "North_Europe_US_East_Coast_1": 2321,
+                "US_East_Coast_North_Europe_1": 563,
+                "North_Europe_South_America_East_Coast": 627
+            },
+            {
+                "date": "2025-02-05",
+                "East_Asia_North_Europe": 3250,
+                "North_Europe_East_Asia": 251,
+                "East_Asia_US_West_Coast": 4958,
+                "US_West_Coast_East_Asia": 653,
+                "East_Asia_South_America_East_Coast": 3733,
+                "North_Europe_US_East_Coast_1": 2328,
+                "US_East_Coast_North_Europe_1": 565,
+                "North_Europe_South_America_East_Coast": 633
+            },
+            {
+                "date": "2025-02-06",
+                "East_Asia_North_Europe": 3257,
+                "North_Europe_East_Asia": 255,
+                "East_Asia_US_West_Coast": 4964,
+                "US_West_Coast_East_Asia": 645,
+                "East_Asia_South_America_East_Coast": 3729,
+                "North_Europe_US_East_Coast_1": 2312,
+                "US_East_Coast_North_Europe_1": 565,
+                "North_Europe_South_America_East_Coast": 614
             },
             {
                 "date": "2025-02-07",
-                "XSI_MBCI_Value": 1277
+                "East_Asia_North_Europe": 3237,
+                "North_Europe_East_Asia": 255,
+                "East_Asia_US_West_Coast": 4971,
+                "US_West_Coast_East_Asia": 645,
+                "East_Asia_South_America_East_Coast": 3726,
+                "North_Europe_US_East_Coast_1": 2283,
+                "US_East_Coast_North_Europe_1": 566,
+                "North_Europe_South_America_East_Coast": 604
+            },
+            {
+                "date": "2025-02-10",
+                "East_Asia_North_Europe": 3206,
+                "North_Europe_East_Asia": 255,
+                "East_Asia_US_West_Coast": 4953,
+                "US_West_Coast_East_Asia": 647,
+                "East_Asia_South_America_East_Coast": 3726,
+                "North_Europe_US_East_Coast_1": 2286,
+                "US_East_Coast_North_Europe_1": 571,
+                "North_Europe_South_America_East_Coast": 598
+            },
+            {
+                "date": "2025-02-11",
+                "East_Asia_North_Europe": 3194,
+                "North_Europe_East_Asia": 247,
+                "East_Asia_US_West_Coast": 4906,
+                "US_West_Coast_East_Asia": 647,
+                "East_Asia_South_America_East_Coast": 3726,
+                "North_Europe_US_East_Coast_1": 2303,
+                "US_East_Coast_North_Europe_1": 571,
+                "North_Europe_South_America_East_Coast": 599
+            },
+            {
+                "date": "2025-02-12",
+                "East_Asia_North_Europe": 3139,
+                "North_Europe_East_Asia": 247,
+                "East_Asia_US_West_Coast": 4900,
+                "US_West_Coast_East_Asia": 647,
+                "East_Asia_South_America_East_Coast": 3729,
+                "North_Europe_US_East_Coast_1": 2300,
+                "US_East_Coast_North_Europe_1": 571,
+                "North_Europe_South_America_East_Coast": 627
+            },
+            {
+                "date": "2025-02-13",
+                "East_Asia_North_Europe": 3121,
+                "North_Europe_East_Asia": 248,
+                "East_Asia_US_West_Coast": 4877,
+                "US_West_Coast_East_Asia": 647,
+                "East_Asia_South_America_East_Coast": 3707,
+                "North_Europe_US_East_Coast_1": 2333,
+                "US_East_Coast_North_Europe_1": 572,
+                "North_Europe_South_America_East_Coast": 629
             },
             {
                 "date": "2025-02-14",
-                "XSI_MBCI_Value": 1298
+                "East_Asia_North_Europe": 3065,
+                "North_Europe_East_Asia": 248,
+                "East_Asia_US_West_Coast": 4835,
+                "US_West_Coast_East_Asia": 644,
+                "East_Asia_South_America_East_Coast": 3695,
+                "North_Europe_US_East_Coast_1": 2311,
+                "US_East_Coast_North_Europe_1": 576,
+                "North_Europe_South_America_East_Coast": 634
+            },
+            {
+                "date": "2025-02-17",
+                "East_Asia_North_Europe": 2828,
+                "North_Europe_East_Asia": 247,
+                "East_Asia_US_West_Coast": 4337,
+                "US_West_Coast_East_Asia": 645,
+                "East_Asia_South_America_East_Coast": 3748,
+                "North_Europe_US_East_Coast_1": 2213,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 632
+            },
+            {
+                "date": "2025-02-18",
+                "East_Asia_North_Europe": 2826,
+                "North_Europe_East_Asia": 251,
+                "East_Asia_US_West_Coast": 4215,
+                "US_West_Coast_East_Asia": 645,
+                "East_Asia_South_America_East_Coast": 3726,
+                "North_Europe_US_East_Coast_1": 2213,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 631
+            },
+            {
+                "date": "2025-02-19",
+                "East_Asia_North_Europe": 2800,
+                "North_Europe_East_Asia": 251,
+                "East_Asia_US_West_Coast": 4111,
+                "US_West_Coast_East_Asia": 636,
+                "East_Asia_South_America_East_Coast": 3680,
+                "North_Europe_US_East_Coast_1": 2203,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 629
+            },
+            {
+                "date": "2025-02-20",
+                "East_Asia_North_Europe": 2740,
+                "North_Europe_East_Asia": 251,
+                "East_Asia_US_West_Coast": 4029,
+                "US_West_Coast_East_Asia": 641,
+                "East_Asia_South_America_East_Coast": 3687,
+                "North_Europe_US_East_Coast_1": 2209,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 632
             },
             {
                 "date": "2025-02-21",
-                "XSI_MBCI_Value": 1323
+                "East_Asia_North_Europe": 2723,
+                "North_Europe_East_Asia": 254,
+                "East_Asia_US_West_Coast": 3966,
+                "US_West_Coast_East_Asia": 630,
+                "East_Asia_South_America_East_Coast": 3565,
+                "North_Europe_US_East_Coast_1": 2179,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 632
+            },
+            {
+                "date": "2025-02-24",
+                "East_Asia_North_Europe": 2713,
+                "North_Europe_East_Asia": 248,
+                "East_Asia_US_West_Coast": 3845,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 3499,
+                "North_Europe_US_East_Coast_1": 2182,
+                "US_East_Coast_North_Europe_1": 573,
+                "North_Europe_South_America_East_Coast": 618
+            },
+            {
+                "date": "2025-02-26",
+                "East_Asia_North_Europe": 2717,
+                "North_Europe_East_Asia": 245,
+                "East_Asia_US_West_Coast": 3772,
+                "US_West_Coast_East_Asia": 630,
+                "East_Asia_South_America_East_Coast": 3351,
+                "North_Europe_US_East_Coast_1": 2172,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 619
+            },
+            {
+                "date": "2025-02-27",
+                "East_Asia_North_Europe": 2677,
+                "North_Europe_East_Asia": 246,
+                "East_Asia_US_West_Coast": 3588,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 3353,
+                "North_Europe_US_East_Coast_1": 2177,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 643
             },
             {
                 "date": "2025-02-28",
-                "XSI_MBCI_Value": 1328
+                "East_Asia_North_Europe": 2632,
+                "North_Europe_East_Asia": 247,
+                "East_Asia_US_West_Coast": 3484,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 3290,
+                "North_Europe_US_East_Coast_1": 2182,
+                "US_East_Coast_North_Europe_1": 582,
+                "North_Europe_South_America_East_Coast": 648
+            },
+            {
+                "date": "2025-03-03",
+                "East_Asia_North_Europe": 2773,
+                "North_Europe_East_Asia": 239,
+                "East_Asia_US_West_Coast": 3125,
+                "US_West_Coast_East_Asia": 628,
+                "East_Asia_South_America_East_Coast": 3059,
+                "North_Europe_US_East_Coast_1": 2183,
+                "US_East_Coast_North_Europe_1": 577,
+                "North_Europe_South_America_East_Coast": 605
+            },
+            {
+                "date": "2025-03-04",
+                "East_Asia_North_Europe": 2733,
+                "North_Europe_East_Asia": 239,
+                "East_Asia_US_West_Coast": 3097,
+                "US_West_Coast_East_Asia": 627,
+                "East_Asia_South_America_East_Coast": 3034,
+                "North_Europe_US_East_Coast_1": 2178,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 605
+            },
+            {
+                "date": "2025-03-05",
+                "East_Asia_North_Europe": 2705,
+                "North_Europe_East_Asia": 239,
+                "East_Asia_US_West_Coast": 3071,
+                "US_West_Coast_East_Asia": 627,
+                "East_Asia_South_America_East_Coast": 3004,
+                "North_Europe_US_East_Coast_1": 2179,
+                "US_East_Coast_North_Europe_1": 576,
+                "North_Europe_South_America_East_Coast": 602
+            },
+            {
+                "date": "2025-03-06",
+                "East_Asia_North_Europe": 2704,
+                "North_Europe_East_Asia": 238,
+                "East_Asia_US_West_Coast": 3068,
+                "US_West_Coast_East_Asia": 627,
+                "East_Asia_South_America_East_Coast": 3004,
+                "North_Europe_US_East_Coast_1": 2194,
+                "US_East_Coast_North_Europe_1": 579,
+                "North_Europe_South_America_East_Coast": 601
             },
             {
                 "date": "2025-03-07",
-                "XSI_MBCI_Value": 1319
+                "East_Asia_North_Europe": 2682,
+                "North_Europe_East_Asia": 237,
+                "East_Asia_US_West_Coast": 3027,
+                "US_West_Coast_East_Asia": 615,
+                "East_Asia_South_America_East_Coast": 2894,
+                "North_Europe_US_East_Coast_1": 2207,
+                "US_East_Coast_North_Europe_1": 578,
+                "North_Europe_South_America_East_Coast": 598
+            },
+            {
+                "date": "2025-03-10",
+                "East_Asia_North_Europe": 2493,
+                "North_Europe_East_Asia": 245,
+                "East_Asia_US_West_Coast": 2993,
+                "US_West_Coast_East_Asia": 617,
+                "East_Asia_South_America_East_Coast": 2742,
+                "North_Europe_US_East_Coast_1": 2230,
+                "US_East_Coast_North_Europe_1": 595,
+                "North_Europe_South_America_East_Coast": 593
+            },
+            {
+                "date": "2025-03-11",
+                "East_Asia_North_Europe": 2457,
+                "North_Europe_East_Asia": 243,
+                "East_Asia_US_West_Coast": 2969,
+                "US_West_Coast_East_Asia": 617,
+                "East_Asia_South_America_East_Coast": 2735,
+                "North_Europe_US_East_Coast_1": 2193,
+                "US_East_Coast_North_Europe_1": 595,
+                "North_Europe_South_America_East_Coast": 598
+            },
+            {
+                "date": "2025-03-12",
+                "East_Asia_North_Europe": 2478,
+                "North_Europe_East_Asia": 243,
+                "East_Asia_US_West_Coast": 2905,
+                "US_West_Coast_East_Asia": 617,
+                "East_Asia_South_America_East_Coast": 2678,
+                "North_Europe_US_East_Coast_1": 2176,
+                "US_East_Coast_North_Europe_1": 594,
+                "North_Europe_South_America_East_Coast": 597
+            },
+            {
+                "date": "2025-03-13",
+                "East_Asia_North_Europe": 2421,
+                "North_Europe_East_Asia": 245,
+                "East_Asia_US_West_Coast": 2849,
+                "US_West_Coast_East_Asia": 617,
+                "East_Asia_South_America_East_Coast": 2684,
+                "North_Europe_US_East_Coast_1": 2176,
+                "US_East_Coast_North_Europe_1": 594,
+                "North_Europe_South_America_East_Coast": 610
             },
             {
                 "date": "2025-03-14",
-                "XSI_MBCI_Value": 1335
+                "East_Asia_North_Europe": 2378,
+                "North_Europe_East_Asia": 243,
+                "East_Asia_US_West_Coast": 2802,
+                "US_West_Coast_East_Asia": 615,
+                "East_Asia_South_America_East_Coast": 2657,
+                "North_Europe_US_East_Coast_1": 2187,
+                "US_East_Coast_North_Europe_1": 592,
+                "North_Europe_South_America_East_Coast": 610
+            },
+            {
+                "date": "2025-03-17",
+                "East_Asia_North_Europe": 2337,
+                "North_Europe_East_Asia": 241,
+                "East_Asia_US_West_Coast": 2593,
+                "US_West_Coast_East_Asia": 614,
+                "East_Asia_South_America_East_Coast": 2398,
+                "North_Europe_US_East_Coast_1": 2177,
+                "US_East_Coast_North_Europe_1": 586,
+                "North_Europe_South_America_East_Coast": 613
+            },
+            {
+                "date": "2025-03-18",
+                "East_Asia_North_Europe": 2322,
+                "North_Europe_East_Asia": 252,
+                "East_Asia_US_West_Coast": 2558,
+                "US_West_Coast_East_Asia": 617,
+                "East_Asia_South_America_East_Coast": 2398,
+                "North_Europe_US_East_Coast_1": 2179,
+                "US_East_Coast_North_Europe_1": 587,
+                "North_Europe_South_America_East_Coast": 633
+            },
+            {
+                "date": "2025-03-19",
+                "East_Asia_North_Europe": 2307,
+                "North_Europe_East_Asia": 252,
+                "East_Asia_US_West_Coast": 2564,
+                "US_West_Coast_East_Asia": 617,
+                "East_Asia_South_America_East_Coast": 2219,
+                "North_Europe_US_East_Coast_1": 2184,
+                "US_East_Coast_North_Europe_1": 587,
+                "North_Europe_South_America_East_Coast": 631
+            },
+            {
+                "date": "2025-03-20",
+                "East_Asia_North_Europe": 2271,
+                "North_Europe_East_Asia": 252,
+                "East_Asia_US_West_Coast": 2515,
+                "US_West_Coast_East_Asia": 617,
+                "East_Asia_South_America_East_Coast": 2207,
+                "North_Europe_US_East_Coast_1": 2200,
+                "US_East_Coast_North_Europe_1": 591,
+                "North_Europe_South_America_East_Coast": 629
             },
             {
                 "date": "2025-03-21",
-                "XSI_MBCI_Value": 1345
+                "East_Asia_North_Europe": 2232,
+                "North_Europe_East_Asia": 257,
+                "East_Asia_US_West_Coast": 2505,
+                "US_West_Coast_East_Asia": 616,
+                "East_Asia_South_America_East_Coast": 2090,
+                "North_Europe_US_East_Coast_1": 2193,
+                "US_East_Coast_North_Europe_1": 587,
+                "North_Europe_South_America_East_Coast": 627
+            },
+            {
+                "date": "2025-03-24",
+                "East_Asia_North_Europe": 2213,
+                "North_Europe_East_Asia": 257,
+                "East_Asia_US_West_Coast": 2498,
+                "US_West_Coast_East_Asia": 620,
+                "East_Asia_South_America_East_Coast": 2022,
+                "North_Europe_US_East_Coast_1": 2156,
+                "US_East_Coast_North_Europe_1": 586,
+                "North_Europe_South_America_East_Coast": 626
+            },
+            {
+                "date": "2025-03-25",
+                "East_Asia_North_Europe": 2213,
+                "North_Europe_East_Asia": 257,
+                "East_Asia_US_West_Coast": 2498,
+                "US_West_Coast_East_Asia": 620,
+                "East_Asia_South_America_East_Coast": 2022,
+                "North_Europe_US_East_Coast_1": 2153,
+                "US_East_Coast_North_Europe_1": 586,
+                "North_Europe_South_America_East_Coast": 626
+            },
+            {
+                "date": "2025-03-26",
+                "East_Asia_North_Europe": 2204,
+                "North_Europe_East_Asia": 257,
+                "East_Asia_US_West_Coast": 2488,
+                "US_West_Coast_East_Asia": 620,
+                "East_Asia_South_America_East_Coast": 2016,
+                "North_Europe_US_East_Coast_1": 2151,
+                "US_East_Coast_North_Europe_1": 586,
+                "North_Europe_South_America_East_Coast": 625
+            },
+            {
+                "date": "2025-03-27",
+                "East_Asia_North_Europe": 2196,
+                "North_Europe_East_Asia": 257,
+                "East_Asia_US_West_Coast": 2483,
+                "US_West_Coast_East_Asia": 620,
+                "East_Asia_South_America_East_Coast": 2023,
+                "North_Europe_US_East_Coast_1": 2147,
+                "US_East_Coast_North_Europe_1": 589,
+                "North_Europe_South_America_East_Coast": 626
             },
             {
                 "date": "2025-03-28",
-                "XSI_MBCI_Value": 1346
+                "East_Asia_North_Europe": 2187,
+                "North_Europe_East_Asia": 257,
+                "East_Asia_US_West_Coast": 2479,
+                "US_West_Coast_East_Asia": 620,
+                "East_Asia_South_America_East_Coast": 2011,
+                "North_Europe_US_East_Coast_1": 2129,
+                "US_East_Coast_North_Europe_1": 583,
+                "North_Europe_South_America_East_Coast": 628
+            },
+            {
+                "date": "2025-03-31",
+                "East_Asia_North_Europe": 2183,
+                "North_Europe_East_Asia": 257,
+                "East_Asia_US_West_Coast": 2502,
+                "US_West_Coast_East_Asia": 620,
+                "East_Asia_South_America_East_Coast": 2010,
+                "North_Europe_US_East_Coast_1": 2135,
+                "US_East_Coast_North_Europe_1": 583,
+                "North_Europe_South_America_East_Coast": 626
+            },
+            {
+                "date": "2025-04-01",
+                "East_Asia_North_Europe": 2173,
+                "North_Europe_East_Asia": 221,
+                "East_Asia_US_West_Coast": 2905,
+                "US_West_Coast_East_Asia": 637,
+                "East_Asia_South_America_East_Coast": 1991,
+                "North_Europe_US_East_Coast_1": 2051,
+                "US_East_Coast_North_Europe_1": 569,
+                "North_Europe_South_America_East_Coast": 715
+            },
+            {
+                "date": "2025-04-02",
+                "East_Asia_North_Europe": 2170,
+                "North_Europe_East_Asia": 213,
+                "East_Asia_US_West_Coast": 2905,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 1961,
+                "North_Europe_US_East_Coast_1": 2069,
+                "US_East_Coast_North_Europe_1": 568,
+                "North_Europe_South_America_East_Coast": 705
+            },
+            {
+                "date": "2025-04-03",
+                "East_Asia_North_Europe": 2173,
+                "North_Europe_East_Asia": 224,
+                "East_Asia_US_West_Coast": 2931,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 1961,
+                "North_Europe_US_East_Coast_1": 2139,
+                "US_East_Coast_North_Europe_1": 569,
+                "North_Europe_South_America_East_Coast": 692
             },
             {
                 "date": "2025-04-04",
-                "XSI_MBCI_Value": 1333
+                "East_Asia_North_Europe": 2172,
+                "North_Europe_East_Asia": 219,
+                "East_Asia_US_West_Coast": 2956,
+                "US_West_Coast_East_Asia": 648,
+                "East_Asia_South_America_East_Coast": 1945,
+                "North_Europe_US_East_Coast_1": 2134,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 685
+            },
+            {
+                "date": "2025-04-07",
+                "East_Asia_North_Europe": 2337,
+                "North_Europe_East_Asia": 219,
+                "East_Asia_US_West_Coast": 2973,
+                "US_West_Coast_East_Asia": 648,
+                "East_Asia_South_America_East_Coast": 1884,
+                "North_Europe_US_East_Coast_1": 2117,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 641
+            },
+            {
+                "date": "2025-04-08",
+                "East_Asia_North_Europe": 2280,
+                "North_Europe_East_Asia": 225,
+                "East_Asia_US_West_Coast": 2984,
+                "US_West_Coast_East_Asia": 639,
+                "East_Asia_South_America_East_Coast": 1834,
+                "North_Europe_US_East_Coast_1": 2138,
+                "US_East_Coast_North_Europe_1": 563,
+                "North_Europe_South_America_East_Coast": 635
+            },
+            {
+                "date": "2025-04-09",
+                "East_Asia_North_Europe": 2281,
+                "North_Europe_East_Asia": 226,
+                "East_Asia_US_West_Coast": 2964,
+                "US_West_Coast_East_Asia": 634,
+                "East_Asia_South_America_East_Coast": 1814,
+                "North_Europe_US_East_Coast_1": 2138,
+                "US_East_Coast_North_Europe_1": 563,
+                "North_Europe_South_America_East_Coast": 642
+            },
+            {
+                "date": "2025-04-10",
+                "East_Asia_North_Europe": 2269,
+                "North_Europe_East_Asia": 226,
+                "East_Asia_US_West_Coast": 2951,
+                "US_West_Coast_East_Asia": 625,
+                "East_Asia_South_America_East_Coast": 1809,
+                "North_Europe_US_East_Coast_1": 2150,
+                "US_East_Coast_North_Europe_1": 564,
+                "North_Europe_South_America_East_Coast": 649
             },
             {
                 "date": "2025-04-11",
-                "XSI_MBCI_Value": 1348
+                "East_Asia_North_Europe": 2267,
+                "North_Europe_East_Asia": 227,
+                "East_Asia_US_West_Coast": 2948,
+                "US_West_Coast_East_Asia": 615,
+                "East_Asia_South_America_East_Coast": 1813,
+                "North_Europe_US_East_Coast_1": 2151,
+                "US_East_Coast_North_Europe_1": 557,
+                "North_Europe_South_America_East_Coast": 667
             },
             {
-                "date": "2025-04-18",
-                "XSI_MBCI_Value": 1391
+                "date": "2025-04-14",
+                "East_Asia_North_Europe": 2254,
+                "North_Europe_East_Asia": 230,
+                "East_Asia_US_West_Coast": 2939,
+                "US_West_Coast_East_Asia": 616,
+                "East_Asia_South_America_East_Coast": 1799,
+                "North_Europe_US_East_Coast_1": 2151,
+                "US_East_Coast_North_Europe_1": 559,
+                "North_Europe_South_America_East_Coast": 670
+            },
+            {
+                "date": "2025-04-15",
+                "East_Asia_North_Europe": 2349,
+                "North_Europe_East_Asia": 234,
+                "East_Asia_US_West_Coast": 2878,
+                "US_West_Coast_East_Asia": 614,
+                "East_Asia_South_America_East_Coast": 1957,
+                "North_Europe_US_East_Coast_1": 2151,
+                "US_East_Coast_North_Europe_1": 560,
+                "North_Europe_South_America_East_Coast": 649
+            },
+            {
+                "date": "2025-04-16",
+                "East_Asia_North_Europe": 2378,
+                "North_Europe_East_Asia": 234,
+                "East_Asia_US_West_Coast": 2868,
+                "US_West_Coast_East_Asia": 615,
+                "East_Asia_South_America_East_Coast": 1930,
+                "North_Europe_US_East_Coast_1": 2163,
+                "US_East_Coast_North_Europe_1": 561,
+                "North_Europe_South_America_East_Coast": 654
+            },
+            {
+                "date": "2025-04-22",
+                "East_Asia_North_Europe": 2345,
+                "North_Europe_East_Asia": 237,
+                "East_Asia_US_West_Coast": 2880,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 1981,
+                "North_Europe_US_East_Coast_1": 2163,
+                "US_East_Coast_North_Europe_1": 565,
+                "North_Europe_South_America_East_Coast": 649
+            },
+            {
+                "date": "2025-04-23",
+                "East_Asia_North_Europe": 2343,
+                "North_Europe_East_Asia": 238,
+                "East_Asia_US_West_Coast": 2793,
+                "US_West_Coast_East_Asia": 632,
+                "East_Asia_South_America_East_Coast": 2023,
+                "North_Europe_US_East_Coast_1": 2165,
+                "US_East_Coast_North_Europe_1": 565,
+                "North_Europe_South_America_East_Coast": 643
+            },
+            {
+                "date": "2025-04-24",
+                "East_Asia_North_Europe": 2339,
+                "North_Europe_East_Asia": 234,
+                "East_Asia_US_West_Coast": 2785,
+                "US_West_Coast_East_Asia": 625,
+                "East_Asia_South_America_East_Coast": 2017,
+                "North_Europe_US_East_Coast_1": 2160,
+                "US_East_Coast_North_Europe_1": 584,
+                "North_Europe_South_America_East_Coast": 637
             },
             {
                 "date": "2025-04-25",
-                "XSI_MBCI_Value": 1424
+                "East_Asia_North_Europe": 2315,
+                "North_Europe_East_Asia": 234,
+                "East_Asia_US_West_Coast": 2759,
+                "US_West_Coast_East_Asia": 628,
+                "East_Asia_South_America_East_Coast": 2000,
+                "North_Europe_US_East_Coast_1": 2145,
+                "US_East_Coast_North_Europe_1": 584,
+                "North_Europe_South_America_East_Coast": 637
             },
             {
-                "date": "2025-05-02",
-                "XSI_MBCI_Value": 1424
+                "date": "2025-04-28",
+                "East_Asia_North_Europe": 2288,
+                "North_Europe_East_Asia": 226,
+                "East_Asia_US_West_Coast": 2752,
+                "US_West_Coast_East_Asia": 628,
+                "East_Asia_South_America_East_Coast": 1983,
+                "North_Europe_US_East_Coast_1": 2135,
+                "US_East_Coast_North_Europe_1": 584,
+                "North_Europe_South_America_East_Coast": 646
+            },
+            {
+                "date": "2025-04-29",
+                "East_Asia_North_Europe": 2261,
+                "North_Europe_East_Asia": 229,
+                "East_Asia_US_West_Coast": 2755,
+                "US_West_Coast_East_Asia": 626,
+                "East_Asia_South_America_East_Coast": 1964,
+                "North_Europe_US_East_Coast_1": 2134,
+                "US_East_Coast_North_Europe_1": 575,
+                "North_Europe_South_America_East_Coast": 641
+            },
+            {
+                "date": "2025-04-30",
+                "East_Asia_North_Europe": 2262,
+                "North_Europe_East_Asia": 229,
+                "East_Asia_US_West_Coast": 2749,
+                "US_West_Coast_East_Asia": 614,
+                "East_Asia_South_America_East_Coast": 1964,
+                "North_Europe_US_East_Coast_1": 2122,
+                "US_East_Coast_North_Europe_1": 592,
+                "North_Europe_South_America_East_Coast": 640
+            },
+            {
+                "date": "2025-05-04",
+                "East_Asia_North_Europe": 2087,
+                "North_Europe_East_Asia": 189,
+                "East_Asia_US_West_Coast": 2671,
+                "US_West_Coast_East_Asia": 626,
+                "East_Asia_South_America_East_Coast": 1729,
+                "North_Europe_US_East_Coast_1": 2055,
+                "US_East_Coast_North_Europe_1": 603,
+                "North_Europe_South_America_East_Coast": 692
+            },
+            {
+                "date": "2025-05-05",
+                "East_Asia_North_Europe": 2078,
+                "North_Europe_East_Asia": 189,
+                "East_Asia_US_West_Coast": 2551,
+                "US_West_Coast_East_Asia": 626,
+                "East_Asia_South_America_East_Coast": 1709,
+                "North_Europe_US_East_Coast_1": 2055,
+                "US_East_Coast_North_Europe_1": 604,
+                "North_Europe_South_America_East_Coast": 690
+            },
+            {
+                "date": "2025-05-06",
+                "East_Asia_North_Europe": 2063,
+                "North_Europe_East_Asia": 185,
+                "East_Asia_US_West_Coast": 2588,
+                "US_West_Coast_East_Asia": 623,
+                "East_Asia_South_America_East_Coast": 1708,
+                "North_Europe_US_East_Coast_1": 2053,
+                "US_East_Coast_North_Europe_1": 604,
+                "North_Europe_South_America_East_Coast": 653
+            },
+            {
+                "date": "2025-05-07",
+                "East_Asia_North_Europe": 2056,
+                "North_Europe_East_Asia": 198,
+                "East_Asia_US_West_Coast": 2521,
+                "US_West_Coast_East_Asia": 623,
+                "East_Asia_South_America_East_Coast": 1708,
+                "North_Europe_US_East_Coast_1": 2061,
+                "US_East_Coast_North_Europe_1": 604,
+                "North_Europe_South_America_East_Coast": 628
+            },
+            {
+                "date": "2025-05-08",
+                "East_Asia_North_Europe": 2032,
+                "North_Europe_East_Asia": 198,
+                "East_Asia_US_West_Coast": 2521,
+                "US_West_Coast_East_Asia": 623,
+                "East_Asia_South_America_East_Coast": 1715,
+                "North_Europe_US_East_Coast_1": 2054,
+                "US_East_Coast_North_Europe_1": 604,
+                "North_Europe_South_America_East_Coast": 623
             },
             {
                 "date": "2025-05-09",
-                "XSI_MBCI_Value": 1407
+                "East_Asia_North_Europe": 2033,
+                "North_Europe_East_Asia": 212,
+                "East_Asia_US_West_Coast": 2521,
+                "US_West_Coast_East_Asia": 603,
+                "East_Asia_South_America_East_Coast": 1695,
+                "North_Europe_US_East_Coast_1": 2064,
+                "US_East_Coast_North_Europe_1": 604,
+                "North_Europe_South_America_East_Coast": 609
+            },
+            {
+                "date": "2025-05-12",
+                "East_Asia_North_Europe": 1998,
+                "North_Europe_East_Asia": 214,
+                "East_Asia_US_West_Coast": 2515,
+                "US_West_Coast_East_Asia": 603,
+                "East_Asia_South_America_East_Coast": 1658,
+                "North_Europe_US_East_Coast_1": 2064,
+                "US_East_Coast_North_Europe_1": 595,
+                "North_Europe_South_America_East_Coast": 555
+            },
+            {
+                "date": "2025-05-13",
+                "East_Asia_North_Europe": 1994,
+                "North_Europe_East_Asia": 220,
+                "East_Asia_US_West_Coast": 2523,
+                "US_West_Coast_East_Asia": 614,
+                "East_Asia_South_America_East_Coast": 1666,
+                "North_Europe_US_East_Coast_1": 2068,
+                "US_East_Coast_North_Europe_1": 607,
+                "North_Europe_South_America_East_Coast": 604
+            },
+            {
+                "date": "2025-05-14",
+                "East_Asia_North_Europe": 1995,
+                "North_Europe_East_Asia": 220,
+                "East_Asia_US_West_Coast": 2502,
+                "US_West_Coast_East_Asia": 615,
+                "East_Asia_South_America_East_Coast": 1661,
+                "North_Europe_US_East_Coast_1": 2070,
+                "US_East_Coast_North_Europe_1": 607,
+                "North_Europe_South_America_East_Coast": 601
+            },
+            {
+                "date": "2025-05-15",
+                "East_Asia_North_Europe": 1936,
+                "North_Europe_East_Asia": 214,
+                "East_Asia_US_West_Coast": 2592,
+                "US_West_Coast_East_Asia": 627,
+                "East_Asia_South_America_East_Coast": 1835,
+                "North_Europe_US_East_Coast_1": 2066,
+                "US_East_Coast_North_Europe_1": 620,
+                "North_Europe_South_America_East_Coast": 590
             },
             {
                 "date": "2025-05-16",
-                "XSI_MBCI_Value": 1373
+                "East_Asia_North_Europe": 1917,
+                "North_Europe_East_Asia": 213,
+                "East_Asia_US_West_Coast": 2615,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 1994,
+                "North_Europe_US_East_Coast_1": 2084,
+                "US_East_Coast_North_Europe_1": 620,
+                "North_Europe_South_America_East_Coast": 588
+            },
+            {
+                "date": "2025-05-19",
+                "East_Asia_North_Europe": 1909,
+                "North_Europe_East_Asia": 217,
+                "East_Asia_US_West_Coast": 2736,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 1926,
+                "North_Europe_US_East_Coast_1": 2086,
+                "US_East_Coast_North_Europe_1": 620,
+                "North_Europe_South_America_East_Coast": 589
+            },
+            {
+                "date": "2025-05-20",
+                "East_Asia_North_Europe": 1902,
+                "North_Europe_East_Asia": 214,
+                "East_Asia_US_West_Coast": 2812,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 1918,
+                "North_Europe_US_East_Coast_1": 2082,
+                "US_East_Coast_North_Europe_1": 620,
+                "North_Europe_South_America_East_Coast": 589
+            },
+            {
+                "date": "2025-05-21",
+                "East_Asia_North_Europe": 1886,
+                "North_Europe_East_Asia": 214,
+                "East_Asia_US_West_Coast": 2875,
+                "US_West_Coast_East_Asia": 629,
+                "East_Asia_South_America_East_Coast": 1903,
+                "North_Europe_US_East_Coast_1": 2083,
+                "US_East_Coast_North_Europe_1": 620,
+                "North_Europe_South_America_East_Coast": 592
+            },
+            {
+                "date": "2025-05-22",
+                "East_Asia_North_Europe": 1877,
+                "North_Europe_East_Asia": 215,
+                "East_Asia_US_West_Coast": 2932,
+                "US_West_Coast_East_Asia": 629,
+                "East_Asia_South_America_East_Coast": 2061,
+                "North_Europe_US_East_Coast_1": 2079,
+                "US_East_Coast_North_Europe_1": 620,
+                "North_Europe_South_America_East_Coast": 592
             },
             {
                 "date": "2025-05-23",
-                "XSI_MBCI_Value": 1342
+                "East_Asia_North_Europe": 1874,
+                "North_Europe_East_Asia": 215,
+                "East_Asia_US_West_Coast": 2970,
+                "US_West_Coast_East_Asia": 629,
+                "East_Asia_South_America_East_Coast": 2061,
+                "North_Europe_US_East_Coast_1": 2080,
+                "US_East_Coast_North_Europe_1": 621,
+                "North_Europe_South_America_East_Coast": 595
+            },
+            {
+                "date": "2025-05-26",
+                "East_Asia_North_Europe": 1857,
+                "North_Europe_East_Asia": 217,
+                "East_Asia_US_West_Coast": 2981,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 2124,
+                "North_Europe_US_East_Coast_1": 2064,
+                "US_East_Coast_North_Europe_1": 628,
+                "North_Europe_South_America_East_Coast": 598
+            },
+            {
+                "date": "2025-05-27",
+                "East_Asia_North_Europe": 1862,
+                "North_Europe_East_Asia": 214,
+                "East_Asia_US_West_Coast": 2988,
+                "US_West_Coast_East_Asia": 636,
+                "East_Asia_South_America_East_Coast": 2266,
+                "North_Europe_US_East_Coast_1": 2050,
+                "US_East_Coast_North_Europe_1": 627,
+                "North_Europe_South_America_East_Coast": 591
+            },
+            {
+                "date": "2025-05-28",
+                "East_Asia_North_Europe": 1862,
+                "North_Europe_East_Asia": 215,
+                "East_Asia_US_West_Coast": 2986,
+                "US_West_Coast_East_Asia": 636,
+                "East_Asia_South_America_East_Coast": 2284,
+                "North_Europe_US_East_Coast_1": 2050,
+                "US_East_Coast_North_Europe_1": 626,
+                "North_Europe_South_America_East_Coast": 584
             },
             {
                 "date": "2025-05-30",
-                "XSI_MBCI_Value": 1337
+                "East_Asia_North_Europe": 1833,
+                "North_Europe_East_Asia": 215,
+                "East_Asia_US_West_Coast": 3026,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 2316,
+                "North_Europe_US_East_Coast_1": 2047,
+                "US_East_Coast_North_Europe_1": 634,
+                "North_Europe_South_America_East_Coast": 592
+            },
+            {
+                "date": "2025-06-02",
+                "East_Asia_North_Europe": 2311,
+                "North_Europe_East_Asia": 237,
+                "East_Asia_US_West_Coast": 3910,
+                "US_West_Coast_East_Asia": 643,
+                "East_Asia_South_America_East_Coast": 2588,
+                "North_Europe_US_East_Coast_1": 2134,
+                "US_East_Coast_North_Europe_1": 633,
+                "North_Europe_South_America_East_Coast": 646
+            },
+            {
+                "date": "2025-06-03",
+                "East_Asia_North_Europe": 2317,
+                "North_Europe_East_Asia": 246,
+                "East_Asia_US_West_Coast": 4263,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 2755,
+                "North_Europe_US_East_Coast_1": 2091,
+                "US_East_Coast_North_Europe_1": 630,
+                "North_Europe_South_America_East_Coast": 697
+            },
+            {
+                "date": "2025-06-04",
+                "East_Asia_North_Europe": 2316,
+                "North_Europe_East_Asia": 239,
+                "East_Asia_US_West_Coast": 4901,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 2882,
+                "North_Europe_US_East_Coast_1": 2103,
+                "US_East_Coast_North_Europe_1": 620,
+                "North_Europe_South_America_East_Coast": 671
+            },
+            {
+                "date": "2025-06-05",
+                "East_Asia_North_Europe": 2353,
+                "North_Europe_East_Asia": 237,
+                "East_Asia_US_West_Coast": 5122,
+                "US_West_Coast_East_Asia": 631,
+                "East_Asia_South_America_East_Coast": 2907,
+                "North_Europe_US_East_Coast_1": 2099,
+                "US_East_Coast_North_Europe_1": 621,
+                "North_Europe_South_America_East_Coast": 672
             },
             {
                 "date": "2025-06-06",
-                "XSI_MBCI_Value": 1319
+                "East_Asia_North_Europe": 2373,
+                "North_Europe_East_Asia": 258,
+                "East_Asia_US_West_Coast": 5194,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 2918,
+                "North_Europe_US_East_Coast_1": 2109,
+                "US_East_Coast_North_Europe_1": 627,
+                "North_Europe_South_America_East_Coast": 671
+            },
+            {
+                "date": "2025-06-10",
+                "East_Asia_North_Europe": 2392,
+                "North_Europe_East_Asia": 256,
+                "East_Asia_US_West_Coast": 5261,
+                "US_West_Coast_East_Asia": 632,
+                "East_Asia_South_America_East_Coast": 3343,
+                "North_Europe_US_East_Coast_1": 2106,
+                "US_East_Coast_North_Europe_1": 625,
+                "North_Europe_South_America_East_Coast": 677
+            },
+            {
+                "date": "2025-06-11",
+                "East_Asia_North_Europe": 2398,
+                "North_Europe_East_Asia": 261,
+                "East_Asia_US_West_Coast": 5322,
+                "US_West_Coast_East_Asia": 638,
+                "East_Asia_South_America_East_Coast": 3588,
+                "North_Europe_US_East_Coast_1": 2115,
+                "US_East_Coast_North_Europe_1": 619,
+                "North_Europe_South_America_East_Coast": 670
+            },
+            {
+                "date": "2025-06-12",
+                "East_Asia_North_Europe": 2395,
+                "North_Europe_East_Asia": 272,
+                "East_Asia_US_West_Coast": 5270,
+                "US_West_Coast_East_Asia": 638,
+                "East_Asia_South_America_East_Coast": 3600,
+                "North_Europe_US_East_Coast_1": 2115,
+                "US_East_Coast_North_Europe_1": 619,
+                "North_Europe_South_America_East_Coast": 676
             },
             {
                 "date": "2025-06-13",
-                "XSI_MBCI_Value": 1307
+                "East_Asia_North_Europe": 2457,
+                "North_Europe_East_Asia": 281,
+                "East_Asia_US_West_Coast": 5190,
+                "US_West_Coast_East_Asia": 637,
+                "East_Asia_South_America_East_Coast": 3644,
+                "North_Europe_US_East_Coast_1": 2115,
+                "US_East_Coast_North_Europe_1": 639,
+                "North_Europe_South_America_East_Coast": 674
+            },
+            {
+                "date": "2025-06-16",
+                "East_Asia_North_Europe": 2762,
+                "North_Europe_East_Asia": 281,
+                "East_Asia_US_West_Coast": 5170,
+                "US_West_Coast_East_Asia": 640,
+                "East_Asia_South_America_East_Coast": 4320,
+                "North_Europe_US_East_Coast_1": 2114,
+                "US_East_Coast_North_Europe_1": 648,
+                "North_Europe_South_America_East_Coast": 671
+            },
+            {
+                "date": "2025-06-17",
+                "East_Asia_North_Europe": 2789,
+                "North_Europe_East_Asia": 275,
+                "East_Asia_US_West_Coast": 5051,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 4916,
+                "North_Europe_US_East_Coast_1": 2093,
+                "US_East_Coast_North_Europe_1": 649,
+                "North_Europe_South_America_East_Coast": 663
+            },
+            {
+                "date": "2025-06-18",
+                "East_Asia_North_Europe": 2810,
+                "North_Europe_East_Asia": 275,
+                "East_Asia_US_West_Coast": 4678,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 5230,
+                "North_Europe_US_East_Coast_1": 2093,
+                "US_East_Coast_North_Europe_1": 649,
+                "North_Europe_South_America_East_Coast": 662
+            },
+            {
+                "date": "2025-06-19",
+                "East_Asia_North_Europe": 2809,
+                "North_Europe_East_Asia": 275,
+                "East_Asia_US_West_Coast": 4393,
+                "US_West_Coast_East_Asia": 635,
+                "East_Asia_South_America_East_Coast": 5230,
+                "North_Europe_US_East_Coast_1": 2094,
+                "US_East_Coast_North_Europe_1": 647,
+                "North_Europe_South_America_East_Coast": 660
             },
             {
                 "date": "2025-06-20",
-                "XSI_MBCI_Value": 1289
+                "East_Asia_North_Europe": 2822,
+                "North_Europe_East_Asia": 275,
+                "East_Asia_US_West_Coast": 4195,
+                "US_West_Coast_East_Asia": 634,
+                "East_Asia_South_America_East_Coast": 5230,
+                "North_Europe_US_East_Coast_1": 2097,
+                "US_East_Coast_North_Europe_1": 636,
+                "North_Europe_South_America_East_Coast": 662
+            },
+            {
+                "date": "2025-06-23",
+                "East_Asia_North_Europe": 2834,
+                "North_Europe_East_Asia": 278,
+                "East_Asia_US_West_Coast": 3625,
+                "US_West_Coast_East_Asia": 634,
+                "East_Asia_South_America_East_Coast": 5362,
+                "North_Europe_US_East_Coast_1": 2097,
+                "US_East_Coast_North_Europe_1": 636,
+                "North_Europe_South_America_East_Coast": 663
+            },
+            {
+                "date": "2025-06-24",
+                "East_Asia_North_Europe": 2841,
+                "North_Europe_East_Asia": 278,
+                "East_Asia_US_West_Coast": 3528,
+                "US_West_Coast_East_Asia": 634,
+                "East_Asia_South_America_East_Coast": 5362,
+                "North_Europe_US_East_Coast_1": 2098,
+                "US_East_Coast_North_Europe_1": 636,
+                "North_Europe_South_America_East_Coast": 667
+            },
+            {
+                "date": "2025-06-25",
+                "East_Asia_North_Europe": 2850,
+                "North_Europe_East_Asia": 278,
+                "East_Asia_US_West_Coast": 3319,
+                "US_West_Coast_East_Asia": 634,
+                "East_Asia_South_America_East_Coast": 5567,
+                "North_Europe_US_East_Coast_1": 2098,
+                "US_East_Coast_North_Europe_1": 637,
+                "North_Europe_South_America_East_Coast": 667
+            },
+            {
+                "date": "2025-06-26",
+                "East_Asia_North_Europe": 2854,
+                "North_Europe_East_Asia": 278,
+                "East_Asia_US_West_Coast": 3178,
+                "US_West_Coast_East_Asia": 645,
+                "East_Asia_South_America_East_Coast": 5589,
+                "North_Europe_US_East_Coast_1": 2099,
+                "US_East_Coast_North_Europe_1": 637,
+                "North_Europe_South_America_East_Coast": 667
             },
             {
                 "date": "2025-06-27",
-                "XSI_MBCI_Value": 1294
+                "East_Asia_North_Europe": 2872,
+                "North_Europe_East_Asia": 276,
+                "East_Asia_US_West_Coast": 3122,
+                "US_West_Coast_East_Asia": 641,
+                "East_Asia_South_America_East_Coast": 5604,
+                "North_Europe_US_East_Coast_1": 2099,
+                "US_East_Coast_North_Europe_1": 637,
+                "North_Europe_South_America_East_Coast": 667
+            },
+            {
+                "date": "2025-06-30",
+                "East_Asia_North_Europe": 2880,
+                "North_Europe_East_Asia": 276,
+                "East_Asia_US_West_Coast": 3130,
+                "US_West_Coast_East_Asia": 641,
+                "East_Asia_South_America_East_Coast": 5572,
+                "North_Europe_US_East_Coast_1": 2099,
+                "US_East_Coast_North_Europe_1": 637,
+                "North_Europe_South_America_East_Coast": 668
+            },
+            {
+                "date": "2025-07-01",
+                "East_Asia_North_Europe": 3356,
+                "North_Europe_East_Asia": 229,
+                "East_Asia_US_West_Coast": 2823,
+                "US_West_Coast_East_Asia": 622,
+                "East_Asia_South_America_East_Coast": 6173,
+                "North_Europe_US_East_Coast_1": 1958,
+                "US_East_Coast_North_Europe_1": 577,
+                "North_Europe_South_America_East_Coast": 615
+            },
+            {
+                "date": "2025-07-02",
+                "East_Asia_North_Europe": 3348,
+                "North_Europe_East_Asia": 224,
+                "East_Asia_US_West_Coast": 2774,
+                "US_West_Coast_East_Asia": 622,
+                "East_Asia_South_America_East_Coast": 6405,
+                "North_Europe_US_East_Coast_1": 1970,
+                "US_East_Coast_North_Europe_1": 577,
+                "North_Europe_South_America_East_Coast": 591
+            },
+            {
+                "date": "2025-07-03",
+                "East_Asia_North_Europe": 3354,
+                "North_Europe_East_Asia": 224,
+                "East_Asia_US_West_Coast": 2677,
+                "US_West_Coast_East_Asia": 614,
+                "East_Asia_South_America_East_Coast": 6429,
+                "North_Europe_US_East_Coast_1": 1967,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 590
             },
             {
                 "date": "2025-07-04",
-                "XSI_MBCI_Value": 1352
+                "East_Asia_North_Europe": 3350,
+                "North_Europe_East_Asia": 216,
+                "East_Asia_US_West_Coast": 2640,
+                "US_West_Coast_East_Asia": 614,
+                "East_Asia_South_America_East_Coast": 6429,
+                "North_Europe_US_East_Coast_1": 1967,
+                "US_East_Coast_North_Europe_1": 574,
+                "North_Europe_South_America_East_Coast": 591
+            },
+            {
+                "date": "2025-07-07",
+                "East_Asia_North_Europe": 3373,
+                "North_Europe_East_Asia": 206,
+                "East_Asia_US_West_Coast": 2547,
+                "US_West_Coast_East_Asia": 610,
+                "East_Asia_South_America_East_Coast": 6415,
+                "North_Europe_US_East_Coast_1": 1960,
+                "US_East_Coast_North_Europe_1": 577,
+                "North_Europe_South_America_East_Coast": 589
+            },
+            {
+                "date": "2025-07-08",
+                "East_Asia_North_Europe": 3381,
+                "North_Europe_East_Asia": 237,
+                "East_Asia_US_West_Coast": 2449,
+                "US_West_Coast_East_Asia": 649,
+                "East_Asia_South_America_East_Coast": 6462,
+                "North_Europe_US_East_Coast_1": 1982,
+                "US_East_Coast_North_Europe_1": 622,
+                "North_Europe_South_America_East_Coast": 635
+            },
+            {
+                "date": "2025-07-09",
+                "East_Asia_North_Europe": 3367,
+                "North_Europe_East_Asia": 238,
+                "East_Asia_US_West_Coast": 2423,
+                "US_West_Coast_East_Asia": 652,
+                "East_Asia_South_America_East_Coast": 6840,
+                "North_Europe_US_East_Coast_1": 1991,
+                "US_East_Coast_North_Europe_1": 634,
+                "North_Europe_South_America_East_Coast": 639
+            },
+            {
+                "date": "2025-07-10",
+                "East_Asia_North_Europe": 3378,
+                "North_Europe_East_Asia": 238,
+                "East_Asia_US_West_Coast": 2399,
+                "US_West_Coast_East_Asia": 652,
+                "East_Asia_South_America_East_Coast": 6910,
+                "North_Europe_US_East_Coast_1": 1991,
+                "US_East_Coast_North_Europe_1": 634,
+                "North_Europe_South_America_East_Coast": 637
             },
             {
                 "date": "2025-07-11",
-                "XSI_MBCI_Value": 1379
+                "East_Asia_North_Europe": 3385,
+                "North_Europe_East_Asia": 238,
+                "East_Asia_US_West_Coast": 2392,
+                "US_West_Coast_East_Asia": 648,
+                "East_Asia_South_America_East_Coast": 6899,
+                "North_Europe_US_East_Coast_1": 1991,
+                "US_East_Coast_North_Europe_1": 648,
+                "North_Europe_South_America_East_Coast": 638
+            },
+            {
+                "date": "2025-07-14",
+                "East_Asia_North_Europe": 3388,
+                "North_Europe_East_Asia": 238,
+                "East_Asia_US_West_Coast": 2385,
+                "US_West_Coast_East_Asia": 648,
+                "East_Asia_South_America_East_Coast": 6897,
+                "North_Europe_US_East_Coast_1": 1991,
+                "US_East_Coast_North_Europe_1": 648,
+                "North_Europe_South_America_East_Coast": 637
+            },
+            {
+                "date": "2025-07-15",
+                "East_Asia_North_Europe": 3432,
+                "North_Europe_East_Asia": 235,
+                "East_Asia_US_West_Coast": 2189,
+                "US_West_Coast_East_Asia": 649,
+                "East_Asia_South_America_East_Coast": 6890,
+                "North_Europe_US_East_Coast_1": 1991,
+                "US_East_Coast_North_Europe_1": 648,
+                "North_Europe_South_America_East_Coast": 634
+            },
+            {
+                "date": "2025-07-16",
+                "East_Asia_North_Europe": 3441,
+                "North_Europe_East_Asia": 238,
+                "East_Asia_US_West_Coast": 2204,
+                "US_West_Coast_East_Asia": 646,
+                "East_Asia_South_America_East_Coast": 6827,
+                "North_Europe_US_East_Coast_1": 2004,
+                "US_East_Coast_North_Europe_1": 660,
+                "North_Europe_South_America_East_Coast": 622
+            },
+            {
+                "date": "2025-07-17",
+                "East_Asia_North_Europe": 3430,
+                "North_Europe_East_Asia": 239,
+                "East_Asia_US_West_Coast": 2204,
+                "US_West_Coast_East_Asia": 646,
+                "East_Asia_South_America_East_Coast": 6827,
+                "North_Europe_US_East_Coast_1": 2004,
+                "US_East_Coast_North_Europe_1": 660,
+                "North_Europe_South_America_East_Coast": 616
             },
             {
                 "date": "2025-07-18",
-                "XSI_MBCI_Value": 1415
+                "East_Asia_North_Europe": 3418,
+                "North_Europe_East_Asia": 236,
+                "East_Asia_US_West_Coast": 2243,
+                "US_West_Coast_East_Asia": 641,
+                "East_Asia_South_America_East_Coast": 6849,
+                "North_Europe_US_East_Coast_1": 2004,
+                "US_East_Coast_North_Europe_1": 664,
+                "North_Europe_South_America_East_Coast": 624
+            },
+            {
+                "date": "2025-07-21",
+                "East_Asia_North_Europe": 3419,
+                "North_Europe_East_Asia": 236,
+                "East_Asia_US_West_Coast": 2236,
+                "US_West_Coast_East_Asia": 639,
+                "East_Asia_South_America_East_Coast": 6749,
+                "North_Europe_US_East_Coast_1": 2001,
+                "US_East_Coast_North_Europe_1": 669,
+                "North_Europe_South_America_East_Coast": 626
+            },
+            {
+                "date": "2025-07-22",
+                "East_Asia_North_Europe": 3407,
+                "North_Europe_East_Asia": 233,
+                "East_Asia_US_West_Coast": 2257,
+                "US_West_Coast_East_Asia": 637,
+                "East_Asia_South_America_East_Coast": 6273,
+                "North_Europe_US_East_Coast_1": 1991,
+                "US_East_Coast_North_Europe_1": 649,
+                "North_Europe_South_America_East_Coast": 626
+            }
+        ],
+        "MBCI": [
+            {
+                "date": "2024-07-26",
+                "MBCI_Value": 1278
+            },
+            {
+                "date": "2024-08-02",
+                "MBCI_Value": 1262
+            },
+            {
+                "date": "2024-08-09",
+                "MBCI_Value": 1284
+            },
+            {
+                "date": "2024-08-16",
+                "MBCI_Value": 1195
+            },
+            {
+                "date": "2024-08-23",
+                "MBCI_Value": 1176
+            },
+            {
+                "date": "2024-08-30",
+                "MBCI_Value": 1164
+            },
+            {
+                "date": "2024-09-06",
+                "MBCI_Value": 1147
+            },
+            {
+                "date": "2024-09-13",
+                "MBCI_Value": 1094
+            },
+            {
+                "date": "2024-09-20",
+                "MBCI_Value": 1095
+            },
+            {
+                "date": "2024-09-27",
+                "MBCI_Value": 1097
+            },
+            {
+                "date": "2024-10-04",
+                "MBCI_Value": 1149
+            },
+            {
+                "date": "2024-10-11",
+                "MBCI_Value": 1160
+            },
+            {
+                "date": "2024-10-18",
+                "MBCI_Value": 1183
+            },
+            {
+                "date": "2024-10-25",
+                "MBCI_Value": 1169
+            },
+            {
+                "date": "2024-11-01",
+                "MBCI_Value": 1195
+            },
+            {
+                "date": "2024-11-08",
+                "MBCI_Value": 1169
+            },
+            {
+                "date": "2024-11-15",
+                "MBCI_Value": 1168
+            },
+            {
+                "date": "2024-11-22",
+                "MBCI_Value": 1169
+            },
+            {
+                "date": "2024-11-29",
+                "MBCI_Value": 1159
+            },
+            {
+                "date": "2024-12-06",
+                "MBCI_Value": 1146
+            },
+            {
+                "date": "2024-12-13",
+                "MBCI_Value": 1235
+            },
+            {
+                "date": "2024-12-20",
+                "MBCI_Value": 1234
+            },
+            {
+                "date": "2024-12-27",
+                "MBCI_Value": 1203
+            },
+            {
+                "date": "2025-01-03",
+                "MBCI_Value": 1263
+            },
+            {
+                "date": "2025-01-10",
+                "MBCI_Value": 1294
+            },
+            {
+                "date": "2025-01-17",
+                "MBCI_Value": 1269
+            },
+            {
+                "date": "2025-01-24",
+                "MBCI_Value": 1247
+            },
+            {
+                "date": "2025-01-31",
+                "MBCI_Value": 1265
+            },
+            {
+                "date": "2025-02-07",
+                "MBCI_Value": 1277
+            },
+            {
+                "date": "2025-02-14",
+                "MBCI_Value": 1298
+            },
+            {
+                "date": "2025-02-21",
+                "MBCI_Value": 1323
+            },
+            {
+                "date": "2025-02-28",
+                "MBCI_Value": 1328
+            },
+            {
+                "date": "2025-03-07",
+                "MBCI_Value": 1319
+            },
+            {
+                "date": "2025-03-14",
+                "MBCI_Value": 1335
+            },
+            {
+                "date": "2025-03-21",
+                "MBCI_Value": 1345
+            },
+            {
+                "date": "2025-03-28",
+                "MBCI_Value": 1346
+            },
+            {
+                "date": "2025-04-04",
+                "MBCI_Value": 1333
+            },
+            {
+                "date": "2025-04-11",
+                "MBCI_Value": 1348
+            },
+            {
+                "date": "2025-04-18",
+                "MBCI_Value": 1391
+            },
+            {
+                "date": "2025-04-25",
+                "MBCI_Value": 1424
+            },
+            {
+                "date": "2025-05-02",
+                "MBCI_Value": 1424
+            },
+            {
+                "date": "2025-05-09",
+                "MBCI_Value": 1407
+            },
+            {
+                "date": "2025-05-16",
+                "MBCI_Value": 1373
+            },
+            {
+                "date": "2025-05-23",
+                "MBCI_Value": 1342
+            },
+            {
+                "date": "2025-05-30",
+                "MBCI_Value": 1337
+            },
+            {
+                "date": "2025-06-06",
+                "MBCI_Value": 1319
+            },
+            {
+                "date": "2025-06-13",
+                "MBCI_Value": 1307
+            },
+            {
+                "date": "2025-06-20",
+                "MBCI_Value": 1289
+            },
+            {
+                "date": "2025-06-27",
+                "MBCI_Value": 1294
+            },
+            {
+                "date": "2025-07-04",
+                "MBCI_Value": 1352
+            },
+            {
+                "date": "2025-07-11",
+                "MBCI_Value": 1379
+            },
+            {
+                "date": "2025-07-18",
+                "MBCI_Value": 1415
             }
         ]
     },
@@ -3580,7 +6422,7 @@
         "current": {
             "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 77.59,
+            "LA_Temperature": 77.45,
             "LA_Humidity": 58.0,
             "LA_WindSpeed": 14.97,
             "LA_Pressure": 1016.0,
@@ -3592,8 +6434,8 @@
         "forecast": [
             {
                 "date": "7/23/2025",
-                "min_temp": 67.4,
-                "max_temp": 78.4,
+                "min_temp": 70.7,
+                "max_temp": 77.4,
                 "status": "맑음(clear sky)",
                 "icon": ""
             },
