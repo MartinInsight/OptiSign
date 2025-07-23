@@ -294,7 +294,9 @@ def fetch_and_process_data():
             cols_to_select = [date_col_name_in_df] + [col for col in section_data_col_names if col != date_col_name_in_df]
             
             # Ensure all selected columns actually exist in df_raw_full
-            existing_cols_to_select = [col for col in cols_to_select if col in df_raw_full.columns:
+            existing_cols_to_select = [col for col in cols_to_select if col in df_raw_full.columns]
+            
+            if not existing_cols_to_select:
                 print(f"WARNING: No relevant columns found for section {section_key}. Skipping.")
                 continue
 
