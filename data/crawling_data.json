@@ -1677,10 +1677,10 @@
         "current": {
             "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 76.5,
-            "LA_Humidity": 60.0,
-            "LA_WindSpeed": 9.22,
-            "LA_Pressure": 1017.0,
+            "LA_Temperature": 76.89,
+            "LA_Humidity": 59.0,
+            "LA_WindSpeed": 11.5,
+            "LA_Pressure": 1016.0,
             "LA_Visibility": 6.2,
             "LA_Sunrise": "5:58:02 AM",
             "LA_Sunset": "8:00:34 PM",
@@ -1690,7 +1690,7 @@
             {
                 "date": "7/23/2025",
                 "min_temp": 67.4,
-                "max_temp": 77.7,
+                "max_temp": 77.8,
                 "status": "맑음(clear sky)",
                 "icon": ""
             },
@@ -1725,7 +1725,7 @@
             {
                 "date": "7/28/2025",
                 "min_temp": 67.9,
-                "max_temp": 80.0,
+                "max_temp": 86.3,
                 "status": "맑음(clear sky)",
                 "icon": ""
             }
