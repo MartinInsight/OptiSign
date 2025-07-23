@@ -222,8 +222,8 @@ def fetch_and_process_data():
 
         print(f"DEBUG: DataFrame shape before date parsing and dropna: {df_final.shape}")
         
-        # Explicitly set format for date parsing
-        df_final['date'] = pd.to_datetime(df_final['date'], format='%m/%d/%Y', errors='coerce')
+        # Removed explicit format to allow pandas to infer common date formats like M/D/YYYY
+        df_final['date'] = pd.to_datetime(df_final['date'], errors='coerce') 
         
         # Check for NaT values (unparseable dates)
         nat_dates = df_final[df_final['date'].isna() & df_final['date'].notna()]['date'] # Check original string for NaT
