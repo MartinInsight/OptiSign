@@ -121,6 +121,70 @@
             color: #777;
             font-size: 0.9em;
         }
+        /* New styles for top info slider */
+        .top-info-slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #e9ecef;
+            padding: 15px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            height: 150px; /* Adjust height as needed */
+            display: flex; /* Use flexbox to center content */
+            align-items: center; /* Vertically center */
+            justify-content: center; /* Horizontally center */
+            margin-bottom: 20px;
+        }
+        .top-info-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-size: 1.2em;
+            color: #003A52;
+            flex-direction: column; /* For vertical alignment of content */
+            justify-content: center;
+        }
+        .top-info-slide.active {
+            display: flex; /* Show as flex to center content */
+        }
+        .top-info-slide h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #00657e;
+        }
+        .top-info-slide p {
+            font-size: 1.1em;
+            color: #333;
+        }
+        /* Announcements Section */
+        .announcements-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        .announcements-section h2 {
+            font-size: 1.8em;
+            color: #003A52;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .announcements-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .announcements-list li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            color: #555;
+        }
+        .announcements-list li:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -132,39 +196,59 @@
 
         <div class="dashboard-grid">
             <aside class="sidebar">
-                <h2>World Clocks</h2>
-                <div class="world-clock-item">
-                    <span>Los Angeles</span>
-                    <span id="time-la"></span>
-                </div>
-                <div class="world-clock-item">
-                    <span>New York</span>
-                    <span id="time-ny"></span>
-                </div>
-                <div class="world-clock-item">
-                    <span>Paris</span>
-                    <span id="time-paris"></span>
-                </div>
-                <div class="world-clock-item">
-                    <span>Shanghai</span>
-                    <span id="time-shanghai"></span>
-                </div>
-                <div class="world-clock-item">
-                    <span>Seoul</span>
-                    <span id="time-seoul"></span>
-                </div>
-                <div class="world-clock-item">
-                    <span>Sydney</span>
-                    <span id="time-sydney"></span>
+                <!-- New Top Info Slider Container -->
+                <div class="top-info-slider-container">
+                    <!-- Slide 1: World Clocks -->
+                    <div class="top-info-slide active" id="top-info-slide-1">
+                        <h3>World Clocks</h3>
+                        <div class="world-clock-item">
+                            <span>Los Angeles</span>
+                            <span id="time-la"></span>
+                        </div>
+                        <div class="world-clock-item">
+                            <span>New York</span>
+                            <span id="time-ny"></span>
+                        </div>
+                        <div class="world-clock-item">
+                            <span>Paris</span>
+                            <span id="time-paris"></span>
+                        </div>
+                        <div class="world-clock-item">
+                            <span>Shanghai</span>
+                            <span id="time-shanghai"></span>
+                        </div>
+                        <div class="world-clock-item">
+                            <span>Seoul</span>
+                            <span id="time-seoul"></span>
+                        </div>
+                        <div class="world-clock-item">
+                            <span>Sydney</span>
+                            <span id="time-sydney"></span>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Weather Info (Placeholder) -->
+                    <div class="top-info-slide" id="top-info-slide-2">
+                        <h3>Weather Information</h3>
+                        <p class="placeholder-text">Weather data will be displayed here.</p>
+                    </div>
+
+                    <!-- Slide 3: Exchange Rate Info (Placeholder) -->
+                    <div class="top-info-slide" id="top-info-slide-3">
+                        <h3>Exchange Rates</h3>
+                        <p class="placeholder-text">Exchange rate data will be displayed here.</p>
+                    </div>
                 </div>
                 
-                <!-- Placeholder for Weather Info -->
-                <h2 class="mt-8">Weather Info</h2>
-                <p class="text-gray-500">Weather data will be displayed here.</p>
-
-                <!-- Placeholder for Exchange Rate Info -->
-                <h2 class="mt-8">Exchange Rates</h2>
-                <p class="text-gray-500">Exchange rate data will be displayed here.</p>
+                <!-- Announcements Section -->
+                <div class="announcements-section">
+                    <h2>Announcements</h2>
+                    <ul class="announcements-list">
+                        <li>Important notice 1: Dashboard update scheduled for next week.</li>
+                        <li>Important notice 2: New data sources will be integrated soon.</li>
+                        <li>Important notice 3: Please report any issues to support.</li>
+                    </ul>
+                </div>
             </aside>
 
             <main>
