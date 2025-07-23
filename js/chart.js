@@ -87,25 +87,25 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     };
 
-    // --- Chart Slider Logic ---
-    const chartSlides = document.querySelectorAll('.chart-slide');
-    let currentChartSlide = 0;
-    const chartSlideInterval = 10000; // 10 seconds (in milliseconds)
+    // --- Chart Slider Logic (Auto-cycling removed) ---
+    // const chartSlides = document.querySelectorAll('.chart-slide'); // No longer needed for auto-cycling
+    // let currentChartSlide = 0; // No longer needed for auto-cycling
+    // const chartSlideInterval = 10000; // No longer needed for auto-cycling
 
-    function showChartSlide(index) {
-        chartSlides.forEach((slide, i) => {
-            if (i === index) {
-                slide.classList.add('active');
-            } else {
-                slide.classList.remove('active');
-            }
-        });
-    }
+    // function showChartSlide(index) { // No longer needed for auto-cycling
+    //     chartSlides.forEach((slide, i) => {
+    //         if (i === index) {
+    //             slide.classList.add('active');
+    //         } else {
+    //             slide.classList.remove('active');
+    //         }
+    //     });
+    // }
 
-    function nextChartSlide() {
-        currentChartSlide = (currentChartSlide + 1) % chartSlides.length;
-        showChartSlide(currentChartSlide);
-    }
+    // function nextChartSlide() { // No longer needed for auto-cycling
+    //     currentChartSlide = (currentChartSlide + 1) % chartSlides.length;
+    //     showChartSlide(currentChartSlide);
+    // }
 
     // --- World Clock Logic ---
     // Map of city keys (matching HTML IDs) to IANA time zone identifiers
@@ -295,9 +295,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 dates
             );
 
-            // Start the chart slider after all charts are initialized
-            showChartSlide(currentChartSlide);
-            setInterval(nextChartSlide, chartSlideInterval);
+            // Removed auto-cycling for charts
+            // showChartSlide(currentChartSlide);
+            // setInterval(nextChartSlide, chartSlideInterval);
 
         } catch (error) {
             console.error("Error loading or processing JSON data:", error);
