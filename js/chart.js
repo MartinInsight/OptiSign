@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 plugins: {
                     legend: {
                         display: true,
-                        position: 'top'
+                        position: 'right' // Changed legend position to 'right'
                     },
                     tooltip: {
                         mode: 'index',
@@ -192,24 +192,24 @@ document.addEventListener('DOMContentLoaded', () => {
             // Chart 3: WCI Composite Index (Shanghai → Rotterdam)
             productSalesChart = setupChart(
                 'productSalesChart', 'line', 'WCI Shanghai → Rotterdam ($/FEU)',
-                rawData.map(item => item.Shanghai_Rotterdam),
+                rawData.map(item => item.Shanghai_Rotterdam_WCI), // Corrected: use Shanghai_Rotterdam_WCI
                 'rgba(0, 101, 126, 0.6)', // Teal
                 '#00657e', // Darker Teal
                 dates
             );
 
-            // Chart 4: IACI Composite Index
+            // Chart 4: IACI Composite Index - Changed to 'line' type
             inventoryChart = setupChart(
-                'inventoryChart', 'bar', 'IACI Composite Index',
+                'inventoryChart', 'line', 'IACI Composite Index', // Changed type to 'line'
                 rawData.map(item => item.IACI_Composite_Index),
                 'rgba(0, 58, 82, 0.6)', // Navy
                 '#003A52', // Darker Navy
                 dates
             );
 
-            // Chart 5: BLANK_SAILING Total
+            // Chart 5: BLANK_SAILING Total - Changed to 'bar' type
             satisfactionChart = setupChart(
-                'satisfactionChart', 'line', 'Total Blank Sailings',
+                'satisfactionChart', 'bar', 'Total Blank Sailings', // Changed type to 'bar'
                 rawData.map(item => item.Total_Blank_Sailings),
                 'rgba(0, 101, 126, 0.7)', // Teal
                 '#00657e', // Darker Teal
@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Chart 6: FBX China/East Asia → US West Coast
             trafficChart = setupChart(
                 'trafficChart', 'bar', 'FBX China/EA → US West Coast ($/FEU)',
-                rawData.map(item => item.China_EA_US_West_Coast),
+                rawData.map(item => item.China_EA_US_West_Coast_FBX), // Corrected: use China_EA_US_West_Coast_FBX
                 'rgba(0, 58, 82, 0.7)', // Navy
                 '#003A52', // Darker Navy
                 dates
@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Chart 7: XSI East Asia → North Europe
             productivityChart = setupChart(
                 'productivityChart', 'line', 'XSI East Asia → North Europe ($/FEU)',
-                rawData.map(item => item.East_Asia_North_Europe_XSI),
+                rawData.map(item => item.XSI_East_Asia_North_Europe), // Corrected: use XSI_East_Asia_North_Europe
                 'rgba(0, 101, 126, 0.6)', // Teal
                 '#00657e', // Darker Teal
                 dates
