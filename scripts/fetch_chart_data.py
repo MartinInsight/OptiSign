@@ -22,11 +22,12 @@ OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping Definitions ---
 # These are for standard columnar data. IACI will be handled by specific column renaming.
+# We will now assume the main header row is the one containing "date" (typically row 1, index 1)
+# and ignore the very first row (index 0) for header parsing.
 SECTION_MARKER_SEQUENCE = [
     ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
     ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
     ("종합지수와 각 항로별($/FEU)", "WCI"),
-    # "IACI" is a section marker in row 0, but its data column will be renamed based on its position
     ("Index", "BLANK_SAILING"),
     ("종합지수와 각 항로별($/FEU)", "FBX"),
     ("각 항로별($/FEU)", "XSI"),
@@ -98,7 +99,7 @@ SPECIFIC_RENAMES = {
 def fetch_and_process_data():
     """
     Fetches data from Google Sheet, processes it, and saves it as a JSON file.
-    Handles both columnar data and special transposed IACI data.
+    Handles columnar data by identifying the main header row.
     """
     if not SPREADSHEET_ID or not GOOGLE_CREDENTIAL_JSON:
         print("Error: SPREADSHEET_ID or GOOGLE_CREDENTIAL_JSON environment variables are not set.")
@@ -120,32 +121,23 @@ def fetch_and_process_data():
             return
 
         main_header_row_index = -1
-        iaci_section_col_index = -1 # Index of the "IACI" header in row 0
         
-        # Find relevant row and column indices
-        for i, row in enumerate(all_data):
-            # Find the main header row by looking for "date" (case-insensitive, trimmed)
+        # Find the main header row by looking for "date" (case-insensitive, trimmed)
+        # We start searching from the second row (index 1) as the first row is just section names
+        for i in range(1, len(all_data)): # Start from index 1 (Row 2 in Google Sheet)
+            row = all_data[i]
             if any(cell.strip().lower() == "date" for cell in row):
                 main_header_row_index = i
-            
-            # Search for "IACI" header in the first row (index 0)
-            if i == 0: # Assuming IACI section header is in the very first row
-                print(f"DEBUG: Contents of the first row (index 0): {row}")
-                for col_idx, cell_value in enumerate(row):
-                    if cell_value.strip() == "IACI":
-                        iaci_section_col_index = col_idx
-                        break # Found IACI section header, no need to continue in this row
+                break
 
         print(f"DEBUG: Main header row index: {main_header_row_index}")
-        print(f"DEBUG: IACI section column index (from row 0): {iaci_section_col_index}")
-
 
         if main_header_row_index == -1:
             print("Error: Could not find the main header row containing 'date'.")
             return
 
         # --- Process Main Columnar Data ---
-        # Get the actual header row for columnar data
+        # Get the actual header row for columnar data from the identified main_header_row_index
         raw_headers_original = [h.strip().replace('"', '') for h in all_data[main_header_row_index]]
         
         final_column_names = []
@@ -153,40 +145,48 @@ def fetch_and_process_data():
         empty_col_counter = 0
         seen_final_names_set = set()
 
-        for col_idx, h_orig in enumerate(raw_headers_original): # Use col_idx for potential IACI mapping
+        # New logic to handle IACI:
+        # Based on the user's previous JSON output and sheet image,
+        # the IACI values seem to be in a column that was previously mapped to 'WCI_Composite_Index_1'
+        # and its date is the main 'date' column.
+        # We will explicitly look for 'WCI_Composite_Index_1' and rename it to 'IACI_Composite_Index'.
+        # We also need to map the header for the IACI date, which is the main 'date' column itself.
+
+        # First, process the column names, specifically handling the IACI column
+        for col_idx, h_orig in enumerate(raw_headers_original):
             cleaned_h_orig = h_orig.strip().replace('"', '')
             final_name_candidate = cleaned_h_orig
 
-            # Special handling for IACI: if this column is directly under the "IACI" section header in row 0,
-            # and it's a "Composite_Index" type, rename it to IACI_Composite_Index.
-            # This assumes IACI data is in the column immediately following the "IACI" section header,
-            # or a known offset.
-            # Based on the log, "IACI" is at col 41, and the IACI data is likely at col 44 ('WCI_Composite_Index_1' in previous JSON)
-            # which is 3 columns after the 'IACI' section header (41 + 3 = 44).
-            # Let's assume the IACI value column is at `iaci_section_col_index + 3` relative to the main header row.
-            # This is a bit fragile, but necessary given the complex header structure.
-            # A more robust way would be to find the "종합지수" header *within* the IACI section's data.
+            # Check if this column is the one that should be IACI_Composite_Index
+            # This is a heuristic based on previous debug output where IACI values appeared under WCI_Composite_Index_1
+            # A more robust way would be to find the column that corresponds to the "종합지수" under the "IACI" section.
+            # Given the image, the "종합지수" under "IACI" seems to be in column AS (index 44).
+            # The 'date' column is in AR (index 43).
+            # So, if the current column is at index 44, we can assume it's IACI's value.
+            # This is still a bit fragile if the sheet layout changes significantly.
             
-            # Let's simplify: if the current column index in the main header row is the one
-            # that corresponds to the IACI values, rename it.
-            # From the log, IACI is at col 41 in row 0. The main header row (row 1) starts at col 0.
-            # The IACI data values are in the column that ends up as 'WCI_Composite_Index_1' in the JSON.
-            # We need to find the column index in `raw_headers_original` that corresponds to this.
-            # If `IACI` is at col 41 in row 0, and `date` is at col 43 in row 1, and `WCI_Composite_Index_1` is at col 44 in row 1.
-            # This means the IACI values are in the column at index 44 in the raw_headers_original list.
-            if iaci_section_col_index != -1 and col_idx == iaci_section_col_index + 3: # Assuming fixed offset
+            # Let's assume 'date' is at index 43, and IACI_Composite_Index is at index 44.
+            # We need to ensure that the column at index 44 (AS) is correctly identified.
+            # The 'date' column (AR) is already handled by `elif cleaned_h_orig == 'date':`
+            
+            # We need to find the specific header in raw_headers_original that corresponds to the IACI value.
+            # From the image, the column AS has "종합지수" as its header in the second row (index 1).
+            # So, if the column header is "종합지수" AND it's at index 44 (AS), then it's IACI.
+            # This requires knowing the exact column index for "종합지수" for IACI.
+            # Let's assume the "종합지수" at index 44 (AS) is the IACI one.
+            # This is a fixed index assumption based on the image.
+            if col_idx == 44 and cleaned_h_orig == "종합지수": # Column AS (index 44) for "종합지수"
                 final_name_candidate = "IACI_Composite_Index"
-                current_section_prefix = "" # Clear prefix as it's a specific rename
-                print(f"DEBUG: Renaming column at index {col_idx} from '{cleaned_h_orig}' to '{final_name_candidate}' (IACI).")
+                print(f"DEBUG: Explicitly renaming column at index {col_idx} from '{cleaned_h_orig}' to '{final_name_candidate}' (IACI).")
             else:
                 found_section_marker_in_sequence = False
-                for i in range(len(SECTION_MARKER_SEQUENCE)): # Iterate from start for each header
+                for i in range(len(SECTION_MARKER_SEQUENCE)):
                     marker_string, marker_prefix_base = SECTION_MARKER_SEQUENCE[i]
                     if cleaned_h_orig == marker_string:
                         current_section_prefix = f"{marker_prefix_base}_"
                         if marker_prefix_base == "BLANK_SAILING":
-                            final_name_candidate = "Date_Blank_Sailing" # This is a date column for Blank Sailing
-                            current_section_prefix = "" # No prefix for subsequent columns in this section
+                            final_name_candidate = "Date_Blank_Sailing"
+                            current_section_prefix = ""
                         else:
                             final_name_candidate = f"{marker_prefix_base}_Container_Index" 
                         found_section_marker_in_sequence = True
@@ -219,46 +219,38 @@ def fetch_and_process_data():
             seen_final_names_set.add(final_unique_name)
             final_column_names.append(final_unique_name)
 
-        print(f"DEBUG: Main DataFrame column names: {final_column_names}")
+        print(f"DEBUG: Final DataFrame column names after mapping: {final_column_names}")
 
-        main_data_rows = []
-        # Start from the row *after* the main header row
-        for i, row in enumerate(all_data[main_header_row_index + 1:]):
-            main_data_rows.append(row)
+        # Data rows start from main_header_row_index + 1
+        data_rows_raw = all_data[main_header_row_index + 1:]
         
-        # Adjust for potential length mismatches for main data
-        processed_main_data_rows = []
-        num_expected_main_cols = len(final_column_names)
-        for i, row in enumerate(main_data_rows):
+        processed_data_rows = []
+        num_expected_cols = len(final_column_names)
+        for i, row in enumerate(data_rows_raw):
             cleaned_row = [str(cell) if cell is not None else '' for cell in row]
-            if len(cleaned_row) < num_expected_main_cols:
-                padded_row = cleaned_row + [''] * (num_expected_main_cols - len(cleaned_row))
-                processed_main_data_rows.append(padded_row)
-            elif len(cleaned_row) > num_expected_main_cols:
-                truncated_row = cleaned_row[:num_expected_main_cols]
-                processed_main_data_rows.append(truncated_row)
+            if len(cleaned_row) < num_expected_cols:
+                padded_row = cleaned_row + [''] * (num_expected_cols - len(cleaned_row))
+                processed_data_rows.append(padded_row)
+            elif len(cleaned_row) > num_expected_cols:
+                truncated_row = cleaned_row[:num_expected_cols]
+                processed_data_rows.append(truncated_row)
             else:
-                processed_main_data_rows.append(cleaned_row)
+                processed_data_rows.append(cleaned_row)
 
-        df_main = pd.DataFrame(processed_main_data_rows, columns=final_column_names)
+        df_final = pd.DataFrame(processed_data_rows, columns=final_column_names)
         
-        # --- Removed separate IACI DataFrame processing and merging ---
-        # Now IACI data is expected to be part of df_main after column renaming.
-        
-        # Ensure IACI_Composite_Index column exists even if no data was found at all
-        if 'IACI_Composite_Index' not in df_main.columns:
-            df_main['IACI_Composite_Index'] = None
+        # Ensure IACI_Composite_Index column exists even if no data was found
+        if 'IACI_Composite_Index' not in df_final.columns:
+            df_final['IACI_Composite_Index'] = None
 
+        # Clean up empty columns that might still exist
+        cols_to_drop = [col for col in df_final.columns if col.startswith('_EMPTY_COL_')]
+        if cols_to_drop:
+            print(f"DEBUG: Dropping empty columns: {cols_to_drop}")
+            df_final.drop(columns=cols_to_drop, inplace=True, errors='ignore')
 
-        # Clean up other temporary date columns if they were created and not used as primary 'date'
-        temp_date_cols = ['IACI_Date_Column', 'Date_Blank_Sailing', '_EMPTY_COL_0']
-        for col in temp_date_cols:
-            if col in df_main.columns:
-                df_main.drop(columns=[col], inplace=True, errors='ignore')
-
-
-        df_main.dropna(subset=['date'], inplace=True)
-        df_final = df_main.sort_values(by='date', ascending=True) # df_final is now just df_main
+        df_final.dropna(subset=['date'], inplace=True)
+        df_final = df_final.sort_values(by='date', ascending=True)
         df_final['date'] = df_final['date'].dt.strftime('%Y-%m-%d')
 
         if df_final['date'].empty:
@@ -267,7 +259,6 @@ def fetch_and_process_data():
         # --- Convert all numeric columns ---
         numeric_cols = [col for col in df_final.columns if col != 'date']
         
-        # Convert to numeric, handling commas and coercing errors
         for col in numeric_cols:
             df_final[col] = pd.to_numeric(df_final[col].astype(str).str.replace(',', ''), errors='coerce')
         
