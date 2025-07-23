@@ -193,10 +193,7 @@ def fetch_and_process_data():
             date_col_name = 'date'
         elif 'Date_Blank_Sailing' in df.columns and not df['Date_Blank_Sailing'].empty and df['Date_Blank_Sailing'].astype(str).str.strip().any():
             date_col_name = 'Date_Blank_Sailing'
-        elif '_EMPTY_COL_4' in df.columns and not df['_EMPTY_COL_4'].empty and df['_EMPTY_COL_4'].astype(str).str.strip().any():
-             # This is a guess based on the raw headers provided earlier, where 'date' was at index 44 (0-indexed)
-             # which could become _EMPTY_COL_4 if the header before it was empty.
-            date_col_name = '_EMPTY_COL_4' # This needs to be the actual header name pandas uses
+        # Removed _EMPTY_COL_4 fallback for date_col_name as it's a guess and might be incorrect.
 
         if date_col_name:
             # Convert to datetime, coercing errors (invalid dates become NaT)
@@ -215,10 +212,12 @@ def fetch_and_process_data():
             # If no date column, consider using row index or a different approach for X-axis in JS.
             # For now, we proceed without a dedicated 'date' column if it's missing or invalid.
 
-        # --- NEW LOGIC: Convert all numeric columns in one go using apply ---
+        # --- NEW LOGIC: Convert all numeric columns by iterating and handling commas ---
         numeric_cols = [col for col in df.columns if col != 'date']
-        # Apply pd.to_numeric to each of the selected columns
-        df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
+        for col in numeric_cols:
+            # Convert to string first to handle potential non-string types that might have commas (e.g., numbers from sheet)
+            # Then remove commas and convert to numeric
+            df[col] = df[col].astype(str).str.replace(',', '', regex=False).apply(pd.to_numeric, errors='coerce')
         # --- END NEW LOGIC ---
 
         df = df.fillna(value=None)
