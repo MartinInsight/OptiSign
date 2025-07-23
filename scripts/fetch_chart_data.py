@@ -209,12 +209,12 @@ def fetch_and_process_data():
         else:
             print("Warning: No recognized date column found in the DataFrame or it contains no valid dates. Charts might not display correctly.")
 
-        # --- NEW LOGIC: Convert all numeric columns by iterating and using a direct string method ---
+        # --- NEW LOGIC: Convert all numeric columns using apply with a lambda function ---
         numeric_cols = [col for col in df.columns if col != 'date']
         for col in numeric_cols:
-            # Convert the Series to string type, then replace commas, then convert to numeric
-            # This ensures .str accessor is available
-            df[col] = pd.to_numeric(df[col].astype(str).str.replace(',', '', regex=False), errors='coerce')
+            # Apply a lambda function to each element of the Series
+            # This converts to string, removes commas, then converts to numeric
+            df[col] = df[col].apply(lambda x: pd.to_numeric(str(x).replace(',', ''), errors='coerce'))
         # --- END NEW LOGIC ---
 
         df = df.fillna(value=None)
