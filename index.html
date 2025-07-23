@@ -17,8 +17,21 @@
         </header>
 
         <div class="dashboard-grid">
-            <aside class="sidebar">
-                <!-- Top Info Slider Container -->
+            <!-- Main content area (charts and announcements) -->
+            <main>
+                <!-- Announcements Section - Moved to the top of main content -->
+                <div class="announcements-section">
+                    <h2>Announcements</h2>
+                    <ul class="announcements-list">
+                        <li>식사 후 건더기를 제외한 **국물은 그라인더를 켠 상태로 싱크대**에 비워주시고 나머지 **쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통**에 버려주세요.</li>
+                        <li>버리러 갈 때는 **Warehouse 계단이 아닌 Office 계단을 통해 이동**해주시고 한 쪽에 쓰레기가 몰리지 않도록 **2개의 쓰레기 통에 적절히 분배**해주세요.</li>
+                        <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 **본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지**해주세요.</li>
+                        <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 **퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.**</li>
+                        <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 **책상의 먼지 및 얼룩을 닦아서 제거**해주세요.</li>
+                    </ul>
+                </div>
+
+                <!-- Top Info Slider Container (World Clock, Weather, Exchange Rate) -->
                 <div class="top-info-slider-container">
                     <!-- Slide 1: World Clocks -->
                     <div class="top-info-slide active" id="top-info-slide-1">
@@ -95,20 +108,7 @@
                     </div>
                 </div>
                 
-                <!-- Announcements Section -->
-                <div class="announcements-section">
-                    <h2>Announcements</h2>
-                    <ul class="announcements-list">
-                        <li>식사후 건더기를 제외한 국물은 그라인더를 켠 상태로 싱크대에 비워주시고 나머지 쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통에 버려주세요.</li>
-                        <li>버리러 갈 때는 Warehouse 계단이 아닌 Office 계단을 통해 이동해주시고 한 쪽에 쓰레기가 몰리지 않도록 2개의 쓰레기 통에 적절히 분배해주세요.</li>
-                        <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지해주세요.</li>
-                        <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.</li>
-                        <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 책상의 먼지 및 얼룩을 닦아서 제거해주세요.</li>
-                    </ul>
-                </div>
-            </aside>
-
-            <main>
+                <!-- Chart Slider Container -->
                 <div class="chart-slider-container">
                     <!-- Chart 1: KCCI Composite Index & Routes -->
                     <div class="chart-slide active" id="chart-slide-1">
@@ -191,6 +191,10 @@
                     </div>
                 </div>
             </main>
+            <!-- Sidebar is now empty or can be removed if not needed -->
+            <aside class="sidebar">
+                <!-- This sidebar is now empty as content has been moved to main -->
+            </aside>
         </div>
 
         <footer>
