@@ -31,11 +31,12 @@ SECTION_MARKERS = {
     "IACIdate종합지수": "IACI",
     "FBX종합지수와 각 항로별($/FEU)": "FBX",
     "각 항로별($/FEU)": "XSI", # This is the section header for XSI
-    "Index(종합지수), $/day(정기용선, Time charter)MBCI": "MBCI"
+    "Index(종합지수), $/day(정기용선, Time charter)": "MBCI" # Corrected MBCI section header
 }
 
-# Maps common data headers to their base English names (without section prefix)
-BASE_NAME_MAP = {
+# Maps common data headers that appear in multiple sections to their base English names
+# (these will then be prefixed by section, e.g., KCCI_Composite_Index, SCFI_Composite_Index)
+COMMON_DATA_HEADERS_TO_PREFIX = {
     "종합지수": "Composite_Index",
     "미주서안": "US_West_Coast",
     "미주동안": "US_East_Coast",
@@ -51,13 +52,18 @@ BASE_NAME_MAP = {
     "일본": "Japan",
     "동남아시아": "Southeast_Asia",
     "북유럽": "North_Europe",
-    "호주/뉴질랜드": "Australia_New_Zealand",
-    "남아메리카": "South_America",
-    "일본서안": "Japan_West_Coast",
-    "일본동안": "Japan_East_Coast",
-    "한국": "Korea",
-    "동부/서부 아프리카": "East_West_Africa",
-    "남아공": "South_Africa",
+    "MBCI": "MBCI_Value" # This is a data column, not a section header.
+}
+
+# Specific mappings for headers that are unique but we want to rename for clarity
+SPECIFIC_RENAMES = {
+    "호주/뉴질랜드": "Australia_New_Zealand_SCFI", # Unique, but good to add section for clarity
+    "남아메리카": "South_America_SCFI", # Unique, but good to add section for clarity
+    "일본서안": "Japan_West_Coast_SCFI",
+    "일본동안": "Japan_East_Coast_SCFI",
+    "한국": "Korea_SCFI",
+    "동부/서부 아프리카": "East_West_Africa_SCFI",
+    "남아공": "South_Africa_SCFI",
     "상하이 → 로테르담": "Shanghai_Rotterdam",
     "로테르담 → 상하이": "Rotterdam_Shanghai",
     "상하이 → 제노바": "Shanghai_Genoa",
@@ -67,30 +73,31 @@ BASE_NAME_MAP = {
     "뉴욕 → 로테르담": "New_York_Rotterdam",
     "로테르담 → 뉴욕": "Rotterdam_New_York",
     "Gemini Cooperation": "Gemini_Cooperation",
-    "MSC": "MSC_Alliance", # Renamed to avoid conflict with MSC_Blank_Sailing
+    "MSC": "MSC_Alliance",
     "OCEAN Alliance": "OCEAN_Alliance",
     "Premier Alliance": "Premier_Alliance",
     "Others/Independent": "Others_Independent",
-    "Total": "Total",
-    "중국/동아시아 → 미주서안": "China_EA_US_West_Coast",
-    "미주서안 → 중국/동아시아": "US_West_Coast_China_EA",
-    "중국/동아시아 → 미주동안": "China_EA_US_East_Coast",
-    "미주동안 → 중국/동아시아": "US_East_Coast_China_EA",
-    "중국/동아시아 → 북유럽": "China_EA_North_Europe",
-    "북유럽 → 중국/동아시아": "North_Europe_China_EA",
-    "중국/동아시아 → 지중해": "China_EA_Mediterranean",
-    "지중해 → 중국/동아시아": "Mediterranean_China_EA",
-    "미주동안 → 북유럽": "US_East_Coast_North_Europe",
-    "북유럽 → 미주동안": "North_Europe_US_East_Coast",
-    "유럽 → 남미동안": "Europe_South_America_East_Coast",
-    "유럽 → 남미서안": "Europe_South_America_West_Coast",
-    "동아시아 → 북유럽": "East_Asia_North_Europe",
-    "북유럽 → 동아시아": "North_Europe_East_Asia",
-    "동아시아 → 미주서안": "East_Asia_US_West_Coast",
-    "미주서안 → 동아시아": "US_West_Coast_East_Asia",
-    "동아시아 → 남미동안": "East_Asia_South_America_East_Coast",
-    "MBCI": "MBCI_Value"
+    "Total": "Total_Blank_Sailings", # Specific for Blank Sailings total
+    "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
+    "미주서안 → 중국/동아시아": "US_West_Coast_China_EA_FBX",
+    "중국/동아시아 → 미주동안": "China_EA_US_East_Coast_FBX",
+    "미주동안 → 중국/동아시아": "US_East_Coast_China_EA_FBX",
+    "중국/동아시아 → 북유럽": "China_EA_North_Europe_FBX",
+    "북유럽 → 중국/동아시아": "North_Europe_China_EA_FBX",
+    "중국/동아시아 → 지중해": "China_EA_Mediterranean_FBX",
+    "지중해 → 중국/동아시아": "Mediterranean_China_EA_FBX",
+    "미주동안 → 북유럽": "US_East_Coast_North_Europe_FBX",
+    "북유럽 → 미주동안": "North_Europe_US_East_Coast_FBX",
+    "유럽 → 남미동안": "Europe_South_America_East_Coast_FBX",
+    "유럽 → 남미서안": "Europe_South_America_West_Coast_FBX",
+    "동아시아 → 북유럽": "East_Asia_North_Europe_XSI",
+    "북유럽 → 동아시아": "North_Europe_East_Asia_XSI",
+    "동아시아 → 미주서안": "East_Asia_US_West_Coast_XSI",
+    "미주서안 → 동아시아": "US_West_Coast_East_Asia_XSI",
+    "동아시아 → 남미동안": "East_Asia_South_America_East_Coast_XSI",
+    "북유럽 → 남미동안": "North_Europe_South_America_East_Coast_XSI"
 }
+
 
 def fetch_and_process_data():
     """
@@ -141,23 +148,32 @@ def fetch_and_process_data():
 
         for h_orig in raw_headers_original:
             cleaned_h_orig = h_orig.strip().replace('"', '')
+            
+            final_name_candidate = "" # Initialize for each iteration
 
             # Check if the original header is a section marker
             if cleaned_h_orig in SECTION_MARKERS:
                 current_section_prefix = SECTION_MARKERS[cleaned_h_orig] + "_"
-                # Add the section header itself as a column name (e.g., "KCCI_Section_Header")
-                final_name_candidate = f"{current_section_prefix.rstrip('_')}_Section_Header"
-            elif cleaned_h_orig == 'date':
+                # Section headers themselves get a specific name
+                final_name_candidate = f"{SECTION_MARKERS[cleaned_h_orig]}_Section_Header"
+            elif cleaned_h_orig == 'date': # Special case for the main date column
                 final_name_candidate = 'date'
             elif cleaned_h_orig == 'Index' and current_section_prefix == "": # Special case for Blank Sailing 'Index' which acts as a date
                 final_name_candidate = 'Date_Blank_Sailing'
             elif cleaned_h_orig == '': # Handle empty cells in the header row
                 final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
                 empty_col_counter += 1
-            else:
-                # For regular data columns, get base name and combine with current section prefix
-                base_name = BASE_NAME_MAP.get(cleaned_h_orig, cleaned_h_orig)
+            elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
+                # For common data headers that appear in multiple sections,
+                # prefix them with the current section's English name.
+                base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
                 final_name_candidate = f"{current_section_prefix}{base_name}"
+            elif cleaned_h_orig in SPECIFIC_RENAMES:
+                # For other specific renames that are unique enough on their own
+                final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
+            else:
+                # Default: Use original cleaned Korean name if no specific mapping or prefix needed
+                final_name_candidate = cleaned_h_orig # Preserve original Korean name as much as possible
             
             # Ensure the final name is absolutely unique by appending a suffix if needed
             final_name = final_name_candidate
