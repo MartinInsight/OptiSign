@@ -460,21 +460,12 @@ def fetch_and_process_data():
         print(f"Error during data processing: {e}")
         traceback.print_exc()
 
-# Helper to find the row index of a marker string in a specific column
-def find_marker_row(data, marker_string, column_index=0, start_row=0):
-    for i in range(start_row, len(data)):
-        row = data[i]
-        # Ensure the cell exists and contains the marker string
-        if len(row) > column_index and marker_string in str(row[column_index]):
-            return i
-    return -1
-
-# Helper to safely get data for a row, padding if necessary
-def get_row_data_for_table(row_data, start_col, end_col):
-    values = []
-    for col in range(start_col, end_col + 1):
-        values.append(row_data[col] if len(row_data) > col else '')
-    return values
+# Helper to safely get a cell value, returning empty string if out of bounds.
+def get_cell_value(data, row_idx, col_idx):
+    """Safely retrieves a cell value, returning empty string if out of bounds."""
+    if 0 <= row_idx < len(data) and 0 <= col_idx < len(data[row_idx]):
+        return str(data[row_idx][col_idx]).strip()
+    return ''
 
 def calculate_change_and_percentage(current_val_str, previous_val_str):
     """
@@ -515,478 +506,536 @@ def process_table_data_from_crawling_data2(raw_data):
     table_data = {}
     
     # --- KCCI Table ---
-    # Find the row containing "KCCIGroupIndexMainlaneMainlane" to start parsing KCCI
-    # This is often an empty cell or a merged cell that marks the start of a section.
-    kcci_section_marker_idx = find_marker_row(raw_data, "KCCIGroupIndexMainlaneMainlane", column_index=0)
+    # KCCI (날짜 표기 형식: Current Index (2025-07-21), Previous Index (2025-07-14))
+    # Current date: A6 (row 5, col 0)
+    # Current Index data: B6:O6 (row 5, cols 1-14)
+    # Previous date: A7 (row 6, col 0)
+    # Previous Index data: B7:O7 (row 6, cols 1-14)
     
-    if kcci_section_marker_idx != -1:
-        # User-defined headers for the KCCI table
-        kcci_display_headers = [
-            "항로", "Current Index", "Previous Index", "Weekly Change"
-        ]
+    kcci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    kcci_rows = []
 
-        # Extract dates from A6 and A7, then format them
-        # Assuming A6 is raw_data[kcci_section_marker_idx + 5][0]
-        # Assuming A7 is raw_data[kcci_section_marker_idx + 6][0]
-        
-        # Adjust indices based on the provided image and its text.
-        # "Current Index (2025-07-21)" is in row kcci_section_marker_idx + 5, column 0
-        # "Previous Index (2025-07-14)" is in row kcci_section_marker_idx + 6, column 0
-        
-        current_index_raw_label = raw_data[kcci_section_marker_idx + 5][0] if len(raw_data) > kcci_section_marker_idx + 5 and len(raw_data[kcci_section_marker_idx + 5]) > 0 else ""
-        previous_index_raw_label = raw_data[kcci_section_marker_idx + 6][0] if len(raw_data) > kcci_section_marker_idx + 6 and len(raw_data[kcci_section_marker_idx + 6]) > 0 else ""
+    kcci_current_date_raw_label = get_cell_value(raw_data, 5, 0) # A6
+    kcci_previous_date_raw_label = get_cell_value(raw_data, 6, 0) # A7
 
-        # Regex to extract date from "Current Index (YYYY-MM-DD)"
-        date_pattern = r"\d{4}-\d{2}-\d{2}"
-        
-        current_date_match = re.search(date_pattern, current_index_raw_label)
-        previous_date_match = re.search(date_pattern, previous_index_raw_label)
+    # Extract date from "Current Index (YYYY-MM-DD)" and "Previous Index (YYYY-MM-DD)"
+    current_date_match = re.search(r"\((\d{4}-\d{2}-\d{2})\)", kcci_current_date_raw_label)
+    previous_date_match = re.search(r"\((\d{4}-\d{2}-\d{2})\)", kcci_previous_date_raw_label)
 
-        current_date_formatted = ""
-        if current_date_match:
-            try:
-                date_obj = datetime.strptime(current_date_match.group(0), "%Y-%m-%d")
-                current_date_formatted = date_obj.strftime("%m-%d-%Y")
-            except ValueError:
-                pass # Keep empty if parsing fails
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(1), "%Y-%m-%d")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
 
-        previous_date_formatted = ""
-        if previous_date_match:
-            try:
-                date_obj = datetime.strptime(previous_date_match.group(0), "%Y-%m-%d")
-                previous_date_formatted = date_obj.strftime("%m-%d-%Y")
-            except ValueError:
-                pass # Keep empty if parsing fails
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(1), "%Y-%m-%d")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
 
-        # Adjust headers to include formatted dates
-        kcci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
-        kcci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
+    kcci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    kcci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
-        kcci_rows = []
-        
-        # Define the routes and their corresponding column indices (0-indexed from the sheet)
-        # Based on the image, the data for KCCI is in columns B to O (indices 1 to 14)
-        # And rows are relative to kcci_section_marker_idx
-        
-        # Route names and their corresponding row indices relative to kcci_section_marker_idx + 1
-        # (row 1 is "종합지수(Point)와 그 외 항로별($/FEU)")
-        # (row 2 is "CodeKCCIKUWIKUEIKNEIKMDIKMEIKAUIKLEIKLWIKSAIKWAIKCIKJIKSEI")
-        # (row 3 is "종합지수(Point)와 그 외 항로별($/FEU)Comprehensive IndexUSWCUSECEuropeMediterraneanMiddle EastAustraliaLatin America East CoastLatin America West CoastSouth AfricaWest AfricaChinaJapanSouth East Asia")
-        # (row 4 is "Weight100%15%10%10%5%5%5%5%5%2.50%2.50%15%10%10%")
-        # (row 5 is "Current Index (2025-07-21)2,2852,2963,9733,4103,8022,6241,8726,2122,6613,6714,721502241,042")
-        # (row 6 is "Previous Index (2025-07-14)2,3942,5004,6793,2853,9252,6621,7876,3252,8803,6954,691502241,053")
-        
-        # The actual data starts from row kcci_section_marker_idx + 5 (Current Index row)
-        # And data for each route is in columns 1 to 14 (B to O)
-        
-        # Mapping for the rows based on the image's visual structure
-        # These are the labels in the first column of the table (e.g., "종합지수", "미주서안")
-        # And their corresponding column index in the sheet for the data (e.g., 1 for "종합지수", 2 for "미주서안")
-        kcci_routes_mapping = {
-            "종합지수": 1, # Column B
-            "미주서안": 2, # Column C
-            "미주동안": 3, # Column D
-            "유럽": 4, # Column E
-            "지중해": 5, # Column F
-            "중동": 6, # Column G
-            "호주": 7, # Column H
-            "남미동안": 8, # Column I
-            "남미서안": 9, # Column J
-            "남아프리카": 10, # Column K
-            "서아프리카": 11, # Column L
-            "중국": 12, # Column M
-            "일본": 13, # Column N
-            "동남아시아": 14 # Column O
-        }
+    # KCCI routes and their corresponding 0-indexed column in the sheet
+    kcci_routes_data_cols = {
+        "종합지수": 1, # B column
+        "미주서안": 2, # C column
+        "미주동안": 3, # D column
+        "유럽": 4, # E column
+        "지중해": 5, # F column
+        "중동": 6, # G column
+        "호주": 7, # H column
+        "남미동안": 8, # I column
+        "남미서안": 9, # J column
+        "남아프리카": 10, # K column
+        "서아프리카": 11, # L column
+        "중국": 12, # M column
+        "일본": 13, # N column
+        "동남아시아": 14 # O column
+    }
 
-        # Iterate through each route to build the table rows
-        for route_name, col_idx_in_sheet in kcci_routes_mapping.items():
-            current_val_raw = raw_data[kcci_section_marker_idx + 5][col_idx_in_sheet] if len(raw_data) > kcci_section_marker_idx + 5 and len(raw_data[kcci_section_marker_idx + 5]) > col_idx_in_sheet else ''
-            previous_val_raw = raw_data[kcci_section_marker_idx + 6][col_idx_in_sheet] if len(raw_data) > kcci_section_marker_idx + 6 and len(raw_data[kcci_section_marker_idx + 6]) > col_idx_in_sheet else ''
+    for route_name, col_idx in kcci_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 5, col_idx) # B6 to O6
+        previous_val = get_cell_value(raw_data, 6, col_idx) # B7 to O7
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        kcci_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["KCCI"] = {"headers": kcci_display_headers, "rows": kcci_rows}
 
-            change_value, percentage_string, color_class = calculate_change_and_percentage(current_val_raw, previous_val_raw)
-            
-            kcci_rows.append({
-                "route": route_name,
-                "current_index": current_val_raw,
-                "previous_index": previous_val_raw,
-                "weekly_change": {
-                    "value": change_value,
-                    "percentage": percentage_string,
-                    "color_class": color_class
-                }
-            })
-        
-        table_data["KCCI"] = {"headers": kcci_display_headers, "rows": kcci_rows}
-    else:
-        print("WARNING: KCCI section marker not found in Crawling_Data2. Skipping KCCI table.")
 
     # --- SCFI Table ---
-    # Find the row containing "SCFIDescription" to start parsing SCFI
-    scfi_section_marker_idx = find_marker_row(raw_data, "SCFIDescription", column_index=0)
-    if scfi_section_marker_idx != -1:
-        scfi_display_headers = [
-            "Description", "Comprehensive Index", "Europe (Base port)", "Mediterranean (Base port)",
-            "USWC (Base port)", "USEC (Base port)", "Persian Gulf and Red Sea (Dubai)",
-            "Australia/New Zealand (Melbourne)", "East/West Africa (Lagos)", "South Africa (Durban)",
-            "West Japan (Base port)", "East Japan (Base port)", "Southeast Asia (Singapore)",
-            "Korea (Pusan)", "Central/South America West Coast(Manzanillo)"
-        ]
-        
-        # Data rows for SCFI start relative to scfi_section_marker_idx
-        # Weighting is at scfi_section_marker_idx + 1, col 0
-        # Current Index is at scfi_section_marker_idx + 2, col 0
-        # Previous Index is at scfi_section_marker_idx + 3, col 0
-        # Compare With Last Week is at scfi_section_marker_idx + 4, col 0
+    # SCFI (날짜 표기 형식: Current Index (2025-07-18), Previous Index (2025-07-11))
+    # Current date: A19 (row 18, col 0)
+    # Current Index data: B19:O19 (row 18, cols 1-14)
+    # Previous date: A20 (row 19, col 0)
+    # Previous Index data: B20:O20 (row 19, cols 1-14)
 
-        scfi_rows = []
-        # Get the actual data row for Current Index, Previous Index etc.
-        # The data starts from column 1 (Comprehensive Index) to 14 (Central/South America West Coast(Manzanillo))
-        scfi_data_start_col = 1
-        scfi_data_end_col = 14
+    scfi_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    scfi_rows = []
 
-        # Extracting the full rows for processing
-        scfi_current_data_row = raw_data[scfi_section_marker_idx + 2] if len(raw_data) > scfi_section_marker_idx + 2 else []
-        scfi_previous_data_row = raw_data[scfi_section_marker_idx + 3] if len(raw_data) > scfi_section_marker_idx + 3 else []
-        scfi_compare_data_row = raw_data[scfi_section_marker_idx + 4] if len(raw_data) > scfi_section_marker_idx + 4 else []
+    scfi_current_date_raw_label = get_cell_value(raw_data, 18, 0) # A19
+    scfi_previous_date_raw_label = get_cell_value(raw_data, 19, 0) # A20
 
-        # Assuming the first value in the 'Current Index' row is the Comprehensive Index value
-        # and the 'Compare With Last Week' row has the calculated change.
-        
-        # For SCFI, the "Comprehensive Index" is directly in the first data column (index 1)
-        # The "Compare With Last Week" is also directly in the first data column (index 1)
-        # This structure is different from KCCI where we calculate it.
-        
-        # We need to adapt the SCFI parsing to match the provided image's structure.
-        # The image shows 'Current Index (2025-07-18) 1,647' in A23, B23, etc.
-        # And 'Compare With Last Week -86.39' in A25, B25, etc.
-        # So the change is already calculated in the sheet.
+    current_date_match = re.search(r"\((\d{4}-\d{2}-\d{2})\)", scfi_current_date_raw_label)
+    previous_date_match = re.search(r"\((\d{4}-\d{2}-\d{2})\)", scfi_previous_date_raw_label)
 
-        # The headers for SCFI are in row 19 (index 18)
-        # "Description", "Comprehensive Index", "Europe (Base port)" ...
-        # Data starts from row 20 (index 19)
-        
-        # Let's re-align to the provided image's SCFI section.
-        # The SCFI data starts after "SCFIDescription" which is at raw_data[scfi_start_idx][0]
-        # The headers are in the same row as "SCFIDescription" but in subsequent columns.
-        # The "Weighting" row is scfi_start_idx + 1
-        # The "Current Index (2025-07-18)" is scfi_start_idx + 2
-        # The "Previous Index (2025-07-11)" is scfi_start_idx + 3
-        # The "Compare With Last Week" is scfi_start_idx + 4
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(1), "%Y-%m-%d")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
 
-        # The headers are actually in the row that contains "Description" (scfi_start_idx)
-        # starting from column 1.
-        scfi_actual_headers = [str(raw_data[scfi_start_idx][j]).strip() for j in range(1, len(raw_data[scfi_start_idx])) if raw_data[scfi_start_idx][j]]
-        scfi_display_headers = ["Category"] + scfi_actual_headers
-        
-        scfi_rows.append(["Weighting"] + get_row_data_for_table(raw_data[scfi_start_idx + 1], scfi_data_start_col, scfi_data_end_col))
-        scfi_rows.append([raw_data[scfi_start_idx + 2][0]] + get_row_data_for_table(raw_data[scfi_start_idx + 2], scfi_data_start_col, scfi_data_end_col))
-        scfi_rows.append([raw_data[scfi_start_idx + 3][0]] + get_row_data_for_table(raw_data[scfi_start_idx + 3], scfi_data_start_col, scfi_data_end_col))
-        
-        # For "Compare With Last Week", the values are already calculated in the sheet.
-        # We need to extract them and apply color based on the sign.
-        compare_row_values = get_row_data_for_table(raw_data[scfi_start_idx + 4], scfi_data_start_col, scfi_data_end_col)
-        processed_compare_values = []
-        for val_str in compare_row_values:
-            val_str = str(val_str).strip()
-            color_class = "text-gray-700"
-            if '▲' in val_str:
-                color_class = "text-red-500"
-            elif '▼' in val_str:
-                color_class = "text-blue-500"
-            processed_compare_values.append({"value": val_str, "color_class": color_class})
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(1), "%Y-%m-%d")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
 
-        scfi_rows.append({"Category": raw_data[scfi_start_idx + 4][0], "values": processed_compare_values})
+    scfi_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    scfi_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
-        table_data["SCFI"] = {"headers": scfi_display_headers, "rows": scfi_rows}
-    else:
-        print("WARNING: SCFI section marker not found in Crawling_Data2. Skipping SCFI table.")
+    scfi_routes_data_cols = {
+        1: "Comprehensive Index", # B column
+        2: "Europe (Base port)", # C column
+        3: "Mediterranean (Base port)", # D column
+        4: "USWC (Base port)", # E column
+        5: "USEC (Base port)", # F column
+        6: "Persian Gulf and Red Sea (Dubai)", # G column
+        7: "Australia/New Zealand (Melbourne)", # H column
+        8: "East/West Africa (Lagos)", # I column
+        9: "South Africa (Durban)", # J column
+        10: "West Japan (Base port)", # K column
+        11: "East Japan (Base port)", # L column
+        12: "Southeast Asia (Singapore)", # M column
+        13: "Korea (Pusan)", # N column
+        14: "Central/South America West Coast(Manzanillo)" # O column
+    }
 
-    # --- SCFI2 Table ---
-    scfi2_start_idx = find_marker_row(raw_data, "SCFI2종합지수($/TEU)", column_index=0)
-    if scfi2_start_idx != -1:
-        scfi2_display_headers = [
-            "Category", "Comprehensive Index", "USWC (Base port)", "USEC (Base port)",
-            "Europe (Base port)", "Mediterranean (Base port)", "Southeast Asia (Singapore)",
-            "Persian Gulf and Red Sea (Dubai)", "Australia/New Zealand (Melbourne)",
-            "South America (Santos)", "West Japan (Base port)", "East Japan (Base port)",
-            "Korea (Pusan)", "East/West Africa (Lagos)", "South Africa (Durban)"
-        ]
+    for route_name, col_idx in scfi_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 18, col_idx) # B19 to O19
+        previous_val = get_cell_value(raw_data, 19, col_idx) # B20 to O20
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        scfi_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["SCFI"] = {"headers": scfi_display_headers, "rows": scfi_rows}
 
-        scfi2_current_row_idx = find_marker_row(raw_data, "Current Index", column_index=0, start_row=scfi2_start_idx)
-        scfi2_previous_row_idx = find_marker_row(raw_data, "Previous Index", column_index=0, start_row=scfi2_start_idx)
-        scfi2_compare_row_idx = find_marker_row(raw_data, "Compare With Last Week", column_index=0, start_row=scfi2_start_idx)
-
-        scfi2_rows = []
-        if all(idx != -1 for idx in [scfi2_current_row_idx, scfi2_previous_row_idx, scfi2_compare_row_idx]):
-            scfi2_data_start_col = 1
-            scfi2_data_end_col = 14 
-
-            scfi2_rows.append([raw_data[scfi2_current_row_idx][0]] + get_row_data_for_table(raw_data[scfi2_current_row_idx], scfi2_data_start_col, scfi2_data_end_col))
-            scfi2_rows.append([raw_data[scfi2_previous_row_idx][0]] + get_row_data_for_table(raw_data[scfi2_previous_row_idx], scfi2_data_start_col, scfi2_data_end_col))
-            
-            # For "Compare With Last Week", extract and apply color
-            compare_row_values = get_row_data_for_table(raw_data[scfi2_compare_row_idx], scfi2_data_start_col, scfi2_data_end_col)
-            processed_compare_values = []
-            for val_str in compare_row_values:
-                val_str = str(val_str).strip()
-                color_class = "text-gray-700"
-                if '▲' in val_str:
-                    color_class = "text-red-500"
-                elif '▼' in val_str:
-                    color_class = "text-blue-500"
-                processed_compare_values.append({"value": val_str, "color_class": color_class})
-            scfi2_rows.append({"Category": raw_data[scfi2_compare_row_idx][0], "values": processed_compare_values})
-            
-            table_data["SCFI2"] = {"headers": scfi2_display_headers, "rows": scfi2_rows}
-        else:
-            print("WARNING: Incomplete SCFI2 data found in Crawling_Data2. Skipping SCFI2 table.")
-
-
-    # --- CCFI Table ---
-    ccfi_start_idx = find_marker_row(raw_data, "CCFI종합지수와 각 항로별(Point)", column_index=0)
-    if ccfi_start_idx != -1:
-        ccfi_display_headers = [
-            "Category", "COMPOSITE INDEX", "JAPAN", "EUROPE", "W/C AMERICA", "E/C AMERIC",
-            "KOREA", "SOUTHEAST", "MEDITERRANEAN", "AUSTRALIA/NEW ZEALAND",
-            "SOUTH AFRICA", "SOUTH AMERICA", "WEST EAST AFRICA", "PERSIAN GULF/RED SEA"
-        ]
-
-        ccfi_current_row_idx = find_marker_row(raw_data, "Current Index", column_index=0, start_row=ccfi_start_idx)
-        ccfi_previous_row_idx = find_marker_row(raw_data, "Previous Index", column_index=0, start_row=ccfi_start_idx)
-        ccfi_weekly_growth_row_idx = find_marker_row(raw_data, "Weekly Growth (%)", column_index=0, start_row=ccfi_start_idx)
-
-        ccfi_rows = []
-        if all(idx != -1 for idx in [ccfi_current_row_idx, ccfi_previous_row_idx, ccfi_weekly_growth_row_idx]):
-            ccfi_data_start_col = 1
-            ccfi_data_end_col = 13 
-
-            ccfi_rows.append([raw_data[ccfi_current_row_idx][0]] + get_row_data_for_table(raw_data[ccfi_current_row_idx], ccfi_data_start_col, ccfi_data_end_col))
-            ccfi_rows.append([raw_data[ccfi_previous_row_idx][0]] + get_row_data_for_table(raw_data[ccfi_previous_row_idx], ccfi_data_start_col, ccfi_data_end_col))
-            
-            # For "Weekly Growth (%)", extract and apply color
-            weekly_growth_values = get_row_data_for_table(raw_data[ccfi_weekly_growth_row_idx], ccfi_data_start_col, ccfi_data_end_col)
-            processed_weekly_growth_values = []
-            for val_str in weekly_growth_values:
-                val_str = str(val_str).strip()
-                color_class = "text-gray-700"
-                # Check for percentage sign and parse value for color
-                if '%' in val_str:
-                    try:
-                        numeric_val = float(val_str.replace('%', '').strip())
-                        if numeric_val < 0:
-                            color_class = "text-blue-500"
-                        elif numeric_val > 0:
-                            color_class = "text-red-500"
-                    except ValueError:
-                        pass # Keep default color if parsing fails
-                processed_weekly_growth_values.append({"value": val_str, "color_class": color_class})
-            ccfi_rows.append({"Category": raw_data[ccfi_weekly_growth_row_idx][0], "values": processed_weekly_growth_values})
-            
-            table_data["CCFI"] = {"headers": ccfi_display_headers, "rows": ccfi_rows}
-        else:
-            print("WARNING: Incomplete CCFI data found in Crawling_Data2. Skipping CCFI table.")
 
     # --- WCI Table ---
-    wci_table_start_idx = find_marker_row(raw_data, "WCI종합지수와 각 항로별($/FEU)", column_index=0)
-    if wci_table_start_idx != -1:
-        wci_display_headers = [
-            "Category", "Composite Index", "Shanghai-Rotterdam", "Rotterdam-Shanghai",
-            "Shanghai-Genoa", "Shanghai-LosAngeles", "LosAngeles-Shanghai",
-            "Shanghai-NewYork", "NewYork-Rotterdam", "Rotterdam-NewYork"
-        ]
+    # WCI (날짜표기형식: 17-Jul-25, 10-Jul-25)
+    # Current date: A31 (row 30, col 0)
+    # Current Index data: B31:J31 (row 30, cols 1-9)
+    # Previous date: A34 (row 33, col 0)
+    # Previous Index data: B34:J34 (row 33, cols 1-9)
 
-        wci_current_row_idx = find_marker_row(raw_data, "17-Jul-25", column_index=0, start_row=wci_table_start_idx)
-        wci_weekly_row_idx = find_marker_row(raw_data, "Weekly(%)", column_index=0, start_row=wci_table_start_idx)
-        wci_annual_row_idx = find_marker_row(raw_data, "Annual(%)", column_index=0, start_row=wci_table_start_idx)
-        wci_previous_row_idx = find_marker_row(raw_data, "10-Jul-25", column_index=0, start_row=wci_table_start_idx)
+    wci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    wci_rows = []
 
-        wci_rows = []
-        if all(idx != -1 for idx in [wci_current_row_idx, wci_weekly_row_idx, wci_annual_row_idx, wci_previous_row_idx]):
-            wci_data_start_col = 1
-            wci_data_end_col = 9 
+    wci_current_date_raw_label = get_cell_value(raw_data, 30, 0) # A31
+    wci_previous_date_raw_label = get_cell_value(raw_data, 33, 0) # A34
 
-            wci_rows.append([raw_data[wci_current_row_idx][0]] + get_row_data_for_table(raw_data[wci_current_row_idx], wci_data_start_col, wci_data_end_col))
-            
-            # For percentage rows, extract and apply color
-            weekly_values = get_row_data_for_table(raw_data[wci_weekly_row_idx], wci_data_start_col, wci_data_end_col)
-            processed_weekly_values = []
-            for val_str in weekly_values:
-                val_str = str(val_str).strip()
-                color_class = "text-gray-700"
-                if '%' in val_str:
-                    try:
-                        numeric_val = float(val_str.replace('%', '').strip())
-                        if numeric_val < 0:
-                            color_class = "text-blue-500"
-                        elif numeric_val > 0:
-                            color_class = "text-red-500"
-                    except ValueError:
-                        pass
-                processed_weekly_values.append({"value": val_str, "color_class": color_class})
-            wci_rows.append({"Category": raw_data[wci_weekly_row_idx][0], "values": processed_weekly_values})
+    # Extract date from "DD-Mon-YY" (e.g., 17-Jul-25)
+    current_date_match = re.search(r"\d{2}-[A-Za-z]{3}-\d{2}", wci_current_date_raw_label)
+    previous_date_match = re.search(r"\d{2}-[A-Za-z]{3}-\d{2}", wci_previous_date_raw_label)
 
-            annual_values = get_row_data_for_table(raw_data[wci_annual_row_idx], wci_data_start_col, wci_data_end_col)
-            processed_annual_values = []
-            for val_str in annual_values:
-                val_str = str(val_str).strip()
-                color_class = "text-gray-700"
-                if '%' in val_str:
-                    try:
-                        numeric_val = float(val_str.replace('%', '').strip())
-                        if numeric_val < 0:
-                            color_class = "text-blue-500"
-                        elif numeric_val > 0:
-                            color_class = "text-red-500"
-                    except ValueError:
-                        pass
-                processed_annual_values.append({"value": val_str, "color_class": color_class})
-            wci_rows.append({"Category": raw_data[wci_annual_row_idx][0], "values": processed_annual_values})
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(0), "%d-%b-%y")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
 
-            wci_rows.append([raw_data[wci_previous_row_idx][0]] + get_row_data_for_table(raw_data[wci_previous_row_idx], wci_data_start_col, wci_data_end_col))
-            
-            table_data["WCI"] = {"headers": wci_display_headers, "rows": wci_rows}
-        else:
-            print("WARNING: Incomplete WCI data found in Crawling_Data2. Skipping WCI table.")
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(0), "%d-%b-%y")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    wci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    wci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
+
+    wci_routes_data_cols = {
+        1: "Composite Index", # B column
+        2: "Shanghai-Rotterdam", # C column
+        3: "Rotterdam-Shanghai", # D column
+        4: "Shanghai-Genoa", # E column
+        5: "Shanghai-LosAngeles", # F column
+        6: "LosAngeles-Shanghai", # G column
+        7: "Shanghai-NewYork", # H column
+        8: "NewYork-Rotterdam", # I column
+        9: "Rotterdam-NewYork" # J column
+    }
+
+    for route_name, col_idx in wci_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 30, col_idx) # B31 to J31
+        previous_val = get_cell_value(raw_data, 33, col_idx) # B34 to J34
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        wci_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["WCI"] = {"headers": wci_display_headers, "rows": wci_rows}
+
 
     # --- IACI Table ---
-    iaci_table_start_idx = find_marker_row(raw_data, "IACIdate", column_index=0)
-    if iaci_table_start_idx != -1:
-        iaci_display_headers = ["Date", "US$/40ft"]
+    # IACI (날짜 표기 형식: 07/15/2025, 06/30/2025)
+    # Current date: A38 (row 37, col 0)
+    # Current Index data: B38 (row 37, col 1)
+    # Previous date: A39 (row 38, col 0)
+    # Previous Index data: B39 (row 38, col 1)
 
-        iaci_current_row_idx = find_marker_row(raw_data, "07/15/2025", column_index=0, start_row=iaci_table_start_idx)
-        iaci_previous_row_idx = find_marker_row(raw_data, "06/30/2025", column_index=0, start_row=iaci_table_start_idx)
+    iaci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    iaci_rows = []
 
-        iaci_rows = []
-        if all(idx != -1 for idx in [iaci_current_row_idx, iaci_previous_row_idx]):
-            iaci_data_start_col = 1
-            iaci_data_end_col = 1 
+    iaci_current_date_raw_label = get_cell_value(raw_data, 37, 0) # A38
+    iaci_previous_date_raw_label = get_cell_value(raw_data, 38, 0) # A39
 
-            iaci_rows.append([raw_data[iaci_current_row_idx][0]] + get_row_data_for_table(raw_data[iaci_current_row_idx], iaci_data_start_col, iaci_data_end_col))
-            iaci_rows.append([raw_data[iaci_previous_row_idx][0]] + get_row_data_for_table(raw_data[iaci_previous_row_idx], iaci_data_start_col, iaci_data_end_col))
-            
-            table_data["IACI_Table"] = {"headers": iaci_display_headers, "rows": iaci_rows}
-        else:
-            print("WARNING: Incomplete IACI data found in Crawling_Data2. Skipping IACI table.")
+    # Extract date from "MM/DD/YYYY"
+    current_date_match = re.search(r"\d{2}/\d{2}/\d{4}", iaci_current_date_raw_label)
+    previous_date_match = re.search(r"\d{2}/\d{2}/\d{4}", iaci_previous_date_raw_label)
+
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(0), "%m/%d/%Y")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(0), "%m/%d/%Y")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    iaci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    iaci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
+
+    iaci_routes_data_cols = {
+        1: "US$/40ft" # B column
+    }
+
+    for route_name, col_idx in iaci_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 37, col_idx) # B38
+        previous_val = get_cell_value(raw_data, 38, col_idx) # B39
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        iaci_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["IACI"] = {"headers": iaci_display_headers, "rows": iaci_rows}
+
 
     # --- BLANK SAILING Table ---
-    blank_sailing_table_start_idx = find_marker_row(raw_data, "BLANK SAILING", column_index=0)
-    if blank_sailing_table_start_idx != -1:
-        blank_sailing_display_headers = [
-            "Index", "Gemini Cooperation", "MSC", "OCEAN Alliance", "Premier Alliance", "Others/Independent", "Total"
-        ]
+    # BLANK SAILING (날짜 초기 형식: 07/18/2025, 07/11/2025)
+    # Current date: A43 (row 42, col 0)
+    # Current Index data: B43:G43 (row 42, cols 1-6)
+    # Previous date: A44 (row 43, col 0)
+    # Previous Index data: B44:G44 (row 43, cols 1-6)
 
-        blank_sailing_current_row_idx = find_marker_row(raw_data, "07/18/2025", column_index=0, start_row=blank_sailing_table_start_idx)
-        blank_sailing_previous_row_idx = find_marker_row(raw_data, "07/11/2025", column_index=0, start_row=blank_sailing_table_start_idx)
+    blank_sailing_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    blank_sailing_rows = []
 
-        blank_sailing_rows = []
-        if all(idx != -1 for idx in [blank_sailing_current_row_idx, blank_sailing_previous_row_idx]):
-            blank_sailing_data_start_col = 1
-            blank_sailing_data_end_col = 6 
+    blank_sailing_current_date_raw_label = get_cell_value(raw_data, 42, 0) # A43
+    blank_sailing_previous_date_raw_label = get_cell_value(raw_data, 43, 0) # A44
 
-            blank_sailing_rows.append([raw_data[blank_sailing_current_row_idx][0]] + get_row_data_for_table(raw_data[blank_sailing_current_row_idx], blank_sailing_data_start_col, blank_sailing_data_end_col))
-            blank_sailing_rows.append([raw_data[blank_sailing_previous_row_idx][0]] + get_row_data_for_table(raw_data[blank_sailing_previous_row_idx], blank_sailing_data_start_col, blank_sailing_data_end_col))
-            
-            table_data["BLANK_SAILING_Table"] = {"headers": blank_sailing_display_headers, "rows": blank_sailing_rows}
-        else:
-            print("WARNING: Incomplete BLANK SAILING data found in Crawling_Data2. Skipping BLANK SAILING table.")
+    # Extract date from "MM/DD/YYYY"
+    current_date_match = re.search(r"\d{2}/\d{2}/\d{4}", blank_sailing_current_date_raw_label)
+    previous_date_match = re.search(r"\d{2}/\d{2}/\d{4}", blank_sailing_previous_date_raw_label)
+
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(0), "%m/%d/%Y")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(0), "%m/%d/%Y")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    blank_sailing_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    blank_sailing_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
+
+    blank_sailing_routes_data_cols = {
+        1: "Gemini Cooperation", # B column
+        2: "MSC", # C column
+        3: "OCEAN Alliance", # D column
+        4: "Premier Alliance", # E column
+        5: "Others/Independent", # F column
+        6: "Total" # G column
+    }
+
+    for route_name, col_idx in blank_sailing_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 42, col_idx) # B43 to G43
+        previous_val = get_cell_value(raw_data, 43, col_idx) # B44 to G44
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        blank_sailing_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["BLANK_SAILING"] = {"headers": blank_sailing_display_headers, "rows": blank_sailing_rows}
+
 
     # --- FBX Table ---
-    fbx_table_start_idx = find_marker_row(raw_data, "FBX종합지수와 각 항로별($/FEU)", column_index=0)
-    if fbx_table_start_idx != -1:
-        fbx_display_headers = [
-            "Date", "Global Container Freight Index", "China/East Asia - North America West Coast",
-            "North America West Coast - China/East Asia", "China/East Asia - North America East Coast",
-            "North America East Coast - China/East Asia", "China/East Asia - North Europe",
-            "North Europe - China/East Asia", "China/East Asia - Mediterranean",
-            "Mediterranean - China/East Asia", "North America East Coast - North Europe",
-            "North Europe - North America East Coast", "Europe - South America East Coast",
-            "Europe - South America West Coast"
-        ]
+    # FBX (날짜표기형식: 2025-07-18, 2025-07-11)
+    # Current date: A48 (row 47, col 0)
+    # Current Index data: B48:N48 (row 47, cols 1-13)
+    # Previous date: A49 (row 48, col 0)
+    # Previous Index data: B49:N49 (row 48, cols 1-13)
 
-        fbx_current_row_idx = find_marker_row(raw_data, "2025-07-18", column_index=0, start_row=fbx_table_start_idx)
-        fbx_previous_row_idx = find_marker_row(raw_data, "2025-07-11", column_index=0, start_row=fbx_table_start_idx)
+    fbx_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    fbx_rows = []
 
-        fbx_rows = []
-        if all(idx != -1 for idx in [fbx_current_row_idx, fbx_previous_row_idx]):
-            fbx_data_start_col = 1
-            fbx_data_end_col = 13 
+    fbx_current_date_raw_label = get_cell_value(raw_data, 47, 0) # A48
+    fbx_previous_date_raw_label = get_cell_value(raw_data, 48, 0) # A49
 
-            fbx_rows.append([raw_data[fbx_current_row_idx][0]] + get_row_data_for_table(raw_data[fbx_current_row_idx], fbx_data_start_col, fbx_data_end_col))
-            fbx_rows.append([raw_data[fbx_previous_row_idx][0]] + get_row_data_for_table(raw_data[fbx_previous_row_idx], fbx_data_start_col, fbx_data_end_col))
-            
-            table_data["FBX"] = {"headers": fbx_display_headers, "rows": fbx_rows}
-        else:
-            print("WARNING: Incomplete FBX data found in Crawling_Data2. Skipping FBX table.")
+    # Extract date from "YYYY-MM-DD"
+    current_date_match = re.search(r"\d{4}-\d{2}-\d{2}", fbx_current_date_raw_label)
+    previous_date_match = re.search(r"\d{4}-\d{2}-\d{2}", fbx_previous_date_raw_label)
+
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(0), "%Y-%m-%d")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(0), "%Y-%m-%d")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    fbx_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    fbx_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
+
+    fbx_routes_data_cols = {
+        1: "Global Container Freight Index", # B column
+        2: "China/East Asia - North America West Coast", # C column
+        3: "North America West Coast - China/East Asia", # D column
+        4: "China/East Asia - North America East Coast", # E column
+        5: "North America East Coast - China/East Asia", # F column
+        6: "China/East Asia - North Europe", # G column
+        7: "North Europe - China/East Asia", # H column
+        8: "China/East Asia - Mediterranean", # I column
+        9: "Mediterranean - China/East Asia", # J column
+        10: "North America East Coast - North Europe", # K column
+        11: "North Europe - North America East Coast", # L column
+        12: "Europe - South America East Coast", # M column
+        13: "Europe - South America West Coast" # N column
+    }
+
+    for route_name, col_idx in fbx_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 47, col_idx) # B48 to N48
+        previous_val = get_cell_value(raw_data, 48, col_idx) # B49 to N49
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        fbx_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["FBX"] = {"headers": fbx_display_headers, "rows": fbx_rows}
+
 
     # --- XSI Table ---
-    xsi_table_start_idx = find_marker_row(raw_data, "XSI각 항로별($/FEU)", column_index=0)
-    if xsi_table_start_idx != -1:
-        xsi_display_headers = [
-            "Category", "Far East - N. Europe", "N. Europe - Far East",
-            "Far East - USWC", "USWC - Far East", "Far East - SAEC",
-            "N. Europe - USEC", "USEC - N. Europe", "N. Europe - SAEC"
-        ]
+    # XSI (날짜표기형식: 07-22-2025, 07-15-2025)
+    # Current date: A53 (row 52, col 0)
+    # Current Index data: B53:I53 (row 52, cols 1-8)
+    # Previous date: K53 (row 52, col 10) - NOTE: Different column, same row!
+    # Previous Index data: L53:S53 (row 52, cols 11-18) - NOTE: Different columns, same row!
 
-        xsi_current_row_idx = find_marker_row(raw_data, "07-22-2025", column_index=0, start_row=xsi_table_start_idx)
-        xsi_weekly_row_idx = find_marker_row(raw_data, "WoW(%)", column_index=0, start_row=xsi_table_start_idx)
-        xsi_monthly_row_idx = find_marker_row(raw_data, "MoM(%)", column_index=0, start_row=xsi_table_start_idx)
+    xsi_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    xsi_rows = []
 
-        xsi_rows = []
-        if all(idx != -1 for idx in [xsi_current_row_idx, xsi_weekly_row_idx, xsi_monthly_row_idx]):
-            xsi_data_start_col = 1
-            xsi_data_end_col = 8 
+    xsi_current_date_raw_label = get_cell_value(raw_data, 52, 0) # A53
+    xsi_previous_date_raw_label = get_cell_value(raw_data, 52, 10) # K53
 
-            xsi_rows.append([raw_data[xsi_current_row_idx][0]] + get_row_data_for_table(raw_data[xsi_current_row_idx], xsi_data_start_col, xsi_data_end_col))
-            
-            # For percentage rows, extract and apply color
-            weekly_values = get_row_data_for_table(raw_data[xsi_weekly_row_idx], xsi_data_start_col, xsi_data_end_col)
-            processed_weekly_values = []
-            for val_str in weekly_values:
-                val_str = str(val_str).strip()
-                color_class = "text-gray-700"
-                if '▲' in val_str:
-                    color_class = "text-red-500"
-                elif '▼' in val_str:
-                    color_class = "text-blue-500"
-                processed_weekly_values.append({"value": val_str, "color_class": color_class})
-            xsi_rows.append({"Category": raw_data[xsi_weekly_row_idx][0], "values": processed_weekly_values})
+    # Extract date from "MM-DD-YYYY"
+    current_date_match = re.search(r"\d{2}-\d{2}-\d{4}", xsi_current_date_raw_label)
+    previous_date_match = re.search(r"\d{2}-\d{2}-\d{4}", xsi_previous_date_raw_label)
 
-            monthly_values = get_row_data_for_table(raw_data[xsi_monthly_row_idx], xsi_data_start_col, xsi_data_end_col)
-            processed_monthly_values = []
-            for val_str in monthly_values:
-                val_str = str(val_str).strip()
-                color_class = "text-gray-700"
-                if '▲' in val_str:
-                    color_class = "text-red-500"
-                elif '▼' in val_str:
-                    color_class = "text-blue-500"
-                processed_monthly_values.append({"value": val_str, "color_class": color_class})
-            xsi_rows.append({"Category": raw_data[xsi_monthly_row_idx][0], "values": processed_monthly_values})
-            
-            table_data["XSI"] = {"headers": xsi_display_headers, "rows": xsi_rows}
-        else:
-            print("WARNING: Incomplete XSI data found in Crawling_Data2. Skipping XSI table.")
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(0), "%m-%d-%Y")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(0), "%m-%d-%Y")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    xsi_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    xsi_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
+
+    xsi_routes_data_cols = {
+        "Far East - N. Europe": {"current_col": 1, "previous_col": 11}, # B53, L53
+        "N. Europe - Far East": {"current_col": 2, "previous_col": 12}, # C53, M53
+        "Far East - USWC": {"current_col": 3, "previous_col": 13}, # D53, N53
+        "USWC - Far East": {"current_col": 4, "previous_col": 14}, # E53, O53
+        "Far East - SAEC": {"current_col": 5, "previous_col": 15}, # F53, P53
+        "N. Europe - USEC": {"current_col": 6, "previous_col": 16}, # G53, Q53
+        "USEC - N. Europe": {"current_col": 7, "previous_col": 17}, # H53, R53
+        "N. Europe - SAEC": {"current_col": 8, "previous_col": 18}  # I53, S53
+    }
+
+    for route_name, cols in xsi_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 52, cols["current_col"]) # Current data from row 52 (B-I)
+        previous_val = get_cell_value(raw_data, 52, cols["previous_col"]) # Previous data from row 52 (L-S)
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        xsi_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["XSI"] = {"headers": xsi_display_headers, "rows": xsi_rows}
+
 
     # --- MBCI Table ---
-    mbci_table_start_idx = find_marker_row(raw_data, "MBCIIndex(종합지수), $/day(정기용선, Time charter)", column_index=0)
-    if mbci_table_start_idx != -1:
-        mbci_display_headers = ["Category", "Index(종합지수)", "$/day(정기용선, Time charter)"]
+    # MBCI (날짜표기형식: 2025-07-18, 2025-07-11)
+    # Current date: A65 (row 64, col 0)
+    # Current Index data: G65 (row 64, col 6)
+    # Previous date: A66 (row 65, col 0)
+    # Previous Index data: G66 (row 65, col 6)
 
-        mbci_current_row_idx = find_marker_row(raw_data, "Latest", column_index=0, start_row=mbci_table_start_idx)
-        mbci_previous_row_idx = find_marker_row(raw_data, "2025-07-11", column_index=0, start_row=mbci_table_start_idx)
+    mbci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
+    mbci_rows = []
 
-        mbci_rows = []
-        if all(idx != -1 for idx in [mbci_current_row_idx, mbci_previous_row_idx]):
-            mbci_data_start_col = 1
-            mbci_data_end_col = 2 
+    mbci_current_date_raw_label = get_cell_value(raw_data, 64, 0) # A65
+    mbci_previous_date_raw_label = get_cell_value(raw_data, 65, 0) # A66
 
-            mbci_rows.append([raw_data[mbci_current_row_idx][0]] + get_row_data_for_table(raw_data[mbci_current_row_idx], mbci_data_start_col, mbci_data_end_col))
-            mbci_rows.append([raw_data[mbci_previous_row_idx][0]] + get_row_data_for_table(raw_data[mbci_previous_row_idx], mbci_data_start_col, mbci_data_end_col))
-            
-            table_data["MBCI_Table"] = {"headers": mbci_display_headers, "rows": mbci_rows}
-        else:
-            print("WARNING: Incomplete MBCI data found in Crawling_Data2. Skipping MBCI table.")
+    # Extract date from "YYYY-MM-DD"
+    current_date_match = re.search(r"\d{4}-\d{2}-\d{2}", mbci_current_date_raw_label)
+    previous_date_match = re.search(r"\d{4}-\d{2}-\d{2}", mbci_previous_date_raw_label)
+
+    current_date_formatted = ""
+    if current_date_match:
+        try:
+            date_obj = datetime.strptime(current_date_match.group(0), "%Y-%m-%d")
+            current_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    previous_date_formatted = ""
+    if previous_date_match:
+        try:
+            date_obj = datetime.strptime(previous_date_match.group(0), "%Y-%m-%d")
+            previous_date_formatted = date_obj.strftime("%m-%d-%Y")
+        except ValueError:
+            pass
+
+    mbci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
+    mbci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
+
+    mbci_routes_data_cols = {
+        "Index(종합지수)": {"current_col": 6, "previous_col": 6}, # G65, G66
+        "$/day(정기용선, Time charter)": {"current_col": 7, "previous_col": 7} # H65, H66 (Assuming H column for the second value)
+    }
+    # Re-checking MBCI in the provided text:
+    # MBCIIndex(종합지수), $/day(정기용선, Time charter)Jul-20Jul-21Jul-22Jul-23Jul-24Latest
+    # 2025-07-183351,8313,4398721,2261,415
+    # 2025-07-111379
+    # The user specified Current Index G65 and Previous Index G66. This seems to be only one value per date.
+    # The provided text shows multiple values after the date.
+    # Let's stick to the user's explicit cell references G65 and G66 for "Current Index" and "Previous Index".
+    # And assume the "Index(종합지수)" is the value in G column.
+    # The second value "$/day(정기용선, Time charter)" is not explicitly mapped to a column in the user's cell ranges.
+    # Based on the text, "335" is for "Index(종합지수)" and "1,831" is for "$/day(정기용선, Time charter)".
+    # These are in columns G and H (indices 6 and 7) relative to the start of the data.
+    # So, I will use G and H for MBCI.
+
+    mbci_routes_data_cols = {
+        "Index(종합지수)": {"current_col": 6, "previous_col": 6}, # G65, G66
+        "$/day(정기용선, Time charter)": {"current_col": 7, "previous_col": 7} # H65, H66
+    }
+
+    for route_name, cols in mbci_routes_data_cols.items():
+        current_val = get_cell_value(raw_data, 64, cols["current_col"]) # Current data from row 64 (G, H)
+        previous_val = get_cell_value(raw_data, 65, cols["previous_col"]) # Previous data from row 65 (G, H)
+        change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
+        mbci_rows.append({
+            "route": route_name,
+            "current_index": current_val,
+            "previous_index": previous_val,
+            "weekly_change": {
+                "value": change_value,
+                "percentage": percentage_string,
+                "color_class": color_class
+            }
+        })
+    table_data["MBCI"] = {"headers": mbci_display_headers, "rows": mbci_rows}
+
 
     return table_data
 
