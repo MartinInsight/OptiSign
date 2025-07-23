@@ -282,7 +282,6 @@ def fetch_and_process_data():
             date_col_name_in_df = details["date_col_name"]
             
             # Get the actual column names for data within this section, including its date column
-            # We need to ensure the date column is present in the final output for each section
             section_data_col_names = []
             for col_idx in range(details["start_col"], details["end_col"] + 1):
                 mapped_name = col_idx_to_final_header_name.get(col_idx)
@@ -300,6 +299,15 @@ def fetch_and_process_data():
                 continue
 
             df_section = df_raw_full[existing_cols_to_select].copy()
+
+            # --- NEW DEBUGGING FOR XSI AND FBX DATE/DATA COLUMNS ---
+            if section_key == "XSI":
+                print(f"DEBUG: RAW content of column BR (index 67 - XSI_Date) for data rows as read by gspread: {df_section[date_col_name_in_df].tolist()[:100]}")
+            if section_key == "FBX": # Also check the last column of FBX (BP, index 65)
+                fbx_last_col_name = col_idx_to_final_header_name.get(65)
+                if fbx_last_col_name and fbx_last_col_name in df_section.columns:
+                    print(f"DEBUG: RAW content of column BP (index 65 - FBX last data) for data rows as read by gspread: {df_section[fbx_last_col_name].tolist()[:100]}")
+            # --- END NEW DEBUGGING ---
 
             # Clean and parse dates for THIS section
             df_section[date_col_name_in_df] = df_section[date_col_name_in_df].astype(str).str.strip()
@@ -357,7 +365,7 @@ def fetch_and_process_data():
 
         forecast_weather = []
         if len(weather_data_raw) > 12: # Check if forecast data exists (starts from row 12, index 11)
-            for row in weather_data_raw[11:]: # From row 1 onwards
+            for row in weather_data_raw[11:]: # From row 12 onwards
                 if len(row) >= 5 and row[0]: # Ensure date and basic info exist
                     forecast_day = {
                         'date': row[0],
