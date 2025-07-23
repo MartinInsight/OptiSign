@@ -306,31 +306,3 @@ def fetch_and_process_data():
 
 if __name__ == "__main__":
     fetch_and_process_data()
-```
-
-### 변경 사항 요약:
-
-1.  **`SECTION_MARKER_SEQUENCE` 도입:**
-    * `SECTION_MARKERS` 딕셔너리 대신 `SECTION_MARKER_SEQUENCE` 리스트를 도입했습니다. 이 리스트는 스프레드시트에 나타나는 섹션 헤더의 **정확한 순서와 해당 섹션에 부여할 영어 접두사**를 정의합니다.
-    * 예를 들어, `("종합지수와 각 항로별($/FEU)", "WCI")`와 `("종합지수와 각 항로별($/FEU)", "FBX")`처럼 동일한 한국어 헤더 문자열이더라도 순서에 따라 다른 섹션으로 인식되도록 했습니다.
-2.  **순차적 섹션 식별 로직:**
-    * `raw_headers_original`을 순회하면서 `section_marker_sequence_index`를 사용하여 `SECTION_MARKER_SEQUENCE`의 다음 예상 섹션 마커와 현재 헤더가 일치하는지 확인합니다.
-    * 일치하면 `current_section_prefix`를 업데이트하고, `section_marker_sequence_index`를 증가시켜 다음 섹션 마커를 준비합니다.
-3.  **`SPECIFIC_RENAMES` 및 `COMMON_DATA_HEADERS_TO_PREFIX` 개선:**
-    * `SPECIFIC_RENAMES`는 섹션 접두사에 관계없이 항상 특정 영어 이름으로 변환되어야 하는 고유한 헤더들을 포함합니다.
-    * `COMMON_DATA_HEADERS_TO_PREFIX`는 여러 섹션에 걸쳐 반복될 수 있는 일반적인 헤더들을 포함하며, 이들은 `current_section_prefix`가 활성화되어 있을 때 해당 접두사를 받아 고유한 영어 이름이 됩니다.
-4.  **디버그 출력 강화:** 각 헤더가 어떤 규칙에 따라 처리되고 최종 이름 후보가 어떻게 결정되는지 더 자세히 추적할 수 있도록 디버그 출력을 추가했습니다.
-
-### 다음 단계:
-
-1.  **`scripts/fetch_chart_data.py` 파일 업데이트:** 위에 제공된 Canvas의 코드를 복사하여 당신의 `scripts/fetch_chart_data.py` 파일에 **덮어쓰기** 합니다.
-2.  **커밋 및 푸시:** 변경사항을 저장하고 `main` 브랜치에 커밋 및 푸시합니다.
-    * `git add scripts/fetch_chart_data.py`
-    * `git commit -m "Fix: Implement robust section-aware unique column naming based on sequence"`
-    * `git push origin main`
-3.  **GitHub Actions 로그 확인 (매우 중요):**
-    * GitHub 저장소의 **`Actions` 탭**으로 이동합니다.
-    * **`Deploy Dashboard with Data`** 워크플로우의 가장 최근 실행을 클릭합니다.
-    * `Fetch and Process Data from Google Sheet` 스텝을 클릭하여 **로그 내용을 확인합니다.**
-
-이번에는 `DEBUG: Raw headers (used for DataFrame - unique):` 부분에 모든 컬럼 이름이 올바른 영어 접두사와 함께 고유하게 표시되는지 확인해야 합니다. 결과를 알려주
