@@ -10,7 +10,7 @@ SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
 GOOGLE_CREDENTIAL_JSON = os.environ.get("GOOGLE_CREDENTIAL_JSON")
 
 # --- Debugging Prints ---
-print(f"DEBUG: SPREADSHEET_ID from environment: {SPREADSHEET_ID}")
+print(f"DEBUG: SPREADSHEET_ID from environment: {SPREADSHEED_ID}")
 print(f"DEBUG: GOOGLE_CREDENTIAL_JSON from environment (first 50 chars): {GOOGLE_CREDENTIAL_JSON[:50] if GOOGLE_CREDENTIAL_JSON else 'None'}")
 # --- End Debugging Prints ---
 
@@ -152,11 +152,6 @@ def fetch_and_process_data():
             
             final_name_candidate = cleaned_h_orig # Default to original Korean name
 
-            # Debug print
-            # print(f"DEBUG: Processing original header: '{cleaned_h_orig}'")
-            # print(f"DEBUG:   current_section_prefix before check: '{current_section_prefix}'")
-            # print(f"DEBUG:   section_marker_sequence_index: {section_marker_sequence_index}")
-
             # Rule priority: Section Marker (by sequence) > Specific Rename > Common Prefixed > Special fixed > Empty > Default (Original Korean)
 
             # 1. Check if it's the next expected section marker in the sequence (or any subsequent marker)
@@ -171,10 +166,9 @@ def fetch_and_process_data():
                     if marker_prefix_base == "BLANK_SAILING":
                         final_name_candidate = "Date_Blank_Sailing"
                         current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
-                        # print(f"DEBUG:   Blank Sailing Section Marker found. final_name_candidate: '{final_name_candidate}'")
                     else:
-                        final_name_candidate = f"{marker_prefix_base}_Section_Header"
-                        # print(f"DEBUG:   Section marker found (sequence match). New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
+                        # Changed _Section_Header to _Container_Index
+                        final_name_candidate = f"{marker_prefix_base}_Container_Index" 
                     
                     section_marker_sequence_index = i + 1 # Advance sequence index to *after* this found marker
                     found_section_marker_in_sequence = True
@@ -185,29 +179,23 @@ def fetch_and_process_data():
             # 2. Apply SPECIFIC_RENAMES (these are unique and should not be prefixed by section)
             elif cleaned_h_orig in SPECIFIC_RENAMES:
                 final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
-                # print(f"DEBUG:   Specific rename found. final_name_candidate: '{final_name_candidate}'")
             # 3. Apply COMMON_DATA_HEADERS_TO_PREFIX (these should be prefixed if a section is active)
             elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
                 base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
                 if current_section_prefix: # Apply prefix if one is active
                     final_name_candidate = f"{current_section_prefix}{base_name}"
-                    # print(f"DEBUG:   Common data header found. Applied section prefix. final_name_candidate: '{final_name_candidate}'")
                 else: # Fallback if no active prefix (e.g., for KCCI section if it's the first data column)
                     final_name_candidate = base_name
-                    # print(f"DEBUG:   Common data header found. No active section prefix. final_name_candidate: '{final_name_candidate}'")
             # 4. Handle special fixed names (like 'date') - 'Index' is handled by SECTION_MARKER_SEQUENCE
             elif cleaned_h_orig == 'date':
                 final_name_candidate = 'date'
-                # print(f"DEBUG:   Date header found. final_name_candidate: '{final_name_candidate}'")
             # 5. Handle empty cells
             elif cleaned_h_orig == '':
                 final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
                 empty_col_counter += 1
-                # print(f"DEBUG:   Empty column found. final_name_candidate: '{final_name_candidate}'")
             # 6. Default: Keep original cleaned Korean name if no specific rule applies
             else:
                 final_name_candidate = cleaned_h_orig
-                # print(f"DEBUG:   No specific mapping, keeping original: '{final_name_candidate}'")
             
             # Ensure the final name is absolutely unique by appending a suffix if needed
             final_unique_name = final_name_candidate
@@ -218,7 +206,6 @@ def fetch_and_process_data():
             
             seen_final_names_set.add(final_unique_name)
             final_column_names.append(final_unique_name)
-            # print(f"DEBUG:   Final unique name added: '{final_unique_name}'")
         # --- END NEW LOGIC ---
 
         # Add this new debug print to confirm the final_column_names list
@@ -288,7 +275,7 @@ def fetch_and_process_data():
             print("Warning: No recognized date column found in the DataFrame or it contains no valid dates. Charts might not display correctly.")
 
         # --- Convert all numeric columns using apply with a lambda function ---
-        numeric_cols = [col for col in df.columns if col != 'date' and not col.endswith('_Section_Header')]
+        numeric_cols = [col for col in df.columns if col != 'date' and not col.endswith('_Container_Index')] # Updated suffix
         for col in numeric_cols:
             df[col] = df[col].apply(lambda x: pd.to_numeric(str(x).replace(',', ''), errors='coerce'))
         # --- NEW: Convert NaN to None for JSON serialization ---
