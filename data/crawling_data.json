@@ -6422,8 +6422,8 @@
         "current": {
             "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 77.45,
-            "LA_Humidity": 58.0,
+            "LA_Temperature": 77.07,
+            "LA_Humidity": 59.0,
             "LA_WindSpeed": 14.97,
             "LA_Pressure": 1016.0,
             "LA_Visibility": 6.2,
@@ -6435,7 +6435,7 @@
             {
                 "date": "7/23/2025",
                 "min_temp": 70.7,
-                "max_temp": 77.4,
+                "max_temp": 77.5,
                 "status": "맑음(clear sky)",
                 "icon": ""
             },
