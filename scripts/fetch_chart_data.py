@@ -151,6 +151,7 @@ def fetch_and_process_data():
         # --- Define section column mappings based on user's input (A:O, Q:AE etc.) ---
         # These are 0-indexed column numbers in the raw data (all_data)
         # The 'date_col_name' will be the key for the date column in the final JSON for that section
+        # BASED ON USER'S SCREENSHOT AND CORRECTIONS:
         section_col_details = {
             "KCCI": {"start_col": 0, "end_col": 14, "date_col_name": "KCCI_Date"}, # A:O
             "SCFI": {"start_col": 16, "end_col": 30, "date_col_name": "SCFI_Date"}, # Q:AE
@@ -158,7 +159,8 @@ def fetch_and_process_data():
             "IACI": {"start_col": 43, "end_col": 44, "date_col_name": "IACI_Date"}, # AR:AS
             "BLANK_SAILING": {"start_col": 46, "end_col": 52, "date_col_name": "Blank_Sailing_Date"}, # AU:BA
             "FBX": {"start_col": 54, "end_col": 65, "date_col_name": "FBX_Date"}, # BC:BP
-            "XSI": {"start_col": 67, "end_col": 77, "date_col_name": "XSI_Date"}, # BR:BZ
+            # XSI: User confirmed BQ (index 66) is the date column. BR (index 67) to BZ (index 77) are data.
+            "XSI": {"start_col": 66, "end_col": 77, "date_col_name": "XSI_Date"}, # BQ:BZ (BQ is date, BR-BZ are data)
             "MBCI": {"start_col": 79, "end_col": 80, "date_col_name": "MBCI_Date"}, # CB:CC
         }
 
@@ -292,9 +294,7 @@ def fetch_and_process_data():
             cols_to_select = [date_col_name_in_df] + [col for col in section_data_col_names if col != date_col_name_in_df]
             
             # Ensure all selected columns actually exist in df_raw_full
-            existing_cols_to_select = [col for col in cols_to_select if col in df_raw_full.columns]
-            
-            if not existing_cols_to_select:
+            existing_cols_to_select = [col for col in cols_to_select if col in df_raw_full.columns:
                 print(f"WARNING: No relevant columns found for section {section_key}. Skipping.")
                 continue
 
@@ -302,11 +302,24 @@ def fetch_and_process_data():
 
             # --- NEW DEBUGGING FOR XSI AND FBX DATE/DATA COLUMNS ---
             if section_key == "XSI":
-                print(f"DEBUG: RAW content of column BR (index 67 - XSI_Date) for data rows as read by gspread: {df_section[date_col_name_in_df].tolist()[:100]}")
-            if section_key == "FBX": # Also check the last column of FBX (BP, index 65)
-                fbx_last_col_name = col_idx_to_final_header_name.get(65)
-                if fbx_last_col_name and fbx_last_col_name in df_section.columns:
-                    print(f"DEBUG: RAW content of column BP (index 65 - FBX last data) for data rows as read by gspread: {df_section[fbx_last_col_name].tolist()[:100]}")
+                print(f"DEBUG: RAW content of column BQ (index 66 - XSI_Date) for data rows as read by gspread: {df_section[date_col_name_in_df].tolist()[:100]}")
+                # Also print the content of BR (index 67) for XSI to confirm it's data, not date
+                br_col_idx_in_all_data = 67
+                br_raw_values = [row[br_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > br_col_idx_in_all_data]
+                print(f"DEBUG: RAW content of column BR (index 67 - XSI first data) from all_data: {br_raw_values[:100]}")
+            if section_key == "FBX": 
+                # To correctly identify BP, we need to map its column index to its mapped name
+                # The FBX section ends at index 65 (BP).
+                # Let's directly access the raw data for BP for debugging.
+                bp_col_idx_in_all_data = 65 # BP column index
+                # Ensure the row has enough columns before accessing
+                bp_raw_values = [row[bp_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > bp_col_idx_in_all_data]
+                print(f"DEBUG: RAW content of column BP (index 65 - FBX last data) from all_data: {bp_raw_values[:100]}")
+                
+                # Also print the content of BN (index 63) for FBX to confirm user's observation
+                bn_col_idx_in_all_data = 63 # BN column index
+                bn_raw_values = [row[bn_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > bn_col_idx_in_all_data]
+                print(f"DEBUG: RAW content of column BN (index 63 - FBX data) from all_data: {bn_raw_values[:100]}")
             # --- END NEW DEBUGGING ---
 
             # Clean and parse dates for THIS section
