@@ -36,18 +36,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         type: 'time',
                         time: {
-                            unit: isAggregated ? 'month' : 'day', // Use 'month' for aggregated, 'day' for granular
+                            unit: 'month', // Always display monthly ticks for all charts
                             displayFormats: {
-                                month: 'MMM \'yy', // X-axis labels always show month and two-digit year
-                                day: 'M/d' // Fallback for daily if needed, but 'month' display format should dominate ticks
+                                month: 'M/1/yyyy' // Specific format requested: M/1/yyyy
                             },
                             tooltipFormat: 'M/d/yyyy' // Full date in tooltip
                         },
                         ticks: {
                             source: 'auto',
-                            // maxTicksLimit is removed for granular data to allow Chart.js to show more ticks
-                            // For aggregated charts, it will be set in additionalOptions
-                            autoSkipPadding: 10 // Add padding to avoid overlapping labels
+                            autoSkipPadding: 10,
+                            // maxTicksLimit is applied only if isAggregated is true, otherwise let Chart.js decide
+                            maxTicksLimit: isAggregated ? 12 : undefined // Limit to 12 ticks for aggregated (monthly) data
                         },
                         grid: {
                             display: false // Remove vertical grid lines (X-axis grid)
@@ -81,16 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
 
-            // Apply maxTicksLimit only if isAggregated is true, otherwise let Chart.js decide
-            if (isAggregated) {
-                defaultOptions.scales.x.ticks.maxTicksLimit = 12;
-            } else {
-                // For non-aggregated charts, we want more ticks, so let Chart.js auto-determine or remove limit
-                // Removing it effectively lets Chart.js decide based on the 'day' unit.
-                delete defaultOptions.scales.x.ticks.maxTicksLimit;
-            }
-
-
             // Merge default options with any additional options provided
             const options = { ...defaultOptions, ...additionalOptions };
             if (options.scales && additionalOptions.scales) {
@@ -98,11 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (options.scales.x && additionalOptions.scales.x) {
                     options.scales.x = { ...defaultOptions.scales.x, ...additionalOptions.scales.x };
                     // Ensure maxTicksLimit is correctly applied or removed based on isAggregated
-                    if (isAggregated) {
-                        options.scales.x.ticks.maxTicksLimit = 12;
-                    } else {
-                        delete options.scales.x.ticks.maxTicksLimit;
-                    }
+                    options.scales.x.ticks.maxTicksLimit = isAggregated ? 12 : undefined;
                 }
                 if (options.scales.y && additionalOptions.scales.y) {
                     options.scales.y = { ...defaultOptions.scales.y, ...additionalOptions.scales.y };
@@ -316,33 +301,39 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // --- Helper to get sorted and optionally filtered data for a specific chart section ---
-            const getProcessedChartData = (dataArray, numEntries = 0) => {
+            // --- Helper to get sorted and optionally filtered data for a specific chart section (last 12 months) ---
+            const getProcessedChartData = (dataArray) => {
                 if (!Array.isArray(dataArray) || dataArray.length === 0) {
                     return { data: [], dates: [] };
                 }
-                // Sort data by date in ascending order
+                // Sort data by date in ascending order (important for time series)
                 dataArray.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-                let processedData = dataArray;
-                if (numEntries > 0 && dataArray.length > numEntries) {
-                    processedData = dataArray.slice(dataArray.length - numEntries);
-                }
-                const dates = processedData.map(item => item.date);
-                return { data: processedData, dates: dates };
+                const latestDate = new Date(dataArray[dataArray.length - 1].date);
+                const twelveMonthsAgo = new Date(latestDate);
+                twelveMonthsAgo.setFullYear(latestDate.getFullYear() - 1); // Go back 1 year
+
+                // Filter data to include only the last 12 months (or more if data is sparse)
+                const filteredData = dataArray.filter(item => {
+                    const itemDate = new Date(item.date);
+                    return itemDate >= twelveMonthsAgo; // Include data from 1 year ago to latest date
+                });
+                
+                const dates = filteredData.map(item => item.date);
+                return { data: filteredData, dates: dates };
             };
 
-            // Process data for each chart
-            const { data: KCCIData, dates: KCCIDates } = getProcessedChartData(rawChartDataSections.KCCI, 12); // Last 12 entries for KCCI
-            const { data: SCFIData, dates: SCFIDates } = getProcessedChartData(rawChartDataSections.SCFI, 12); // Last 12 entries for SCFI
-            const { data: WCIData, dates: WCIDates } = getProcessedChartData(rawChartDataSections.WCI, 12); // Last 12 entries for WCI
-            const { data: IACIData, dates: IACIDates } = getProcessedChartData(rawChartDataSections.IACI, 12); // Last 12 entries for IACI
-            const { data: FBXData, dates: FBXDates } = getProcessedChartData(rawChartDataSections.FBX, 12); // Last 12 entries for FBX
-            const { data: XSIData, dates: XSIDates } = getProcessedChartData(rawChartDataSections.XSI, 12); // Last 12 entries for XSI
-            const { data: MBCIData, dates: MBCIDates } = getProcessedChartData(rawChartDataSections.MBCI, 12); // Last 12 entries for MBCI
+            // Process data for each chart (now filters for last 12 months)
+            const { data: KCCIData, dates: KCCIDates } = getProcessedChartData(rawChartDataSections.KCCI);
+            const { data: SCFIData, dates: SCFIDates } = getProcessedChartData(rawChartDataSections.SCFI);
+            const { data: WCIData, dates: WCIDates } = getProcessedChartData(rawChartDataSections.WCI);
+            const { data: IACIData, dates: IACIDates } = getProcessedChartData(rawChartDataSections.IACI);
+            const { data: FBXData, dates: FBXDates } = getProcessedChartData(rawChartDataSections.FBX);
+            const { data: XSIData, dates: XSIDates } = getProcessedChartData(rawChartDataSections.XSI);
+            const { data: MBCIData, dates: MBCIDates } = getProcessedChartData(rawChartDataSections.MBCI);
 
             // Aggregate blank sailing data separately (it already sorts internally)
-            const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(rawChartDataSections.BLANK_SAILING, 12);
+            const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(rawChartDataSections.BLANK_SAILING);
             
             // --- DEBUGGING LOGS ---
             console.log("KCCI Data:", KCCIData);
