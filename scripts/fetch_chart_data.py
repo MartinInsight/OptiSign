@@ -145,36 +145,13 @@ def fetch_and_process_data():
         empty_col_counter = 0
         seen_final_names_set = set()
 
-        # New logic to handle IACI:
-        # Based on the user's previous JSON output and sheet image,
-        # the IACI values seem to be in a column that was previously mapped to 'WCI_Composite_Index_1'
-        # and its date is the main 'date' column.
-        # We will explicitly look for 'WCI_Composite_Index_1' and rename it to 'IACI_Composite_Index'.
-        # We also need to map the header for the IACI date, which is the main 'date' column itself.
-
         # First, process the column names, specifically handling the IACI column
         for col_idx, h_orig in enumerate(raw_headers_original):
             cleaned_h_orig = h_orig.strip().replace('"', '')
             final_name_candidate = cleaned_h_orig
 
-            # Check if this column is the one that should be IACI_Composite_Index
-            # This is a heuristic based on previous debug output where IACI values appeared under WCI_Composite_Index_1
-            # A more robust way would be to find the column that corresponds to the "종합지수" under the "IACI" section.
-            # Given the image, the "종합지수" under "IACI" seems to be in column AS (index 44).
-            # The 'date' column is in AR (index 43).
-            # So, if the current column is at index 44, we can assume it's IACI's value.
-            # This is still a bit fragile if the sheet layout changes significantly.
-            
-            # Let's assume 'date' is at index 43, and IACI_Composite_Index is at index 44.
-            # We need to ensure that the column at index 44 (AS) is correctly identified.
-            # The 'date' column (AR) is already handled by `elif cleaned_h_orig == 'date':`
-            
-            # We need to find the specific header in raw_headers_original that corresponds to the IACI value.
-            # From the image, the column AS has "종합지수" as its header in the second row (index 1).
-            # So, if the column header is "종합지수" AND it's at index 44 (AS), then it's IACI.
-            # This requires knowing the exact column index for "종합지수" for IACI.
-            # Let's assume the "종합지수" at index 44 (AS) is the IACI one.
-            # This is a fixed index assumption based on the image.
+            # Explicitly rename the IACI Composite Index column
+            # Based on previous debug, '종합지수' at index 44 (AS column) is the IACI value.
             if col_idx == 44 and cleaned_h_orig == "종합지수": # Column AS (index 44) for "종합지수"
                 final_name_candidate = "IACI_Composite_Index"
                 print(f"DEBUG: Explicitly renaming column at index {col_idx} from '{cleaned_h_orig}' to '{final_name_candidate}' (IACI).")
@@ -248,6 +225,13 @@ def fetch_and_process_data():
         if cols_to_drop:
             print(f"DEBUG: Dropping empty columns: {cols_to_drop}")
             df_final.drop(columns=cols_to_drop, inplace=True, errors='ignore')
+
+        # --- IMPORTANT: Convert 'date' column to datetime objects BEFORE using .dt accessor ---
+        df_final['date'] = pd.to_datetime(df_final['date'], errors='coerce')
+        
+        # Debug prints for date column type and content
+        print(f"DEBUG: 'date' column dtype AFTER to_datetime: {df_final['date'].dtype}")
+        print(f"DEBUG: Sample of 'date' column AFTER to_datetime:\n{df_final['date'].head(10).to_string()}")
 
         df_final.dropna(subset=['date'], inplace=True)
         df_final = df_final.sort_values(by='date', ascending=True)
