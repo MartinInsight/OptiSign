@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('visibility-current').textContent = currentWeatherData.LA_Visibility ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
             document.getElementById('sunrise-time').textContent = currentWeatherData.LA_Sunrise || '--';
             document.getElementById('sunset-time').textContent = currentWeatherData.LA_Sunset || '--';
-            document.getElementById('fine-dust-current').textContent = currentWeatherData.LA_FineDust || '--'; // Assuming fine dust data will be added
+            // Removed fine dust update as per user request and HTML removal
 
             const forecastBody = document.getElementById('forecast-body');
             forecastBody.innerHTML = ''; // Clear existing rows
@@ -843,7 +843,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error("Error loading or processing JSON data:", error);
-            document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
+            // This error typically means the JSON data structure is unexpected or missing
+            // We should not overwrite the entire container if the issue is just with one element update
+            // Instead, display a more specific error or fallback for the problematic section
+            // For now, let's just log the error and ensure other parts of the dashboard still try to load.
+            // If the error prevents ALL charts from loading, then the below might be needed,
+            // but for a TypeError on a specific element, it's better to let other elements try to render.
+            // document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
         }
     }
 
