@@ -33,7 +33,7 @@
 
     .dashboard-grid {
         display: grid;
-        grid-template-columns: 1fr; /* Changed to single column */
+        grid-template-columns: 2fr 1fr; /* Changed to two columns: 2/3 for main, 1/3 for sidebar */
         gap: 10px; /* Reduced gap */
     }
 
@@ -45,8 +45,9 @@
     } */
 
     .sidebar {
-        /* Sidebar is now empty or can be removed, so its styles might not be strictly needed */
-        display: none; /* Hide sidebar if no content is intended */
+        /* Sidebar is now active and will contain the top info slider */
+        display: block; /* Make sidebar visible */
+        padding: 0; /* Remove padding from sidebar itself, its children will handle */
     }
 
     /* Main content area styles */
@@ -224,7 +225,7 @@
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         margin-bottom: 15px; /* Add margin to separate from top info slider */
         /* Ensure it takes full width of its parent (main) */
-        width: 100%; 
+        width: 100%;
         box-sizing: border-box; /* Include padding in total width */
     }
 
@@ -342,4 +343,3 @@
         width: 100% !important;
         height: 100% !important;
     }
-    
