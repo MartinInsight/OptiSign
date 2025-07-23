@@ -217,9 +217,8 @@
                     // Ensure fill property is set correctly for each dataset
                     const processedDatasets = datasets.map(dataset => ({
                         ...dataset,
-                        // Removed hidden: true, so all datasets will be visible by default
                         fill: dataset.fill !== undefined ? dataset.fill : (type === 'line' || type === 'radar' || type === 'polarArea'),
-                        pointRadius: dataset.pointRadius !== undefined ? dataset.pointRadius : 3, // Default point radius
+                        pointRadius: (type === 'line' || type === 'radar') ? 0 : (dataset.pointRadius !== undefined ? dataset.pointRadius : 3), // Line charts have 0 point radius
                         tension: dataset.tension !== undefined ? dataset.tension : 0.4, // Default tension for smoother lines
                         spanGaps: true // Connect lines across null/NaN values
                     }));
@@ -300,17 +299,40 @@
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
                     rawData = await response.json();
-                    console.log("Loaded data:", rawData);
+                    console.log("Loaded raw data:", rawData); // Log raw data for debugging
 
                     if (rawData.length === 0) {
                         console.warn("No data found in the JSON file.");
-                        // Optionally display a message on the dashboard if no data
                         document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
                         return;
                     }
 
-                    // --- Prepare Chart Data and Initialize Charts ---
-                    const dates = rawData.map(item => item.date); // X-axis labels (dates)
+                    // Filter and process data for monthly view (last 12 months)
+                    let processedMonthlyData = {};
+                    rawData.forEach(item => {
+                        const date = new Date(item.date);
+                        if (!isNaN(date)) { // Ensure date is valid
+                            const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+                            // Keep only the latest entry for each month
+                            if (!processedMonthlyData[yearMonth] || new Date(item.date) > new Date(processedMonthlyData[yearMonth].date)) {
+                                processedMonthlyData[yearMonth] = item;
+                            }
+                        }
+                    });
+
+                    // Convert to array and sort by date
+                    let filteredData = Object.values(processedMonthlyData).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                    // Take the last 12 months
+                    if (filteredData.length > 12) {
+                        filteredData = filteredData.slice(-12);
+                    }
+                    console.log("Filtered monthly data:", filteredData); // Log filtered data
+
+                    const dates = filteredData.map(item => {
+                        const d = new Date(item.date);
+                        return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`; // YYYY-MM format
+                    });
 
                     // Color palette for multiple datasets
                     const colors = [
@@ -355,7 +377,7 @@
                         [
                             {
                                 label: 'KCCI Composite Index',
-                                data: rawData.map(item => item.KCCI_Composite_Index),
+                                data: filteredData.map(item => item.KCCI_Composite_Index),
                                 backgroundColor: colors[0],
                                 borderColor: borderColors[0],
                                 borderWidth: 2,
@@ -363,7 +385,7 @@
                             },
                             {
                                 label: 'KCCI US West Coast',
-                                data: rawData.map(item => item.KCCI_US_West_Coast),
+                                data: filteredData.map(item => item.KCCI_US_West_Coast),
                                 backgroundColor: colors[2],
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
@@ -371,7 +393,7 @@
                             },
                             {
                                 label: 'KCCI US East Coast',
-                                data: rawData.map(item => item.KCCI_US_East_Coast),
+                                data: filteredData.map(item => item.KCCI_US_East_Coast),
                                 backgroundColor: colors[3],
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
@@ -379,7 +401,7 @@
                             },
                             {
                                 label: 'KCCI Europe',
-                                data: rawData.map(item => item.KCCI_Europe),
+                                data: filteredData.map(item => item.KCCI_Europe),
                                 backgroundColor: colors[4],
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
@@ -387,7 +409,7 @@
                             },
                             {
                                 label: 'KCCI Mediterranean',
-                                data: rawData.map(item => item.KCCI_Mediterranean),
+                                data: filteredData.map(item => item.KCCI_Mediterranean),
                                 backgroundColor: colors[5],
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
@@ -395,7 +417,7 @@
                             },
                              {
                                 label: 'KCCI Middle East',
-                                data: rawData.map(item => item.KCCI_Middle_East),
+                                data: filteredData.map(item => item.KCCI_Middle_East),
                                 backgroundColor: colors[6],
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
@@ -403,7 +425,7 @@
                             },
                              {
                                 label: 'KCCI Australia',
-                                data: rawData.map(item => item.KCCI_Australia),
+                                data: filteredData.map(item => item.KCCI_Australia),
                                 backgroundColor: colors[7],
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
@@ -411,7 +433,7 @@
                             },
                              {
                                 label: 'KCCI South America East Coast',
-                                data: rawData.map(item => item.KCCI_South_America_East_Coast),
+                                data: filteredData.map(item => item.KCCI_South_America_East_Coast),
                                 backgroundColor: colors[8],
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
@@ -419,7 +441,7 @@
                             },
                              {
                                 label: 'KCCI South America West Coast',
-                                data: rawData.map(item => item.KCCI_South_America_West_Coast),
+                                data: filteredData.map(item => item.KCCI_South_America_West_Coast),
                                 backgroundColor: colors[9],
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
@@ -427,7 +449,7 @@
                             },
                              {
                                 label: 'KCCI South Africa',
-                                data: rawData.map(item => item.KCCI_South_Africa),
+                                data: filteredData.map(item => item.KCCI_South_Africa),
                                 backgroundColor: colors[10],
                                 borderColor: borderColors[10],
                                 borderWidth: 1,
@@ -435,7 +457,7 @@
                             },
                              {
                                 label: 'KCCI West Africa',
-                                data: rawData.map(item => item.KCCI_West_Africa),
+                                data: filteredData.map(item => item.KCCI_West_Africa),
                                 backgroundColor: colors[11],
                                 borderColor: borderColors[11],
                                 borderWidth: 1,
@@ -443,7 +465,7 @@
                             },
                              {
                                 label: 'KCCI China',
-                                data: rawData.map(item => item.KCCI_China),
+                                data: filteredData.map(item => item.KCCI_China),
                                 backgroundColor: colors[12],
                                 borderColor: borderColors[12],
                                 borderWidth: 1,
@@ -451,7 +473,7 @@
                             },
                              {
                                 label: 'KCCI Japan',
-                                data: rawData.map(item => item.KCCI_Japan),
+                                data: filteredData.map(item => item.KCCI_Japan),
                                 backgroundColor: colors[13],
                                 borderColor: borderColors[13],
                                 borderWidth: 1,
@@ -459,7 +481,7 @@
                             },
                              {
                                 label: 'KCCI Southeast Asia',
-                                data: rawData.map(item => item.KCCI_Southeast_Asia),
+                                data: filteredData.map(item => item.KCCI_Southeast_Asia),
                                 backgroundColor: colors[14],
                                 borderColor: borderColors[14],
                                 borderWidth: 1,
@@ -475,7 +497,7 @@
                         [
                             {
                                 label: 'SCFI Composite Index',
-                                data: rawData.map(item => item.SCFI_Composite_Index),
+                                data: filteredData.map(item => item.SCFI_Composite_Index),
                                 backgroundColor: colors[1],
                                 borderColor: borderColors[1],
                                 borderWidth: 2,
@@ -483,7 +505,7 @@
                             },
                             {
                                 label: 'SCFI US West Coast',
-                                data: rawData.map(item => item.SCFI_US_West_Coast),
+                                data: filteredData.map(item => item.SCFI_US_West_Coast),
                                 backgroundColor: colors[2],
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
@@ -491,7 +513,7 @@
                             },
                             {
                                 label: 'SCFI US East Coast',
-                                data: rawData.map(item => item.SCFI_US_East_Coast),
+                                data: filteredData.map(item => item.SCFI_US_East_Coast),
                                 backgroundColor: colors[3],
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
@@ -499,7 +521,7 @@
                             },
                             {
                                 label: 'SCFI North Europe',
-                                data: rawData.map(item => item.SCFI_North_Europe),
+                                data: filteredData.map(item => item.SCFI_North_Europe),
                                 backgroundColor: colors[4],
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
@@ -507,7 +529,7 @@
                             },
                             {
                                 label: 'SCFI Mediterranean',
-                                data: rawData.map(item => item.SCFI_Mediterranean),
+                                data: filteredData.map(item => item.SCFI_Mediterranean),
                                 backgroundColor: colors[5],
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
@@ -515,7 +537,7 @@
                             },
                             {
                                 label: 'SCFI Southeast Asia',
-                                data: rawData.map(item => item.SCFI_Southeast_Asia),
+                                data: filteredData.map(item => item.SCFI_Southeast_Asia),
                                 backgroundColor: colors[6],
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
@@ -523,7 +545,7 @@
                             },
                             {
                                 label: 'SCFI Middle East',
-                                data: rawData.map(item => item.SCFI_Middle_East),
+                                data: filteredData.map(item => item.SCFI_Middle_East),
                                 backgroundColor: colors[7],
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
@@ -531,7 +553,7 @@
                             },
                             {
                                 label: 'SCFI Australia/New Zealand',
-                                data: rawData.map(item => item.Australia_New_Zealand_SCFI),
+                                data: filteredData.map(item => item.Australia_New_Zealand_SCFI),
                                 backgroundColor: colors[8],
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
@@ -539,7 +561,7 @@
                             },
                             {
                                 label: 'SCFI South America',
-                                data: rawData.map(item => item.South_America_SCFI),
+                                data: filteredData.map(item => item.South_America_SCFI),
                                 backgroundColor: colors[9],
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
@@ -547,7 +569,7 @@
                             },
                             {
                                 label: 'SCFI Japan West Coast',
-                                data: rawData.map(item => item.Japan_West_Coast_SCFI),
+                                data: filteredData.map(item => item.Japan_West_Coast_SCFI),
                                 backgroundColor: colors[10],
                                 borderColor: borderColors[10],
                                 borderWidth: 1,
@@ -555,7 +577,7 @@
                             },
                             {
                                 label: 'SCFI Japan East Coast',
-                                data: rawData.map(item => item.Japan_East_Coast_SCFI),
+                                data: filteredData.map(item => item.Japan_East_Coast_SCFI),
                                 backgroundColor: colors[11],
                                 borderColor: borderColors[11],
                                 borderWidth: 1,
@@ -563,7 +585,7 @@
                             },
                             {
                                 label: 'SCFI Korea',
-                                data: rawData.map(item => item.Korea_SCFI),
+                                data: filteredData.map(item => item.Korea_SCFI),
                                 backgroundColor: colors[12],
                                 borderColor: borderColors[12],
                                 borderWidth: 1,
@@ -571,7 +593,7 @@
                             },
                             {
                                 label: 'SCFI East/West Africa',
-                                data: rawData.map(item => item.East_West_Africa_SCFI),
+                                data: filteredData.map(item => item.East_West_Africa_SCFI),
                                 backgroundColor: colors[13],
                                 borderColor: borderColors[13],
                                 borderWidth: 1,
@@ -579,7 +601,7 @@
                             },
                             {
                                 label: 'SCFI South Africa',
-                                data: rawData.map(item => item.South_Africa_SCFI),
+                                data: filteredData.map(item => item.South_Africa_SCFI),
                                 backgroundColor: colors[14],
                                 borderColor: borderColors[14],
                                 borderWidth: 1,
@@ -595,7 +617,7 @@
                         [
                             {
                                 label: 'WCI Composite Index',
-                                data: rawData.map(item => item.WCI_Composite_Index),
+                                data: filteredData.map(item => item.WCI_Composite_Index),
                                 backgroundColor: colors[0],
                                 borderColor: borderColors[0],
                                 borderWidth: 2,
@@ -603,7 +625,7 @@
                             },
                             {
                                 label: 'WCI Shanghai → Rotterdam',
-                                data: rawData.map(item => item.Shanghai_Rotterdam_WCI),
+                                data: filteredData.map(item => item.Shanghai_Rotterdam_WCI),
                                 backgroundColor: colors[2],
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
@@ -611,7 +633,7 @@
                             },
                             {
                                 label: 'WCI Rotterdam → Shanghai',
-                                data: rawData.map(item => item.Rotterdam_Shanghai_WCI),
+                                data: filteredData.map(item => item.Rotterdam_Shanghai_WCI),
                                 backgroundColor: colors[3],
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
@@ -619,7 +641,7 @@
                             },
                             {
                                 label: 'WCI Shanghai → Genoa',
-                                data: rawData.map(item => item.Shanghai_Genoa_WCI),
+                                data: filteredData.map(item => item.Shanghai_Genoa_WCI),
                                 backgroundColor: colors[4],
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
@@ -627,7 +649,7 @@
                             },
                             {
                                 label: 'WCI Shanghai → Los Angeles',
-                                data: rawData.map(item => item.Shanghai_Los_Angeles_WCI),
+                                data: filteredData.map(item => item.Shanghai_Los_Angeles_WCI),
                                 backgroundColor: colors[5],
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
@@ -635,7 +657,7 @@
                             },
                             {
                                 label: 'WCI Los Angeles → Shanghai',
-                                data: rawData.map(item => item.Los_Angeles_Shanghai_WCI),
+                                data: filteredData.map(item => item.Los_Angeles_Shanghai_WCI),
                                 backgroundColor: colors[6],
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
@@ -643,7 +665,7 @@
                             },
                             {
                                 label: 'WCI Shanghai → New York',
-                                data: rawData.map(item => item.Shanghai_New_York_WCI),
+                                data: filteredData.map(item => item.Shanghai_New_York_WCI),
                                 backgroundColor: colors[7],
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
@@ -651,7 +673,7 @@
                             },
                             {
                                 label: 'WCI New York → Rotterdam',
-                                data: rawData.map(item => item.New_York_Rotterdam_WCI),
+                                data: filteredData.map(item => item.New_York_Rotterdam_WCI),
                                 backgroundColor: colors[8],
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
@@ -659,7 +681,7 @@
                             },
                             {
                                 label: 'WCI Rotterdam → New York',
-                                data: rawData.map(item => item.Rotterdam_New_York_WCI),
+                                data: filteredData.map(item => item.Rotterdam_New_York_WCI),
                                 backgroundColor: colors[9],
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
@@ -675,7 +697,7 @@
                         [
                             {
                                 label: 'IACI Composite Index',
-                                data: rawData.map(item => item.IACI_Composite_Index),
+                                data: filteredData.map(item => item.IACI_Composite_Index),
                                 backgroundColor: colors[1],
                                 borderColor: borderColors[1],
                                 borderWidth: 1
@@ -684,60 +706,74 @@
                         dates
                     );
 
-                    // Chart 5: BLANK_SAILING Total & Alliances
+                    // Chart 5: BLANK_SAILING Total & Alliances (Stacked Bar Chart)
                     satisfactionChart = setupChart(
-                        'satisfactionChart', 'line',
+                        'satisfactionChart', 'bar', // Changed to 'bar' type
                         [
                             {
-                                label: 'Total Blank Sailings',
-                                data: rawData.map(item => item.Total_Blank_Sailings),
-                                backgroundColor: colors[0],
-                                borderColor: borderColors[0],
-                                borderWidth: 2,
-                                fill: false
-                            },
-                            {
-                                label: 'Gemini Cooperation',
-                                data: rawData.map(item => item.Gemini_Cooperation_Blank_Sailing),
+                                label: 'Gemini Cooperation', // Changed order for stacking
+                                data: filteredData.map(item => item.Gemini_Cooperation_Blank_Sailing),
                                 backgroundColor: colors[2],
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
-                                fill: false
+                                stack: 'BlankSailingsStack' // Added stack property
                             },
                             {
                                 label: 'MSC Alliance',
-                                data: rawData.map(item => item.MSC_Alliance_Blank_Sailing),
+                                data: filteredData.map(item => item.MSC_Alliance_Blank_Sailing),
                                 backgroundColor: colors[3],
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
-                                fill: false
+                                stack: 'BlankSailingsStack'
                             },
                             {
                                 label: 'OCEAN Alliance',
-                                data: rawData.map(item => item.OCEAN_Alliance_Blank_Sailing),
+                                data: filteredData.map(item => item.OCEAN_Alliance_Blank_Sailing),
                                 backgroundColor: colors[4],
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
-                                fill: false
+                                stack: 'BlankSailingsStack'
                             },
                             {
                                 label: 'Premier Alliance',
-                                data: rawData.map(item => item.Premier_Alliance_Blank_Sailing),
+                                data: filteredData.map(item => item.Premier_Alliance_Blank_Sailing),
                                 backgroundColor: colors[5],
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
-                                fill: false
+                                stack: 'BlankSailingsStack'
                             },
                             {
                                 label: 'Others/Independent',
-                                data: rawData.map(item => item.Others_Independent_Blank_Sailing),
+                                data: filteredData.map(item => item.Others_Independent_Blank_Sailing),
                                 backgroundColor: colors[6],
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
-                                fill: false
+                                stack: 'BlankSailingsStack'
+                            },
+                            {
+                                label: 'Total Blank Sailings', // Total last in stack
+                                data: filteredData.map(item => item.Total_Blank_Sailings),
+                                backgroundColor: colors[0],
+                                borderColor: borderColors[0],
+                                borderWidth: 2,
+                                type: 'line', // Keep total as a line on top of bars
+                                fill: false,
+                                pointRadius: 0,
+                                yAxisID: 'y' // Use default y-axis
                             }
                         ],
-                        dates
+                        dates,
+                        {
+                            scales: {
+                                x: {
+                                    stacked: true // Enable stacked X-axis
+                                },
+                                y: {
+                                    stacked: true, // Enable stacked Y-axis
+                                    beginAtZero: true
+                                }
+                            }
+                        }
                     );
 
                     // Chart 6: FBX Composite Index & Routes
@@ -746,7 +782,7 @@
                         [
                             {
                                 label: 'FBX Composite Index',
-                                data: rawData.map(item => item.FBX_Composite_Index),
+                                data: filteredData.map(item => item.FBX_Composite_Index),
                                 backgroundColor: colors[1],
                                 borderColor: borderColors[1],
                                 borderWidth: 2,
@@ -754,7 +790,7 @@
                             },
                             {
                                 label: 'FBX China/EA → US West Coast',
-                                data: rawData.map(item => item.China_EA_US_West_Coast_FBX),
+                                data: filteredData.map(item => item.China_EA_US_West_Coast_FBX),
                                 backgroundColor: colors[2],
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
@@ -762,7 +798,7 @@
                             },
                             {
                                 label: 'FBX US West Coast → China/EA',
-                                data: rawData.map(item => item.US_West_Coast_China_EA_FBX),
+                                data: filteredData.map(item => item.US_West_Coast_China_EA_FBX),
                                 backgroundColor: colors[3],
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
@@ -770,7 +806,7 @@
                             },
                             {
                                 label: 'FBX China/EA → US East Coast',
-                                data: rawData.map(item => item.China_EA_US_East_Coast_FBX),
+                                data: filteredData.map(item => item.China_EA_US_East_Coast_FBX),
                                 backgroundColor: colors[4],
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
@@ -778,7 +814,7 @@
                             },
                             {
                                 label: 'FBX US East Coast → China/EA',
-                                data: rawData.map(item => item.US_East_Coast_China_EA_FBX),
+                                data: filteredData.map(item => item.US_East_Coast_China_EA_FBX),
                                 backgroundColor: colors[5],
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
@@ -786,7 +822,7 @@
                             },
                             {
                                 label: 'FBX China/EA → North Europe',
-                                data: rawData.map(item => item.China_EA_North_Europe_FBX),
+                                data: filteredData.map(item => item.China_EA_North_Europe_FBX),
                                 backgroundColor: colors[6],
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
@@ -794,7 +830,7 @@
                             },
                             {
                                 label: 'FBX North Europe → China/EA',
-                                data: rawData.map(item => item.North_Europe_China_EA_FBX),
+                                data: filteredData.map(item => item.North_Europe_China_EA_FBX),
                                 backgroundColor: colors[7],
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
@@ -802,7 +838,7 @@
                             },
                             {
                                 label: 'FBX China/EA → Mediterranean',
-                                data: rawData.map(item => item.China_EA_Mediterranean_FBX),
+                                data: filteredData.map(item => item.China_EA_Mediterranean_FBX),
                                 backgroundColor: colors[8],
                                 borderColor: borderColors[8],
                                 borderWidth: 1,
@@ -810,7 +846,7 @@
                             },
                             {
                                 label: 'FBX Mediterranean → China/EA',
-                                data: rawData.map(item => item.Mediterranean_China_EA_FBX),
+                                data: filteredData.map(item => item.Mediterranean_China_EA_FBX),
                                 backgroundColor: colors[9],
                                 borderColor: borderColors[9],
                                 borderWidth: 1,
@@ -818,7 +854,7 @@
                             },
                             {
                                 label: 'FBX US East Coast → North Europe',
-                                data: rawData.map(item => item.FBX_US_East_Coast_North_Europe),
+                                data: filteredData.map(item => item.FBX_US_East_Coast_North_Europe),
                                 backgroundColor: colors[10],
                                 borderColor: borderColors[10],
                                 borderWidth: 1,
@@ -826,7 +862,7 @@
                             },
                             {
                                 label: 'FBX North Europe → US East Coast',
-                                data: rawData.map(item => item.FBX_North_Europe_US_East_Coast),
+                                data: filteredData.map(item => item.FBX_North_Europe_US_East_Coast),
                                 backgroundColor: colors[11],
                                 borderColor: borderColors[11],
                                 borderWidth: 1,
@@ -834,7 +870,7 @@
                             },
                             {
                                 label: 'FBX Europe → South America East Coast',
-                                data: rawData.map(item => item.FBX_Europe_South_America_East_Coast),
+                                data: filteredData.map(item => item.FBX_Europe_South_America_East_Coast),
                                 backgroundColor: colors[12],
                                 borderColor: borderColors[12],
                                 borderWidth: 1,
@@ -842,7 +878,7 @@
                             },
                             {
                                 label: 'FBX Europe → South America West Coast',
-                                data: rawData.map(item => item.FBX_Europe_South_America_West_Coast),
+                                data: filteredData.map(item => item.FBX_Europe_South_America_West_Coast),
                                 backgroundColor: colors[13],
                                 borderColor: borderColors[13],
                                 borderWidth: 1,
@@ -858,7 +894,7 @@
                         [
                             {
                                 label: 'XSI East Asia → North Europe',
-                                data: rawData.map(item => item.XSI_East_Asia_North_Europe),
+                                data: filteredData.map(item => item.XSI_East_Asia_North_Europe),
                                 backgroundColor: colors[0],
                                 borderColor: borderColors[0],
                                 borderWidth: 2,
@@ -866,7 +902,7 @@
                             },
                             {
                                 label: 'XSI North Europe → East Asia',
-                                data: rawData.map(item => item.XSI_North_Europe_East_Asia),
+                                data: filteredData.map(item => item.XSI_North_Europe_East_Asia),
                                 backgroundColor: colors[1],
                                 borderColor: borderColors[1],
                                 borderWidth: 1,
@@ -874,7 +910,7 @@
                             },
                             {
                                 label: 'XSI East Asia → US West Coast',
-                                data: rawData.map(item => item.XSI_East_Asia_US_West_Coast),
+                                data: filteredData.map(item => item.XSI_East_Asia_US_West_Coast),
                                 backgroundColor: colors[2],
                                 borderColor: borderColors[2],
                                 borderWidth: 1,
@@ -882,7 +918,7 @@
                             },
                             {
                                 label: 'XSI US West Coast → East Asia',
-                                data: rawData.map(item => item.XSI_US_West_Coast_East_Asia),
+                                data: filteredData.map(item => item.XSI_US_West_Coast_East_Asia),
                                 backgroundColor: colors[3],
                                 borderColor: borderColors[3],
                                 borderWidth: 1,
@@ -890,7 +926,7 @@
                             },
                             {
                                 label: 'XSI East Asia → South America East Coast',
-                                data: rawData.map(item => item.XSI_East_Asia_South_America_East_Coast),
+                                data: filteredData.map(item => item.XSI_East_Asia_South_America_East_Coast),
                                 backgroundColor: colors[4],
                                 borderColor: borderColors[4],
                                 borderWidth: 1,
@@ -898,7 +934,7 @@
                             },
                             {
                                 label: 'XSI North Europe → US East Coast',
-                                data: rawData.map(item => item.XSI_North_Europe_US_East_Coast),
+                                data: filteredData.map(item => item.XSI_North_Europe_US_East_Coast),
                                 backgroundColor: colors[5],
                                 borderColor: borderColors[5],
                                 borderWidth: 1,
@@ -906,7 +942,7 @@
                             },
                             {
                                 label: 'XSI US East Coast → North Europe',
-                                data: rawData.map(item => item.XSI_US_East_Coast_North_Europe),
+                                data: filteredData.map(item => item.XSI_US_East_Coast_North_Europe),
                                 backgroundColor: colors[6],
                                 borderColor: borderColors[6],
                                 borderWidth: 1,
@@ -914,7 +950,7 @@
                             },
                             {
                                 label: 'XSI North Europe → South America East Coast',
-                                data: rawData.map(item => item.XSI_North_Europe_South_America_East_Coast),
+                                data: filteredData.map(item => item.XSI_North_Europe_South_America_East_Coast),
                                 backgroundColor: colors[7],
                                 borderColor: borderColors[7],
                                 borderWidth: 1,
@@ -930,7 +966,7 @@
                         [
                             {
                                 label: 'MBCI Value',
-                                data: rawData.map(item => item.MBCI_MBCI_Value),
+                                data: filteredData.map(item => item.MBCI_MBCI_Value),
                                 backgroundColor: colors[1],
                                 borderColor: borderColors[1],
                                 borderWidth: 2,
