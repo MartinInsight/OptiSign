@@ -132,10 +132,15 @@ def fetch_and_process_data():
             if row and row[0].strip() == "IACIdate":
                 iaci_date_row_index = i
             # Find the IACI value row (using "종합지수" in the first column)
+            # This check assumes "종합지수" in column A is specific to IACI.
+            # If other sections also have "종합지수" in column A, this might need refinement.
+            # To make it more robust for IACI, we can check if it's immediately after IACIdate row.
             if row and row[0].strip() == "종합지수":
-                # This check assumes "종합지수" in column A is specific to IACI.
-                # If other sections also have "종합지수" in column A, this might need refinement.
-                iaci_value_row_index = i
+                # Check if this "종합지수" row is directly after the IACIdate row
+                if iaci_date_row_index != -1 and i == iaci_date_row_index + 1:
+                    iaci_value_row_index = i
+                elif iaci_date_row_index == -1: # If IACIdate not found yet, assign tentatively
+                    iaci_value_row_index = i
         
         print(f"DEBUG: Main header row index: {main_header_row_index}")
         print(f"DEBUG: IACI date row index: {iaci_date_row_index}")
@@ -238,6 +243,9 @@ def fetch_and_process_data():
             iaci_dates_raw = all_data[iaci_date_row_index][1:] # Skip "IACIdate" label in first cell
             iaci_values_raw = all_data[iaci_value_row_index][1:] # Skip "종합지수" label in first cell
 
+            print(f"DEBUG: Raw IACI Dates extracted: {iaci_dates_raw}") # NEW DEBUG
+            print(f"DEBUG: Raw IACI Values extracted: {iaci_values_raw}") # NEW DEBUG
+
             # Ensure lists are of the same length
             min_len = min(len(iaci_dates_raw), len(iaci_values_raw))
             iaci_dates = iaci_dates_raw[:min_len]
@@ -250,8 +258,6 @@ def fetch_and_process_data():
             }
             df_iaci = pd.DataFrame(iaci_data)
             
-            print(f"DEBUG: IACI Raw Dates: {iaci_dates}")
-            print(f"DEBUG: IACI Raw Values: {iaci_values}")
             print(f"DEBUG: IACI DataFrame created:\n{df_iaci.to_string()}")
 
         # --- Date column processing for main DataFrame ---
