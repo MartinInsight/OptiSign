@@ -55,7 +55,7 @@ COMMON_DATA_HEADERS_TO_PREFIX = {
     "동아시아 → 북유럽": "East_Asia_North_Europe",
     "북유럽 → 동아시아": "North_Europe_East_Asia",
     "동아시아 → 미주서안": "East_Asia_US_West_Coast",
-    "미주서안 → 동아시아": "US_West_Coast_East_Asia",
+    "미주서안 → 동아시아": "US_West_Coast_China_EA_FBX", # Corrected for FBX
     "동아시아 → 남미동안": "East_Asia_South_America_East_Coast",
     "북유럽 → 남미동안": "North_Europe_South_America_East_Coast",
     "MBCI": "MBCI_Value"
@@ -267,6 +267,14 @@ def fetch_and_process_data():
         # --- Convert all numeric columns ---
         # Exclude 'date' and any _Container_Index or _Raw columns that are no longer needed
         numeric_cols = [col for col in df.columns if col != 'date' and not col.endswith('_Container_Index_Raw')]
+        
+        # Add specific debug for IACI_Composite_Index conversion
+        if 'IACI_Composite_Index' in df.columns:
+            print(f"DEBUG: IACI_Composite_Index column BEFORE numeric conversion:\n{df['IACI_Composite_Index'].to_string()}")
+            df['IACI_Composite_Index'] = pd.to_numeric(df['IACI_Composite_Index'].astype(str).str.replace(',', ''), errors='coerce')
+            print(f"DEBUG: IACI_Composite_Index column AFTER numeric conversion:\n{df['IACI_Composite_Index'].to_string()}")
+            numeric_cols.remove('IACI_Composite_Index') # Remove it from general loop as it's handled
+        
         for col in numeric_cols:
             df[col] = df[col].apply(lambda x: pd.to_numeric(str(x).replace(',', ''), errors='coerce'))
         
