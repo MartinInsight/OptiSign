@@ -114,58 +114,59 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Color Palette Helper ---
+    // Expanded color palette for better visibility and distinction
     const colors = [
-        'rgba(0, 101, 126, 0.8)',   // Teal 1
-        'rgba(0, 58, 82, 0.8)',    // Navy 1
-        'rgba(40, 167, 69, 0.8)',   // Green 1
-        'rgba(253, 126, 20, 0.8)',  // Orange 1
-        'rgba(111, 66, 193, 0.8)',  // Purple 1
-        'rgba(220, 53, 69, 0.8)',   // Red 1
-        'rgba(23, 162, 184, 0.8)',  // Info Blue 1
-        'rgba(108, 117, 125, 0.8)', // Gray 1
-        'rgba(75, 192, 192, 0.8)',  // Cyan 1
-        'rgba(153, 102, 255, 0.8)', // Violet 1
-        'rgba(255, 159, 64, 0.8)',  // Orange 2
-        'rgba(255, 99, 132, 0.8)',  // Red 2
-        'rgba(54, 162, 235, 0.8)',  // Blue 1
-        'rgba(255, 206, 86, 0.8)',  // Yellow 1
-        'rgba(199, 199, 199, 0.8)', // Gray 2
-        'rgba(83, 109, 254, 0.8)',  // Indigo 1
-        'rgba(0, 150, 136, 0.8)',   // Dark Teal 2
-        'rgba(139, 195, 74, 0.8)',  // Light Green 2
-        'rgba(255, 87, 34, 0.8)',   // Deep Orange 2
-        'rgba(121, 85, 72, 0.8)',   // Brown 1
-        'rgba(255, 193, 7, 0.8)',   // Amber
-        'rgba(173, 216, 230, 0.8)', // Light Blue
-        'rgba(255, 105, 180, 0.8)', // Hot Pink
-        'rgba(144, 238, 144, 0.8)'  // Light Green
+        'rgba(255, 99, 132, 0.8)',   // Red
+        'rgba(54, 162, 235, 0.8)',   // Blue
+        'rgba(255, 206, 86, 0.8)',   // Yellow
+        'rgba(75, 192, 192, 0.8)',   // Green-Cyan
+        'rgba(153, 102, 255, 0.8)',  // Purple
+        'rgba(255, 159, 64, 0.8)',   // Orange
+        'rgba(201, 203, 207, 0.8)',  // Grey
+        'rgba(0, 128, 128, 0.8)',    // Teal
+        'rgba(128, 0, 0, 0.8)',      // Maroon
+        'rgba(0, 128, 0, 0.8)',      // Dark Green
+        'rgba(0, 0, 128, 0.8)',      // Navy
+        'rgba(128, 128, 0, 0.8)',    // Olive
+        'rgba(128, 0, 128, 0.8)',    // Violet
+        'rgba(0, 255, 0, 0.8)',      // Lime
+        'rgba(255, 0, 255, 0.8)',    // Magenta
+        'rgba(0, 255, 255, 0.8)',    // Aqua
+        'rgba(100, 149, 237, 0.8)',  // Cornflower Blue
+        'rgba(218, 112, 214, 0.8)',  // Orchid
+        'rgba(255, 140, 0, 0.8)',    // Dark Orange
+        'rgba(60, 179, 113, 0.8)',   // Medium Sea Green
+        'rgba(178, 34, 34, 0.8)',    // Firebrick
+        'rgba(138, 43, 226, 0.8)',   // Blue Violet
+        'rgba(255, 215, 0, 0.8)',    // Gold
+        'rgba(70, 130, 180, 0.8)'    // Steel Blue
     ];
 
     const borderColors = [
-        '#00657e', // Darker Teal 1
-        '#003A52', // Darker Navy 1
-        '#218838', // Darker Green 1
-        '#e68a00', // Darker Orange 1
-        '#5a32b2', // Darker Purple 1
-        '#c82333', // Darker Red 1
-        '#138496', // Darker Info Blue 1
-        '#6c757d', // Darker Gray 1
-        '#4a9c9c', // Darker Cyan 1
-        '#7a52cc', // Darker Violet 1
-        '#e68a00', // Darker Orange 2
-        '#c82333', // Darker Red 2
-        '#307ad1', // Darker Blue 1
-        '#cc9900', // Darker Yellow 1
-        '#999999', // Darker Gray 2
-        '#4050c8', // Darker Indigo 1
-        '#00796B', // Darker Dark Teal 2
-        '#8BC34A', // Darker Light Green 2
-        '#D84315', // Darker Deep Orange 2
-        '#5D4037', // Darker Brown 1
-        '#FFB300', // Darker Amber
-        '#87CEFA', // Darker Light Blue
-        '#FF69B4', // Darker Hot Pink
-        '#90EE90'  // Darker Light Green
+        '#cc0033', // Darker Red
+        '#3366cc', // Darker Blue
+        '#cc9900', // Darker Yellow
+        '#009999', // Darker Green-Cyan
+        '#6633cc', // Darker Purple
+        '#cc6600', // Darker Orange
+        '#999999', // Darker Grey
+        '#006666', // Darker Teal
+        '#660000', // Darker Maroon
+        '#006600', // Darker Dark Green
+        '#000066', // Darker Navy
+        '#666600', // Darker Olive
+        '#660066', // Darker Violet
+        '#00cc00', // Darker Lime
+        '#cc00cc', // Darker Magenta
+        '#00cccc', // Darker Aqua
+        '#4682B4', // Darker Cornflower Blue
+        '#9932CC', // Darker Orchid
+        '#FF8C00', // Darker Dark Orange
+        '#3CB371', // Darker Medium Sea Green
+        '#B22222', // Darker Firebrick
+        '#8A2BE2', // Darker Blue Violet
+        '#DAA520', // Darker Gold
+        '#4682B4'  // Darker Steel Blue
     ];
 
     let colorIndex = 0;
@@ -437,8 +438,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 [{
                     label: 'USD/KRW Exchange Rate',
                     data: exchangeRateValues,
-                    backgroundColor: 'rgba(253, 126, 20, 0.5)',
-                    borderColor: '#e68a00',
+                    backgroundColor: getNextColor(), // Use dynamic color
+                    borderColor: getNextBorderColor(), // Use dynamic border color
                     borderWidth: 2,
                     fill: false,
                     pointRadius: 0 // No points on exchange rate chart
@@ -453,7 +454,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         y: {
                             beginAtZero: false, // Exchange rates might not start at zero
-                            grid: { display: false } // Remove grid lines
+                            grid: { display: true }, // Add grid lines for exchange rate chart
+                            ticks: { maxTicksLimit: 5 } // Limit Y-axis ticks to 5
                         }
                     },
                     plugins: {
@@ -798,40 +800,41 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             // Chart 5: BLANK_SAILING Stacked Bar Chart (Aggregated Data)
+            colorIndex = 0; // Reset color index specifically for Blank Sailing to ensure distinct colors
             const blankSailingDatasets = [
                 {
                     label: 'Gemini Cooperation',
                     data: aggregatedBlankSailingData.map(item => item.Gemini_Cooperation_Blank_Sailing),
-                    backgroundColor: 'rgba(0, 101, 126, 0.5)', // Light Teal
-                    borderColor: '#00657e',
+                    backgroundColor: getNextColor(),
+                    borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: 'MSC Alliance',
                     data: aggregatedBlankSailingData.map(item => item.MSC_Alliance_Blank_Sailing),
-                    backgroundColor: 'rgba(0, 58, 82, 0.5)', // Light Navy
-                    borderColor: '#003A52',
+                    backgroundColor: getNextColor(),
+                    borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: 'OCEAN Alliance',
                     data: aggregatedBlankSailingData.map(item => item.OCEAN_Alliance_Blank_Sailing),
-                    backgroundColor: 'rgba(0, 101, 126, 0.3)', // Lighter Teal
-                    borderColor: '#00657e',
+                    backgroundColor: getNextColor(),
+                    borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: 'Premier Alliance',
                     data: aggregatedBlankSailingData.map(item => item.Premier_Alliance_Blank_Sailing),
-                    backgroundColor: 'rgba(0, 58, 82, 0.3)', // Lighter Navy
-                    borderColor: '#003A52',
+                    backgroundColor: getNextColor(),
+                    borderColor: getNextBorderColor(),
                     borderWidth: 1
                 },
                 {
                     label: 'Others/Independent',
                     data: aggregatedBlankSailingData.map(item => item.Others_Independent_Blank_Sailing),
-                    backgroundColor: 'rgba(0, 101, 126, 0.2)', // Even Lighter Teal
-                    borderColor: '#00657e',
+                    backgroundColor: getNextColor(),
+                    borderColor: getNextBorderColor(),
                     borderWidth: 1
                 }
             ];
