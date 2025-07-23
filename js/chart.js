@@ -144,6 +144,53 @@ document.addEventListener('DOMContentLoaded', () => {
         return fullLabel.replace(/^(KCCI|SCFI|WCI|FBX|XSI|MBCI)\s/i, '');
     };
 
+    // --- Helper function to aggregate data by month ---
+    const aggregateDataByMonth = (data, numMonths = 12) => {
+        if (data.length === 0) return { aggregatedData: [], monthlyLabels: [] };
+
+        const monthlyDataMap = new Map(); // Map to store data grouped by 'YYYY-MM'
+
+        data.forEach(item => {
+            const date = new Date(item.date);
+            const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+
+            if (!monthlyDataMap.has(yearMonth)) {
+                monthlyDataMap.set(yearMonth, {});
+            }
+            const monthEntry = monthlyDataMap.get(yearMonth);
+
+            for (const key in item) {
+                if (key !== 'date' && item[key] !== null && !isNaN(item[key])) {
+                    if (!monthEntry[key]) {
+                        monthEntry[key] = { sum: 0, count: 0 };
+                    }
+                    monthEntry[key].sum += item[key];
+                    monthEntry[key].count++;
+                }
+            }
+        });
+
+        const aggregatedData = [];
+        const sortedMonthKeys = Array.from(monthlyDataMap.keys()).sort();
+
+        // Get the last `numMonths` keys
+        const lastNMonthKeys = sortedMonthKeys.slice(Math.max(0, sortedMonthKeys.length - numMonths));
+
+        lastNMonthKeys.forEach(yearMonth => {
+            const monthEntry = monthlyDataMap.get(yearMonth);
+            const newEntry = { date: yearMonth + '-01' }; // Use first day of the month for consistent date
+            for (const key in monthEntry) {
+                newEntry[key] = monthEntry[key].count > 0 ? monthEntry[key].sum / monthEntry[key].count : null;
+            }
+            aggregatedData.push(newEntry);
+        });
+
+        // Ensure chartDates are in 'YYYY-MM-DD' format for Chart.js time scale
+        const monthlyLabels = aggregatedData.map(item => item.date);
+
+        return { aggregatedData: aggregatedData, monthlyLabels: monthlyLabels };
+    };
+
     // --- Generic Slider Logic ---
     const setupSlider = (slidesSelector, intervalTime) => {
         const slides = document.querySelectorAll(slidesSelector);
@@ -226,21 +273,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Sort chart data by date in ascending order (important for time series)
             rawChartData.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            // Filter chart data to the latest 1 year (approx 12 months)
-            // Calculate the date 1 year ago from the latest date in the data
-            const latestDate = new Date(rawChartData[rawChartData.length - 1].date);
-            const oneYearAgo = new Date(latestDate);
-            oneYearAgo.setFullYear(latestDate.getFullYear() - 1);
+            // Aggregate chart data into monthly averages for 1-year view
+            const { aggregatedData: finalChartData, monthlyLabels: chartDates } = aggregateDataByMonth(rawChartData, 12);
             
-            const filteredChartData = rawChartData.filter(item => new Date(item.date) >= oneYearAgo);
-            
-            // If after filtering, there are less than 12 data points, take the last 12
-            // This ensures we always show at least 12 data points if available
-            const finalChartData = filteredChartData.length < 12 && rawChartData.length >= 12
-                                   ? rawChartData.slice(rawChartData.length - 12)
-                                   : filteredChartData;
-
-            const chartDates = finalChartData.map(item => item.date);
+            if (finalChartData.length === 0) {
+                console.warn("No aggregated chart data for the last 12 months.");
+                document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available for the last year.</p>';
+                return;
+            }
 
             // --- Update Weather Info ---
             const currentWeatherData = weatherData.current || {};
@@ -306,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         x: {
                             type: 'category', // Use category for exchange rate dates like "MM-DD"
                             time: { unit: 'day', displayFormats: { day: 'MM-DD' } }, // Format for exchange rate dates
-                            ticks: { maxTicksLimit: 7 } // Show approx 7 ticks for a week view
+                            // Removed maxTicksLimit to allow more ticks for a month view
                         },
                         y: {
                             beginAtZero: false, // Exchange rates might not start at zero
