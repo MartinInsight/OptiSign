@@ -1,164 +1,402 @@
 <!DOCTYPE html>
-<html lang="en"> <!-- Changed language to English -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Responsive Dashboard</title> <!-- Title in English -->
-    <link rel="stylesheet" href="styles/main.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Global Logistics Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800">
     <div class="dashboard-grid">
-        <header>
-            <h1>Real-time Dashboard</h1> <!-- Header title in English -->
-            <p id="last-updated">Last Updated: 2025-07-22 3:56 PM</p> <!-- Updated placeholder text to English -->
+        <header class="bg-blue-900 text-white p-6 rounded-xl shadow-lg col-span-full text-center mb-0">
+            <h1 class="text-4xl font-bold mb-2">글로벌 물류 대시보드</h1>
+            <p class="text-lg opacity-90">주요 해상 운임 지수 및 물류 데이터</p>
         </header>
 
-        <!-- Fixed Info Cards -->
-        <section class="card weather-card">
-            <h2>Current Weather</h2> <!-- Header in English -->
-            <div class="weather-info">
-                <p id="city-name">Seoul</p> <!-- City name in English -->
-                <p id="temperature">28°C</p>
-                <p id="description">Clear Sky</p> <!-- Description in English -->
-                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather Icon"> <!-- Alt text in English -->
-            </div>
-            <p class="placeholder-text">Google Sheets weather data will be displayed here.</p> <!-- Placeholder in English -->
-        </section>
-
-        <section class="card exchange-rate-card">
-            <h2>Exchange Rates</h2> <!-- Header in English -->
-            <div class="exchange-rates">
-                <p>USD/KRW: <span id="usd-krw">1,380.50</span></p>
-                <p>JPY/KRW (100 Yen): <span id="jpy-krw">8.85</span></p> <!-- Label in English -->
-                <p>EUR/KRW: <span id="eur-krw">1,490.20</span></p>
-            </div>
-            <p class="placeholder-text">Google Sheets exchange rate data will be displayed here.</p> <!-- Placeholder in English -->
-        </section>
-
-        <section class="card world-clock-card">
-            <h2>World Clock</h2> <!-- Header in English -->
-            <div class="clocks-container">
-                <div class="clock-item">
-                    <h3>Los Angeles</h3> <!-- City name in English -->
-                    <p id="time-la"></p>
-                </div>
-                <div class="clock-item">
-                    <h3>New York</h3> <!-- City name in English -->
-                    <p id="time-ny"></p>
-                </div>
-                <div class="clock-item">
-                    <h3>Paris</h3> <!-- City name in English -->
-                    <p id="time-paris"></p>
-                </div>
-                <div class="clock-item">
-                    <h3>Shanghai</h3> <!-- City name in English -->
-                    <p id="time-shanghai"></p>
-                </div>
-                <div class="clock-item">
-                    <h3>Seoul</h3> <!-- City name in English -->
-                    <p id="time-seoul"></p>
-                </div>
-                <div class="clock-item">
-                    <h3>Sydney</h3> <!-- City name in English -->
-                    <p id="time-sydney"></p>
+        <!-- Chart Slider Container -->
+        <div class="chart-slider-container bg-white rounded-xl shadow-md p-6 relative overflow-hidden col-span-2 min-h-[350px] flex flex-col items-center justify-center">
+            <!-- Chart Slides -->
+            <div class="chart-slide active absolute inset-0 p-6 flex flex-col justify-center items-center">
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">KCCI Composite Index</h2>
+                <div class="chart-container relative w-full h-[250px]">
+                    <canvas id="salesChart"></canvas>
                 </div>
             </div>
-            <p class="placeholder-text">Current time for each city will be displayed here.</p> <!-- Placeholder in English -->
-        </section>
-
-        <section class="card info-card">
-            <h2>Announcements</h2> <!-- Header in English -->
-            <!-- Announcement content inserted here -->
-            <p>• After meals, please empty liquids (excluding solids) into the sink with the grinder on. Dispose of other waste in the trash cans located in front of the men's restroom on the 1st floor Warehouse.</p>
-            <p>• When disposing of waste, please use the Office stairs, not the Warehouse stairs. Distribute waste appropriately into the two trash cans to prevent accumulation on one side.</p>
-            <p>• If you spill liquids like coffee or soup inside the building, please clean it up immediately to prevent stains on the floor.</p>
-            <p>• To prevent pests such as mice, cockroaches, and flies, do not store snacks or other food items on your desk when leaving work; dispose of them or take them home.</p>
-            <p>• For aesthetics and respiratory health, please wipe down dust and stains from your desk and surrounding areas before leaving work every Friday.</p>
-            <!-- <p class="placeholder-text">Other important information or announcements can be added here.</p> -->
-        </section>
-
-        <!-- Chart Slider Container: This will hold 7 charts that slide every 10 seconds -->
-        <div class="chart-slider-container">
-            <!-- First Chart Slide -->
-            <div class="chart-slide active">
-                <section class="card chart-card">
-                    <h2>Weekly Sales Trend</h2> <!-- Header in English -->
-                    <div class="chart-container">
-                        <canvas id="salesChart"></canvas>
-                    </div>
-                    <p class="placeholder-text">Chart based on weekly sales data will be displayed here.</p> <!-- Placeholder in English -->
-                </section>
+            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">SCFI Composite Index</h2>
+                <div class="chart-container relative w-full h-[250px]">
+                    <canvas id="expensesChart"></canvas>
+                </div>
             </div>
-
-            <!-- Second Chart Slide -->
-            <div class="chart-slide">
-                <section class="card chart-card">
-                    <h2>Monthly Expense Trend</h2> <!-- Header in English -->
-                    <div class="chart-container">
-                        <canvas id="expensesChart"></canvas>
-                    </div>
-                    <p class="placeholder-text">Chart based on monthly expense data will be displayed here.</p> <!-- Placeholder in English -->
-                </section>
+            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">WCI Shanghai → Rotterdam</h2>
+                <div class="chart-container relative w-full h-[250px]">
+                    <canvas id="productSalesChart"></canvas>
+                </div>
             </div>
-
-            <!-- Third Chart Slide -->
-            <div class="chart-slide">
-                <section class="card chart-card">
-                    <h2>Product Sales Volume</h2> <!-- Header in English -->
-                    <div class="chart-container">
-                        <canvas id="productSalesChart"></canvas>
-                    </div>
-                    <p class="placeholder-text">Chart based on product sales volume data will be displayed here.</p> <!-- Placeholder in English -->
-                </section>
+            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">IACI Composite Index</h2>
+                <div class="chart-container relative w-full h-[250px]">
+                    <canvas id="inventoryChart"></canvas>
+                </div>
             </div>
-
-            <!-- Add the remaining 4 chart slides in the same format to make a total of 7 -->
-            <!-- Example: Fourth Chart Slide -->
-            <div class="chart-slide">
-                <section class="card chart-card">
-                    <h2>Inventory Status</h2> <!-- Header in English -->
-                    <div class="chart-container">
-                        <canvas id="inventoryChart"></canvas>
-                    </div>
-                    <p class="placeholder-text">Chart showing current inventory status.</p> <!-- Placeholder in English -->
-                </section>
+            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Total Blank Sailings</h2>
+                <div class="chart-container relative w-full h-[250px]">
+                    <canvas id="satisfactionChart"></canvas>
+                </div>
             </div>
-            <!-- Example: Fifth Chart Slide -->
-            <div class="chart-slide">
-                <section class="card chart-card">
-                    <h2>Customer Satisfaction</h2> <!-- Header in English -->
-                    <div class="chart-container">
-                        <canvas id="satisfactionChart"></canvas>
-                    </div>
-                    <p class="placeholder-text">Chart showing customer satisfaction score trends.</p> <!-- Placeholder in English -->
-                </section>
+            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">FBX China/EA → US West Coast</h2>
+                <div class="chart-container relative w-full h-[250px]">
+                    <canvas id="trafficChart"></canvas>
+                </div>
             </div>
-            <!-- Example: Sixth Chart Slide -->
-            <div class="chart-slide">
-                <section class="card chart-card">
-                    <h2>Website Traffic</h2> <!-- Header in English -->
-                    <div class="chart-container">
-                        <canvas id="trafficChart"></canvas>
-                    </div>
-                    <p class="placeholder-text">Chart showing daily website visitor count.</p> <!-- Placeholder in English -->
-                </section>
+            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
+                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">XSI East Asia → North Europe</h2>
+                <div class="chart-container relative w-full h-[250px]">
+                    <canvas id="productivityChart"></canvas>
+                </div>
             </div>
-            <!-- Example: Seventh Chart Slide -->
-            <div class="chart-slide">
-                <section class="card chart-card">
-                    <h2>Employee Productivity</h2> <!-- Header in English -->
-                    <div class="chart-container">
-                        <canvas id="productivityChart"></canvas>
-                    </div>
-                    <p class="placeholder-text">Chart showing employee task completion rates.</p> <!-- Placeholder in English -->
-                </section>
+            <p class="placeholder-text absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-gray-500">Charts will cycle every 10 seconds.</p>
+        </div>
+
+        <!-- World Clock Card -->
+        <div class="world-clock-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start">
+            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">World Clocks</h2>
+            <div class="clocks-container grid grid-cols-3 gap-4 w-full mt-2">
+                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
+                    <h3 class="text-lg font-medium text-blue-900 mb-1">Los Angeles</h3>
+                    <p id="time-la" class="text-2xl font-bold text-gray-700">--:--:--</p>
+                </div>
+                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
+                    <h3 class="text-lg font-medium text-blue-900 mb-1">New York</h3>
+                    <p id="time-ny" class="text-2xl font-bold text-gray-700">--:--:--</p>
+                </div>
+                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
+                    <h3 class="text-lg font-medium text-blue-900 mb-1">Paris</h3>
+                    <p id="time-paris" class="text-2xl font-bold text-gray-700">--:--:--</p>
+                </div>
+                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
+                    <h3 class="text-lg font-medium text-blue-900 mb-1">Shanghai</h3>
+                    <p id="time-shanghai" class="text-2xl font-bold text-gray-700">--:--:--</p>
+                </div>
+                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
+                    <h3 class="text-lg font-medium text-blue-900 mb-1">Seoul</h3>
+                    <p id="time-seoul" class="text-2xl font-bold text-gray-700">--:--:--</p>
+                </div>
+                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
+                    <h3 class="text-lg font-medium text-blue-900 mb-1">Sydney</h3>
+                    <p id="time-sydney" class="text-2xl font-bold text-gray-700">--:--:--</p>
+                </div>
             </div>
+        </div>
 
-        </div> <!-- /.chart-slider-container -->
+        <!-- Weather Card (Placeholder) -->
+        <div class="weather-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start">
+            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">Current Weather (Seoul)</h2>
+            <div class="weather-info flex flex-col items-center w-full mb-4">
+                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather Icon" class="w-20 h-20">
+                <p id="temperature" class="text-5xl font-bold text-teal-700 my-1">25°C</p>
+                <p id="description" class="text-xl text-gray-600 capitalize">Clear Sky</p>
+                <p id="city-name" class="text-2xl font-bold text-gray-700 mt-2">Seoul</p>
+            </div>
+            <p class="placeholder-text text-sm text-gray-500 w-full text-center">Weather data is static for demonstration.</p>
+        </div>
 
-    </div> <!-- /.dashboard-grid -->
+        <!-- Exchange Rate Card (Placeholder) -->
+        <div class="exchange-rate-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start">
+            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">Exchange Rates</h2>
+            <div class="exchange-rates w-full mb-4">
+                <p class="text-lg text-gray-700 flex justify-between items-center py-1 border-b border-dashed border-gray-200">USD/KRW: <span class="font-bold text-teal-700">1,350.50</span></p>
+                <p class="text-lg text-gray-700 flex justify-between items-center py-1 border-b border-dashed border-gray-200">EUR/KRW: <span class="font-bold text-teal-700">1,480.20</span></p>
+                <p class="text-lg text-gray-700 flex justify-between items-center py-1">JPY/KRW (100): <span class="font-bold text-teal-700">9.15</span></p>
+            </div>
+            <p class="placeholder-text text-sm text-gray-500 w-full text-center">Exchange rate data is static for demonstration.</p>
+        </div>
 
-    <script src="js/chart.js"></script>
+        <!-- Info Card -->
+        <div class="info-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start col-span-full">
+            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">Notice & Information</h2>
+            <p class="text-base text-gray-600 leading-relaxed text-center mt-2">
+                This dashboard provides real-time and historical data on global shipping indices.
+                Data is updated periodically. For detailed analysis or specific data requests, please contact the administrator.
+                All data is for informational purposes only and should not be used for trading or investment decisions.
+            </p>
+            <p id="last-updated" class="text-sm text-gray-500 mt-4 w-full text-center">Last Updated: --:--:--</p>
+        </div>
+    </div>
+
+    <script>
+        // Chart instances global variables
+        let salesChart;
+        let expensesChart;
+        let productSalesChart;
+        let inventoryChart;
+        let satisfactionChart;
+        let trafficChart;
+        let productivityChart;
+
+        // Path to the JSON data file generated by the Python script
+        const DATA_JSON_URL = 'data/crawling_data.json';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Chart Initialization Function ---
+            // This function creates or updates a Chart.js instance.
+            const setupChart = (chartId, type, label, data, backgroundColor, borderColor, labels = [], additionalOptions = {}) => {
+                const ctx = document.getElementById(chartId);
+                if (ctx) {
+                    // Destroy existing chart instance if it exists to prevent conflicts
+                    if (Chart.getChart(chartId)) {
+                        Chart.getChart(chartId).destroy();
+                    }
+
+                    const defaultOptions = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Date' // Default X-axis title
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Value' // Default Y-axis title
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
+                        }
+                    };
+
+                    // Merge default options with any additional options provided
+                    const options = { ...defaultOptions, ...additionalOptions };
+                    if (options.scales && additionalOptions.scales) {
+                        options.scales = { ...defaultOptions.scales, ...additionalOptions.scales };
+                        if (options.scales.x && additionalOptions.scales.x) {
+                            options.scales.x = { ...defaultOptions.scales.x, ...additionalOptions.scales.x };
+                        }
+                        if (options.scales.y && additionalOptions.scales.y) {
+                            options.scales.y = { ...defaultOptions.scales.y, ...additionalOptions.scales.y };
+                        }
+                    }
+
+
+                    return new Chart(ctx, {
+                        type: type,
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: label,
+                                data: data,
+                                backgroundColor: backgroundColor,
+                                borderColor: borderColor,
+                                borderWidth: 1,
+                                fill: type === 'line' || type === 'radar' || type === 'polarArea' // Fill for line, radar, polarArea charts
+                            }]
+                        },
+                        options: options
+                    });
+                }
+                return null;
+            };
+
+            // --- Chart Slider Logic ---
+            const chartSlides = document.querySelectorAll('.chart-slide');
+            let currentChartSlide = 0;
+            const chartSlideInterval = 10000; // 10 seconds (in milliseconds)
+
+            function showChartSlide(index) {
+                chartSlides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+            }
+
+            function nextChartSlide() {
+                currentChartSlide = (currentChartSlide + 1) % chartSlides.length;
+                showChartSlide(currentChartSlide);
+            }
+
+            // --- World Clock Logic ---
+            // Map of city keys (matching HTML IDs) to IANA time zone identifiers
+            const cityTimezones = {
+                'la': 'America/Los_Angeles',
+                'ny': 'America/New_York',
+                'paris': 'Europe/Paris',
+                'shanghai': 'Asia/Shanghai',
+                'seoul': 'Asia/Seoul',
+                'sydney': 'Australia/Sydney'
+            };
+
+            function updateWorldClocks() {
+                const now = new Date(); // Get current time (UTC)
+
+                for (const cityKey in cityTimezones) {
+                    const timezone = cityTimezones[cityKey];
+                    const options = {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false, // 24-hour format
+                        timeZone: timezone // Apply the specific city's time zone
+                    };
+                    // Intl.DateTimeFormat automatically handles Daylight Saving Time
+                    const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
+                    
+                    const elementId = `time-${cityKey}`; // Construct HTML ID (e.g., 'time-la')
+                    const timeElement = document.getElementById(elementId);
+                    if (timeElement) {
+                        timeElement.textContent = timeString;
+                    }
+                }
+            }
+
+            // --- Data Loading and Dashboard Update Function ---
+            async function loadAndDisplayData() {
+                let rawData = [];
+                try {
+                    const response = await fetch(DATA_JSON_URL);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    rawData = await response.json();
+                    console.log("Loaded data:", rawData);
+
+                    if (rawData.length === 0) {
+                        console.warn("No data found in the JSON file.");
+                        // Optionally display a message on the dashboard if no data
+                        document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
+                        return;
+                    }
+
+                    // --- Update Weather Info (Placeholder for now, assumes data is in JSON) ---
+                    // If weather data is in crawling_data.json, you'd extract it here.
+                    // Example: const weatherInfo = rawData.find(item => item.type === 'weather');
+                    // For now, keeping placeholders as the provided data snippet doesn't contain it.
+
+                    // --- Update Exchange Rate Info (Placeholder for now, assumes data is in JSON) ---
+                    // If exchange rate data is in crawling_data.json, you'd extract it here.
+                    // Example: const exchangeRates = rawData.find(item => item.type === 'exchange_rates');
+                    // For now, keeping placeholders.
+
+                    // --- Prepare Chart Data and Initialize Charts ---
+                    const dates = rawData.map(item => item.date); // X-axis labels (dates)
+
+                    // Define datasets for each of the 7 charts based on cleaned headers
+                    // Ensure these match the cleaned headers in fetch_chart_data.py
+                    // Chart 1: KCCI Composite Index
+                    salesChart = setupChart(
+                        'salesChart', 'line', 'KCCI Composite Index (Point)',
+                        rawData.map(item => item.KCCI_Composite_Index),
+                        'rgba(0, 101, 126, 0.8)', // Teal
+                        '#00657e', // Darker Teal
+                        dates
+                    );
+
+                    // Chart 2: SCFI Composite Index
+                    expensesChart = setupChart(
+                        'expensesChart', 'line', 'SCFI Composite Index ($/TEU)',
+                        rawData.map(item => item.SCFI_Composite_Index),
+                        'rgba(0, 58, 82, 0.8)', // Navy
+                        '#003A52', // Darker Navy
+                        dates
+                    );
+
+                    // Chart 3: WCI Composite Index (Shanghai → Rotterdam)
+                    productSalesChart = setupChart(
+                        'productSalesChart', 'line', 'WCI Shanghai → Rotterdam ($/FEU)',
+                        rawData.map(item => item.Shanghai_Rotterdam), // <<< THIS NEEDS TO BE UPDATED
+                        'rgba(0, 101, 126, 0.6)', // Teal
+                        '#00657e', // Darker Teal
+                        dates
+                    );
+
+                    // Chart 4: IACI Composite Index
+                    inventoryChart = setupChart(
+                        'inventoryChart', 'bar', 'IACI Composite Index',
+                        rawData.map(item => item.IACI_Composite_Index),
+                        'rgba(0, 58, 82, 0.6)', // Navy
+                        '#003A52', // Darker Navy
+                        dates
+                    );
+
+                    // Chart 5: BLANK_SAILING Total
+                    satisfactionChart = setupChart(
+                        'satisfactionChart', 'line', 'Total Blank Sailings',
+                        rawData.map(item => item.Total_Blank_Sailings),
+                        'rgba(0, 101, 126, 0.7)', // Teal
+                        '#00657e', // Darker Teal
+                        dates
+                    );
+
+                    // Chart 6: FBX China/East Asia → US West Coast
+                    trafficChart = setupChart(
+                        'trafficChart', 'bar', 'FBX China/EA → US West Coast ($/FEU)',
+                        rawData.map(item => item.China_EA_US_West_Coast), // <<< THIS NEEDS TO BE UPDATED
+                        'rgba(0, 58, 82, 0.7)', // Navy
+                        '#003A52', // Darker Navy
+                        dates
+                    );
+
+                    // Chart 7: XSI East Asia → North Europe
+                    productivityChart = setupChart(
+                        'productivityChart', 'line', 'XSI East Asia → North Europe ($/FEU)',
+                        rawData.map(item => item.East_Asia_North_Europe_XSI), // <<< THIS NEEDS TO BE UPDATED
+                        'rgba(0, 101, 126, 0.6)', // Teal
+                        '#00657e', // Darker Teal
+                        dates
+                    );
+
+                    // Start the chart slider after all charts are initialized
+                    showChartSlide(currentChartSlide);
+                    setInterval(nextChartSlide, chartSlideInterval);
+
+                } catch (error) {
+                    console.error("Error loading or processing JSON data:", error);
+                    // Display an error message if data loading fails
+                    document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
+                }
+            }
+
+            // Initial world clock update and 1-second interval update
+            updateWorldClocks();
+            setInterval(updateWorldClocks, 1000);
+
+            // Update last updated time
+            document.getElementById('last-updated').textContent = `Last Updated: ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+
+            // Start loading JSON data and displaying the dashboard
+            loadAndDisplayData();
+        });
+    </script>
 </body>
 </html>
