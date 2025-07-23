@@ -223,12 +223,14 @@ def fetch_and_process_data():
         print(f"DEBUG: DataFrame shape before date parsing and dropna: {df_final.shape}")
         
         # Removed explicit format to allow pandas to infer common date formats like M/D/YYYY
+        original_date_strings = df_final['date'].copy() # Keep original strings for logging
         df_final['date'] = pd.to_datetime(df_final['date'], errors='coerce') 
         
-        # Check for NaT values (unparseable dates)
-        nat_dates = df_final[df_final['date'].isna() & df_final['date'].notna()]['date'] # Check original string for NaT
-        if not nat_dates.empty:
-            print(f"WARNING: Some dates could not be parsed and will be dropped. Sample unparseable dates: {df_final[df_final['date'].isna()]['date'].iloc[:5].tolist()}")
+        # Check for NaT values (unparseable dates) and log original strings
+        num_unparseable_dates = df_final['date'].isna().sum()
+        if num_unparseable_dates > 0:
+            unparseable_dates_sample = original_date_strings[df_final['date'].isna()].iloc[:5].tolist()
+            print(f"WARNING: {num_unparseable_dates} dates could not be parsed and will be dropped. Sample unparseable dates: {unparseable_dates_sample}")
 
         df_final.dropna(subset=['date'], inplace=True)
         print(f"DEBUG: DataFrame shape after date parsing and dropna: {df_final.shape}")
