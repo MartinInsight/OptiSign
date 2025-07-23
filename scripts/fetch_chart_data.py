@@ -122,137 +122,221 @@ def fetch_and_process_data():
             print("Error: No data fetched from the main chart sheet.")
             return
 
+        # Find the main header row (likely the one with 'date' for IACI and other main headers)
         main_header_row_index = -1
-        for i in range(len(all_data)): # Start from index 0 (Row 1 in Google Sheet)
+        for i in range(len(all_data)):
             row = all_data[i]
-            if any(cell.strip().lower() == "date" for cell in row):
+            # Look for a row that contains 'date' and at least one of the main section markers
+            # This heuristic helps find the most relevant header row
+            if any(cell.strip().lower() == "date" for cell in row) and \
+               any(marker[0] in cell for marker in SECTION_MARKER_SEQUENCE):
                 main_header_row_index = i
                 break
+        
+        # Fallback if the combined heuristic fails (less likely but safer)
+        if main_header_row_index == -1:
+            for i in range(len(all_data)):
+                row = all_data[i]
+                if any(cell.strip().lower() == "date" for cell in row):
+                    main_header_row_index = i
+                    break
 
         print(f"DEBUG: Main chart data header row index: {main_header_row_index}")
 
         if main_header_row_index == -1:
-            print("Error: Could not find the main header row containing 'date' in main chart data.")
+            print("Error: Could not find a suitable header row containing 'date' in main chart data.")
             return
 
-        raw_headers_original = [h.strip().replace('"', '') for h in all_data[main_header_row_index]]
+        # Get raw headers from the identified header row
+        raw_headers_original = [str(h).strip().replace('"', '') for h in all_data[main_header_row_index]]
+
+        # --- Define section column mappings based on user's input (A:O, Q:AE etc.) ---
+        # These are 0-indexed column numbers in the raw data (all_data)
+        # The 'date_col_name' will be the key for the date column in the final JSON for that section
+        section_col_details = {
+            "KCCI": {"start_col": 0, "end_col": 14, "date_col_name": "KCCI_Date"}, # A:O
+            "SCFI": {"start_col": 16, "end_col": 30, "date_col_name": "SCFI_Date"}, # Q:AE
+            "WCI": {"start_col": 32, "end_col": 41, "date_col_name": "WCI_Date"}, # AG:AP
+            "IACI": {"start_col": 43, "end_col": 44, "date_col_name": "IACI_Date"}, # AR:AS
+            "BLANK_SAILING": {"start_col": 46, "end_col": 52, "date_col_name": "Blank_Sailing_Date"}, # AU:BA
+            "FBX": {"start_col": 54, "end_col": 65, "date_col_name": "FBX_Date"}, # BC:BP
+            "XSI": {"start_col": 67, "end_col": 77, "date_col_name": "XSI_Date"}, # BR:BZ
+            "MBCI": {"start_col": 79, "end_col": 80, "date_col_name": "MBCI_Date"}, # CB:CC
+        }
+
+        # Create a mapping from raw_header_original index to final desired name
+        col_idx_to_final_header_name = {}
         
-        final_column_names = []
+        # First, map the explicit section date columns based on their start_col
+        for section_name, details in section_col_details.items():
+            col_idx_to_final_header_name[details["start_col"]] = details["date_col_name"]
+
+        # Then, map the rest of the data columns using the existing logic
         current_section_prefix = ""
         empty_col_counter = 0
-        seen_final_names_set = set()
+        seen_final_names_set = set(col_idx_to_final_header_name.values()) # Initialize with section date names
 
         for col_idx, h_orig in enumerate(raw_headers_original):
-            cleaned_h_orig = h_orig.strip().replace('"', '')
+            # If this column is already mapped as a section date column, skip it
+            if col_idx in col_idx_to_final_header_name:
+                continue
+
+            cleaned_h_orig = h_orig.strip()
             final_name_candidate = cleaned_h_orig
 
-            if col_idx == 44 and cleaned_h_orig == "종합지수": # Column AS (index 44) for "종합지수" is IACI
-                final_name_candidate = "IACI_Composite_Index"
-                print(f"DEBUG: Explicitly renaming column at index {col_idx} from '{cleaned_h_orig}' to '{final_name_candidate}' (IACI).")
-            else:
-                found_section_marker_in_sequence = False
-                for i in range(len(SECTION_MARKER_SEQUENCE)):
-                    marker_string, marker_prefix_base = SECTION_MARKER_SEQUENCE[i]
-                    if cleaned_h_orig == marker_string:
-                        current_section_prefix = f"{marker_prefix_base}_"
-                        if marker_prefix_base == "BLANK_SAILING":
-                            final_name_candidate = "Date_Blank_Sailing"
-                            current_section_prefix = ""
-                        else:
-                            final_name_candidate = f"{marker_prefix_base}_Container_Index"  
-                        found_section_marker_in_sequence = True
-                        break
-                
-                if found_section_marker_in_sequence:
-                    pass
-                elif cleaned_h_orig in SPECIFIC_RENAMES:
-                    final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
-                elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
-                    base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
-                    if current_section_prefix:
-                        final_name_candidate = f"{current_section_prefix}{base_name}"
-                    else:
-                        final_name_candidate = base_name
-                elif cleaned_h_orig == 'date':
-                    final_name_candidate = 'date'
-                elif cleaned_h_orig == '':
-                    final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
-                    empty_col_counter += 1
+            found_section_marker_in_sequence = False
+            for marker_string, marker_prefix_base in SECTION_MARKER_SEQUENCE:
+                if cleaned_h_orig == marker_string:
+                    current_section_prefix = f"{marker_prefix_base}_"
+                    if marker_prefix_base != "BLANK_SAILING": # BLANK_SAILING marker itself is not a data column
+                        final_name_candidate = f"{marker_prefix_base}_Container_Index"
+                    else: # For BLANK_SAILING, the marker itself doesn't become a data column
+                        final_name_candidate = None # Set to None to indicate it's just a marker
+                    found_section_marker_in_sequence = True
+                    break
+            
+            if found_section_marker_in_sequence and final_name_candidate: # Only add if it's a data name
+                unique_name = final_name_candidate
+                suffix = 0
+                while unique_name in seen_final_names_set:
+                    suffix += 1
+                    unique_name = f"{final_name_candidate}_{suffix}"
+                col_idx_to_final_header_name[col_idx] = unique_name
+                seen_final_names_set.add(unique_name)
+            elif cleaned_h_orig in SPECIFIC_RENAMES:
+                final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
+                unique_name = final_name_candidate
+                suffix = 0
+                while unique_name in seen_final_names_set:
+                    suffix += 1
+                    unique_name = f"{final_name_candidate}_{suffix}"
+                col_idx_to_final_header_name[col_idx] = unique_name
+                seen_final_names_set.add(unique_name)
+            elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
+                base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
+                if current_section_prefix and not base_name.startswith(current_section_prefix):
+                    final_name_candidate = f"{current_section_prefix}{base_name}"
                 else:
-                    final_name_candidate = cleaned_h_orig
-            
-            final_unique_name = final_name_candidate
-            suffix = 0
-            while final_unique_name in seen_final_names_set:
-                suffix += 1
-                final_unique_name = f"{final_name_candidate}_{suffix}"
-            
-            seen_final_names_set.add(final_unique_name)
-            final_column_names.append(final_unique_name)
+                    final_name_candidate = base_name
+                unique_name = final_name_candidate
+                suffix = 0
+                while unique_name in seen_final_names_set:
+                    suffix += 1
+                    unique_name = f"{final_name_candidate}_{suffix}"
+                col_idx_to_final_header_name[col_idx] = unique_name
+                seen_final_names_set.add(unique_name)
+            elif cleaned_h_orig == '': # Handle empty header cells that are not section date columns
+                final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
+                empty_col_counter += 1
+                col_idx_to_final_header_name[col_idx] = final_name_candidate
+                seen_final_names_set.add(final_name_candidate)
+            else: # Default for unmapped headers
+                unique_name = cleaned_h_orig
+                suffix = 0
+                while unique_name in seen_final_names_set:
+                    suffix += 1
+                    unique_name = f"{cleaned_h_orig}_{suffix}"
+                col_idx_to_final_header_name[col_idx] = unique_name
+                seen_final_names_set.add(unique_name)
 
-        print(f"DEBUG: Final DataFrame column names after mapping: {final_column_names}")
-
-        data_rows_raw = all_data[main_header_row_index + 1:]
-        print(f"DEBUG: Number of data rows extracted after header: {len(data_rows_raw)}")
+        # Now, create a list of final column names in their original order
+        # This will be the columns for the full raw DataFrame
+        final_column_names_ordered = [col_idx_to_final_header_name.get(i, f'UNMAPPED_COL_{i}') 
+                                      for i in range(len(raw_headers_original))]
         
-        processed_data_rows = []
-        num_expected_cols = len(final_column_names)
-        for i, row in enumerate(data_rows_raw):
+        print(f"DEBUG: Final mapped column names (ordered): {final_column_names_ordered}")
+
+        # Create a DataFrame from all raw data, using the newly ordered final column names
+        # This DataFrame will contain all raw values, including empty strings for dates
+        data_rows_for_df = all_data[main_header_row_index + 1:]
+        # Pad rows if they are shorter than the number of columns
+        processed_data_rows_for_df = []
+        num_expected_cols_for_df = len(final_column_names_ordered)
+        for row in data_rows_for_df:
             cleaned_row = [str(cell) if cell is not None else '' for cell in row]
-            if len(cleaned_row) < num_expected_cols:
-                padded_row = cleaned_row + [''] * (num_expected_cols - len(cleaned_row))
-                processed_data_rows.append(padded_row)
-            elif len(cleaned_row) > num_expected_cols:
-                truncated_row = cleaned_row[:num_expected_cols]
-                processed_data_rows.append(truncated_row)
+            if len(cleaned_row) < num_expected_cols_for_df:
+                padded_row = cleaned_row + [''] * (num_expected_cols_for_df - len(cleaned_row))
+                processed_data_rows_for_df.append(padded_row)
+            elif len(cleaned_row) > num_expected_cols_for_df:
+                truncated_row = cleaned_row[:num_expected_cols_for_df]
+                processed_data_rows_for_df.append(truncated_row)
             else:
-                processed_data_rows.append(cleaned_row)
+                processed_data_rows_for_df.append(cleaned_row)
 
-        print(f"DEBUG: Number of processed data rows before DataFrame creation: {len(processed_data_rows)}")
+        df_raw_full = pd.DataFrame(processed_data_rows_for_df, columns=final_column_names_ordered)
+        print(f"DEBUG: Raw full DataFrame shape after initial creation: {df_raw_full.shape}")
 
-        df_final = pd.DataFrame(processed_data_rows, columns=final_column_names)
-        
-        if 'IACI_Composite_Index' not in df_final.columns:
-            df_final['IACI_Composite_Index'] = None
-
-        cols_to_drop = [col for col in df_final.columns if col.startswith('_EMPTY_COL_')]
+        # Drop columns that were identified as empty placeholders
+        cols_to_drop = [col for col in df_raw_full.columns if col.startswith('_EMPTY_COL_') or col.startswith('UNMAPPED_COL_')]
         if cols_to_drop:
-            print(f"DEBUG: Dropping empty columns: {cols_to_drop}")
-            df_final.drop(columns=cols_to_drop, inplace=True, errors='ignore')
+            print(f"DEBUG: Dropping empty placeholder and unmapped columns: {cols_to_drop}")
+            df_raw_full.drop(columns=cols_to_drop, inplace=True, errors='ignore')
+        print(f"DEBUG: Raw full DataFrame shape after dropping empty/unmapped columns: {df_raw_full.shape}")
 
-        print(f"DEBUG: DataFrame shape before date parsing and dropna: {df_final.shape}")
-        
-        # Strip whitespace from date column before parsing for robustness
-        df_final['date'] = df_final['date'].astype(str).str.strip()
-        
-        # Log ALL original date strings before parsing attempt
-        print(f"DEBUG: All original date strings before parsing ({len(df_final['date'])} entries): {df_final['date'].tolist()}")
 
-        # Removed explicit format to allow pandas to infer common date formats like M/D/YYYY
-        df_final['date'] = pd.to_datetime(df_final['date'], errors='coerce') 
-        
-        # Check for NaT values (unparseable dates) and log ALL original strings that failed
-        unparseable_dates_series = original_date_strings[df_final['date'].isna()] # Use original_date_strings for accurate failure log
-        num_unparseable_dates = unparseable_dates_series.count() # Count non-empty unparseable strings
-        if num_unparseable_dates > 0:
-            print(f"WARNING: {num_unparseable_dates} dates could not be parsed and will be dropped. All unparseable date strings: {unparseable_dates_series.tolist()}")
+        processed_chart_data_by_section = {
+            "KCCI": [], "SCFI": [], "WCI": [], "IACI": [],
+            "BLANK_SAILING": [], "FBX": [], "XSI": [], "MBCI": []
+        }
 
-        df_final.dropna(subset=['date'], inplace=True)
-        print(f"DEBUG: DataFrame shape after date parsing and dropna: {df_final.shape}")
+        # Iterate through each section and extract its specific data
+        for section_key, details in section_col_details.items():
+            date_col_name_in_df = details["date_col_name"]
+            
+            # Get the actual column names for data within this section, excluding its date column
+            section_data_col_names = []
+            for col_idx in range(details["start_col"], details["end_col"] + 1):
+                if col_idx != details["start_col"]: # Exclude the date column itself
+                    # Ensure the column exists in the df_raw_full (after dropping empty placeholders)
+                    mapped_name = col_idx_to_final_header_name.get(col_idx)
+                    if mapped_name and mapped_name in df_raw_full.columns:
+                        section_data_col_names.append(mapped_name)
+            
+            # Select only the date column and relevant data columns for this section
+            cols_to_select = [date_col_name_in_df] + section_data_col_names
+            
+            # Ensure all selected columns actually exist in df_raw_full
+            existing_cols_to_select = [col for col in cols_to_select if col in df_raw_full.columns]
+            
+            if not existing_cols_to_select:
+                print(f"WARNING: No relevant columns found for section {section_key}. Skipping.")
+                continue
 
-        df_final = df_final.sort_values(by='date', ascending=True)
-        df_final['date'] = df_final['date'].dt.strftime('%Y-%m-%d')
+            df_section = df_raw_full[existing_cols_to_select].copy()
 
-        if df_final['date'].empty:
-            print("Warning: After all date processing, the 'date' column is empty. Charts might not display correctly.")
+            # Clean and parse dates for THIS section
+            df_section[date_col_name_in_df] = df_section[date_col_name_in_df].astype(str).str.strip()
+            
+            # Log all original date strings for this section before parsing attempt
+            print(f"DEBUG: All original date strings for {section_key} before parsing ({len(df_section[date_col_name_in_df])} entries): {df_section[date_col_name_in_df].tolist()}")
 
-        numeric_cols = [col for col in df_final.columns if col != 'date']
-        for col in numeric_cols:
-            df_final[col] = pd.to_numeric(df_final[col].astype(str).str.replace(',', ''), errors='coerce')
-        
-        df_final = df_final.replace({pd.NA: None, float('nan'): None})
+            # Store original date strings before conversion for accurate error logging
+            original_date_strings_for_logging = df_section[date_col_name_in_df].copy() 
 
-        processed_chart_data = df_final.to_dict(orient='records')
+            df_section['parsed_date'] = pd.to_datetime(df_section[date_col_name_in_df], errors='coerce')
+            
+            # Log unparseable dates for this section
+            unparseable_dates_series = original_date_strings_for_logging[df_section['parsed_date'].isna()]
+            num_unparseable_dates = unparseable_dates_series.count() # Count non-empty unparseable strings
+            if num_unparseable_dates > 0:
+                print(f"WARNING: {num_unparseable_dates} dates could not be parsed for {section_key} and will be dropped. All unparseable date strings: {unparseable_dates_series.tolist()}")
+
+            df_section.dropna(subset=['parsed_date'], inplace=True) # Drop rows where date parsing failed for this section
+            print(f"DEBUG: DataFrame shape for {section_key} after date parsing and dropna: {df_section.shape}")
+
+            # Convert numeric columns for this section
+            for col in section_data_col_names:
+                df_section[col] = pd.to_numeric(df_section[col].astype(str).str.replace(',', ''), errors='coerce')
+            
+            df_section = df_section.replace({pd.NA: None, float('nan'): None})
+
+            # Sort and format date
+            df_section = df_section.sort_values(by='parsed_date', ascending=True)
+            df_section['date'] = df_section['parsed_date'].dt.strftime('%Y-%m-%d')
+            
+            # Select final columns for output (rename the specific date column back to 'date')
+            output_cols = ['date'] + section_data_col_names
+            processed_chart_data_by_section[section_key] = df_section[output_cols].to_dict(orient='records')
 
         # --- Fetch Weather Data ---
         weather_worksheet = spreadsheet.worksheet(WEATHER_WORKSHEET_NAME)
@@ -315,7 +399,7 @@ def fetch_and_process_data():
 
         # --- Combine all data into a single dictionary for JSON output ---
         final_output_data = {
-            "chart_data": processed_chart_data,
+            "chart_data": processed_chart_data_by_section, # This is the new structure
             "weather_data": {
                 "current": current_weather,
                 "forecast": forecast_weather
@@ -328,7 +412,9 @@ def fetch_and_process_data():
             json.dump(final_output_data, f, ensure_ascii=False, indent=4)
 
         print(f"All data successfully saved to '{OUTPUT_JSON_PATH}'.")
-        print(f"Sample of saved chart data (first 3 entries): {processed_chart_data[:3]}")
+        # Print sample of each section's data
+        for section_key, data_list in processed_chart_data_by_section.items():
+            print(f"Sample of saved chart data for {section_key} (first 3 entries): {data_list[:3]}")
 
     except Exception as e:
         print(f"Error during data processing: {e}")
