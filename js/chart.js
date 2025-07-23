@@ -64,19 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            // For stacked bar charts, datasets are passed directly in additionalOptions.datasets
+            const datasetsToUse = additionalOptions.datasets || [{
+                label: label,
+                data: data,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                borderWidth: 1,
+                fill: type === 'line' || type === 'radar' || type === 'polarArea' // Fill for line, radar, polarArea charts
+            }];
+
 
             return new Chart(ctx, {
                 type: type,
                 data: {
                     labels: labels,
-                    datasets: [{
-                        label: label,
-                        data: data,
-                        backgroundColor: backgroundColor,
-                        borderColor: borderColor,
-                        borderWidth: 1,
-                        fill: type === 'line' || type === 'radar' || type === 'polarArea' // Fill for line, radar, polarArea charts
-                    }]
+                    datasets: datasetsToUse // Use the provided datasets or default one
                 },
                 options: options
             });
@@ -207,13 +210,71 @@ document.addEventListener('DOMContentLoaded', () => {
                 dates
             );
 
-            // Chart 5: BLANK_SAILING Total - Changed to 'bar' type
+            // Chart 5: BLANK_SAILING Stacked Bar Chart
+            // Prepare datasets for each alliance
+            const blankSailingDatasets = [
+                {
+                    label: 'Gemini Cooperation',
+                    data: rawData.map(item => item.Gemini_Cooperation_Blank_Sailing),
+                    backgroundColor: 'rgba(0, 101, 126, 0.5)', // Light Teal
+                    borderColor: '#00657e',
+                    borderWidth: 1
+                },
+                {
+                    label: 'MSC Alliance',
+                    data: rawData.map(item => item.MSC_Alliance_Blank_Sailing),
+                    backgroundColor: 'rgba(0, 58, 82, 0.5)', // Light Navy
+                    borderColor: '#003A52',
+                    borderWidth: 1
+                },
+                {
+                    label: 'OCEAN Alliance',
+                    data: rawData.map(item => item.OCEAN_Alliance_Blank_Sailing),
+                    backgroundColor: 'rgba(0, 101, 126, 0.3)', // Lighter Teal
+                    borderColor: '#00657e',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Premier Alliance',
+                    data: rawData.map(item => item.Premier_Alliance_Blank_Sailing),
+                    backgroundColor: 'rgba(0, 58, 82, 0.3)', // Lighter Navy
+                    borderColor: '#003A52',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Others/Independent',
+                    data: rawData.map(item => item.Others_Independent_Blank_Sailing),
+                    backgroundColor: 'rgba(0, 101, 126, 0.2)', // Even Lighter Teal
+                    borderColor: '#00657e',
+                    borderWidth: 1
+                }
+            ];
+
             satisfactionChart = setupChart(
-                'satisfactionChart', 'bar', 'Total Blank Sailings', // Changed type to 'bar'
-                rawData.map(item => item.Total_Blank_Sailings),
-                'rgba(0, 101, 126, 0.7)', // Teal
-                '#00657e', // Darker Teal
-                dates
+                'satisfactionChart', 'bar', 'Blank Sailings by Alliance', // Label for the chart
+                null, // Data is now in datasets
+                null, // Background color is now in datasets
+                null, // Border color is now in datasets
+                dates,
+                {
+                    datasets: blankSailingDatasets, // Pass multiple datasets
+                    scales: {
+                        x: {
+                            stacked: true, // Enable stacking on x-axis
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            stacked: true, // Enable stacking on y-axis
+                            title: {
+                                display: true,
+                                text: 'Number of Sailings'
+                            }
+                        }
+                    }
+                }
             );
 
             // Chart 6: FBX China/East Asia → US West Coast
