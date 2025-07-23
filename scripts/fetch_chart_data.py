@@ -147,22 +147,24 @@ def fetch_and_process_data():
 
         # Get raw headers from the identified header row
         raw_headers_original = [str(h).strip().replace('"', '') for h in all_data[main_header_row_index]]
+        print(f"DEBUG: Raw headers from Google Sheet: {raw_headers_original}")
 
         # --- Define section column mappings based on user's input (A:O, Q:AE etc.) ---
         # These are 0-indexed column numbers in the raw data (all_data)
         # The 'date_col_name' will be the key for the date column in the final JSON for that section
-        # BASED ON USER'S SCREENSHOT AND CORRECTIONS:
+        # BASED ON USER'S LATEST EXPLICIT CORRECTIONS:
         section_col_details = {
             "KCCI": {"start_col": 0, "end_col": 14, "date_col_name": "KCCI_Date"}, # A:O
             "SCFI": {"start_col": 16, "end_col": 30, "date_col_name": "SCFI_Date"}, # Q:AE
             "WCI": {"start_col": 32, "end_col": 41, "date_col_name": "WCI_Date"}, # AG:AP
             "IACI": {"start_col": 43, "end_col": 44, "date_col_name": "IACI_Date"}, # AR:AS
             "BLANK_SAILING": {"start_col": 46, "end_col": 52, "date_col_name": "Blank_Sailing_Date"}, # AU:BA
-            "FBX": {"start_col": 54, "end_col": 65, "date_col_name": "FBX_Date"}, # BC:BP
-            # XSI: User confirmed BQ (index 66) is the date column. BR (index 67) to BZ (index 77) are data.
-            "XSI": {"start_col": 66, "end_col": 77, "date_col_name": "XSI_Date"}, # BQ:BZ (BQ is date, BR-BZ are data)
+            "FBX": {"start_col": 54, "end_col": 67, "date_col_name": "FBX_Date"}, # BC:BP (BP is index 67)
+            "XSI": {"start_col": 69, "end_col": 77, "date_col_name": "XSI_Date"}, # BR:BZ (BR is index 69)
             "MBCI": {"start_col": 79, "end_col": 80, "date_col_name": "MBCI_Date"}, # CB:CC
         }
+        print(f"DEBUG: Defined section_col_details: {section_col_details}")
+
 
         # Create a mapping from raw_header_original index to final desired name
         col_idx_to_final_header_name = {}
@@ -280,11 +282,13 @@ def fetch_and_process_data():
         }
 
         # Iterate through each section and extract its specific data
+        # Use the fixed section_col_details here
         for section_key, details in section_col_details.items():
             date_col_name_in_df = details["date_col_name"]
             
             # Get the actual column names for data within this section, including its date column
             section_data_col_names = []
+            # Data columns start from the date column index + 1 up to the end column index of the section
             for col_idx in range(details["start_col"], details["end_col"] + 1):
                 mapped_name = col_idx_to_final_header_name.get(col_idx)
                 if mapped_name and mapped_name in df_raw_full.columns:
@@ -304,24 +308,26 @@ def fetch_and_process_data():
 
             # --- NEW DEBUGGING FOR XSI AND FBX DATE/DATA COLUMNS ---
             if section_key == "XSI":
-                print(f"DEBUG: RAW content of column BQ (index 66 - XSI_Date) for data rows as read by gspread: {df_section[date_col_name_in_df].tolist()[:100]}")
-                # Also print the content of BR (index 67) for XSI to confirm it's data, not date
-                br_col_idx_in_all_data = 67
+                # Debugging for XSI_Date (BR, index 69)
+                br_col_idx_in_all_data = 69 # BR column index
                 br_raw_values = [row[br_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > br_col_idx_in_all_data]
-                print(f"DEBUG: RAW content of column BR (index 67 - XSI first data) from all_data: {br_raw_values[:100]}")
-            if section_key == "FBX": 
-                # To correctly identify BP, we need to map its column index to its mapped name
-                # The FBX section ends at index 65 (BP).
-                # Let's directly access the raw data for BP for debugging.
-                bp_col_idx_in_all_data = 65 # BP column index
-                # Ensure the row has enough columns before accessing
-                bp_raw_values = [row[bp_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > bp_col_idx_in_all_data]
-                print(f"DEBUG: RAW content of column BP (index 65 - FBX last data) from all_data: {bp_raw_values[:100]}")
+                print(f"DEBUG: RAW content of column BR (raw index {br_col_idx_in_all_data} - XSI_Date) from all_data: {br_raw_values[:100]}")
                 
-                # Also print the content of BN (index 63) for FBX to confirm user's observation
-                bn_col_idx_in_all_data = 63 # BN column index
+                # Debugging for BQ (index 68) which visually seemed to contain dates in screenshot
+                bq_col_idx_in_all_data = 68 # BQ column index
+                bq_raw_values = [row[bq_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > bq_col_idx_in_all_data]
+                print(f"DEBUG: RAW content of column BQ (raw index {bq_col_idx_in_all_data} - Visually Date in Screenshot) from all_data: {bq_raw_values[:100]}")
+
+            if section_key == "FBX": 
+                # Debugging for BP (index 67)
+                bp_col_idx_in_all_data = 67 # BP column index
+                bp_raw_values = [row[bp_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > bp_col_idx_in_all_data]
+                print(f"DEBUG: RAW content of column BP (raw index {bp_col_idx_in_all_data} - FBX last data) from all_data: {bp_raw_values[:100]}")
+                
+                # Debugging for BN (index 65)
+                bn_col_idx_in_all_data = 65 # BN column index
                 bn_raw_values = [row[bn_col_idx_in_all_data] for row in all_data[main_header_row_index + 1:] if len(row) > bn_col_idx_in_all_data]
-                print(f"DEBUG: RAW content of column BN (index 63 - FBX data) from all_data: {bn_raw_values[:100]}")
+                print(f"DEBUG: RAW content of column BN (raw index {bn_col_idx_in_all_data} - FBX data) from all_data: {bn_raw_values[:100]}")
             # --- END NEW DEBUGGING ---
 
             # Clean and parse dates for THIS section
