@@ -3364,44 +3364,7 @@
                 "North_Europe_US_East_Coast": 1929
             }
         ],
-        "XSI": [
-            {
-                "date": "2037-03-01",
-                "XSI_Container_Index": null,
-                "XSI_East_Asia_North_Europe": 3381,
-                "XSI_North_Europe_East_Asia": 237,
-                "XSI_East_Asia_US_West_Coast": 2449,
-                "XSI_US_West_Coast_East_Asia": 649,
-                "XSI_East_Asia_South_America_East_Coast": 6462,
-                "XSI_North_Europe_US_East_Coast": 1982,
-                "XSI_US_East_Coast_North_Europe": 622,
-                "XSI_North_Europe_South_America_East_Coast": 635
-            },
-            {
-                "date": "2045-03-01",
-                "XSI_Container_Index": null,
-                "XSI_East_Asia_North_Europe": 3388,
-                "XSI_North_Europe_East_Asia": 238,
-                "XSI_East_Asia_US_West_Coast": 2385,
-                "XSI_US_West_Coast_East_Asia": 648,
-                "XSI_East_Asia_South_America_East_Coast": 6897,
-                "XSI_North_Europe_US_East_Coast": 1991,
-                "XSI_US_East_Coast_North_Europe": 648,
-                "XSI_North_Europe_South_America_East_Coast": 637
-            },
-            {
-                "date": "2073-03-01",
-                "XSI_Container_Index": null,
-                "XSI_East_Asia_North_Europe": 3418,
-                "XSI_North_Europe_East_Asia": 236,
-                "XSI_East_Asia_US_West_Coast": 2243,
-                "XSI_US_West_Coast_East_Asia": 641,
-                "XSI_East_Asia_South_America_East_Coast": 6849,
-                "XSI_North_Europe_US_East_Coast": 2004,
-                "XSI_US_East_Coast_North_Europe": 664,
-                "XSI_North_Europe_South_America_East_Coast": 624
-            }
-        ],
+        "XSI": [],
         "MBCI": [
             {
                 "date": "2024-07-26",
@@ -3617,7 +3580,7 @@
         "current": {
             "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 77.68,
+            "LA_Temperature": 77.59,
             "LA_Humidity": 58.0,
             "LA_WindSpeed": 14.97,
             "LA_Pressure": 1016.0,
@@ -3630,7 +3593,7 @@
             {
                 "date": "7/23/2025",
                 "min_temp": 67.4,
-                "max_temp": 79.4,
+                "max_temp": 78.4,
                 "status": "맑음(clear sky)",
                 "icon": ""
             },
