@@ -26,7 +26,7 @@ SECTION_MARKER_SEQUENCE = [
     ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
     ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
     ("종합지수와 각 항로별($/FEU)", "WCI"),
-    # "IACIdate" is now a row marker, not a column header in the main sequence
+    # "IACIdate" is now handled by direct row/column search
     ("Index", "BLANK_SAILING"),
     ("종합지수와 각 항로별($/FEU)", "FBX"),
     ("각 항로별($/FEU)", "XSI"),
@@ -120,31 +120,27 @@ def fetch_and_process_data():
             return
 
         main_header_row_index = -1
-        iaci_date_row_index = -1
-        iaci_value_row_index = -1
+        iaci_date_col_index = -1
+        iaci_value_col_index = -1
         
-        # Find relevant row indices
+        # Find relevant row and column indices
         for i, row in enumerate(all_data):
             # Find the main header row by looking for "date" (case-insensitive, trimmed)
             if any(cell.strip().lower() == "date" for cell in row):
                 main_header_row_index = i
-            # Find the IACI date row
-            if row and row[0].strip() == "IACIdate":
-                iaci_date_row_index = i
-            # Find the IACI value row (using "종합지수" in the first column)
-            # This check assumes "종합지수" in column A is specific to IACI.
-            # If other sections also have "종합지수" in column A, this might need refinement.
-            # To make it more robust for IACI, we can check if it's immediately after IACIdate row.
-            if row and row[0].strip() == "종합지수":
-                # Check if this "종합지수" row is directly after the IACIdate row
-                if iaci_date_row_index != -1 and i == iaci_date_row_index + 1:
-                    iaci_value_row_index = i
-                elif iaci_date_row_index == -1: # If IACIdate not found yet, assign tentatively
-                    iaci_value_row_index = i
-        
+            
+            # Search for IACI headers in the first row (index 0)
+            if i == 0: # Assuming IACI headers are in the very first row
+                print(f"DEBUG: Contents of the first row (index 0): {row}") # NEW DEBUG: Print entire first row
+                for col_idx, cell_value in enumerate(row):
+                    if cell_value.strip() == "IACIdate":
+                        iaci_date_col_index = col_idx
+                    elif cell_value.strip() == "종합지수": # This might be the IACI value header
+                        iaci_value_col_index = col_idx
+
         print(f"DEBUG: Main header row index: {main_header_row_index}")
-        print(f"DEBUG: IACI date row index: {iaci_date_row_index}")
-        print(f"DEBUG: IACI value row index: {iaci_value_row_index}")
+        print(f"DEBUG: IACI date column index (from row 0): {iaci_date_col_index}")
+        print(f"DEBUG: IACI value column index (from row 0): {iaci_value_col_index}")
 
 
         if main_header_row_index == -1:
@@ -207,19 +203,23 @@ def fetch_and_process_data():
         print(f"DEBUG: Main DataFrame column names: {final_column_names}")
 
         # Filter out rows that are part of the IACI data block from the main data_rows
-        # This assumes IACI rows are distinct and can be skipped for main DataFrame
+        # This assumes IACI data is in a separate section of the sheet and not overlapping,
+        # we don't need to exclude rows from the main data. This exclusion logic might be removed
+        # if IACI is truly in its own dedicated columns. For now, keeping it general.
         rows_to_exclude_from_main = set()
-        if iaci_date_row_index != -1:
-            rows_to_exclude_from_main.add(iaci_date_row_index)
-        if iaci_value_row_index != -1:
-            rows_to_exclude_from_main.add(iaci_value_row_index)
+        # If IACI data is in its own columns and not rows, this exclusion is not needed.
+        # Removing this for now, as it was based on a transposed IACI assumption.
+        # if iaci_date_row_index != -1:
+        #     rows_to_exclude_from_main.add(iaci_date_row_index)
+        # if iaci_value_row_index != -1:
+        #     rows_to_exclude_from_main.add(iaci_value_row_index)
 
         main_data_rows = []
+        # Start from the row *after* the main header row
         for i, row in enumerate(all_data[main_header_row_index + 1:]):
-            # Adjust index for original sheet position
-            original_row_index = i + main_header_row_index + 1
-            if original_row_index not in rows_to_exclude_from_main:
-                main_data_rows.append(row)
+            # original_row_index = i + main_header_row_index + 1
+            # if original_row_index not in rows_to_exclude_from_main:
+            main_data_rows.append(row)
         
         # Adjust for potential length mismatches for main data
         processed_main_data_rows = []
@@ -237,36 +237,43 @@ def fetch_and_process_data():
 
         df_main = pd.DataFrame(processed_main_data_rows, columns=final_column_names)
         
-        # --- Process IACI Transposed Data Separately ---
+        # --- Process IACI Data from its specific columns ---
         df_iaci = pd.DataFrame()
-        if iaci_date_row_index != -1 and iaci_value_row_index != -1:
-            iaci_dates_raw = all_data[iaci_date_row_index][1:] # Skip "IACIdate" label in first cell
-            iaci_values_raw = all_data[iaci_value_row_index][1:] # Skip "종합지수" label in first cell
-
-            print(f"DEBUG: Raw IACI Dates extracted: {iaci_dates_raw}") # NEW DEBUG
-            print(f"DEBUG: Raw IACI Values extracted: {iaci_values_raw}") # NEW DEBUG
-
-            # Ensure lists are of the same length
-            min_len = min(len(iaci_dates_raw), len(iaci_values_raw))
-            iaci_dates = iaci_dates_raw[:min_len]
-            iaci_values = iaci_values_raw[:min_len]
-
-            # Create a temporary DataFrame for IACI
-            iaci_data = {
-                'date': iaci_dates,
-                'IACI_Composite_Index': iaci_values
-            }
-            df_iaci = pd.DataFrame(iaci_data)
+        if iaci_date_col_index != -1 and iaci_value_col_index != -1:
+            iaci_data_list = []
+            # Start extracting data from the row *after* the IACI headers (which is row 1, index 1)
+            # and go up to row 24 as per user's info (index 23)
+            # Assuming IACI data starts from row 1 (index 1) and goes to row 24 (index 23)
+            # And headers are in row 0 (index 0)
+            for row_idx in range(1, len(all_data)): # Iterate through all data rows after header row 0
+                row_data = all_data[row_idx]
+                if len(row_data) > max(iaci_date_col_index, iaci_value_col_index):
+                    date_val = row_data[iaci_date_col_index]
+                    iaci_val = row_data[iaci_value_col_index]
+                    
+                    if date_val and iaci_val: # Only add if both date and value are present
+                        iaci_data_list.append({
+                            'date': date_val,
+                            'IACI_Composite_Index': iaci_val
+                        })
+            
+            df_iaci = pd.DataFrame(iaci_data_list)
+            
+            # Convert IACI dates and values to proper types
+            df_iaci['date'] = pd.to_datetime(df_iaci['date'], errors='coerce')
+            df_iaci['IACI_Composite_Index'] = pd.to_numeric(df_iaci['IACI_Composite_Index'].astype(str).str.replace(',', ''), errors='coerce')
             
             print(f"DEBUG: IACI DataFrame created:\n{df_iaci.to_string()}")
+            print(f"DEBUG: Raw IACI Dates extracted (first 5): {iaci_data_list[:5]}") # NEW DEBUG
+            print(f"DEBUG: Raw IACI Values extracted (first 5): {iaci_data_list[:5]}") # NEW DEBUG
+
 
         # --- Date column processing for main DataFrame ---
         df_main['date'] = pd.to_datetime(df_main['date'], errors='coerce')
         
         # --- Merge DataFrames ---
         # Use an outer merge to keep all dates from both dataframes
-        # If 'IACI_Composite_Index' already exists in df_main (e.g., from an empty column placeholder),
-        # we want to ensure the values from df_iaci overwrite/fill it.
+        # Prioritize IACI_Composite_Index from df_iaci if it exists
         df_final = pd.merge(df_main, df_iaci[['date', 'IACI_Composite_Index']], on='date', how='outer', suffixes=('_main', '_iaci'))
 
         # Combine IACI_Composite_Index columns, prioritizing the one from df_iaci
