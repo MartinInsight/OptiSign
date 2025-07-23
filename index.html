@@ -98,14 +98,34 @@
             background-color: #e9ecef;
             padding: 15px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            height: 500px; /* Adjusted height for charts */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         .chart-slide {
-            display: none;
             width: 100%;
             height: 100%;
+            display: flex;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 25px;
+            box-sizing: border-box;
+
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 0;
         }
         .chart-slide.active {
-            display: block;
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
         }
         .placeholder-text {
             text-align: center;
@@ -129,10 +149,10 @@
             background-color: #e9ecef;
             padding: 15px;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            height: 150px; /* Adjust height as needed */
-            display: flex; /* Use flexbox to center content */
-            align-items: center; /* Vertically center */
-            justify-content: center; /* Horizontally center */
+            height: 250px; /* Adjust height as needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 20px;
         }
         .top-info-slide {
@@ -142,11 +162,19 @@
             text-align: center;
             font-size: 1.2em;
             color: #003A52;
-            flex-direction: column; /* For vertical alignment of content */
+            flex-direction: column;
             justify-content: center;
+            position: absolute; /* For slide transition */
+            top: 0;
+            left: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
         }
         .top-info-slide.active {
-            display: flex; /* Show as flex to center content */
+            display: flex;
+            opacity: 1;
+            visibility: visible;
         }
         .top-info-slide h3 {
             font-size: 1.8em;
@@ -181,9 +209,80 @@
             padding: 10px 0;
             border-bottom: 1px dashed #eee;
             color: #555;
+            font-size: 0.95em;
         }
         .announcements-list li:last-child {
             border-bottom: none;
+        }
+        /* Weather Specific Styles */
+        .weather-current-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .weather-current-info #weather-icon-current {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 5px;
+        }
+        .weather-current-info #temperature-current {
+            font-size: 3em;
+            font-weight: bold;
+            color: #00657e;
+        }
+        .weather-current-info #status-current {
+            font-size: 1.2em;
+            color: #555;
+            text-transform: capitalize;
+        }
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 80%;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        .weather-details div {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+        .weather-details div:last-child, .weather-details div:nth-last-child(2) {
+            border-bottom: none;
+        }
+        .forecast-table {
+            width: 90%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+        .forecast-table th, .forecast-table td {
+            border: 1px solid #eee;
+            padding: 8px;
+            text-align: center;
+        }
+        .forecast-table th {
+            background-color: #f0f0f0;
+            color: #003A52;
+        }
+        /* Exchange Rate Specific Styles */
+        .exchange-rate-info {
+            margin-bottom: 15px;
+        }
+        .exchange-rate-info #current-exchange-rate-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00657e;
+            margin-bottom: 10px;
+        }
+        .exchange-rate-chart-container {
+            position: relative;
+            height: 120px; /* Smaller height for exchange rate chart */
+            width: 90%;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -196,7 +295,7 @@
 
         <div class="dashboard-grid">
             <aside class="sidebar">
-                <!-- New Top Info Slider Container -->
+                <!-- Top Info Slider Container -->
                 <div class="top-info-slider-container">
                     <!-- Slide 1: World Clocks -->
                     <div class="top-info-slide active" id="top-info-slide-1">
@@ -227,16 +326,50 @@
                         </div>
                     </div>
 
-                    <!-- Slide 2: Weather Info (Placeholder) -->
+                    <!-- Slide 2: Weather Info -->
                     <div class="top-info-slide" id="top-info-slide-2">
-                        <h3>Weather Information</h3>
-                        <p class="placeholder-text">Weather data will be displayed here.</p>
+                        <h3>Weather in Los Angeles</h3>
+                        <div class="weather-current-info">
+                            <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
+                            <span id="temperature-current">--°F</span>
+                            <span id="status-current">Loading...</span>
+                        </div>
+                        <div class="weather-details">
+                            <div><span>Humidity:</span> <span id="humidity-current">--%</span></div>
+                            <div><span>Wind:</span> <span id="wind-speed-current">-- mph</span></div>
+                            <div><span>Pressure:</span> <span id="pressure-current">-- hPa</span></div>
+                            <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
+                            <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
+                            <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
+                            <div><span>Fine Dust:</span> <span id="fine-dust-current">--</span></div>
+                        </div>
+                        <table class="forecast-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Min</th>
+                                    <th>Max</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="forecast-body">
+                                <!-- Forecast rows will be injected here by JS -->
+                                <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <!-- Slide 3: Exchange Rate Info (Placeholder) -->
+                    <!-- Slide 3: Exchange Rate Info -->
                     <div class="top-info-slide" id="top-info-slide-3">
-                        <h3>Exchange Rates</h3>
-                        <p class="placeholder-text">Exchange rate data will be displayed here.</p>
+                        <h3>USD to KRW Exchange Rate</h3>
+                        <div class="exchange-rate-info">
+                            <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
+                        </div>
+                        <div class="exchange-rate-chart-container">
+                            <canvas id="exchangeRateChartCanvas"></canvas>
+                        </div>
                     </div>
                 </div>
                 
@@ -244,41 +377,43 @@
                 <div class="announcements-section">
                     <h2>Announcements</h2>
                     <ul class="announcements-list">
-                        <li>Important notice 1: Dashboard update scheduled for next week.</li>
-                        <li>Important notice 2: New data sources will be integrated soon.</li>
-                        <li>Important notice 3: Please report any issues to support.</li>
+                        <li>식사후 건더기를 제외한 국물은 그라인더를 켠 상태로 싱크대에 비워주시고 나머지 쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통에 버려주세요.</li>
+                        <li>버리러 갈 때는 Warehouse 계단이 아닌 Office 계단을 통해 이동해주시고 한 쪽에 쓰레기가 몰리지 않도록 2개의 쓰레기 통에 적절히 분배해주세요.</li>
+                        <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지해주세요.</li>
+                        <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.</li>
+                        <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 책상의 먼지 및 얼룩을 닦아서 제거해주세요.</li>
                     </ul>
                 </div>
             </aside>
 
             <main>
                 <div class="chart-slider-container">
-                    <!-- Chart 1: KCCI Composite Index -->
+                    <!-- Chart 1: KCCI Composite Index & Routes -->
                     <div class="chart-slide active" id="chart-slide-1">
                         <div class="chart-section">
-                            <h2>KCCI Composite Index</h2>
+                            <h2>KCCI Indices</h2>
                             <div class="chart-container">
-                                <canvas id="salesChart"></canvas>
+                                <canvas id="KCCIChart"></canvas>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Chart 2: SCFI Composite Index -->
+                    <!-- Chart 2: SCFI Composite Index & Routes -->
                     <div class="chart-slide" id="chart-slide-2">
                         <div class="chart-section">
-                            <h2>SCFI Composite Index</h2>
+                            <h2>SCFI Indices</h2>
                             <div class="chart-container">
-                                <canvas id="expensesChart"></canvas>
+                                <canvas id="SCFIChart"></canvas>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Chart 3: WCI Shanghai → Rotterdam -->
+                    <!-- Chart 3: WCI Composite Index & Routes -->
                     <div class="chart-slide" id="chart-slide-3">
                         <div class="chart-section">
-                            <h2>WCI Shanghai → Rotterdam</h2>
+                            <h2>WCI Indices</h2>
                             <div class="chart-container">
-                                <canvas id="productSalesChart"></canvas>
+                                <canvas id="WCIChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -288,7 +423,7 @@
                         <div class="chart-section">
                             <h2>IACI Composite Index</h2>
                             <div class="chart-container">
-                                <canvas id="inventoryChart"></canvas>
+                                <canvas id="IACIChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -298,27 +433,37 @@
                         <div class="chart-section">
                             <h2>Blank Sailings by Alliance</h2>
                             <div class="chart-container">
-                                <canvas id="satisfactionChart"></canvas>
+                                <canvas id="blankSailingChart"></canvas>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Chart 6: FBX China/EA → US West Coast -->
+                    <!-- Chart 6: FBX Indices -->
                     <div class="chart-slide" id="chart-slide-6">
                         <div class="chart-section">
-                            <h2>FBX China/EA → US West Coast</h2>
+                            <h2>FBX Indices</h2>
                             <div class="chart-container">
-                                <canvas id="trafficChart"></canvas>
+                                <canvas id="FBXChart"></canvas>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Chart 7: XSI East Asia → North Europe -->
+                    <!-- Chart 7: XSI Indices -->
                     <div class="chart-slide" id="chart-slide-7">
                         <div class="chart-section">
-                            <h2>XSI East Asia → North Europe</h2>
+                            <h2>XSI Indices</h2>
                             <div class="chart-container">
-                                <canvas id="productivityChart"></canvas>
+                                <canvas id="XSIChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 8: MBCI Indices -->
+                    <div class="chart-slide" id="chart-slide-8">
+                        <div class="chart-section">
+                            <h2>MBCI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="MBCIChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -333,7 +478,8 @@
 
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <!-- Custom JavaScript for charts and dashboard logic -->
-    <script src="js/chart.js"></script> <!-- Corrected file name to chart.js -->
+    <script src="js/chart.js"></script>
 </body>
 </html>
