@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Helper function to aggregate data by month ---
     // This function will now only be used for the Blank Sailing bar chart
     const aggregateDataByMonth = (data, numMonths = 12) => {
-        if (data.length === 0) return { aggregatedData: [], monthlyLabels: [] };
+        if (!Array.isArray(data) || data.length === 0) return { aggregatedData: [], monthlyLabels: [] };
 
         // Sort data by date in ascending order (important for time series)
         data.sort((a, b) => new Date(a.date) - new Date(b.date));
@@ -224,8 +224,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             allDataKeys.forEach(key => {
                 newEntry[key] = monthEntry && monthEntry[key] && monthEntry[key].count > 0
-                                ? monthEntry[key].sum / monthEntry[key].count
-                                : null; // Use null for missing data
+                                        ? monthEntry[key].sum / monthEntry[key].count
+                                        : null; // Use null for missing data
             });
             
             aggregatedData.push(newEntry);
@@ -304,35 +304,57 @@ document.addEventListener('DOMContentLoaded', () => {
             allDashboardData = await response.json();
             console.log("Loaded all dashboard data:", allDashboardData);
 
-            const rawChartData = allDashboardData.chart_data || [];
+            // Access specific data sections from the loaded object
+            const rawChartDataSections = allDashboardData.chart_data || {}; // This is the object with KCCI, SCFI etc.
             const weatherData = allDashboardData.weather_data || {};
             const exchangeRatesData = allDashboardData.exchange_rates || [];
 
-            if (rawChartData.length === 0) {
-                console.warn("No chart data found in the JSON file.");
+            // Check if any chart data sections are available
+            if (Object.keys(rawChartDataSections).length === 0) {
+                console.warn("No chart data sections found in the JSON file.");
                 document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
                 return;
             }
 
-            // Sort raw chart data by date in ascending order (important for time series)
-            rawChartData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const allChartDates = rawChartData.map(item => item.date); // Labels for non-aggregated charts
+            // --- Helper to get sorted and optionally filtered data for a specific chart section ---
+            const getProcessedChartData = (dataArray, numEntries = 0) => {
+                if (!Array.isArray(dataArray) || dataArray.length === 0) {
+                    return { data: [], dates: [] };
+                }
+                // Sort data by date in ascending order
+                dataArray.sort((a, b) => new Date(a.date) - new Date(b.date));
 
-            // Aggregate blank sailing data separately
-            const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(rawChartData, 12);
+                let processedData = dataArray;
+                if (numEntries > 0 && dataArray.length > numEntries) {
+                    processedData = dataArray.slice(dataArray.length - numEntries);
+                }
+                const dates = processedData.map(item => item.date);
+                return { data: processedData, dates: dates };
+            };
+
+            // Process data for each chart
+            const { data: KCCIData, dates: KCCIDates } = getProcessedChartData(rawChartDataSections.KCCI, 12); // Last 12 entries for KCCI
+            const { data: SCFIData, dates: SCFIDates } = getProcessedChartData(rawChartDataSections.SCFI, 12); // Last 12 entries for SCFI
+            const { data: WCIData, dates: WCIDates } = getProcessedChartData(rawChartDataSections.WCI, 12); // Last 12 entries for WCI
+            const { data: IACIData, dates: IACIDates } = getProcessedChartData(rawChartDataSections.IACI, 12); // Last 12 entries for IACI
+            const { data: FBXData, dates: FBXDates } = getProcessedChartData(rawChartDataSections.FBX, 12); // Last 12 entries for FBX
+            const { data: XSIData, dates: XSIDates } = getProcessedChartData(rawChartDataSections.XSI, 12); // Last 12 entries for XSI
+            const { data: MBCIData, dates: MBCIDates } = getProcessedChartData(rawChartDataSections.MBCI, 12); // Last 12 entries for MBCI
+
+            // Aggregate blank sailing data separately (it already sorts internally)
+            const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(rawChartDataSections.BLANK_SAILING, 12);
             
             // --- DEBUGGING LOGS ---
-            console.log("Raw Chart Data:", rawChartData);
-            console.log("All Chart Dates (for granular charts):", allChartDates);
+            console.log("KCCI Data:", KCCIData);
+            console.log("SCFI Data:", SCFIData);
+            console.log("WCI Data:", WCIData);
+            console.log("IACI Data:", IACIData);
+            console.log("FBX Data:", FBXData);
+            console.log("XSI Data:", XSIData);
+            console.log("MBCI Data:", MBCIData);
             console.log("Aggregated Blank Sailing Data:", aggregatedBlankSailingData);
             console.log("Blank Sailing Chart Dates:", blankSailingChartDates);
             // --- END DEBUGGING LOGS ---
-
-            if (rawChartData.length === 0) { // Check raw data length for overall availability
-                console.warn("No raw chart data available.");
-                document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
-                return;
-            }
 
             // --- Update Weather Info ---
             const currentWeatherData = weatherData.current || {};
@@ -420,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const KCCIDatasets = [
                 {
                     label: cleanLabel('KCCI Composite Index'),
-                    data: rawChartData.map(item => item.KCCI_Composite_Index),
+                    data: KCCIData.map(item => item.Composite_Index),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 2,
@@ -428,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI US West Coast'),
-                    data: rawChartData.map(item => item.KCCI_US_West_Coast),
+                    data: KCCIData.map(item => item.US_West_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -436,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI US East Coast'),
-                    data: rawChartData.map(item => item.KCCI_US_East_Coast),
+                    data: KCCIData.map(item => item.US_East_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -444,7 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI Europe'),
-                    data: rawChartData.map(item => item.KCCI_Europe),
+                    data: KCCIData.map(item => item.Europe),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -452,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI Mediterranean'),
-                    data: rawChartData.map(item => item.KCCI_Mediterranean),
+                    data: KCCIData.map(item => item.Mediterranean),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -460,7 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI Middle East'),
-                    data: rawChartData.map(item => item.KCCI_Middle_East),
+                    data: KCCIData.map(item => item.Middle_East),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -468,7 +490,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI Australia'),
-                    data: rawChartData.map(item => item.KCCI_Australia),
+                    data: KCCIData.map(item => item.Australia),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -476,7 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI South America East Coast'),
-                    data: rawChartData.map(item => item.KCCI_South_America_East_Coast),
+                    data: KCCIData.map(item => item.South_America_East_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -484,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI South America West Coast'),
-                    data: rawChartData.map(item => item.KCCI_South_America_West_Coast),
+                    data: KCCIData.map(item => item.South_America_West_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -492,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI South Africa'),
-                    data: rawChartData.map(item => item.KCCI_South_Africa),
+                    data: KCCIData.map(item => item.South_Africa),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -500,7 +522,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI West Africa'),
-                    data: rawChartData.map(item => item.KCCI_West_Africa),
+                    data: KCCIData.map(item => item.West_Africa),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -508,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI China'),
-                    data: rawChartData.map(item => item.KCCI_China),
+                    data: KCCIData.map(item => item.China),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -516,7 +538,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI Japan'),
-                    data: rawChartData.map(item => item.KCCI_Japan),
+                    data: KCCIData.map(item => item.Japan),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -524,21 +546,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('KCCI Southeast Asia'),
-                    data: rawChartData.map(item => item.KCCI_Southeast_Asia),
+                    data: KCCIData.map(item => item.Southeast_Asia),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
                     fill: false
                 }
             ];
-            KCCIChart = setupChart('KCCIChart', 'line', KCCIDatasets, allChartDates, {}, false); // Pass false for granular data
+            KCCIChart = setupChart('KCCIChart', 'line', KCCIDatasets, KCCIDates, {}, false); // Pass false for granular data
 
             // Chart 2: SCFI - All relevant indices (Granular Data)
             colorIndex = 0; // Reset color index for each chart
             const SCFIDatasets = [
                 {
                     label: cleanLabel('SCFI Composite Index'),
-                    data: rawChartData.map(item => item.SCFI_Composite_Index),
+                    data: SCFIData.map(item => item.Composite_Index_1),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 2,
@@ -546,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI US West Coast'),
-                    data: rawChartData.map(item => item.SCFI_US_West_Coast),
+                    data: SCFIData.map(item => item.US_West_Coast_1),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -554,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI US East Coast'),
-                    data: rawChartData.map(item => item.SCFI_US_East_Coast),
+                    data: SCFIData.map(item => item.US_East_Coast_1),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -562,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI North Europe'),
-                    data: rawChartData.map(item => item.SCFI_North_Europe),
+                    data: SCFIData.map(item => item.North_Europe),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -570,7 +592,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI Mediterranean'),
-                    data: rawChartData.map(item => item.SCFI_Mediterranean),
+                    data: SCFIData.map(item => item.Mediterranean_1),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -578,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI Southeast Asia'),
-                    data: rawChartData.map(item => item.SCFI_Southeast_Asia),
+                    data: SCFIData.map(item => item.Southeast_Asia_1),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -586,7 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI Middle East'),
-                    data: rawChartData.map(item => item.SCFI_Middle_East),
+                    data: SCFIData.map(item => item.Middle_East_1),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -594,7 +616,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI Australia/New Zealand'),
-                    data: rawChartData.map(item => item.Australia_New_Zealand_SCFI),
+                    data: SCFIData.map(item => item.Australia_New_Zealand_SCFI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -602,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI South America'),
-                    data: rawChartData.map(item => item.South_America_SCFI),
+                    data: SCFIData.map(item => item.South_America_SCFI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -610,7 +632,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI Japan West Coast'),
-                    data: rawChartData.map(item => item.Japan_West_Coast_SCFI),
+                    data: SCFIData.map(item => item.Japan_West_Coast_SCFI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -618,7 +640,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI Japan East Coast'),
-                    data: rawChartData.map(item => item.Japan_East_Coast_SCFI),
+                    data: SCFIData.map(item => item.Japan_East_Coast_SCFI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -626,7 +648,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI Korea'),
-                    data: rawChartData.map(item => item.Korea_SCFI),
+                    data: SCFIData.map(item => item.Korea_SCFI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -634,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI East/West Africa'),
-                    data: rawChartData.map(item => item.East_West_Africa_SCFI),
+                    data: SCFIData.map(item => item.East_West_Africa_SCFI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -642,21 +664,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('SCFI South Africa'),
-                    data: rawChartData.map(item => item.South_Africa_SCFI),
+                    data: SCFIData.map(item => item.South_Africa_SCFI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
                     fill: false
                 }
             ];
-            SCFIChart = setupChart('SCFIChart', 'line', SCFIDatasets, allChartDates, {}, false); // Pass false for granular data
+            SCFIChart = setupChart('SCFIChart', 'line', SCFIDatasets, SCFIDates, {}, false); // Pass false for granular data
 
             // Chart 3: WCI - All relevant indices (Granular Data)
             colorIndex = 0; // Reset color index for each chart
             const WCIDatasets = [
                 {
                     label: cleanLabel('WCI Composite Index'),
-                    data: rawChartData.map(item => item.WCI_Composite_Index),
+                    data: WCIData.map(item => item.Composite_Index_2),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 2,
@@ -664,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI Shanghai → Rotterdam'),
-                    data: rawChartData.map(item => item.Shanghai_Rotterdam_WCI),
+                    data: WCIData.map(item => item.Shanghai_Rotterdam_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -672,7 +694,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI Rotterdam → Shanghai'),
-                    data: rawChartData.map(item => item.Rotterdam_Shanghai_WCI),
+                    data: WCIData.map(item => item.Rotterdam_Shanghai_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -680,7 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI Shanghai → Genoa'),
-                    data: rawChartData.map(item => item.Shanghai_Genoa_WCI),
+                    data: WCIData.map(item => item.Shanghai_Genoa_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -688,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI Shanghai → Los Angeles'),
-                    data: rawChartData.map(item => item.Shanghai_Los_Angeles_WCI),
+                    data: WCIData.map(item => item.Shanghai_Los_Angeles_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -696,7 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI Los Angeles → Shanghai'),
-                    data: rawChartData.map(item => item.Los_Angeles_Shanghai_WCI),
+                    data: WCIData.map(item => item.Los_Angeles_Shanghai_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -704,7 +726,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI Shanghai → New York'),
-                    data: rawChartData.map(item => item.Shanghai_New_York_WCI),
+                    data: WCIData.map(item => item.Shanghai_New_York_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -712,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI New York → Rotterdam'),
-                    data: rawChartData.map(item => item.New_York_Rotterdam_WCI),
+                    data: WCIData.map(item => item.New_York_Rotterdam_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -720,14 +742,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('WCI Rotterdam → New York'),
-                    data: rawChartData.map(item => item.Rotterdam_New_York_WCI),
+                    data: WCIData.map(item => item.Rotterdam_New_York_WCI),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
                     fill: false
                 }
             ];
-            WCIChart = setupChart('WCIChart', 'line', WCIDatasets, allChartDates, {}, false); // Pass false for granular data
+            WCIChart = setupChart('WCIChart', 'line', WCIDatasets, WCIDates, {}, false); // Pass false for granular data
 
             // Chart 4: IACI Composite Index (Granular Data)
             colorIndex = 0; // Reset color index for each chart
@@ -735,47 +757,49 @@ document.addEventListener('DOMContentLoaded', () => {
                 'IACIChart', 'line',
                 [{
                     label: cleanLabel('IACI Composite Index'),
-                    data: rawChartData.map(item => item.IACI_Composite_Index),
+                    data: IACIData.map(item => item.Composite_Index_3),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 2,
                     fill: false
                 }],
-                allChartDates, {}, false // Pass false for granular data
+                IACIDates,
+                {},
+                false // Pass false for granular data
             );
 
-            // Chart 5: BLANK_SAILING Stacked Bar Chart (Keep Aggregated)
+            // Chart 5: BLANK_SAILING Stacked Bar Chart (Aggregated Data)
             const blankSailingDatasets = [
                 {
-                    label: cleanLabel('Gemini Cooperation'),
+                    label: 'Gemini Cooperation',
                     data: aggregatedBlankSailingData.map(item => item.Gemini_Cooperation_Blank_Sailing),
                     backgroundColor: 'rgba(0, 101, 126, 0.5)', // Light Teal
                     borderColor: '#00657e',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('MSC Alliance'),
+                    label: 'MSC Alliance',
                     data: aggregatedBlankSailingData.map(item => item.MSC_Alliance_Blank_Sailing),
                     backgroundColor: 'rgba(0, 58, 82, 0.5)', // Light Navy
                     borderColor: '#003A52',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('OCEAN Alliance'),
+                    label: 'OCEAN Alliance',
                     data: aggregatedBlankSailingData.map(item => item.OCEAN_Alliance_Blank_Sailing),
                     backgroundColor: 'rgba(0, 101, 126, 0.3)', // Lighter Teal
                     borderColor: '#00657e',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('Premier Alliance'),
+                    label: 'Premier Alliance',
                     data: aggregatedBlankSailingData.map(item => item.Premier_Alliance_Blank_Sailing),
                     backgroundColor: 'rgba(0, 58, 82, 0.3)', // Lighter Navy
                     borderColor: '#003A52',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('Others/Independent'),
+                    label: 'Others/Independent',
                     data: aggregatedBlankSailingData.map(item => item.Others_Independent_Blank_Sailing),
                     backgroundColor: 'rgba(0, 101, 126, 0.2)', // Even Lighter Teal
                     borderColor: '#00657e',
@@ -789,10 +813,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     scales: {
                         x: { stacked: true },
                         y: { stacked: true, title: { display: true, text: 'Number of Sailings' } }
-                    },
-                    elements: { point: { radius: 0 } } // Ensure no points on bar chart if type is changed later
+                    }
                 },
-                true // Pass true for aggregated data
+                true // Pass true for aggregated data (monthly)
             );
 
             // Chart 6: FBX - All relevant indices (Granular Data)
@@ -800,7 +823,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const FBXDatasets = [
                 {
                     label: cleanLabel('FBX China/EA → US West Coast'),
-                    data: rawChartData.map(item => item.China_EA_US_West_Coast_FBX),
+                    data: FBXData.map(item => item.China_EA_US_West_Coast_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 2,
@@ -808,7 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('FBX US West Coast → China/EA'),
-                    data: rawChartData.map(item => item.US_West_Coast_China_EA_FBX),
+                    data: FBXData.map(item => item.US_West_Coast_China_EA_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -816,7 +839,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('FBX China/EA → US East Coast'),
-                    data: rawChartData.map(item => item.China_EA_US_East_Coast_FBX),
+                    data: FBXData.map(item => item.China_EA_US_East_Coast_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -824,7 +847,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('FBX US East Coast → China/EA'),
-                    data: rawChartData.map(item => item.US_East_Coast_China_EA_FBX),
+                    data: FBXData.map(item => item.US_East_Coast_China_EA_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -832,7 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('FBX China/EA → North Europe'),
-                    data: rawChartData.map(item => item.China_EA_North_Europe_FBX),
+                    data: FBXData.map(item => item.China_EA_North_Europe_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -840,7 +863,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('FBX North Europe → China/EA'),
-                    data: rawChartData.map(item => item.North_Europe_China_EA_FBX),
+                    data: FBXData.map(item => item.North_Europe_China_EA_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -848,7 +871,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('FBX China/EA → Mediterranean'),
-                    data: rawChartData.map(item => item.China_EA_Mediterranean_FBX),
+                    data: FBXData.map(item => item.China_EA_Mediterranean_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -856,21 +879,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('FBX Mediterranean → China/EA'),
-                    data: rawChartData.map(item => item.Mediterranean_China_EA_FBX),
+                    data: FBXData.map(item => item.Mediterranean_China_EA_FBX),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
                     fill: false
                 }
             ];
-            FBXChart = setupChart('FBXChart', 'line', FBXDatasets, allChartDates, {}, false); // Pass false for granular data
+            FBXChart = setupChart('FBXChart', 'line', FBXDatasets, FBXDates, {}, false); // Pass false for granular data
 
             // Chart 7: XSI - All relevant indices (Granular Data)
             colorIndex = 0; // Reset color index for each chart
             const XSIDatasets = [
                 {
                     label: cleanLabel('XSI East Asia → North Europe'),
-                    data: rawChartData.map(item => item.XSI_East_Asia_North_Europe),
+                    data: XSIData.map(item => item.East_Asia_North_Europe),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 2,
@@ -878,7 +901,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('XSI North Europe → East Asia'),
-                    data: rawChartData.map(item => item.XSI_North_Europe_East_Asia),
+                    data: XSIData.map(item => item.North_Europe_East_Asia),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -886,7 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('XSI East Asia → US West Coast'),
-                    data: rawChartData.map(item => item.XSI_East_Asia_US_West_Coast),
+                    data: XSIData.map(item => item.East_Asia_US_West_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -894,7 +917,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('XSI US West Coast → East Asia'),
-                    data: rawChartData.map(item => item.XSI_US_West_Coast_East_Asia),
+                    data: XSIData.map(item => item.US_West_Coast_East_Asia),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -902,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('XSI East Asia → South America East Coast'),
-                    data: rawChartData.map(item => item.XSI_East_Asia_South_America_East_Coast),
+                    data: XSIData.map(item => item.East_Asia_South_America_East_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -910,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('XSI North Europe → US East Coast'),
-                    data: rawChartData.map(item => item.XSI_North_Europe_US_East_Coast),
+                    data: XSIData.map(item => item.North_Europe_US_East_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -918,7 +941,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('XSI US East Coast → North Europe'),
-                    data: rawChartData.map(item => item.XSI_US_East_Coast_North_Europe),
+                    data: XSIData.map(item => item.US_East_Coast_North_Europe),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
@@ -926,28 +949,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 {
                     label: cleanLabel('XSI North Europe → South America East Coast'),
-                    data: rawChartData.map(item => item.XSI_North_Europe_South_America_East_Coast),
+                    data: XSIData.map(item => item.North_Europe_South_America_East_Coast),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 1,
                     fill: false
                 }
             ];
-            XSIChart = setupChart('XSIChart', 'line', XSIDatasets, allChartDates, {}, false); // Pass false for granular data
+            XSIChart = setupChart('XSIChart', 'line', XSIDatasets, XSIDates, {}, false); // Pass false for granular data
 
             // Chart 8: MBCI - All relevant indices (Granular Data)
             colorIndex = 0; // Reset color index for each chart
             const MBCIDatasets = [
                 {
                     label: cleanLabel('MBCI Value'),
-                    data: rawChartData.map(item => item.MBCI_MBCI_Value),
+                    data: MBCIData.map(item => item.MBCI_Value),
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: 2,
                     fill: false
                 }
             ];
-            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, allChartDates, {}, false); // Pass false for granular data
+            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, MBCIDates, {}, false); // Pass false for granular data
 
 
             // --- Setup and start auto-cycling for both sliders ---
@@ -956,13 +979,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error("Error loading or processing JSON data:", error);
-            // This error typically means the JSON data structure is unexpected or missing
-            // We should not overwrite the entire container if the issue is just with one element update
-            // Instead, display a more specific error or fallback for the problematic section
-            // For now, let's just log the error and ensure other parts of the dashboard still try to load.
-            // If the error prevents ALL charts from loading, then the below might be needed,
-            // but for a TypeError on a specific element, it's better to let other elements try to render.
-            // document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
+            document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
         }
     }
 
