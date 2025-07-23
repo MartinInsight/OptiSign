@@ -3,7 +3,7 @@ import json
 import os
 import pandas as pd
 import traceback
-import re # Import re for regex operations
+import re
 
 # --- Configuration ---
 # Get credentials and spreadsheet ID from GitHub Secrets environment variables
@@ -21,11 +21,12 @@ WORKSHEET_NAME = "Crawling_Data"
 OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping Definitions ---
+# These are for standard columnar data. IACI will be handled separately.
 SECTION_MARKER_SEQUENCE = [
     ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
     ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
     ("종합지수와 각 항로별($/FEU)", "WCI"),
-    ("IACIdate", "IACI"), # Changed from "IACIdate종합지수" to "IACIdate" - now acts as a section marker for IACI data
+    # "IACIdate" is now a row marker, not a column header in the main sequence
     ("Index", "BLANK_SAILING"),
     ("종합지수와 각 항로별($/FEU)", "FBX"),
     ("각 항로별($/FEU)", "XSI"),
@@ -55,7 +56,7 @@ COMMON_DATA_HEADERS_TO_PREFIX = {
     "동아시아 → 북유럽": "East_Asia_North_Europe",
     "북유럽 → 동아시아": "North_Europe_East_Asia",
     "동아시아 → 미주서안": "East_Asia_US_West_Coast",
-    "미주서안 → 동아시아": "US_West_Coast_China_EA_FBX", # Corrected for FBX
+    "미주서안 → 동아시아": "US_West_Coast_East_Asia",
     "동아시아 → 남미동안": "East_Asia_South_America_East_Coast",
     "북유럽 → 남미동안": "North_Europe_South_America_East_Coast",
     "MBCI": "MBCI_Value"
@@ -97,6 +98,7 @@ SPECIFIC_RENAMES = {
 def fetch_and_process_data():
     """
     Fetches data from Google Sheet, processes it, and saves it as a JSON file.
+    Handles both columnar data and special transposed IACI data.
     """
     if not SPREADSHEET_ID or not GOOGLE_CREDENTIAL_JSON:
         print("Error: SPREADSHEET_ID or GOOGLE_CREDENTIAL_JSON environment variables are not set.")
@@ -107,93 +109,87 @@ def fetch_and_process_data():
         return
 
     try:
-        # 1. Google Sheets 인증
         credentials_dict = json.loads(GOOGLE_CREDENTIAL_JSON)
         gc = gspread.service_account_from_dict(credentials_dict)
-
-        # 2. 스프레드시트 및 워크시트 열기
         spreadsheet = gc.open_by_key(SPREADSHEET_ID)
         worksheet = spreadsheet.worksheet(WORKSHEET_NAME)
-
-        # 3. 모든 데이터 가져오기
         all_data = worksheet.get_all_values()
+
         if not all_data:
             print("Error: No data fetched from the sheet.")
             return
 
-        # 4. 데이터 파싱 및 처리
-        header_row_index = -1
+        main_header_row_index = -1
+        iaci_date_row_index = -1
+        iaci_value_row_index = -1
+        
+        # Find relevant row indices
         for i, row in enumerate(all_data):
-            # Find the header row by looking for "date" (case-insensitive, trimmed)
+            # Find the main header row by looking for "date" (case-insensitive, trimmed)
             if any(cell.strip().lower() == "date" for cell in row):
-                header_row_index = i
-                break
+                main_header_row_index = i
+            # Find the IACI date row
+            if row and row[0].strip() == "IACIdate":
+                iaci_date_row_index = i
+            # Find the IACI value row (using "종합지수" in the first column)
+            if row and row[0].strip() == "종합지수":
+                # This check assumes "종합지수" in column A is specific to IACI.
+                # If other sections also have "종합지수" in column A, this might need refinement.
+                iaci_value_row_index = i
+        
+        print(f"DEBUG: Main header row index: {main_header_row_index}")
+        print(f"DEBUG: IACI date row index: {iaci_date_row_index}")
+        print(f"DEBUG: IACI value row index: {iaci_value_row_index}")
 
-        if header_row_index == -1:
-            print("Error: Could not find the header row containing 'date'.")
+
+        if main_header_row_index == -1:
+            print("Error: Could not find the main header row containing 'date'.")
             return
 
-        raw_headers_original = [h.strip().replace('"', '') for h in all_data[header_row_index]]
+        # --- Process Main Columnar Data ---
+        # Get the actual header row for columnar data
+        raw_headers_original = [h.strip().replace('"', '') for h in all_data[main_header_row_index]]
         
-        # --- NEW LOGIC for generating unique and meaningful column names ---
         final_column_names = []
-        current_section_prefix = "" # e.g., "KCCI_", "SCFI_", etc.
+        current_section_prefix = ""
         empty_col_counter = 0
-        seen_final_names_set = set() # To ensure absolute uniqueness of final names
-        section_marker_sequence_index = 0 # To track current position in SECTION_MARKER_SEQUENCE
+        seen_final_names_set = set()
 
         for h_orig in raw_headers_original:
             cleaned_h_orig = h_orig.strip().replace('"', '')
-            
-            final_name_candidate = cleaned_h_orig # Default to original Korean name
+            final_name_candidate = cleaned_h_orig
 
-            # Rule priority: Section Marker (by sequence) > Specific Rename > Common Prefixed > Special fixed > Empty > Default (Original Korean)
-
-            # 1. Check if it's the next expected section marker in the sequence (or any subsequent marker)
             found_section_marker_in_sequence = False
-            for i in range(section_marker_sequence_index, len(SECTION_MARKER_SEQUENCE)):
+            for i in range(len(SECTION_MARKER_SEQUENCE)): # Iterate from start for each header
                 marker_string, marker_prefix_base = SECTION_MARKER_SEQUENCE[i]
                 if cleaned_h_orig == marker_string:
-                    # This is a section marker!
                     current_section_prefix = f"{marker_prefix_base}_"
-                    
                     if marker_prefix_base == "BLANK_SAILING":
-                        final_name_candidate = "Date_Blank_Sailing"
-                        current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
-                    elif marker_prefix_base == "IACI": # Special handling for IACI section marker
-                        final_name_candidate = "IACI_Date_Column" # Rename IACIdate header to IACI_Date_Column
-                        # current_section_prefix is already "IACI_"
+                        final_name_candidate = "Date_Blank_Sailing" # This is a date column for Blank Sailing
+                        current_section_prefix = "" # No prefix for subsequent columns in this section
                     else:
                         final_name_candidate = f"{marker_prefix_base}_Container_Index" 
-                    
-                    section_marker_sequence_index = i + 1 # Advance sequence index to *after* this found marker
                     found_section_marker_in_sequence = True
-                    break # Found the section marker, break from inner loop
+                    break
             
             if found_section_marker_in_sequence:
-                pass # Already handled by the section marker logic above
-            # 2. Apply SPECIFIC_RENAMES (these are unique and should not be prefixed by section)
+                pass
             elif cleaned_h_orig in SPECIFIC_RENAMES:
                 final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
-            # 3. Apply COMMON_DATA_HEADERS_TO_PREFIX (these should be prefixed if a section is active)
             elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
                 base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
-                if current_section_prefix: # Apply prefix if one is active
+                if current_section_prefix:
                     final_name_candidate = f"{current_section_prefix}{base_name}"
-                else: # Fallback if no active prefix (e.g., for KCCI section if it's the first data column)
+                else:
                     final_name_candidate = base_name
-            # 4. Handle special fixed names (like 'date') - 'Index' is handled by SECTION_MARKER_SEQUENCE
             elif cleaned_h_orig == 'date':
                 final_name_candidate = 'date'
-            # 5. Handle empty cells
             elif cleaned_h_orig == '':
                 final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
                 empty_col_counter += 1
-            # 6. Default: Keep original cleaned Korean name if no specific rule applies
             else:
                 final_name_candidate = cleaned_h_orig
             
-            # Ensure the final name is absolutely unique by appending a suffix if needed
             final_unique_name = final_name_candidate
             suffix = 0
             while final_unique_name in seen_final_names_set:
@@ -202,86 +198,107 @@ def fetch_and_process_data():
             
             seen_final_names_set.add(final_unique_name)
             final_column_names.append(final_unique_name)
-        # --- END NEW LOGIC ---
 
-        print(f"DEBUG: Final column names list before DataFrame creation: {final_column_names}")
+        print(f"DEBUG: Main DataFrame column names: {final_column_names}")
 
-        data_rows_raw = all_data[header_row_index + 1:]
+        # Filter out rows that are part of the IACI data block from the main data_rows
+        # This assumes IACI rows are distinct and can be skipped for main DataFrame
+        rows_to_exclude_from_main = set()
+        if iaci_date_row_index != -1:
+            rows_to_exclude_from_main.add(iaci_date_row_index)
+        if iaci_value_row_index != -1:
+            rows_to_exclude_from_main.add(iaci_value_row_index)
+
+        main_data_rows = []
+        for i, row in enumerate(all_data[main_header_row_index + 1:]):
+            # Adjust index for original sheet position
+            original_row_index = i + main_header_row_index + 1
+            if original_row_index not in rows_to_exclude_from_main:
+                main_data_rows.append(row)
         
-        # Ensure all data rows have the same number of columns as headers
-        num_expected_cols = len(final_column_names)
-        data_rows = []
-        for i, row in enumerate(data_rows_raw):
+        # Adjust for potential length mismatches for main data
+        processed_main_data_rows = []
+        num_expected_main_cols = len(final_column_names)
+        for i, row in enumerate(main_data_rows):
             cleaned_row = [str(cell) if cell is not None else '' for cell in row]
-            
-            if len(cleaned_row) < num_expected_cols:
-                padded_row = cleaned_row + [''] * (num_expected_cols - len(cleaned_row))
-                data_rows.append(padded_row)
-                print(f"WARNING: Row {i+header_row_index+2} was shorter ({len(cleaned_row)} cols). Padded to {num_expected_cols} cols.")
-            elif len(cleaned_row) > num_expected_cols:
-                truncated_row = cleaned_row[:num_expected_cols]
-                data_rows.append(truncated_row)
-                print(f"WARNING: Row {i+header_row_index+2} was longer ({len(cleaned_row)} cols). Truncated to {num_expected_cols} cols.")
+            if len(cleaned_row) < num_expected_main_cols:
+                padded_row = cleaned_row + [''] * (num_expected_main_cols - len(cleaned_row))
+                processed_main_data_rows.append(padded_row)
+            elif len(cleaned_row) > num_expected_main_cols:
+                truncated_row = cleaned_row[:num_expected_main_cols]
+                processed_main_data_rows.append(truncated_row)
             else:
-                data_rows.append(cleaned_row)
+                processed_main_data_rows.append(cleaned_row)
 
-        df = pd.DataFrame(data_rows, columns=final_column_names)
-
-        # --- Removed previous special handling for IACI_Container_Index_Raw ---
-        # IACI_Composite_Index column should now be directly populated if '종합지수' is under 'IACI' section
-        # Ensure IACI_Composite_Index column exists even if no data is present
-        if 'IACI_Composite_Index' not in df.columns:
-            df['IACI_Composite_Index'] = None
-        # Ensure IACI_Date_Column exists for date processing later
-        if 'IACI_Date_Column' not in df.columns:
-            df['IACI_Date_Column'] = None
-
-
-        # --- Date column processing ---
-        # Convert the main 'date' column to datetime objects first
-        df['date'] = pd.to_datetime(df['date'], errors='coerce')
-
-        # Fill missing dates in the main 'date' column using IACI_Date_Column if available
-        if 'IACI_Date_Column' in df.columns:
-            df['date'] = df['date'].fillna(pd.to_datetime(df['IACI_Date_Column'], errors='coerce'))
-            df.drop(columns=['IACI_Date_Column'], inplace=True) # Drop temporary column
-
-        # Fill remaining missing dates using Date_Blank_Sailing if available
-        if 'Date_Blank_Sailing' in df.columns:
-            df['date'] = df['date'].fillna(pd.to_datetime(df['Date_Blank_Sailing'], errors='coerce'))
-            df.drop(columns=['Date_Blank_Sailing'], inplace=True) # Drop temporary column
+        df_main = pd.DataFrame(processed_main_data_rows, columns=final_column_names)
         
-        # Drop any remaining _EMPTY_COL_0 if it's not the primary date column
-        if '_EMPTY_COL_0' in df.columns:
-            df.drop(columns=['_EMPTY_COL_0'], inplace=True)
+        # --- Process IACI Transposed Data Separately ---
+        df_iaci = pd.DataFrame()
+        if iaci_date_row_index != -1 and iaci_value_row_index != -1:
+            iaci_dates_raw = all_data[iaci_date_row_index][1:] # Skip "IACIdate" label in first cell
+            iaci_values_raw = all_data[iaci_value_row_index][1:] # Skip "종합지수" label in first cell
+
+            # Ensure lists are of the same length
+            min_len = min(len(iaci_dates_raw), len(iaci_values_raw))
+            iaci_dates = iaci_dates_raw[:min_len]
+            iaci_values = iaci_values_raw[:min_len]
+
+            # Create a temporary DataFrame for IACI
+            iaci_data = {
+                'date': iaci_dates,
+                'IACI_Composite_Index': iaci_values
+            }
+            df_iaci = pd.DataFrame(iaci_data)
+            
+            print(f"DEBUG: IACI Raw Dates: {iaci_dates}")
+            print(f"DEBUG: IACI Raw Values: {iaci_values}")
+            print(f"DEBUG: IACI DataFrame created:\n{df_iaci.to_string()}")
+
+        # --- Date column processing for main DataFrame ---
+        df_main['date'] = pd.to_datetime(df_main['date'], errors='coerce')
+        
+        # --- Merge DataFrames ---
+        # Use an outer merge to keep all dates from both dataframes
+        # If 'IACI_Composite_Index' already exists in df_main (e.g., from an empty column placeholder),
+        # we want to ensure the values from df_iaci overwrite/fill it.
+        df_final = pd.merge(df_main, df_iaci[['date', 'IACI_Composite_Index']], on='date', how='outer', suffixes=('_main', '_iaci'))
+
+        # Combine IACI_Composite_Index columns, prioritizing the one from df_iaci
+        if 'IACI_Composite_Index_iaci' in df_final.columns:
+            df_final['IACI_Composite_Index'] = df_final['IACI_Composite_Index_iaci'].fillna(df_final.get('IACI_Composite_Index_main'))
+            df_final.drop(columns=['IACI_Composite_Index_main', 'IACI_Composite_Index_iaci'], inplace=True, errors='ignore')
+        elif 'IACI_Composite_Index_main' in df_final.columns:
+             df_final.rename(columns={'IACI_Composite_Index_main': 'IACI_Composite_Index'}, inplace=True)
+        # Ensure IACI_Composite_Index exists even if no IACI data was found at all
+        if 'IACI_Composite_Index' not in df_final.columns:
+            df_final['IACI_Composite_Index'] = None
 
 
-        df.dropna(subset=['date'], inplace=True) # Drop rows where final date parsing failed
-        df = df.sort_values(by='date', ascending=True)
-        df['date'] = df['date'].dt.strftime('%Y-%m-%d') # Format to YYYY-MM-DD
+        # Clean up other temporary date columns if they were created and not used as primary 'date'
+        temp_date_cols = ['IACI_Date_Column', 'Date_Blank_Sailing', '_EMPTY_COL_0']
+        for col in temp_date_cols:
+            if col in df_final.columns:
+                df_final.drop(columns=[col], inplace=True, errors='ignore') # Use errors='ignore' to prevent error if col doesn't exist
 
-        if df['date'].empty:
+
+        df_final.dropna(subset=['date'], inplace=True)
+        df_final = df_final.sort_values(by='date', ascending=True)
+        df_final['date'] = df_final['date'].dt.strftime('%Y-%m-%d')
+
+        if df_final['date'].empty:
             print("Warning: After all date processing, the 'date' column is empty. Charts might not display correctly.")
 
-
         # --- Convert all numeric columns ---
-        # Exclude 'date' and any _Container_Index or _Raw columns that are no longer needed
-        numeric_cols = [col for col in df.columns if col != 'date' and not col.endswith('_Container_Index_Raw')]
+        numeric_cols = [col for col in df_final.columns if col != 'date']
         
-        # Add specific debug for IACI_Composite_Index conversion
-        if 'IACI_Composite_Index' in df.columns:
-            print(f"DEBUG: IACI_Composite_Index column BEFORE numeric conversion:\n{df['IACI_Composite_Index'].to_string()}")
-            df['IACI_Composite_Index'] = pd.to_numeric(df['IACI_Composite_Index'].astype(str).str.replace(',', ''), errors='coerce')
-            print(f"DEBUG: IACI_Composite_Index column AFTER numeric conversion:\n{df['IACI_Composite_Index'].to_string()}")
-            numeric_cols.remove('IACI_Composite_Index') # Remove it from general loop as it's handled
-        
+        # Convert to numeric, handling commas and coercing errors
         for col in numeric_cols:
-            df[col] = df[col].apply(lambda x: pd.to_numeric(str(x).replace(',', ''), errors='coerce'))
+            df_final[col] = pd.to_numeric(df_final[col].astype(str).str.replace(',', ''), errors='coerce')
         
         # Convert NaN to None for JSON serialization
-        df = df.replace({pd.NA: None, float('nan'): None})
+        df_final = df_final.replace({pd.NA: None, float('nan'): None})
 
-        processed_data = df.to_dict(orient='records')
+        processed_data = df_final.to_dict(orient='records')
 
         os.makedirs(os.path.dirname(OUTPUT_JSON_PATH), exist_ok=True)
         with open(OUTPUT_JSON_PATH, 'w', encoding='utf-8') as f:
