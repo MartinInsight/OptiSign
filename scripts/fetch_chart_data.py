@@ -23,19 +23,18 @@ OUTPUT_JSON_PATH = "data/crawling_data.json"
 # These dictionaries define how original (Korean) headers should be translated
 # and how sections should be identified to create unique, meaningful column names.
 
-# Maps section-identifying headers to a short, English prefix
+# Maps section-identifying headers (exact original string) to a short, English prefix
 SECTION_MARKERS = {
-    "KCCI종합지수(Point)와 그 외 항로별($/FEU)": "KCCI",
-    "SCFI종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)": "SCFI",
-    "WCI종합지수와 각 항로별($/FEU)": "WCI",
-    "IACIdate종합지수": "IACI",
-    "FBX종합지수와 각 항로별($/FEU)": "FBX",
+    "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI",
+    "종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)": "SCFI",
+    "종합지수와 각 항로별($/FEU)": "WCI", # This is the first occurrence of this section title
+    "IACIdate종합지수": "IACI", # This is a unique header that acts as a section marker for the IACI data
     "각 항로별($/FEU)": "XSI", # This is the section header for XSI
     "Index(종합지수), $/day(정기용선, Time charter)": "MBCI" # Corrected MBCI section header
 }
 
 # Maps common data headers (Korean) to their base English names.
-# These will be prefixed by the current section's English name.
+# These will be prefixed by the current section's English name if they are part of a section.
 COMMON_DATA_HEADERS_TO_PREFIX = {
     "종합지수": "Composite_Index",
     "미주서안": "US_West_Coast",
@@ -66,7 +65,7 @@ COMMON_DATA_HEADERS_TO_PREFIX = {
 }
 
 # Specific mappings for headers that are unique in the raw data
-# but we want to rename for clarity. These will NOT be prefixed.
+# but we want to rename for clarity. These will NOT be prefixed by section.
 SPECIFIC_RENAMES = {
     "호주/뉴질랜드": "Australia_New_Zealand_SCFI", # Unique to SCFI section in raw data
     "남아메리카": "South_America_SCFI", # Unique to SCFI section
@@ -151,33 +150,26 @@ def fetch_and_process_data():
         for h_orig in raw_headers_original:
             cleaned_h_orig = h_orig.strip().replace('"', '')
             
-            final_name_candidate = None # Explicitly None at start of each loop
+            final_name_candidate = cleaned_h_orig # Default to original Korean name, will be updated by rules below
 
             # Debug print
             print(f"DEBUG: Processing original header: '{cleaned_h_orig}'")
+            print(f"DEBUG:   current_section_prefix before check: '{current_section_prefix}'")
+            print(f"DEBUG:   Is '{cleaned_h_orig}' in SECTION_MARKERS? {cleaned_h_orig in SECTION_MARKERS}")
 
-            # 1. Check if it's a section marker
+            # Rule priority: Section Marker > Specific Rename > Common Prefixed > Special fixed > Empty > Default (Original Korean)
+
+            # 1. Check if it's a section marker (sets the prefix for subsequent data columns)
             if cleaned_h_orig in SECTION_MARKERS:
-                final_name_candidate = f"{SECTION_MARKERS[cleaned_h_orig]}_Section_Header"
                 current_section_prefix = SECTION_MARKERS[cleaned_h_orig] + "_"
+                # Section headers themselves get a specific name (e.g., KCCI_Section_Header)
+                final_name_candidate = f"{SECTION_MARKERS[cleaned_h_orig]}_Section_Header"
                 print(f"DEBUG:   Section marker found. New prefix: '{current_section_prefix}', final_name_candidate: '{final_name_candidate}'")
-            # 2. Handle special fixed names (like 'date' or 'Index' for Blank Sailing)
-            elif cleaned_h_orig == 'date':
-                final_name_candidate = 'date'
-                print(f"DEBUG:   Date header found. final_name_candidate: '{final_name_candidate}'")
-            elif cleaned_h_orig == 'Index' and current_section_prefix == "": # Blank Sailing 'Index' which acts as a date
-                final_name_candidate = 'Date_Blank_Sailing'
-                print(f"DEBUG:   Blank Sailing Index found. final_name_candidate: '{final_name_candidate}'")
-            # 3. Handle empty cells
-            elif cleaned_h_orig == '':
-                final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
-                empty_col_counter += 1
-                print(f"DEBUG:   Empty column found. final_name_candidate: '{final_name_candidate}'")
-            # 4. Apply SPECIFIC_RENAMES (these should not be prefixed)
+            # 2. Apply SPECIFIC_RENAMES (these are unique and should not be prefixed by section)
             elif cleaned_h_orig in SPECIFIC_RENAMES:
                 final_name_candidate = SPECIFIC_RENAMES[cleaned_h_orig]
                 print(f"DEBUG:   Specific rename found. final_name_candidate: '{final_name_candidate}'")
-            # 5. Apply COMMON_DATA_HEADERS_TO_PREFIX (these should be prefixed if a section is active)
+            # 3. Apply COMMON_DATA_HEADERS_TO_PREFIX (these should be prefixed if a section is active)
             elif cleaned_h_orig in COMMON_DATA_HEADERS_TO_PREFIX:
                 base_name = COMMON_DATA_HEADERS_TO_PREFIX[cleaned_h_orig]
                 if current_section_prefix: # Apply prefix if one is active
@@ -186,6 +178,18 @@ def fetch_and_process_data():
                 else: # No active prefix, use base_name directly (e.g., for KCCI section if it's the first)
                     final_name_candidate = base_name
                     print(f"DEBUG:   Common data header found. No section prefix. final_name_candidate: '{final_name_candidate}'")
+            # 4. Handle special fixed names (like 'date' or 'Index' for Blank Sailing)
+            elif cleaned_h_orig == 'date':
+                final_name_candidate = 'date'
+                print(f"DEBUG:   Date header found. final_name_candidate: '{final_name_candidate}'")
+            elif cleaned_h_orig == 'Index' and not current_section_prefix: # Blank Sailing 'Index' which acts as a date (only if no section prefix is active)
+                final_name_candidate = 'Date_Blank_Sailing'
+                print(f"DEBUG:   Blank Sailing Index found. final_name_candidate: '{final_name_candidate}'")
+            # 5. Handle empty cells
+            elif cleaned_h_orig == '':
+                final_name_candidate = f'_EMPTY_COL_{empty_col_counter}'
+                empty_col_counter += 1
+                print(f"DEBUG:   Empty column found. final_name_candidate: '{final_name_candidate}'")
             # 6. Default: Keep original cleaned Korean name if no specific rule applies
             else:
                 final_name_candidate = cleaned_h_orig
