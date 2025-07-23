@@ -3,1016 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Logistics Dashboard</title>
-    <!-- Tailwind CSS CDN -->
+    <title>OptiSign Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
-    <!-- Custom CSS: Corrected path -->
-    <link rel="stylesheet" href="styles/main.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #003A52; /* Navy */
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 2fr; /* Left sidebar, right main content */
+            }
+        }
+        .sidebar {
+            background-color: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        .sidebar h2 {
+            font-size: 1.5em;
+            color: #00657e; /* Teal */
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #00657e;
+            padding-bottom: 5px;
+        }
+        .world-clock-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        .world-clock-item:last-child {
+            border-bottom: none;
+        }
+        .world-clock-item span {
+            font-weight: 600;
+            color: #003A52;
+        }
+        .chart-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        .chart-section h2 {
+            font-size: 1.8em;
+            color: #003A52;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 700;
+        }
+        .chart-container {
+            position: relative;
+            height: 350px; /* Fixed height for charts */
+            width: 100%;
+            margin: 0 auto;
+        }
+        .chart-slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #e9ecef;
+            padding: 15px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .chart-slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        .chart-slide.active {
+            display: block;
+        }
+        .placeholder-text {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            padding: 50px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.9em;
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
-    <div class="dashboard-grid">
-        <header class="bg-blue-900 text-white p-6 rounded-xl shadow-lg col-span-full text-center mb-0">
-            <h1 class="text-4xl font-bold mb-2">글로벌 물류 대시보드</h1>
-            <p class="text-lg opacity-90">주요 해상 운임 지수 및 물류 데이터</p>
+<body class="bg-gray-100">
+    <div class="container">
+        <header>
+            <h1>Global Shipping Index Dashboard</h1>
+            <p class="text-gray-600" id="last-updated">Last Updated: Loading...</p>
         </header>
 
-        <!-- Chart Slider Container -->
-        <div class="chart-slider-container bg-white rounded-xl shadow-md p-6 relative overflow-hidden col-span-2 min-h-[350px] flex flex-col items-center justify-center">
-            <!-- Chart Slides -->
-            <div class="chart-slide active absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: KCCI</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="salesChart"></canvas>
+        <div class="dashboard-grid">
+            <aside class="sidebar">
+                <h2>World Clocks</h2>
+                <div class="world-clock-item">
+                    <span>Los Angeles</span>
+                    <span id="time-la"></span>
                 </div>
-            </div>
-            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: SCFI</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="expensesChart"></canvas>
+                <div class="world-clock-item">
+                    <span>New York</span>
+                    <span id="time-ny"></span>
                 </div>
-            </div>
-            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: WCI</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="productSalesChart"></canvas>
+                <div class="world-clock-item">
+                    <span>Paris</span>
+                    <span id="time-paris"></span>
                 </div>
-            </div>
-            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: IACI</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="inventoryChart"></canvas>
+                <div class="world-clock-item">
+                    <span>Shanghai</span>
+                    <span id="time-shanghai"></span>
                 </div>
-            </div>
-            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: Blank Sailings</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="satisfactionChart"></canvas>
+                <div class="world-clock-item">
+                    <span>Seoul</span>
+                    <span id="time-seoul"></span>
                 </div>
-            </div>
-            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: FBX</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="trafficChart"></canvas>
+                <div class="world-clock-item">
+                    <span>Sydney</span>
+                    <span id="time-sydney"></span>
                 </div>
-            </div>
-            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: XSI</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="productivityChart"></canvas>
+                
+                <!-- Placeholder for Weather Info -->
+                <h2 class="mt-8">Weather Info</h2>
+                <p class="text-gray-500">Weather data will be displayed here.</p>
+
+                <!-- Placeholder for Exchange Rate Info -->
+                <h2 class="mt-8">Exchange Rates</h2>
+                <p class="text-gray-500">Exchange rate data will be displayed here.</p>
+            </aside>
+
+            <main>
+                <div class="chart-slider-container">
+                    <!-- Chart 1: KCCI Composite Index -->
+                    <div class="chart-slide active" id="chart-slide-1">
+                        <div class="chart-section">
+                            <h2>KCCI Composite Index</h2>
+                            <div class="chart-container">
+                                <canvas id="salesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: SCFI Composite Index -->
+                    <div class="chart-slide" id="chart-slide-2">
+                        <div class="chart-section">
+                            <h2>SCFI Composite Index</h2>
+                            <div class="chart-container">
+                                <canvas id="expensesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 3: WCI Shanghai → Rotterdam -->
+                    <div class="chart-slide" id="chart-slide-3">
+                        <div class="chart-section">
+                            <h2>WCI Shanghai → Rotterdam</h2>
+                            <div class="chart-container">
+                                <canvas id="productSalesChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 4: IACI Composite Index -->
+                    <div class="chart-slide" id="chart-slide-4">
+                        <div class="chart-section">
+                            <h2>IACI Composite Index</h2>
+                            <div class="chart-container">
+                                <canvas id="inventoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 5: BLANK_SAILING Stacked Bar Chart -->
+                    <div class="chart-slide" id="chart-slide-5">
+                        <div class="chart-section">
+                            <h2>Blank Sailings by Alliance</h2>
+                            <div class="chart-container">
+                                <canvas id="satisfactionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 6: FBX China/EA → US West Coast -->
+                    <div class="chart-slide" id="chart-slide-6">
+                        <div class="chart-section">
+                            <h2>FBX China/EA → US West Coast</h2>
+                            <div class="chart-container">
+                                <canvas id="trafficChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chart 7: XSI East Asia → North Europe -->
+                    <div class="chart-slide" id="chart-slide-7">
+                        <div class="chart-section">
+                            <h2>XSI East Asia → North Europe</h2>
+                            <div class="chart-container">
+                                <canvas id="productivityChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="chart-slide absolute inset-0 p-6 flex flex-col justify-center items-center">
-                <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center">Container Index: MBCI</h2>
-                <div class="chart-container relative w-full h-[250px]">
-                    <canvas id="mbciChart"></canvas>
-                </div>
-            </div>
-            <p class="placeholder-text absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-gray-500">Charts will cycle every 10 seconds.</p>
+            </main>
         </div>
 
-        <!-- World Clock Card -->
-        <div class="world-clock-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start">
-            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">World Clocks</h2>
-            <div class="clocks-container grid grid-cols-3 gap-4 w-full mt-2">
-                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
-                    <h3 class="text-lg font-medium text-blue-900 mb-1">Los Angeles</h3>
-                    <p id="time-la" class="text-2xl font-bold text-gray-700">--:--:--</p>
-                </div>
-                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
-                    <h3 class="text-lg font-medium text-blue-900 mb-1">New York</h3>
-                    <p id="time-ny" class="text-2xl font-bold text-gray-700">--:--:--</p>
-                </div>
-                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
-                    <h3 class="text-lg font-medium text-blue-900 mb-1">Paris</h3>
-                    <p id="time-paris" class="text-2xl font-bold text-gray-700">--:--:--</p>
-                </div>
-                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
-                    <h3 class="text-lg font-medium text-blue-900 mb-1">Shanghai</h3>
-                    <p id="time-shanghai" class="text-2xl font-bold text-gray-700">--:--:--</p>
-                </div>
-                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
-                    <h3 class="text-lg font-medium text-blue-900 mb-1">Seoul</h3>
-                    <p id="time-seoul" class="text-2xl font-bold text-gray-700">--:--:--</p>
-                </div>
-                <div class="clock-item bg-gray-50 border border-gray-200 rounded-lg p-3 text-center shadow-sm">
-                    <h3 class="text-lg font-medium text-blue-900 mb-1">Sydney</h3>
-                    <p id="time-sydney" class="text-2xl font-bold text-gray-700">--:--:--</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Weather Card (Placeholder) -->
-        <div class="weather-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start">
-            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">Current Weather (Seoul)</h2>
-            <div class="weather-info flex flex-col items-center w-full mb-4">
-                <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@2x.png" alt="Weather Icon" class="w-20 h-20">
-                <p id="temperature" class="text-5xl font-bold text-teal-700 my-1">25°C</p>
-                <p id="description" class="text-xl text-gray-600 capitalize">Clear Sky</p>
-                <p id="city-name" class="text-2xl font-bold text-gray-700 mt-2">Seoul</p>
-            </div>
-            <p class="placeholder-text text-sm text-gray-500 w-full text-center">Weather data is static for demonstration.</p>
-        </div>
-
-        <!-- Exchange Rate Card (Placeholder) -->
-        <div class="exchange-rate-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start">
-            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">Exchange Rates</h2>
-            <div class="exchange-rates w-full mb-4">
-                <p class="text-lg text-gray-700 flex justify-between items-center py-1 border-b border-dashed border-gray-200">USD/KRW: <span class="font-bold text-teal-700">1,350.50</span></p>
-                <p class="text-lg text-gray-700 flex justify-between items-center py-1 border-b border-dashed border-gray-200">EUR/KRW: <span class="font-bold text-teal-700">1,480.20</span></p>
-                <p class="text-lg text-gray-700 flex justify-between items-center py-1">JPY/KRW (100): <span class="font-bold text-teal-700">9.15</span></p>
-            </div>
-            <p class="placeholder-text text-sm text-gray-500 w-full text-center">Exchange rate data is static for demonstration.</p>
-        </div>
-
-        <!-- Info Card -->
-        <div class="info-card card bg-white rounded-xl shadow-md p-6 flex flex-col justify-between items-start col-span-full">
-            <h2 class="text-2xl font-semibold text-blue-900 mb-4 text-center w-full">Notice & Information</h2>
-            <p class="text-base text-gray-600 leading-relaxed text-center mt-2">
-                This dashboard provides real-time and historical data on global shipping indices.
-                Data is updated periodically. For detailed analysis or specific data requests, please contact the administrator.
-                All data is for informational purposes only and should not be used for trading or investment decisions.
-            </p>
-            <p id="last-updated" class="text-sm text-gray-500 mt-4 w-full text-center">Last Updated: --:--:--</p>
-        </div>
+        <footer>
+            <p>&copy; 2024 OptiSign. All rights reserved.</p>
+        </footer>
     </div>
 
-    <script>
-        // Chart instances global variables
-        let salesChart;
-        let expensesChart;
-        let productSalesChart;
-        let inventoryChart;
-        let satisfactionChart;
-        let trafficChart;
-        let productivityChart;
-        let mbciChart; // Added MBCI Chart instance
-
-        // Path to the JSON data file generated by the Python script
-        const DATA_JSON_URL = 'data/crawling_data.json';
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Chart Initialization Function ---
-            // This function creates or updates a Chart.js instance.
-            // It now accepts an array of datasets for multi-line/bar charts.
-            const setupChart = (chartId, type, datasets, labels = [], additionalOptions = {}) => {
-                const ctx = document.getElementById(chartId);
-                if (ctx) {
-                    // Destroy existing chart instance if it exists to prevent conflicts
-                    if (Chart.getChart(chartId)) {
-                        Chart.getChart(chartId).destroy();
-                    }
-
-                    const defaultOptions = {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            x: {
-                                display: true,
-                                title: {
-                                    display: true,
-                                    text: 'Date' // Default X-axis title
-                                }
-                            },
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Value' // Default Y-axis title
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top'
-                            },
-                            tooltip: {
-                                mode: 'index',
-                                intersect: false
-                            }
-                        }
-                    };
-
-                    // Merge default options with any additional options provided
-                    const options = { ...defaultOptions, ...additionalOptions };
-                    if (options.scales && additionalOptions.scales) {
-                        options.scales = { ...defaultOptions.scales, ...additionalOptions.scales };
-                        if (options.scales.x && additionalOptions.scales.x) {
-                            options.scales.x = { ...defaultOptions.scales.x, ...additionalOptions.scales.x };
-                        }
-                        if (options.scales.y && additionalOptions.scales.y) {
-                            options.scales.y = { ...defaultOptions.scales.y, ...additionalOptions.scales.y };
-                        }
-                    }
-
-                    // Ensure fill property is set correctly for each dataset
-                    const processedDatasets = datasets.map(dataset => ({
-                        ...dataset,
-                        fill: dataset.fill !== undefined ? dataset.fill : (type === 'line' || type === 'radar' || type === 'polarArea'),
-                        pointRadius: (type === 'line' || type === 'radar') ? 0 : (dataset.pointRadius !== undefined ? dataset.pointRadius : 3), // Line charts have 0 point radius
-                        tension: dataset.tension !== undefined ? dataset.tension : 0.4, // Default tension for smoother lines
-                        spanGaps: true // Connect lines across null/NaN values
-                    }));
-
-
-                    return new Chart(ctx, {
-                        type: type,
-                        data: {
-                            labels: labels,
-                            datasets: processedDatasets // Now directly use the array of datasets
-                        },
-                        options: options
-                    });
-                }
-                return null;
-            };
-
-            // --- Chart Slider Logic ---
-            const chartSlides = document.querySelectorAll('.chart-slide');
-            let currentChartSlide = 0;
-            const chartSlideInterval = 10000; // 10 seconds (in milliseconds)
-
-            function showChartSlide(index) {
-                chartSlides.forEach((slide, i) => {
-                    if (i === index) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-            }
-
-            function nextChartSlide() {
-                currentChartSlide = (currentChartSlide + 1) % chartSlides.length;
-                showChartSlide(currentChartSlide);
-            }
-
-            // --- World Clock Logic ---
-            // Map of city keys (matching HTML IDs) to IANA time zone identifiers
-            const cityTimezones = {
-                'la': 'America/Los_Angeles',
-                'ny': 'America/New_York',
-                'paris': 'Europe/Paris',
-                'shanghai': 'Asia/Shanghai',
-                'seoul': 'Asia/Seoul',
-                'sydney': 'Australia/Sydney'
-            };
-
-            function updateWorldClocks() {
-                const now = new Date(); // Get current time (UTC)
-
-                for (const cityKey in cityTimezones) {
-                    const timezone = cityTimezones[cityKey];
-                    const options = {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: false, // 24-hour format
-                        timeZone: timezone // Apply the specific city's time zone
-                    };
-                    // Intl.DateTimeFormat automatically handles Daylight Saving Time
-                    const timeString = new Intl.DateTimeFormat('en-US', options).format(now);
-                    
-                    const elementId = `time-${cityKey}`; // Construct HTML ID (e.g., 'time-la')
-                    const timeElement = document.getElementById(elementId);
-                    if (timeElement) {
-                        timeElement.textContent = timeString;
-                    }
-                }
-            }
-
-            // --- Data Loading and Dashboard Update Function ---
-            async function loadAndDisplayData() {
-                let rawData = [];
-                try {
-                    const response = await fetch(DATA_JSON_URL);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! Status: ${response.status}`);
-                    }
-                    rawData = await response.json();
-                    console.log("Loaded raw data:", rawData); // Log raw data for debugging
-
-                    if (rawData.length === 0) {
-                        console.warn("No data found in the JSON file.");
-                        document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
-                        return;
-                    }
-
-                    // Filter and process data for monthly view
-                    let processedMonthlyData = {};
-                    rawData.forEach(item => {
-                        const date = new Date(item.date);
-                        if (!isNaN(date)) { // Ensure date is valid
-                            const yearMonth = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
-                            // Keep only the latest entry for each month
-                            if (!processedMonthlyData[yearMonth] || new Date(item.date) > new Date(processedMonthlyData[yearMonth].date)) {
-                                processedMonthlyData[yearMonth] = item;
-                            }
-                        }
-                    });
-
-                    // Convert to array and sort by date
-                    let sortedMonthlyData = Object.values(processedMonthlyData).sort((a, b) => new Date(a.date) - new Date(b.date));
-                    console.log("Total unique monthly data points found in JSON:", sortedMonthlyData.length);
-
-
-                    // Data for most charts (last 12 months)
-                    let filteredData12Months = sortedMonthlyData;
-                    if (filteredData12Months.length > 12) {
-                        filteredData12Months = filteredData12Months.slice(-12);
-                    }
-                    console.log("Data points used for 12-month charts (max 12):", filteredData12Months.length);
-
-                    const dates12Months = filteredData12Months.map(item => {
-                        const d = new Date(item.date);
-                        return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`; // YYYY-MM format
-                    });
-
-                    // Data for Blank Sailings chart (last 6 months)
-                    let filteredData6Months = sortedMonthlyData;
-                    if (filteredData6Months.length > 6) {
-                        filteredData6Months = filteredData6Months.slice(-6);
-                    }
-                    console.log("Data points used for 6-month Blank Sailings chart (max 6):", filteredData6Months.length);
-
-                    const dates6Months = filteredData6Months.map(item => {
-                        const d = new Date(item.date);
-                        return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`; // YYYY-MM format
-                    });
-
-
-                    // Color palette for multiple datasets
-                    const colors = [
-                        'rgba(0, 101, 126, 0.8)', // Main Teal
-                        'rgba(0, 58, 82, 0.8)',  // Main Navy
-                        'rgba(75, 192, 192, 0.8)', // Green-ish Teal
-                        'rgba(153, 102, 255, 0.8)',// Purple
-                        'rgba(255, 159, 64, 0.8)', // Orange
-                        'rgba(255, 99, 132, 0.8)', // Red
-                        'rgba(54, 162, 235, 0.8)', // Blue
-                        'rgba(201, 203, 207, 0.8)',// Grey
-                        'rgba(255, 205, 86, 0.8)', // Yellow
-                        'rgba(100, 100, 100, 0.8)',// Dark Grey
-                        'rgba(0, 200, 150, 0.8)',  // Bright Teal
-                        'rgba(150, 50, 200, 0.8)', // Dark Purple
-                        'rgba(200, 150, 0, 0.8)',  // Gold
-                        'rgba(50, 200, 0, 0.8)',   // Lime Green
-                        'rgba(0, 50, 200, 0.8)'    // Dark Blue
-                    ];
-                    const borderColors = [
-                        '#00657e', // Darker Teal
-                        '#003A52',  // Darker Navy
-                        '#4b8f8f', // Darker Green-ish Teal
-                        '#7a52cc', // Darker Purple
-                        '#cc7a33', // Darker Orange
-                        '#cc4f6a', // Darker Red
-                        '#2a7bc9', // Darker Blue
-                        '#a0a2a5', // Darker Grey
-                        '#ccaa44', // Darker Yellow
-                        '#505050', // Even Darker Grey
-                        '#00a078',  // Darker Bright Teal
-                        '#7828a0', // Even Darker Purple
-                        '#a07800',  // Darker Gold
-                        '#28a000',   // Darker Lime Green
-                        '#0028a0'    // Even Darker Blue
-                    ];
-
-
-                    // Chart 1: KCCI Composite Index & Routes
-                    salesChart = setupChart(
-                        'salesChart', 'line',
-                        [
-                            {
-                                label: 'KCCI Composite Index',
-                                data: filteredData12Months.map(item => item.KCCI_Composite_Index),
-                                backgroundColor: colors[0],
-                                borderColor: borderColors[0],
-                                borderWidth: 2,
-                                fill: false
-                            },
-                            {
-                                label: 'KCCI US West Coast',
-                                data: filteredData12Months.map(item => item.KCCI_US_West_Coast),
-                                backgroundColor: colors[2],
-                                borderColor: borderColors[2],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'KCCI US East Coast',
-                                data: filteredData12Months.map(item => item.KCCI_US_East_Coast),
-                                backgroundColor: colors[3],
-                                borderColor: borderColors[3],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'KCCI Europe',
-                                data: filteredData12Months.map(item => item.KCCI_Europe),
-                                backgroundColor: colors[4],
-                                borderColor: borderColors[4],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'KCCI Mediterranean',
-                                data: filteredData12Months.map(item => item.KCCI_Mediterranean),
-                                backgroundColor: colors[5],
-                                borderColor: borderColors[5],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI Middle East',
-                                data: filteredData12Months.map(item => item.KCCI_Middle_East),
-                                backgroundColor: colors[6],
-                                borderColor: borderColors[6],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI Australia',
-                                data: filteredData12Months.map(item => item.KCCI_Australia),
-                                backgroundColor: colors[7],
-                                borderColor: borderColors[7],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI South America East Coast',
-                                data: filteredData12Months.map(item => item.KCCI_South_America_East_Coast),
-                                backgroundColor: colors[8],
-                                borderColor: borderColors[8],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI South America West Coast',
-                                data: filteredData12Months.map(item => item.KCCI_South_America_West_Coast),
-                                backgroundColor: colors[9],
-                                borderColor: borderColors[9],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI South Africa',
-                                data: filteredData12Months.map(item => item.KCCI_South_Africa),
-                                backgroundColor: colors[10],
-                                borderColor: borderColors[10],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI West Africa',
-                                data: filteredData12Months.map(item => item.KCCI_West_Africa),
-                                backgroundColor: colors[11],
-                                borderColor: borderColors[11],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI China',
-                                data: filteredData12Months.map(item => item.KCCI_China),
-                                backgroundColor: colors[12],
-                                borderColor: borderColors[12],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI Japan',
-                                data: filteredData12Months.map(item => item.KCCI_Japan),
-                                backgroundColor: colors[13],
-                                borderColor: borderColors[13],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                             {
-                                label: 'KCCI Southeast Asia',
-                                data: filteredData12Months.map(item => item.KCCI_Southeast_Asia),
-                                backgroundColor: colors[14],
-                                borderColor: borderColors[14],
-                                borderWidth: 1,
-                                fill: false
-                            }
-                        ],
-                        dates12Months
-                    );
-
-                    // Chart 2: SCFI Composite Index & Routes
-                    expensesChart = setupChart(
-                        'expensesChart', 'line',
-                        [
-                            {
-                                label: 'SCFI Composite Index',
-                                data: filteredData12Months.map(item => item.SCFI_Composite_Index),
-                                backgroundColor: colors[1],
-                                borderColor: borderColors[1],
-                                borderWidth: 2,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI US West Coast',
-                                data: filteredData12Months.map(item => item.SCFI_US_West_Coast),
-                                backgroundColor: colors[2],
-                                borderColor: borderColors[2],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI US East Coast',
-                                data: filteredData12Months.map(item => item.SCFI_US_East_Coast),
-                                backgroundColor: colors[3],
-                                borderColor: borderColors[3],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI North Europe',
-                                data: filteredData12Months.map(item => item.SCFI_North_Europe),
-                                backgroundColor: colors[4],
-                                borderColor: borderColors[4],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI Mediterranean',
-                                data: filteredData12Months.map(item => item.SCFI_Mediterranean),
-                                backgroundColor: colors[5],
-                                borderColor: borderColors[5],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI Southeast Asia',
-                                data: filteredData12Months.map(item => item.SCFI_Southeast_Asia),
-                                backgroundColor: colors[6],
-                                borderColor: borderColors[6],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI Middle East',
-                                data: filteredData12Months.map(item => item.SCFI_Middle_East),
-                                backgroundColor: colors[7],
-                                borderColor: borderColors[7],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI Australia/New Zealand',
-                                data: filteredData12Months.map(item => item.Australia_New_Zealand_SCFI),
-                                backgroundColor: colors[8],
-                                borderColor: borderColors[8],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI South America',
-                                data: filteredData12Months.map(item => item.South_America_SCFI),
-                                backgroundColor: colors[9],
-                                borderColor: borderColors[9],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI Japan West Coast',
-                                data: filteredData12Months.map(item => item.Japan_West_Coast_SCFI),
-                                backgroundColor: colors[10],
-                                borderColor: borderColors[10],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI Japan East Coast',
-                                data: filteredData12Months.map(item => item.Japan_East_Coast_SCFI),
-                                backgroundColor: colors[11],
-                                borderColor: borderColors[11],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI Korea',
-                                data: filteredData12Months.map(item => item.Korea_SCFI),
-                                backgroundColor: colors[12],
-                                borderColor: borderColors[12],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI East/West Africa',
-                                data: filteredData12Months.map(item => item.East_West_Africa_SCFI),
-                                backgroundColor: colors[13],
-                                borderColor: borderColors[13],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'SCFI South Africa',
-                                data: filteredData12Months.map(item => item.South_Africa_SCFI),
-                                backgroundColor: colors[14],
-                                borderColor: borderColors[14],
-                                borderWidth: 1,
-                                fill: false
-                            }
-                        ],
-                        dates12Months
-                    );
-
-                    // Chart 3: WCI Composite Index & Routes
-                    productSalesChart = setupChart(
-                        'productSalesChart', 'line',
-                        [
-                            {
-                                label: 'WCI Composite Index',
-                                data: filteredData12Months.map(item => item.WCI_Composite_Index),
-                                backgroundColor: colors[0],
-                                borderColor: borderColors[0],
-                                borderWidth: 2,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI Shanghai → Rotterdam',
-                                data: filteredData12Months.map(item => item.Shanghai_Rotterdam_WCI),
-                                backgroundColor: colors[2],
-                                borderColor: borderColors[2],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI Rotterdam → Shanghai',
-                                data: filteredData12Months.map(item => item.Rotterdam_Shanghai_WCI),
-                                backgroundColor: colors[3],
-                                borderColor: borderColors[3],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI Shanghai → Genoa',
-                                data: filteredData12Months.map(item => item.Shanghai_Genoa_WCI),
-                                backgroundColor: colors[4],
-                                borderColor: borderColors[4],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI Shanghai → Los Angeles',
-                                data: filteredData12Months.map(item => item.Shanghai_Los_Angeles_WCI),
-                                backgroundColor: colors[5],
-                                borderColor: borderColors[5],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI Los Angeles → Shanghai',
-                                data: filteredData12Months.map(item => item.Los_Angeles_Shanghai_WCI),
-                                backgroundColor: colors[6],
-                                borderColor: borderColors[6],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI Shanghai → New York',
-                                data: filteredData12Months.map(item => item.Shanghai_New_York_WCI),
-                                backgroundColor: colors[7],
-                                borderColor: borderColors[7],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI New York → Rotterdam',
-                                data: filteredData12Months.map(item => item.New_York_Rotterdam_WCI),
-                                backgroundColor: colors[8],
-                                borderColor: borderColors[8],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'WCI Rotterdam → New York',
-                                data: filteredData12Months.map(item => item.Rotterdam_New_York_WCI),
-                                backgroundColor: colors[9],
-                                borderColor: borderColors[9],
-                                borderWidth: 1,
-                                fill: false
-                            }
-                        ],
-                        dates12Months
-                    );
-
-                    // Chart 4: IACI Composite Index
-                    inventoryChart = setupChart(
-                        'inventoryChart', 'bar',
-                        [
-                            {
-                                label: 'IACI Composite Index',
-                                data: filteredData12Months.map(item => item.IACI_Composite_Index),
-                                backgroundColor: colors[1],
-                                borderColor: borderColors[1],
-                                borderWidth: 1
-                            }
-                        ],
-                        dates12Months
-                    );
-
-                    // Chart 5: BLANK_SAILING Total & Alliances (Stacked Bar Chart - last 6 months)
-                    satisfactionChart = setupChart(
-                        'satisfactionChart', 'bar', // Changed to 'bar' type
-                        [
-                            {
-                                label: 'Gemini Cooperation', // Changed order for stacking
-                                data: filteredData6Months.map(item => item.Gemini_Cooperation_Blank_Sailing),
-                                backgroundColor: colors[2],
-                                borderColor: borderColors[2],
-                                borderWidth: 1,
-                                stack: 'BlankSailingsStack' // Added stack property
-                            },
-                            {
-                                label: 'MSC Alliance',
-                                data: filteredData6Months.map(item => item.MSC_Alliance_Blank_Sailing),
-                                backgroundColor: colors[3],
-                                borderColor: borderColors[3],
-                                borderWidth: 1,
-                                stack: 'BlankSailingsStack'
-                            },
-                            {
-                                label: 'OCEAN Alliance',
-                                data: filteredData6Months.map(item => item.OCEAN_Alliance_Blank_Sailing),
-                                backgroundColor: colors[4],
-                                borderColor: borderColors[4],
-                                borderWidth: 1,
-                                stack: 'BlankSailingsStack'
-                            },
-                            {
-                                label: 'Premier Alliance',
-                                data: filteredData6Months.map(item => item.Premier_Alliance_Blank_Sailing),
-                                backgroundColor: colors[5],
-                                borderColor: borderColors[5],
-                                borderWidth: 1,
-                                stack: 'BlankSailingsStack'
-                            },
-                            {
-                                label: 'Others/Independent',
-                                data: filteredData6Months.map(item => item.Others_Independent_Blank_Sailing),
-                                backgroundColor: colors[6],
-                                borderColor: borderColors[6],
-                                borderWidth: 1,
-                                stack: 'BlankSailingsStack'
-                            },
-                            {
-                                label: 'Total Blank Sailings', // Total last in stack
-                                data: filteredData6Months.map(item => item.Total_Blank_Sailings),
-                                backgroundColor: colors[0],
-                                borderColor: borderColors[0],
-                                borderWidth: 2,
-                                type: 'line', // Keep total as a line on top of bars
-                                fill: false,
-                                pointRadius: 0,
-                                yAxisID: 'y' // Use default y-axis
-                            }
-                        ],
-                        dates6Months, // Use 6-month dates for Blank Sailings
-                        {
-                            scales: {
-                                x: {
-                                    stacked: true // Enable stacked X-axis
-                                },
-                                y: {
-                                    stacked: true, // Enable stacked Y-axis
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    );
-
-                    // Chart 6: FBX Composite Index & Routes
-                    trafficChart = setupChart(
-                        'trafficChart', 'line',
-                        [
-                            {
-                                label: 'FBX Composite Index',
-                                data: filteredData12Months.map(item => item.FBX_Composite_Index),
-                                backgroundColor: colors[1],
-                                borderColor: borderColors[1],
-                                borderWidth: 2,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX China/EA → US West Coast',
-                                data: filteredData12Months.map(item => item.China_EA_US_West_Coast_FBX),
-                                backgroundColor: colors[2],
-                                borderColor: borderColors[2],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX US West Coast → China/EA',
-                                data: filteredData12Months.map(item => item.US_West_Coast_China_EA_FBX),
-                                backgroundColor: colors[3],
-                                borderColor: borderColors[3],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX China/EA → US East Coast',
-                                data: filteredData12Months.map(item => item.China_EA_US_East_Coast_FBX),
-                                backgroundColor: colors[4],
-                                borderColor: borderColors[4],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX US East Coast → China/EA',
-                                data: filteredData12Months.map(item => item.US_East_Coast_China_EA_FBX),
-                                backgroundColor: colors[5],
-                                borderColor: borderColors[5],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX China/EA → North Europe',
-                                data: filteredData12Months.map(item => item.China_EA_North_Europe_FBX),
-                                backgroundColor: colors[6],
-                                borderColor: borderColors[6],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX North Europe → China/EA',
-                                data: filteredData12Months.map(item => item.North_Europe_China_EA_FBX),
-                                backgroundColor: colors[7],
-                                borderColor: borderColors[7],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX China/EA → Mediterranean',
-                                data: filteredData12Months.map(item => item.China_EA_Mediterranean_FBX),
-                                backgroundColor: colors[8],
-                                borderColor: borderColors[8],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX Mediterranean → China/EA',
-                                data: filteredData12Months.map(item => item.Mediterranean_China_EA_FBX),
-                                backgroundColor: colors[9],
-                                borderColor: borderColors[9],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX US East Coast → North Europe',
-                                data: filteredData12Months.map(item => item.FBX_US_East_Coast_North_Europe),
-                                backgroundColor: colors[10],
-                                borderColor: borderColors[10],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX North Europe → US East Coast',
-                                data: filteredData12Months.map(item => item.FBX_North_Europe_US_East_Coast),
-                                backgroundColor: colors[11],
-                                borderColor: borderColors[11],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX Europe → South America East Coast',
-                                data: filteredData12Months.map(item => item.FBX_Europe_South_America_East_Coast),
-                                backgroundColor: colors[12],
-                                borderColor: borderColors[12],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'FBX Europe → South America West Coast',
-                                data: filteredData12Months.map(item => item.FBX_Europe_South_America_West_Coast),
-                                backgroundColor: colors[13],
-                                borderColor: borderColors[13],
-                                borderWidth: 1,
-                                fill: false
-                            }
-                        ],
-                        dates12Months
-                    );
-
-                    // Chart 7: XSI Routes
-                    productivityChart = setupChart(
-                        'productivityChart', 'line',
-                        [
-                            {
-                                label: 'XSI East Asia → North Europe',
-                                data: filteredData12Months.map(item => item.XSI_East_Asia_North_Europe),
-                                backgroundColor: colors[0],
-                                borderColor: borderColors[0],
-                                borderWidth: 2,
-                                fill: false
-                            },
-                            {
-                                label: 'XSI North Europe → East Asia',
-                                data: filteredData12Months.map(item => item.XSI_North_Europe_East_Asia),
-                                backgroundColor: colors[1],
-                                borderColor: borderColors[1],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'XSI East Asia → US West Coast',
-                                data: filteredData12Months.map(item => item.XSI_East_Asia_US_West_Coast),
-                                backgroundColor: colors[2],
-                                borderColor: borderColors[2],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'XSI US West Coast → East Asia',
-                                data: filteredData12Months.map(item => item.XSI_US_West_Coast_East_Asia),
-                                backgroundColor: colors[3],
-                                borderColor: borderColors[3],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'XSI East Asia → South America East Coast',
-                                data: filteredData12Months.map(item => item.XSI_East_Asia_South_America_East_Coast),
-                                backgroundColor: colors[4],
-                                borderColor: borderColors[4],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'XSI North Europe → US East Coast',
-                                data: filteredData12Months.map(item => item.XSI_North_Europe_US_East_Coast),
-                                backgroundColor: colors[5],
-                                borderColor: borderColors[5],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'XSI US East Coast → North Europe',
-                                data: filteredData12Months.map(item => item.XSI_US_East_Coast_North_Europe),
-                                backgroundColor: colors[6],
-                                borderColor: borderColors[6],
-                                borderWidth: 1,
-                                fill: false
-                            },
-                            {
-                                label: 'XSI North Europe → South America East Coast',
-                                data: filteredData12Months.map(item => item.XSI_North_Europe_South_America_East_Coast),
-                                backgroundColor: colors[7],
-                                borderColor: borderColors[7],
-                                borderWidth: 1,
-                                fill: false
-                            }
-                        ],
-                        dates12Months
-                    );
-
-                    // Chart 8: MBCI Index
-                    mbciChart = setupChart(
-                        'mbciChart', 'line',
-                        [
-                            {
-                                label: 'MBCI Value',
-                                data: filteredData12Months.map(item => item.MBCI_MBCI_Value),
-                                backgroundColor: colors[1],
-                                borderColor: borderColors[1],
-                                borderWidth: 2,
-                                fill: false
-                            }
-                        ],
-                        dates12Months
-                    );
-
-                    // Start the chart slider after all charts are initialized
-                    showChartSlide(currentChartSlide);
-                    setInterval(nextChartSlide, chartSlideInterval);
-
-                } catch (error) {
-                    console.error("Error loading or processing JSON data:", error);
-                    // Display an error message if data loading fails
-                    document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
-                }
-            }
-
-            // Initial world clock update and 1-second interval update
-            updateWorldClocks();
-            setInterval(updateWorldClocks, 1000);
-
-            // Update last updated time
-            document.getElementById('last-updated').textContent = `Last Updated: ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-
-            // Start loading JSON data and displaying the dashboard
-            loadAndDisplayData();
-        });
-    </script>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom JavaScript for charts and dashboard logic -->
+    <script src="js/chart-js.js?v=202407231400"></script> <!-- Added version query parameter -->
 </body>
 </html>
