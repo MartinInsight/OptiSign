@@ -17,13 +17,11 @@ print(f"DEBUG: GOOGLE_CREDENTIAL_JSON from environment (first 50 chars): {GOOGLE
 
 # Name of the worksheet containing the data
 WORKSHEET_NAME = "Crawling_Data"
-# Path to save the processed JSON file (accessible by GitHub Pages)
+WEATHER_WORKSHEET_NAME = "LA날씨" # New: Weather sheet name
+EXCHANGE_RATE_WORKSHEET_NAME = "환율" # New: Exchange rate sheet name
 OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping Definitions ---
-# These are for standard columnar data. IACI will be handled by specific column renaming.
-# We will now assume the main header row is the one containing "date" (typically row 1, index 1)
-# and ignore the very first row (index 0) for header parsing.
 SECTION_MARKER_SEQUENCE = [
     ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
     ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
@@ -99,7 +97,7 @@ SPECIFIC_RENAMES = {
 def fetch_and_process_data():
     """
     Fetches data from Google Sheet, processes it, and saves it as a JSON file.
-    Handles columnar data by identifying the main header row.
+    Handles columnar data, weather data, and exchange rate data.
     """
     if not SPREADSHEET_ID or not GOOGLE_CREDENTIAL_JSON:
         print("Error: SPREADSHEET_ID or GOOGLE_CREDENTIAL_JSON environment variables are not set.")
@@ -112,32 +110,29 @@ def fetch_and_process_data():
     try:
         credentials_dict = json.loads(GOOGLE_CREDENTIAL_JSON)
         gc = gspread.service_account_from_dict(credentials_dict)
+        
+        # --- Fetch Main Chart Data ---
         spreadsheet = gc.open_by_key(SPREADSHEET_ID)
         worksheet = spreadsheet.worksheet(WORKSHEET_NAME)
         all_data = worksheet.get_all_values()
 
         if not all_data:
-            print("Error: No data fetched from the sheet.")
+            print("Error: No data fetched from the main chart sheet.")
             return
 
         main_header_row_index = -1
-        
-        # Find the main header row by looking for "date" (case-insensitive, trimmed)
-        # We start searching from the second row (index 1) as the first row is just section names
         for i in range(1, len(all_data)): # Start from index 1 (Row 2 in Google Sheet)
             row = all_data[i]
             if any(cell.strip().lower() == "date" for cell in row):
                 main_header_row_index = i
                 break
 
-        print(f"DEBUG: Main header row index: {main_header_row_index}")
+        print(f"DEBUG: Main chart data header row index: {main_header_row_index}")
 
         if main_header_row_index == -1:
-            print("Error: Could not find the main header row containing 'date'.")
+            print("Error: Could not find the main header row containing 'date' in main chart data.")
             return
 
-        # --- Process Main Columnar Data ---
-        # Get the actual header row for columnar data from the identified main_header_row_index
         raw_headers_original = [h.strip().replace('"', '') for h in all_data[main_header_row_index]]
         
         final_column_names = []
@@ -145,14 +140,11 @@ def fetch_and_process_data():
         empty_col_counter = 0
         seen_final_names_set = set()
 
-        # First, process the column names, specifically handling the IACI column
         for col_idx, h_orig in enumerate(raw_headers_original):
             cleaned_h_orig = h_orig.strip().replace('"', '')
             final_name_candidate = cleaned_h_orig
 
-            # Explicitly rename the IACI Composite Index column
-            # Based on previous debug, '종합지수' at index 44 (AS column) is the IACI value.
-            if col_idx == 44 and cleaned_h_orig == "종합지수": # Column AS (index 44) for "종합지수"
+            if col_idx == 44 and cleaned_h_orig == "종합지수": # Column AS (index 44) for "종합지수" is IACI
                 final_name_candidate = "IACI_Composite_Index"
                 print(f"DEBUG: Explicitly renaming column at index {col_idx} from '{cleaned_h_orig}' to '{final_name_candidate}' (IACI).")
             else:
@@ -198,7 +190,6 @@ def fetch_and_process_data():
 
         print(f"DEBUG: Final DataFrame column names after mapping: {final_column_names}")
 
-        # Data rows start from main_header_row_index + 1
         data_rows_raw = all_data[main_header_row_index + 1:]
         
         processed_data_rows = []
@@ -216,23 +207,15 @@ def fetch_and_process_data():
 
         df_final = pd.DataFrame(processed_data_rows, columns=final_column_names)
         
-        # Ensure IACI_Composite_Index column exists even if no data was found
         if 'IACI_Composite_Index' not in df_final.columns:
             df_final['IACI_Composite_Index'] = None
 
-        # Clean up empty columns that might still exist
         cols_to_drop = [col for col in df_final.columns if col.startswith('_EMPTY_COL_')]
         if cols_to_drop:
             print(f"DEBUG: Dropping empty columns: {cols_to_drop}")
             df_final.drop(columns=cols_to_drop, inplace=True, errors='ignore')
 
-        # --- IMPORTANT: Convert 'date' column to datetime objects BEFORE using .dt accessor ---
         df_final['date'] = pd.to_datetime(df_final['date'], errors='coerce')
-        
-        # Debug prints for date column type and content
-        print(f"DEBUG: 'date' column dtype AFTER to_datetime: {df_final['date'].dtype}")
-        print(f"DEBUG: Sample of 'date' column AFTER to_datetime:\n{df_final['date'].head(10).to_string()}")
-
         df_final.dropna(subset=['date'], inplace=True)
         df_final = df_final.sort_values(by='date', ascending=True)
         df_final['date'] = df_final['date'].dt.strftime('%Y-%m-%d')
@@ -240,23 +223,89 @@ def fetch_and_process_data():
         if df_final['date'].empty:
             print("Warning: After all date processing, the 'date' column is empty. Charts might not display correctly.")
 
-        # --- Convert all numeric columns ---
         numeric_cols = [col for col in df_final.columns if col != 'date']
-        
         for col in numeric_cols:
             df_final[col] = pd.to_numeric(df_final[col].astype(str).str.replace(',', ''), errors='coerce')
         
-        # Convert NaN to None for JSON serialization
         df_final = df_final.replace({pd.NA: None, float('nan'): None})
 
-        processed_data = df_final.to_dict(orient='records')
+        processed_chart_data = df_final.to_dict(orient='records')
+
+        # --- Fetch Weather Data ---
+        weather_worksheet = spreadsheet.worksheet(WEATHER_WORKSHEET_NAME)
+        weather_data_raw = weather_worksheet.get_all_values()
+        
+        current_weather = {}
+        if len(weather_data_raw) >= 9: # Check if enough rows for current weather
+            current_weather['LA_WeatherStatus'] = weather_data_raw[0][1] if len(weather_data_raw[0]) > 1 else None
+            current_weather['LA_WeatherIcon'] = weather_data_raw[1][1] if len(weather_data_raw[1]) > 1 else None
+            current_weather['LA_Temperature'] = float(weather_data_raw[2][1]) if len(weather_data_raw[2]) > 1 and weather_data_raw[2][1].replace('.', '', 1).isdigit() else None
+            current_weather['LA_Humidity'] = float(weather_data_raw[3][1]) if len(weather_data_raw[3]) > 1 and weather_data_raw[3][1].replace('.', '', 1).isdigit() else None
+            current_weather['LA_WindSpeed'] = float(weather_data_raw[4][1]) if len(weather_data_raw[4]) > 1 and weather_data_raw[4][1].replace('.', '', 1).isdigit() else None
+            current_weather['LA_Pressure'] = float(weather_data_raw[5][1]) if len(weather_data_raw[5]) > 1 and weather_data_raw[5][1].replace('.', '', 1).isdigit() else None
+            current_weather['LA_Visibility'] = float(weather_data_raw[6][1]) if len(weather_data_raw[6]) > 1 and weather_data_raw[6][1].replace('.', '', 1).isdigit() else None
+            current_weather['LA_Sunrise'] = weather_data_raw[7][1] if len(weather_data_raw[7]) > 1 else None
+            current_weather['LA_Sunset'] = weather_data_raw[8][1] if len(weather_data_raw[8]) > 1 else None
+            # Assuming Fine Dust is not in the current image, add as None or a placeholder
+            current_weather['LA_FineDust'] = None # Placeholder for fine dust if not in sheet
+
+        forecast_weather = []
+        if len(weather_data_raw) > 12: # Check if forecast data exists (starts from row 12, index 11)
+            for row in weather_data_raw[11:]: # From row 12 onwards
+                if len(row) >= 5 and row[0]: # Ensure date and basic info exist
+                    forecast_day = {
+                        'date': row[0],
+                        'min_temp': float(row[1]) if row[1].replace('.', '', 1).isdigit() else None,
+                        'max_temp': float(row[2]) if row[2].replace('.', '', 1).isdigit() else None,
+                        'status': row[3],
+                        'icon': row[4] # Assuming icon name or path
+                    }
+                    forecast_weather.append(forecast_day)
+        
+        print(f"DEBUG: Current Weather Data: {current_weather}")
+        print(f"DEBUG: Forecast Weather Data (first 3): {forecast_weather[:3]}")
+
+        # --- Fetch Exchange Rate Data ---
+        exchange_rate_worksheet = spreadsheet.worksheet(EXCHANGE_RATE_WORKSHEET_NAME)
+        exchange_rate_data_raw = exchange_rate_worksheet.get_all_values()
+
+        exchange_rates = []
+        # Assuming D2:E24 contains date and rate, so we start from row index 1 (D2) and take 2 columns
+        # The image shows D2 to E24, so we need to parse from the 2nd row (index 1)
+        # And columns D (index 3) and E (index 4)
+        if len(exchange_rate_data_raw) > 1: # Ensure there's header and data
+            for row_idx in range(1, len(exchange_rate_data_raw)):
+                row = exchange_rate_data_raw[row_idx]
+                if len(row) > 4 and row[3] and row[4]: # Ensure D and E columns exist and are not empty
+                    try:
+                        date_str = row[3].strip()
+                        rate_val = float(row[4].strip().replace(',', '')) # Remove commas and convert to float
+                        exchange_rates.append({'date': date_str, 'rate': rate_val})
+                    except ValueError:
+                        print(f"Warning: Could not parse exchange rate data for row {row_idx+1}: {row}")
+                        continue
+        
+        # Sort exchange rates by date for chart
+        exchange_rates.sort(key=lambda x: pd.to_datetime(x['date'], errors='coerce'))
+
+        print(f"DEBUG: Exchange Rate Data (first 3): {exchange_rates[:3]}")
+
+        # --- Combine all data into a single dictionary for JSON output ---
+        final_output_data = {
+            "chart_data": processed_chart_data,
+            "weather_data": {
+                "current": current_weather,
+                "forecast": forecast_weather
+            },
+            "exchange_rates": exchange_rates
+        }
 
         os.makedirs(os.path.dirname(OUTPUT_JSON_PATH), exist_ok=True)
         with open(OUTPUT_JSON_PATH, 'w', encoding='utf-8') as f:
-            json.dump(processed_data, f, ensure_ascii=False, indent=4)
+            json.dump(final_output_data, f, ensure_ascii=False, indent=4)
 
-        print(f"Data successfully saved to '{OUTPUT_JSON_PATH}'.")
-        print(f"Sample of saved data (first 3 entries): {processed_data[:3]}")
+        print(f"All data successfully saved to '{OUTPUT_JSON_PATH}'.")
+        print(f"Sample of saved chart data (first 3 entries): {processed_chart_data[:3]}")
 
     except Exception as e:
         print(f"Error during data processing: {e}")
