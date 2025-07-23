@@ -25,7 +25,7 @@ SECTION_MARKER_SEQUENCE = [
     ("종합지수(Point)와 그 외 항로별($/FEU)", "KCCI"),
     ("종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)", "SCFI"),
     ("종합지수와 각 항로별($/FEU)", "WCI"),
-    ("IACIdate종합지수", "IACI"), # This will map to IACI_Container_Index_Raw
+    ("IACIdate", "IACI"), # Changed from "IACIdate종합지수" to "IACIdate" - now acts as a section marker for IACI data
     ("Index", "BLANK_SAILING"),
     ("종합지수와 각 항로별($/FEU)", "FBX"),
     ("각 항로별($/FEU)", "XSI"),
@@ -157,13 +157,12 @@ def fetch_and_process_data():
                     # This is a section marker!
                     current_section_prefix = f"{marker_prefix_base}_"
                     
-                    # Special handling for the 'Index' section marker for Blank Sailing
                     if marker_prefix_base == "BLANK_SAILING":
                         final_name_candidate = "Date_Blank_Sailing"
                         current_section_prefix = "" # No prefix for subsequent columns in this section, as they are specific renames
-                    elif marker_prefix_base == "IACI": # Special handling for IACI
-                        final_name_candidate = "IACI_Container_Index_Raw" # Keep raw string for parsing later
-                        current_section_prefix = "" # IACI has no other prefixed columns
+                    elif marker_prefix_base == "IACI": # Special handling for IACI section marker
+                        final_name_candidate = "IACI_Date_Column" # Rename IACIdate header to IACI_Date_Column
+                        # current_section_prefix is already "IACI_"
                     else:
                         final_name_candidate = f"{marker_prefix_base}_Container_Index" 
                     
@@ -228,40 +227,24 @@ def fetch_and_process_data():
 
         df = pd.DataFrame(data_rows, columns=final_column_names)
 
-        # --- Special handling for IACI_Container_Index_Raw to extract date and value ---
-        if 'IACI_Container_Index_Raw' in df.columns:
-            # Regex to capture date (MM/DD/YYYY) and value (digits)
-            iaci_pattern = re.compile(r'(\d{1,2}/\d{1,2}/\d{4})(\d+)')
-            
-            # Create new columns for parsed date and value
-            parsed_iaci_data = df['IACI_Container_Index_Raw'].astype(str).apply(lambda x: pd.Series(iaci_pattern.match(x).groups()) if iaci_pattern.match(x) else pd.Series([None, None]))
-            
-            df['IACI_Parsed_Date'] = parsed_iaci_data[0]
-            df['IACI_Composite_Index'] = parsed_iaci_data[1]
-
-            # Convert the parsed IACI value to numeric
-            df['IACI_Composite_Index'] = pd.to_numeric(df['IACI_Composite_Index'], errors='coerce')
-
-            # Drop the original 'IACI_Container_Index_Raw' column as its content has been parsed
-            df.drop(columns=['IACI_Container_Index_Raw'], inplace=True)
-        else:
-            # Ensure IACI_Composite_Index column exists even if IACI_Container_Index_Raw wasn't found
-            if 'IACI_Composite_Index' not in df.columns:
-                df['IACI_Composite_Index'] = None
-            # Also ensure IACI_Parsed_Date exists for date processing later
-            if 'IACI_Parsed_Date' not in df.columns:
-                df['IACI_Parsed_Date'] = None
+        # --- Removed previous special handling for IACI_Container_Index_Raw ---
+        # IACI_Composite_Index column should now be directly populated if '종합지수' is under 'IACI' section
+        # Ensure IACI_Composite_Index column exists even if no data is present
+        if 'IACI_Composite_Index' not in df.columns:
+            df['IACI_Composite_Index'] = None
+        # Ensure IACI_Date_Column exists for date processing later
+        if 'IACI_Date_Column' not in df.columns:
+            df['IACI_Date_Column'] = None
 
 
         # --- Date column processing ---
-        # The 'date' column already exists from DataFrame creation and contains primary dates.
         # Convert the main 'date' column to datetime objects first
         df['date'] = pd.to_datetime(df['date'], errors='coerce')
 
-        # Fill missing dates in the main 'date' column using IACI_Parsed_Date if available
-        if 'IACI_Parsed_Date' in df.columns:
-            df['date'] = df['date'].fillna(pd.to_datetime(df['IACI_Parsed_Date'], errors='coerce'))
-            df.drop(columns=['IACI_Parsed_Date'], inplace=True) # Drop temporary column
+        # Fill missing dates in the main 'date' column using IACI_Date_Column if available
+        if 'IACI_Date_Column' in df.columns:
+            df['date'] = df['date'].fillna(pd.to_datetime(df['IACI_Date_Column'], errors='coerce'))
+            df.drop(columns=['IACI_Date_Column'], inplace=True) # Drop temporary column
 
         # Fill remaining missing dates using Date_Blank_Sailing if available
         if 'Date_Blank_Sailing' in df.columns:
