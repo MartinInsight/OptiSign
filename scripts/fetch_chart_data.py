@@ -10,7 +10,8 @@ SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
 GOOGLE_CREDENTIAL_JSON = os.environ.get("GOOGLE_CREDENTIAL_JSON")
 
 # --- Debugging Prints ---
-print(f"DEBUG: SPREADSHEET_ID from environment: {SPREADSHEED_ID}")
+# Corrected typo: SPREADSHEED_ID -> SPREADSHEET_ID
+print(f"DEBUG: SPREADSHEET_ID from environment: {SPREADSHEET_ID}")
 print(f"DEBUG: GOOGLE_CREDENTIAL_JSON from environment (first 50 chars): {GOOGLE_CREDENTIAL_JSON[:50] if GOOGLE_CREDENTIAL_JSON else 'None'}")
 # --- End Debugging Prints ---
 
