@@ -14,17 +14,17 @@
             line-height: 1.6;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px; /* Increased max-width for wider layout */
             margin: 20px auto;
-            padding: 20px;
+            padding: 15px; /* Reduced padding */
             background-color: #fff;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
+            margin-bottom: 20px; /* Reduced margin */
+            padding-bottom: 15px; /* Reduced padding */
             border-bottom: 1px solid #eee;
         }
         h1 {
@@ -36,7 +36,7 @@
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 20px;
+            gap: 15px; /* Reduced gap */
         }
         @media (min-width: 768px) {
             .dashboard-grid {
@@ -45,14 +45,14 @@
         }
         .sidebar {
             background-color: #f8f8f8;
-            padding: 20px;
+            padding: 15px; /* Reduced padding */
             border-radius: 10px;
             box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
         }
         .sidebar h2 {
             font-size: 1.5em;
             color: #00657e; /* Teal */
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced margin */
             font-weight: 600;
             border-bottom: 2px solid #00657e;
             padding-bottom: 5px;
@@ -61,7 +61,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
+            padding: 8px 0; /* Reduced padding */
             border-bottom: 1px dashed #eee;
         }
         .world-clock-item:last-child {
@@ -73,21 +73,21 @@
         }
         .chart-section {
             background-color: #fff;
-            padding: 20px;
+            padding: 15px; /* Reduced padding */
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Reduced margin */
         }
         .chart-section h2 {
             font-size: 1.8em;
             color: #003A52;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Reduced margin */
             text-align: center;
             font-weight: 700;
         }
         .chart-container {
             position: relative;
-            height: 350px; /* Fixed height for charts */
+            height: 450px; /* Adjusted height for charts */
             width: 100%;
             margin: 0 auto;
         }
@@ -96,9 +96,9 @@
             overflow: hidden;
             border-radius: 8px;
             background-color: #e9ecef;
-            padding: 15px;
+            padding: 10px; /* Reduced padding */
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            height: 500px; /* Adjusted height for charts */
+            height: 500px; /* Adjusted height for chart slider container */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -114,7 +114,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            padding: 25px;
+            padding: 15px; /* Reduced padding */
             box-sizing: border-box;
 
             flex-direction: column;
@@ -131,12 +131,12 @@
             text-align: center;
             color: #666;
             font-style: italic;
-            padding: 50px;
+            padding: 30px; /* Reduced padding */
         }
         footer {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 30px; /* Reduced margin */
+            padding-top: 15px; /* Reduced padding */
             border-top: 1px solid #eee;
             color: #777;
             font-size: 0.9em;
@@ -147,20 +147,20 @@
             overflow: hidden;
             border-radius: 8px;
             background-color: #e9ecef;
-            padding: 15px;
+            padding: 10px; /* Reduced padding */
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-            height: 250px; /* Adjust height as needed */
+            height: 480px; /* Increased height for top info slider */
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Reduced margin */
         }
         .top-info-slide {
             display: none;
             width: 100%;
             height: 100%;
             text-align: center;
-            font-size: 1.2em;
+            font-size: 1.1em; /* Reduced font size */
             color: #003A52;
             flex-direction: column;
             justify-content: center;
@@ -177,26 +177,26 @@
             visibility: visible;
         }
         .top-info-slide h3 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
+            font-size: 1.6em; /* Reduced font size */
+            margin-bottom: 8px; /* Reduced margin */
             color: #00657e;
         }
         .top-info-slide p {
-            font-size: 1.1em;
+            font-size: 1em; /* Reduced font size */
             color: #333;
         }
         /* Announcements Section */
         .announcements-section {
             background-color: #fff;
-            padding: 20px;
+            padding: 15px; /* Reduced padding */
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Reduced margin */
         }
         .announcements-section h2 {
-            font-size: 1.8em;
+            font-size: 1.6em; /* Reduced font size */
             color: #003A52;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
             font-weight: 700;
         }
@@ -206,10 +206,11 @@
             margin: 0;
         }
         .announcements-list li {
-            padding: 10px 0;
+            padding: 8px 0; /* Reduced padding */
             border-bottom: 1px dashed #eee;
             color: #555;
-            font-size: 0.95em;
+            font-size: 0.9em; /* Reduced font size */
+            text-align: left; /* Align text to left */
         }
         .announcements-list li:last-child {
             border-bottom: none;
@@ -219,49 +220,49 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced margin */
         }
         .weather-current-info #weather-icon-current {
-            width: 80px;
-            height: 80px;
+            width: 70px; /* Reduced icon size */
+            height: 70px; /* Reduced icon size */
             margin-bottom: 5px;
         }
         .weather-current-info #temperature-current {
-            font-size: 3em;
+            font-size: 2.5em; /* Reduced font size */
             font-weight: bold;
             color: #00657e;
         }
         .weather-current-info #status-current {
-            font-size: 1.2em;
+            font-size: 1.1em; /* Reduced font size */
             color: #555;
             text-transform: capitalize;
         }
         .weather-details {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            width: 80%;
+            gap: 8px; /* Reduced gap */
+            width: 90%; /* Increased width */
             margin-top: 10px;
-            font-size: 0.9em;
+            font-size: 0.8em; /* Reduced font size */
         }
         .weather-details div {
             display: flex;
             justify-content: space-between;
-            padding: 5px 0;
+            padding: 4px 0; /* Reduced padding */
             border-bottom: 1px dotted #ccc;
         }
         .weather-details div:last-child, .weather-details div:nth-last-child(2) {
             border-bottom: none;
         }
         .forecast-table {
-            width: 90%;
-            margin-top: 20px;
+            width: 95%; /* Increased width */
+            margin-top: 15px; /* Reduced margin */
             border-collapse: collapse;
-            font-size: 0.85em;
+            font-size: 0.75em; /* Reduced font size */
         }
         .forecast-table th, .forecast-table td {
             border: 1px solid #eee;
-            padding: 8px;
+            padding: 6px; /* Reduced padding */
             text-align: center;
         }
         .forecast-table th {
@@ -270,18 +271,18 @@
         }
         /* Exchange Rate Specific Styles */
         .exchange-rate-info {
-            margin-bottom: 15px;
+            margin-bottom: 10px; /* Reduced margin */
         }
         .exchange-rate-info #current-exchange-rate-value {
-            font-size: 2.5em;
+            font-size: 2em; /* Reduced font size */
             font-weight: bold;
             color: #00657e;
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* Reduced margin */
         }
         .exchange-rate-chart-container {
             position: relative;
-            height: 120px; /* Smaller height for exchange rate chart */
-            width: 90%;
+            height: 200px; /* Increased height for exchange rate chart */
+            width: 95%; /* Increased width */
             margin: 0 auto;
         }
     </style>
@@ -341,7 +342,7 @@
                             <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
                             <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
                             <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
-                            <div><span>Fine Dust:</span> <span id="fine-dust-current">--</span></div>
+                            <!-- Removed Fine Dust -->
                         </div>
                         <table class="forecast-table">
                             <thead>
