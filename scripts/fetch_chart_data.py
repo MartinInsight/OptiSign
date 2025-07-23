@@ -209,20 +209,12 @@ def fetch_and_process_data():
         else:
             print("Warning: No recognized date column found in the DataFrame or it contains no valid dates. Charts might not display correctly.")
 
-        # --- NEW LOGIC: Convert all numeric columns by iterating and using .apply(float) ---
+        # --- NEW LOGIC: Convert all numeric columns by iterating and using a direct string method ---
         numeric_cols = [col for col in df.columns if col != 'date']
         for col in numeric_cols:
-            # Define a helper function to clean and convert each cell
-            def clean_and_convert_to_float(value):
-                if pd.isna(value) or value == '': # Handle NaN/None/empty string values
-                    return None
-                try:
-                    # Convert to string, remove commas, then convert to float
-                    return float(str(value).replace(',', ''))
-                except ValueError:
-                    return None # Return None for values that cannot be converted
-
-            df[col] = df[col].apply(clean_and_convert_to_float)
+            # Convert the Series to string type, then replace commas, then convert to numeric
+            # This ensures .str accessor is available
+            df[col] = pd.to_numeric(df[col].astype(str).str.replace(',', '', regex=False), errors='coerce')
         # --- END NEW LOGIC ---
 
         df = df.fillna(value=None)
