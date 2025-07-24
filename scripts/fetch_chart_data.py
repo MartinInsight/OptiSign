@@ -36,13 +36,14 @@ OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping Definitions for Chart Data (Historical Series from Crawling_Data) ---
 # These define the column ranges and their corresponding JSON keys for the historical chart data.
-# The 'data_start_col_idx' and 'data_end_col_idx' are 0-indexed.
+# The 'date_col_idx' specifies the 0-indexed column for the date for THIS section.
+# The 'data_start_col_idx' and 'data_end_col_idx' are 0-indexed for the actual numeric data.
 SECTION_COLUMN_MAPPINGS = {
     "KCCI": {
-        "data_start_col_idx": 0, # KCCI data starts from '날짜' at index 0 (A)
-        "data_end_col_idx": 14, # Last KCCI data column is '동남아시아' at index 14 (O)
+        "date_col_idx": 0, # A열은 날짜
+        "data_start_col_idx": 1, # B열은 종합지수
+        "data_end_col_idx": 14, # O열은 동남아시아
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
             "종합지수": "Composite_Index",
             "미주서안": "US_West_Coast",
             "미주동안": "US_East_Coast",
@@ -60,10 +61,10 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "SCFI": {
-        "data_start_col_idx": 16, # SCFI data starts from '날짜' (Q)
-        "data_end_col_idx": 30, # Last SCFI data column is '남아공' (AE)
+        "date_col_idx": 16, # Q열은 날짜
+        "data_start_col_idx": 17, # R열은 종합지수
+        "data_end_col_idx": 30, # AE열은 남아공
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
             "종합지수": "Composite_Index_1",
             "미주서안": "US_West_Coast_1",
             "미주동안": "US_East_Coast_1",
@@ -81,10 +82,10 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "WCI": {
-        "data_start_col_idx": 32, # WCI data starts from '날짜' (AG)
-        "data_end_col_idx": 41, # Last WCI data column is '로테르담 → 뉴욕' (AP)
+        "date_col_idx": 32, # AG열은 날짜
+        "data_start_col_idx": 33, # AH열은 종합지수
+        "data_end_col_idx": 41, # AP열은 로테르담 → 뉴욕
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
             "종합지수": "Composite_Index_2",
             "상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
             "로테르담 → 상하이": "Rotterdam_Shanghai_WCI",
@@ -97,18 +98,19 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "IACI": {
-        "data_start_col_idx": 43, # IACI data starts from '날짜' (AR)
-        "data_end_col_idx": 44, # Last IACI data column is '종합지수' (AS)
+        "date_col_idx": 43, # AR열은 날짜
+        "data_start_col_idx": 44, # AS열은 종합지수
+        "data_end_col_idx": 44, # AS열
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
             "종합지수": "Composite_Index_3"
         }
     },
     "BLANK_SAILING": {
-        "data_start_col_idx": 46, # BLANK_SAILING data starts from '날짜' (AU)
-        "data_end_col_idx": 52, # Last BLANK_SAILING data column is 'Total' (BA)
+        "date_col_idx": 46, # AU열은 날짜
+        "data_start_col_idx": 47, # AV열은 Index
+        "data_end_col_idx": 52, # BA열은 Total
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
+            "Index": "Index_Blank_Sailing", # 'Index' is the actual header here
             "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
             "MSC": "MSC_Alliance_Blank_Sailing",
             "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
@@ -118,10 +120,10 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "FBX": {
-        "data_start_col_idx": 54, # FBX data starts from '날짜' (BC)
-        "data_end_col_idx": 67, # Last FBX data column is '유럽 → 남미서안' (BP)
+        "date_col_idx": 54, # BC열은 날짜
+        "data_start_col_idx": 55, # BD열은 종합지수
+        "data_end_col_idx": 67, # BP열은 유럽 → 남미서안
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
             "종합지수": "Composite_Index_4",
             "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
             "미주서안 → 중국/동아시아": "US_West_Coast_China_EA_FBX",
@@ -138,10 +140,10 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "XSI": {
-        "data_start_col_idx": 69, # XSI data starts from '날짜' (BR)
-        "data_end_col_idx": 77, # Last XSI data column is '북유럽 → 남미동안' (BZ)
+        "date_col_idx": 69, # BR열은 날짜
+        "data_start_col_idx": 70, # BS열은 동아시아 → 북유럽
+        "data_end_col_idx": 77, # BZ열은 북유럽 → 남미동안
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
             "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
             "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
             "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
@@ -153,11 +155,11 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "MBCI": {
-        "data_start_col_idx": 79, # MBCI data starts from '날짜' (CB)
-        "data_end_col_idx": 80, # Last MBCI data column is 'Index(종합지수), $/day(정기용선, Time ' (CC)
+        "date_col_idx": 79, # CB열은 날짜
+        "data_start_col_idx": 80, # CC열은 MBCI
+        "data_end_col_idx": 80, # CC열
         "data_cols_map": {
-            "날짜": "date", # Include date for chart data
-            "Index(종합지수), $/day(정기용선, Time ": "MBCI_MBCI_Value", # Corrected full header name
+            "MBCI": "MBCI_MBCI_Value", # Corrected header name for chart data
         }
     }
 }
@@ -265,18 +267,9 @@ def fetch_and_process_data():
             return
 
         # Find the main header row for chart data (the one containing '날짜' or 'Date' for the first section)
-        main_header_row_index_charts = -1
-        for i, row in enumerate(all_data_charts):
-            if any(str(cell).strip().lower() in ["날짜", "date"] for cell in row):
-                main_header_row_index_charts = i
-                break
+        # Assuming the headers are consistently on row 2 (index 1) as per user's description.
+        main_header_row_index_charts = 1 
         
-        print(f"DEBUG: Main chart data header row index: {main_header_row_index_charts}")
-
-        if main_header_row_index_charts == -1:
-            print(f"Error: Could not find a suitable header row containing '날짜' or 'Date' in '{WORKSHEET_NAME_CHARTS}' data.")
-            return
-
         # Get raw headers from the identified header row for charts
         raw_headers_full_charts = [str(h).strip() for h in all_data_charts[main_header_row_index_charts]]
         print(f"DEBUG: Raw headers from '{WORKSHEET_NAME_CHARTS}' (full row): {raw_headers_full_charts}")
@@ -284,138 +277,89 @@ def fetch_and_process_data():
         processed_chart_data_by_section = {}
         processed_table_data_by_section = {}
 
-        # Store the universal date column data (always from the first column of the main chart data)
-        universal_date_column = []
-        if len(all_data_charts) > main_header_row_index_charts + 1:
-            universal_date_column = [str(row[0]).strip() for row in all_data_charts[main_header_row_index_charts + 1:] if len(row) > 0 and str(row[0]).strip()]
-        
-        # Parse universal date column once
-        parsed_universal_dates = pd.to_datetime(universal_date_column, errors='coerce')
-        valid_universal_dates_mask = parsed_universal_dates.notna()
-        universal_date_column_filtered = [universal_date_column[i] for i, is_valid in enumerate(valid_universal_dates_mask) if is_valid]
-        parsed_universal_dates_filtered = parsed_universal_dates[valid_universal_dates_mask]
-
-        universal_date_df = pd.DataFrame({
-            'date': universal_date_column_filtered,
-            'parsed_date': parsed_universal_dates_filtered
-        }).sort_values(by='parsed_date', ascending=True)
-        
-        print(f"DEBUG: Universal Date Column (first 10 entries after parsing/filtering): {universal_date_df['date'].tolist()[:10]}")
-        print(f"DEBUG: Universal Date DataFrame shape: {universal_date_df.shape}")
-
-
         # Iterate through each section and extract its specific data for CHARTS
         for section_key, details in SECTION_COLUMN_MAPPINGS.items():
+            date_col_idx = details["date_col_idx"]
+            data_start_col_idx = details["data_start_col_idx"]
+            data_end_col_idx = details["data_end_col_idx"]
             data_cols_map = details["data_cols_map"]
             
-            cols_to_extract_indices = []
-            section_df_columns = []
+            section_chart_data = []
+            
+            # Prepare column names for the DataFrame
+            section_df_columns = ["date"] + list(data_cols_map.values())
 
-            # Find indices for data columns based on their raw header names, within the defined chart data range
-            for raw_header_name, final_json_key in data_cols_map.items():
-                found_idx = -1
-                # Search for the header within the defined section's chart data range
-                for idx_in_full_headers in range(details["data_start_col_idx"], details["data_end_col_idx"] + 1):
-                    if idx_in_full_headers < len(raw_headers_full_charts) and str(raw_headers_full_charts[idx_in_full_headers]).strip() == str(raw_header_name).strip():
-                        found_idx = idx_in_full_headers
-                        break # Found it, break and move to next header
-                
-                if found_idx != -1:
-                    cols_to_extract_indices.append(found_idx)
-                    section_df_columns.append(final_json_key)
-                else:
-                    print(f"WARNING: Chart header '{raw_header_name}' not found in its expected section range for '{section_key}'. Skipping this column for chart data.")
-
-            print(f"DEBUG: For section {section_key} (Chart Data): cols_to_extract_indices = {cols_to_extract_indices}, section_df_columns = {section_df_columns}")
-
-
-            if not cols_to_extract_indices:
-                print(f"WARNING: No valid data columns found for section {section_key} chart. Skipping chart data for this section.")
-                processed_chart_data_by_section[section_key] = []
-                continue
-
-            section_raw_rows = []
+            # Extract data rows starting from the row after the header
             for row_idx in range(main_header_row_index_charts + 1, len(all_data_charts)):
                 row_data = all_data_charts[row_idx]
-                extracted_row = []
-                for col_idx in cols_to_extract_indices:
-                    if col_idx < len(row_data):
-                        extracted_row.append(str(row_data[col_idx]).strip())
-                    else:
-                        extracted_row.append('')
-                section_raw_rows.append(extracted_row)
-            
-            if not section_raw_rows:
-                print(f"WARNING: No data rows found for section {section_key} chart. Skipping chart data for this section.")
-                processed_chart_data_by_section[section_key] = []
-                continue
-
-            # Create a DataFrame for this section's data columns
-            if len(section_raw_rows[0]) != len(section_df_columns):
-                 print(f"ERROR: Mismatch in column count for section {section_key} chart. Expected {len(section_df_columns)} but got {len(section_raw_rows[0])} in first row.")
-                 print(f"DEBUG: section_df_columns (chart): {section_df_columns}")
-                 print(f"DEBUG: section_raw_rows[0] (chart): {section_raw_rows[0]}")
-                 processed_chart_data_by_section[section_key] = []
-                 continue
-
-            df_section_data = pd.DataFrame(section_raw_rows, columns=section_df_columns)
-            print(f"DEBUG: Initial DataFrame for {section_key} chart shape: {df_section_data.shape}")
-            print(f"DEBUG: Initial DataFrame for {section_key} chart head:\n{df_section_data.head()}")
-
-            # Convert numeric columns for this section
-            for col in section_df_columns:
-                if col != "date": # Don't convert date column to numeric
-                    df_section_data[col] = pd.to_numeric(df_section_data[col].astype(str).str.replace(',', ''), errors='coerce')
-            
-            df_section_data = df_section_data.replace({pd.NA: None, float('nan'): None})
-
-            # Join with the universal date DataFrame (only if 'date' column is present in df_section_data)
-            if 'date' in df_section_data.columns:
-                # Ensure the 'date' column in df_section_data is also parsed as datetime for proper merging
-                df_section_data['parsed_date'] = pd.to_datetime(df_section_data['date'], errors='coerce')
-                # Filter out NaT values from df_section_data dates before merging
-                df_section_data = df_section_data[df_section_data['parsed_date'].notna()]
-
-                # Perform an outer merge to keep all dates from universal_date_df and corresponding data
-                df_section = pd.merge(universal_date_df[['date', 'parsed_date']], df_section_data, on='date', how='left', suffixes=('_universal', ''))
-                # Drop the redundant parsed_date column from df_section_data if it exists after merge
-                if 'parsed_date_universal' in df_section.columns:
-                    df_section = df_section.drop(columns=['parsed_date_universal'])
                 
-                # Re-sort by parsed_date to ensure chronological order
-                df_section = df_section.sort_values(by='parsed_date', ascending=True)
-            else:
-                # If no date column in section_df_data, just use the data as is, without date alignment
-                df_section = df_section_data
-                print(f"WARNING: No 'date' column found for section {section_key} chart data. Date alignment skipped.")
-
-
-            print(f"DEBUG: DataFrame shape for {section_key} after joining dates: {df_section.shape}")
-            print(f"DEBUG: DataFrame for {section_key} after joining dates head:\n{df_section.head()}")
-
-            # Ensure 'date' column is in YYYY-MM-DD format for JSON output
-            if 'parsed_date' in df_section.columns:
-                df_section['date'] = df_section['parsed_date'].dt.strftime('%Y-%m-%d')
-            
-            output_chart_cols = ['date'] + [col for col in section_df_columns if col != 'date']
-            
-            chart_data_records = []
-            # Only include columns that actually exist in df_section
-            existing_output_cols = [col for col in output_chart_cols if col in df_section.columns]
-            for record in df_section[existing_output_cols].to_dict(orient='records'):
-                new_record = {}
-                for k, v in record.items():
-                    # Convert numpy types to native Python types
-                    if isinstance(v, (np.integer, np.floating)):
-                        new_record[k] = v.item() # Use .item() to get native Python scalar
-                    elif pd.isna(v): # Check for pandas NaN/NaT
-                        new_record[k] = None
+                current_record = {}
+                
+                # Extract date for this section
+                if date_col_idx < len(row_data):
+                    date_str = str(row_data[date_col_idx]).strip()
+                    if date_str: # Only add if date string is not empty
+                        current_record["date"] = date_str
                     else:
-                        new_record[k] = v
-                chart_data_records.append(new_record)
+                        # If date column is empty, skip this row for this section's chart data
+                        continue
+                else:
+                    continue # Skip if date column index is out of bounds for the row
 
-            processed_chart_data_by_section[section_key] = chart_data_records
+                # Extract numeric data columns for this section
+                extracted_numeric_data = []
+                actual_numeric_headers = [] # To store actual headers found in the sheet for mapping
+
+                # Collect actual headers from the raw_headers_full_charts for the numeric data range
+                for col_idx in range(data_start_col_idx, data_end_col_idx + 1):
+                    if col_idx < len(raw_headers_full_charts):
+                        actual_numeric_headers.append(str(raw_headers_full_charts[col_idx]).strip())
+                    else:
+                        actual_numeric_headers.append(None) # Placeholder for missing header
+
+                # Map actual headers to desired JSON keys and extract data
+                for i, header_in_sheet in enumerate(actual_numeric_headers):
+                    if header_in_sheet in data_cols_map:
+                        col_idx = data_start_col_idx + i
+                        if col_idx < len(row_data):
+                            val = str(row_data[col_idx]).strip().replace(',', '')
+                            current_record[data_cols_map[header_in_sheet]] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
+                        else:
+                            current_record[data_cols_map[header_in_sheet]] = None
+                    else:
+                        # If a header in the range is not in data_cols_map, it's unexpected, but we should handle it
+                        # For now, we'll just skip it for the JSON output, or set to None if it's a critical column
+                        print(f"WARNING: Header '{header_in_sheet}' from sheet range for {section_key} chart is not in data_cols_map. Skipping or setting to None.")
+                        # If it's a critical column, you might want to add:
+                        # current_record[f"unknown_col_{col_idx}"] = None 
+            
+                section_chart_data.append(current_record)
+            
+            # Convert to DataFrame for easier processing (e.g., sorting, handling NaNs)
+            # Ensure all expected columns are present, even if some rows don't have them
+            df_section = pd.DataFrame(section_chart_data)
+            
+            if 'date' in df_section.columns:
+                df_section['parsed_date'] = pd.to_datetime(df_section['date'], errors='coerce')
+                df_section = df_section[df_section['parsed_date'].notna()] # Filter out rows with invalid dates
+                df_section = df_section.sort_values(by='parsed_date', ascending=True)
+                df_section['date'] = df_section['parsed_date'].dt.strftime('%Y-%m-%d') # Standardize date format
+                df_section = df_section.drop(columns=['parsed_date'])
+            
+            # Fill missing columns with None if any are not present in the dataframe after initial creation
+            for col_name in section_df_columns:
+                if col_name not in df_section.columns:
+                    df_section[col_name] = None
+
+            # Convert numeric columns to appropriate types and handle NaN/NaT
+            for col in list(data_cols_map.values()):
+                if col in df_section.columns:
+                    df_section[col] = pd.to_numeric(df_section[col], errors='coerce')
+                    df_section[col] = df_section[col].replace({np.nan: None}) # Replace numpy NaN with Python None
+
+            processed_chart_data_by_section[section_key] = df_section.to_dict(orient='records')
             print(f"DEBUG: Processed chart data for {section_key} (first 3 entries): {processed_chart_data_by_section[section_key][:3]}")
+
 
         # --- Fetch Table Data from Crawling_Data2 sheet ---
         worksheet_tables = spreadsheet.worksheet(WORKSHEET_NAME_TABLES)
@@ -431,7 +375,7 @@ def fetch_and_process_data():
             table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
             table_rows_data = []
 
-            # For Blank Sailing, handle multiple previous date/data rows
+            # Handle Blank Sailing with multiple previous date/data rows
             if section_key == "BLANK_SAILING" and "previous_date_cells_and_ranges" in table_details:
                 current_row_idx = table_details["current_date_cell"][0]
                 current_cols_start, current_cols_end = table_details["current_index_cols_range"]
@@ -441,6 +385,7 @@ def fetch_and_process_data():
 
                 # Collect all historical data for Blank Sailing to calculate changes
                 blank_sailing_historical_data = []
+                
                 # Add current data
                 current_bs_entry = {"date": (all_data_tables[current_row_idx][table_details["current_date_cell"][1]] if current_row_idx < len(all_data_tables) and table_details["current_date_cell"][1] < len(all_data_tables[current_row_idx]) else "")}
                 for i in range(len(route_names)):
@@ -500,28 +445,28 @@ def fetch_and_process_data():
             else: # For all other sections
                 current_row_idx = table_details["current_date_cell"][0]
                 previous_row_idx = table_details["previous_date_cell"][0]
-                weekly_change_row_idx = table_details["weekly_change_cols_range"] # This is now a tuple (start_col, end_col) or None
+                weekly_change_row_idx_info = table_details["weekly_change_cols_range"] # This is now a tuple (start_col, end_col) or None
                 
                 current_cols_start, current_cols_end = table_details["current_index_cols_range"]
                 previous_cols_start, previous_cols_end = table_details["previous_index_cols_range"]
                 
                 weekly_change_cols_start, weekly_change_cols_end = (None, None)
-                if weekly_change_row_idx is not None:
-                    weekly_change_cols_start, weekly_change_cols_end = weekly_change_row_idx
+                if weekly_change_row_idx_info is not None:
+                    weekly_change_cols_start, weekly_change_cols_end = weekly_change_row_idx_info
 
                 route_names = table_details["route_names"]
 
                 # Ensure all data rows exist before attempting to access
                 if current_row_idx >= len(all_data_tables) or \
                    previous_row_idx >= len(all_data_tables) or \
-                   (weekly_change_row_idx is not None and (weekly_change_row_idx[0] >= len(all_data_tables) or weekly_change_row_idx[1] >= len(all_data_tables))): # Check range for weekly change row
+                   (weekly_change_row_idx_info is not None and weekly_change_row_idx_info[0] >= len(all_data_tables)):
                     print(f"WARNING: Not enough rows in '{WORKSHEET_NAME_TABLES}' for section {section_key} table data. Skipping.")
                     processed_table_data_by_section[section_key] = {"headers": table_headers, "rows": []}
                     continue
 
                 current_data_row = all_data_tables[current_row_idx]
                 previous_data_row = all_data_tables[previous_row_idx]
-                weekly_change_data_row = all_data_tables[weekly_change_row_idx[0]] if weekly_change_row_idx is not None else None # Use first col of range for row index
+                weekly_change_data_row = all_data_tables[weekly_change_row_idx_info[0]] if weekly_change_row_idx_info is not None else None # Use first col of range for row index
 
                 num_data_points = len(route_names)
 
