@@ -4,6 +4,18 @@ import os
 import pandas as pd
 import traceback
 import re
+import numpy as np # Import numpy for type checking
+
+# Custom JSON encoder to handle NumPy types
+class NpEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super(NpEncoder, self).default(obj)
 
 # --- Configuration ---
 # Get credentials and spreadsheet ID from GitHub Secrets environment variables
@@ -25,11 +37,11 @@ OUTPUT_JSON_PATH = "data/crawling_data.json"
 # This dictionary now defines the exact column indices in the Google Sheet
 # and their corresponding final JSON key names for each section.
 # This makes the mapping explicit and less prone to inference errors.
-# The 'date_col_idx' is the 0-indexed column number for the date in that section.
-# The 'data_cols_map' maps raw header names (or derived names) to final JSON keys.
+# The 'data_start_col_idx' is the 0-indexed column number where the data for this section starts.
+# The 'data_cols_map' maps raw header names (from the main header row) to final JSON keys.
 SECTION_COLUMN_MAPPINGS = {
     "KCCI": {
-        "date_col_idx": 0, # Column A
+        "data_start_col_idx": 1, # KCCI data starts from '종합지수' at index 1
         "data_cols_map": {
             "종합지수": "Composite_Index",
             "미주서안": "US_West_Coast",
@@ -48,95 +60,86 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "SCFI": {
-        "date_col_idx": 16, # Column Q
+        "data_start_col_idx": 17, # SCFI data starts from '종합지수' at index 17
         "data_cols_map": {
-            "Comprehensive Index": "Composite_Index_1",
-            "Europe (Base port)": "North_Europe",
-            "Mediterranean (Base port)": "Mediterranean_1",
-            "USWC (Base port)": "US_West_Coast_1",
-            "USEC (Base port)": "US_East_Coast_1",
-            "Persian Gulf and Red Sea (Dubai)": "Middle_East_1",
-            "Australia/New Zealand (Melbourne)": "Australia_New_Zealand_SCFI",
-            "East/West Africa (Lagos)": "East_West_Africa_SCFI",
-            "South Africa (Durban)": "South_Africa_SCFI",
-            "West Japan (Base port)": "Japan_West_Coast_SCFI",
-            "East Japan (Base port)": "Japan_East_Coast_SCFI",
-            "Southeast Asia (Singapore)": "Southeast_Asia_1",
-            "Korea (Pusan)": "Korea_SCFI",
-            "Central/South America West Coast(Manzanillo)": "South_America_SCFI"
+            "종합지수": "Composite_Index_1",
+            "미주서안": "US_West_Coast_1",
+            "미주동안": "US_East_Coast_1",
+            "북유럽": "North_Europe",
+            "지중해": "Mediterranean_1",
+            "동남아시아": "Southeast_Asia_1",
+            "중동": "Middle_East_1",
+            "호주/뉴질랜드": "Australia_New_Zealand_SCFI",
+            "남아메리카": "South_America_SCFI",
+            "일본서안": "Japan_West_Coast_SCFI",
+            "일본동안": "Japan_East_Coast_SCFI",
+            "한국": "Korea_SCFI",
+            "동부/서부 아프리카": "East_West_Africa_SCFI",
+            "남아공": "South_Africa_SCFI"
         }
     },
     "WCI": {
-        "date_col_idx": 32, # Column AG
+        "data_start_col_idx": 33, # WCI data starts from '종합지수' at index 33
         "data_cols_map": {
-            "Composite Index": "Composite_Index_2",
-            "Shanghai-Rotterdam": "Shanghai_Rotterdam_WCI",
-            "Rotterdam-Shanghai": "Rotterdam_Shanghai_WCI",
-            "Shanghai-Genoa": "Shanghai_Genoa_WCI",
-            "Shanghai-LosAngeles": "Shanghai_Los_Angeles_WCI",
-            "LosAngeles-Shanghai": "Los_Angeles_Shanghai_WCI",
-            "Shanghai-NewYork": "Shanghai_New_York_WCI",
-            "NewYork-Rotterdam": "New_York_Rotterdam_WCI",
-            "Rotterdam-NewYork": "Rotterdam_New_York_WCI",
-            # Assuming these are the correct raw headers for WCI's additional columns if they exist
-            "Europe - South America East Coast": "Europe_South_America_East_Coast_WCI",
-            "Europe - South America West Coast": "Europe_South_America_West_Coast_WCI"
+            "종합지수": "Composite_Index_2",
+            "상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
+            "로테르담 → 상하이": "Rotterdam_Shanghai_WCI",
+            "상하이 → 제노바": "Shanghai_Genoa_WCI",
+            "상하이 → 로스엔젤레스": "Shanghai_Los_Angeles_WCI",
+            "로스엔젤레스 → 상하이": "Los_Angeles_Shanghai_WCI",
+            "상하이 → 뉴욕": "Shanghai_New_York_WCI",
+            "뉴욕 → 로테르담": "New_York_Rotterdam_WCI",
+            "로테르담 → 뉴욕": "Rotterdam_New_York_WCI",
         }
     },
     "IACI": {
-        "date_col_idx": 43, # Column AR
+        "data_start_col_idx": 44, # IACI data starts from '종합지수' at index 44
         "data_cols_map": {
-            "US$/40ft": "Composite_Index_3" # Assuming this is the raw header for IACI value
+            "종합지수": "Composite_Index_3"
         }
     },
     "BLANK_SAILING": {
-        "date_col_idx": 46, # Column AU
+        "data_start_col_idx": 48, # BLANK_SAILING data starts from 'Gemini Cooperation' at index 48
         "data_cols_map": {
             "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
             "MSC": "MSC_Alliance_Blank_Sailing",
             "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
             "Premier Alliance": "Premier_Alliance_Blank_Sailing",
             "Others/Independent": "Others_Independent_Blank_Sailing",
-            "Total": "Total_Blank_Sailings" # If 'Total' is a column in sheet
+            "Total": "Total_Blank_Sailings"
         }
     },
     "FBX": {
-        "date_col_idx": 54, # Column BC
+        "data_start_col_idx": 55, # FBX data starts from '종합지수' at index 55
         "data_cols_map": {
-            "Global Container Freight Index": "Composite_Index_4",
-            "China/East Asia - North America West Coast": "China_EA_US_West_Coast_FBX",
-            "North America West Coast - China/East Asia": "US_West_Coast_China_EA_FBX",
-            "China/East Asia - North America East Coast": "China_EA_US_East_Coast_FBX",
-            "North America East Coast - China/East Asia": "US_East_Coast_China_EA_FBX",
-            "China/East Asia - North Europe": "China_EA_North_Europe_FBX",
-            "North Europe - China/East Asia": "North_Europe_China_EA_FBX",
-            "China/East Asia - Mediterranean": "China_EA_Mediterranean_FBX",
-            "Mediterranean - China/East Asia": "Mediterranean_China_EA_FBX",
-            # Add placeholders for other FBX routes if they exist in the sheet
-            "North America East Coast - North Europe": "North_America_East_Coast_North_Europe_FBX",
-            "North Europe - North America East Coast": "North_Europe_North_America_East_Coast_FBX",
-            "Europe - South America East Coast": "Europe_South_America_East_Coast_FBX",
-            "Europe - South America West Coast": "Europe_South_America_West_Coast_FBX"
+            "종합지수": "Composite_Index_4",
+            "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
+            "미주서안 → 중국/동아시아": "US_West_Coast_China_EA_FBX",
+            "중국/동아시아 → 미주동안": "China_EA_US_East_Coast_FBX",
+            "미주동안 → 중국/동아시아": "US_East_Coast_China_EA_FBX",
+            "중국/동아시아 → 북유럽": "China_EA_North_Europe_FBX",
+            "북유럽 → 중국/동아시아": "North_Europe_China_EA_FBX",
+            "중국/동아시아 → 지중해": "China_EA_Mediterranean_FBX",
+            "지중해 → 중국/동아시아": "Mediterranean_China_EA_FBX",
         }
     },
     "XSI": {
-        "date_col_idx": 68, # Column BQ (Corrected from BR based on visual inspection)
+        "data_start_col_idx": 69, # XSI data starts from '동아시아 → 북유럽' at index 69
         "data_cols_map": {
-            "Far East - N. Europe": "XSI_East_Asia_North_Europe",
-            "N. Europe - Far East": "XSI_North_Europe_East_Asia",
-            "Far East - USWC": "XSI_East_Asia_US_West_Coast",
-            "USWC - Far East": "XSI_US_West_Coast_East_Asia",
-            "Far East - SAEC": "XSI_East_Asia_South_America_East_Coast",
-            "N. Europe - USEC": "XSI_North_Europe_US_East_Coast",
-            "USEC - N. Europe": "XSI_US_East_Coast_North_Europe",
-            "N. Europe - SAEC": "XSI_North_Europe_South_America_East_Coast"
+            "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
+            "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
+            "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
+            "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
+            "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
+            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
+            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
+            "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
         }
     },
     "MBCI": {
-        "date_col_idx": 78, # Column CA (Corrected from CB based on visual inspection)
+        "data_start_col_idx": 80, # MBCI data starts from 'MBCI' at index 80
         "data_cols_map": {
-            "Index(종합지수)": "MBCI_MBCI_Value",
-            # "$/day(정기용선, Time charter)": This is a table-only value, not for chart, so it's excluded from data_cols_map
+            "MBCI": "MBCI_MBCI_Value",
         }
     }
 }
@@ -172,6 +175,7 @@ def fetch_and_process_data():
         # Find the main header row (the one containing '날짜' or 'Date' for the first section)
         main_header_row_index = -1
         for i, row in enumerate(all_data):
+            # Check for '날짜' or 'date' in the row, case-insensitive and stripped
             if any(str(cell).strip().lower() in ["날짜", "date"] for cell in row):
                 main_header_row_index = i
                 break
@@ -189,20 +193,38 @@ def fetch_and_process_data():
         processed_chart_data_by_section = {}
         processed_table_data_by_section = {}
 
+        # Store the universal date column data (always from the first column of the main data)
+        universal_date_column = []
+        if len(all_data) > main_header_row_index + 1:
+            universal_date_column = [str(row[0]).strip() for row in all_data[main_header_row_index + 1:] if len(row) > 0 and str(row[0]).strip()]
+        
+        # Parse universal date column once
+        parsed_universal_dates = pd.to_datetime(universal_date_column, errors='coerce')
+        # Filter out NaT values and corresponding original date strings
+        valid_universal_dates_mask = parsed_universal_dates.notna()
+        universal_date_column_filtered = [universal_date_column[i] for i, is_valid in enumerate(valid_universal_dates_mask) if is_valid]
+        parsed_universal_dates_filtered = parsed_universal_dates[valid_universal_dates_mask]
+
+        # Create a DataFrame for universal dates to join with later
+        universal_date_df = pd.DataFrame({
+            'date': universal_date_column_filtered,
+            'parsed_date': parsed_universal_dates_filtered
+        }).sort_values(by='parsed_date', ascending=True)
+        
+        print(f"DEBUG: Universal Date Column (first 10 entries after parsing/filtering): {universal_date_df['date'].tolist()[:10]}")
+        print(f"DEBUG: Universal Date DataFrame shape: {universal_date_df.shape}")
+
+
         # Iterate through each section and extract its specific data
         for section_key, details in SECTION_COLUMN_MAPPINGS.items():
-            date_col_idx = details["date_col_idx"]
             data_cols_map = details["data_cols_map"]
             
-            # Prepare columns to extract for this section
-            cols_to_extract_indices = [date_col_idx]
+            cols_to_extract_indices = []
             # Find indices for data columns based on their raw header names
             raw_header_to_col_idx = {raw_headers_full[i]: i for i in range(len(raw_headers_full))}
 
-            # This will store the final column names for the DataFrame of this section
-            section_df_columns = ["date"] # The date column will always be named 'date' in the DataFrame
+            section_df_columns = []
 
-            # Collect data columns and their final names for this section
             for raw_header_name, final_json_key in data_cols_map.items():
                 if raw_header_name in raw_header_to_col_idx:
                     cols_to_extract_indices.append(raw_header_to_col_idx[raw_header_name])
@@ -210,7 +232,12 @@ def fetch_and_process_data():
                 else:
                     print(f"WARNING: Raw header '{raw_header_name}' not found for section '{section_key}'. Skipping this column.")
 
-            # Extract raw data for the specific columns of this section
+            if not cols_to_extract_indices:
+                print(f"WARNING: No valid data columns found for section {section_key}. Skipping chart and table data for this section.")
+                processed_chart_data_by_section[section_key] = []
+                processed_table_data_by_section[section_key] = {"headers": [], "rows": []}
+                continue
+
             section_raw_rows = []
             for row_idx in range(main_header_row_index + 1, len(all_data)):
                 row_data = all_data[row_idx]
@@ -219,7 +246,7 @@ def fetch_and_process_data():
                     if col_idx < len(row_data):
                         extracted_row.append(str(row_data[col_idx]).strip())
                     else:
-                        extracted_row.append('') # Pad with empty string if row is too short
+                        extracted_row.append('')
                 section_raw_rows.append(extracted_row)
             
             if not section_raw_rows:
@@ -228,8 +255,7 @@ def fetch_and_process_data():
                 processed_table_data_by_section[section_key] = {"headers": [], "rows": []}
                 continue
 
-            # Create a DataFrame for this section
-            # Ensure the number of columns matches the extracted_row length
+            # Create a DataFrame for this section's data columns
             if len(section_raw_rows[0]) != len(section_df_columns):
                  print(f"ERROR: Mismatch in column count for section {section_key}. Expected {len(section_df_columns)} but got {len(section_raw_rows[0])} in first row.")
                  print(f"DEBUG: section_df_columns: {section_df_columns}")
@@ -238,57 +264,58 @@ def fetch_and_process_data():
                  processed_table_data_by_section[section_key] = {"headers": [], "rows": []}
                  continue
 
-            df_section = pd.DataFrame(section_raw_rows, columns=section_df_columns)
-            print(f"DEBUG: Initial DataFrame for {section_key} shape: {df_section.shape}")
-            print(f"DEBUG: Initial DataFrame for {section_key} head:\n{df_section.head()}")
+            df_section_data = pd.DataFrame(section_raw_rows, columns=section_df_columns)
+            print(f"DEBUG: Initial DataFrame for {section_key} shape: {df_section_data.shape}")
+            print(f"DEBUG: Initial DataFrame for {section_key} head:\n{df_section_data.head()}")
 
-            # Clean and parse dates for THIS section
-            # The date column is always named 'date' in this DataFrame
-            df_section['date'] = df_section['date'].astype(str).str.strip()
+            # Convert numeric columns for this section
+            for col in section_df_columns:
+                df_section_data[col] = pd.to_numeric(df_section_data[col].astype(str).str.replace(',', ''), errors='coerce')
             
-            # Log all original date strings for this section before parsing attempt
-            print(f"DEBUG: All original date strings for {section_key} before parsing ({len(df_section['date'])} entries): {df_section['date'].tolist()[:10]}")
+            df_section_data = df_section_data.replace({pd.NA: None, float('nan'): None})
 
-            df_section['parsed_date'] = pd.to_datetime(df_section['date'], errors='coerce')
-            
-            # Log unparseable dates for this section
-            unparseable_dates_series = df_section.loc[df_section['parsed_date'].isna(), 'date']
-            num_unparseable_dates = unparseable_dates_series.count() # Count non-empty unparseable strings
-            if num_unparseable_dates > 0:
-                print(f"WARNING: {num_unparseable_dates} dates could not be parsed for {section_key} and will be dropped. All unparseable date strings: {unparseable_dates_series.tolist()}")
+            # Join with the universal date DataFrame
+            # Ensure that the length of df_section_data matches universal_date_df for proper alignment
+            min_len = min(len(universal_date_df), len(df_section_data))
+            df_section = universal_date_df.iloc[:min_len].copy()
+            for col in df_section_data.columns:
+                df_section[col] = df_section_data[col].iloc[:min_len].values
 
-            df_section.dropna(subset=['parsed_date'], inplace=True) # Drop rows where date parsing failed for this section
-            print(f"DEBUG: DataFrame shape for {section_key} after date parsing and dropna: {df_section.shape}")
+            print(f"DEBUG: DataFrame shape for {section_key} after joining dates: {df_section.shape}")
+            print(f"DEBUG: DataFrame for {section_key} after joining dates head:\n{df_section.head()}")
 
-            # Convert numeric columns for this section (excluding the 'date' and 'parsed_date' columns)
-            cols_to_convert_to_numeric = [col for col in section_df_columns if col != "date"]
-            for col in cols_to_convert_to_numeric:
-                df_section[col] = pd.to_numeric(df_section[col].astype(str).str.replace(',', ''), errors='coerce')
-            
-            df_section = df_section.replace({pd.NA: None, float('nan'): None})
-
-            # Sort and format date
-            df_section = df_section.sort_values(by='parsed_date', ascending=True)
             df_section['date'] = df_section['parsed_date'].dt.strftime('%Y-%m-%d')
             
-            # Select final columns for chart output (only 'date' and the data columns)
-            output_chart_cols = ['date'] + cols_to_convert_to_numeric
-            processed_chart_data_by_section[section_key] = df_section[output_chart_cols].to_dict(orient='records')
+            output_chart_cols = ['date'] + section_df_columns
+            
+            chart_data_records = []
+            for record in df_section[output_chart_cols].to_dict(orient='records'):
+                new_record = {}
+                for k, v in record.items():
+                    # Convert numpy types to native Python types
+                    if isinstance(v, (np.integer, np.floating)):
+                        new_record[k] = v.item() # Use .item() to get native Python scalar
+                    elif pd.isna(v): # Check for pandas NaN/NaT
+                        new_record[k] = None
+                    else:
+                        new_record[k] = v
+                chart_data_records.append(new_record)
+
+            processed_chart_data_by_section[section_key] = chart_data_records
             print(f"DEBUG: Processed chart data for {section_key} (first 3 entries): {processed_chart_data_by_section[section_key][:3]}")
 
             # Prepare table data for this section
-            # Table headers should come from the original mapping keys (Korean/English names)
-            table_headers = ["날짜" if section_key == "KCCI" else "Date", "Current Index", "Previous Index", "Weekly Change"]
+            # Table headers should come from the original mapping keys (Korean names)
+            table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"] # Changed "날짜" to "항로" for consistency
             table_rows_data = []
 
-            # Get the latest row for current/previous index and weekly change
             if not df_section.empty:
-                latest_row = df_section.iloc[-1]
-                second_latest_row = df_section.iloc[-2] if len(df_section) > 1 else None
+                latest_row_data_only = df_section.iloc[-1].to_dict()
+                second_latest_row_data_only = df_section.iloc[-2].to_dict() if len(df_section) > 1 else {}
 
                 for raw_header_name, final_json_key in data_cols_map.items():
-                    current_index_val = latest_row.get(final_json_key)
-                    previous_index_val = second_latest_row.get(final_json_key) if second_latest_row is not None else None
+                    current_index_val = latest_row_data_only.get(final_json_key)
+                    previous_index_val = second_latest_row_data_only.get(final_json_key)
                     
                     weekly_change = None
                     if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
@@ -306,9 +333,8 @@ def fetch_and_process_data():
                             "color_class": color_class
                         }
                     
-                    # Ensure 'route' key is present for table rendering
                     table_rows_data.append({
-                        "route": raw_header_name, # Use the original raw header name for the table route
+                        "route": raw_header_name, # Use the original raw header name (Korean) for the table route
                         "current_index": current_index_val,
                         "previous_index": previous_index_val,
                         "weekly_change": weekly_change
@@ -392,7 +418,7 @@ def fetch_and_process_data():
 
         os.makedirs(os.path.dirname(OUTPUT_JSON_PATH), exist_ok=True)
         with open(OUTPUT_JSON_PATH, 'w', encoding='utf-8') as f:
-            json.dump(final_output_data, f, ensure_ascii=False, indent=4)
+            json.dump(final_output_data, f, ensure_ascii=False, indent=4, cls=NpEncoder) # Use NpEncoder here
 
         print(f"All data successfully saved to '{OUTPUT_JSON_PATH}'.")
         # Print sample of each section's data
