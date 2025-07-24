@@ -1,345 +1,380 @@
-    /* Base Styles */
-    body {
-        font-family: 'Inter', sans-serif;
-        background-color: #f0f2f5;
-        color: #333;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-    }
+/* Base Styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
 
-    .container {
-        max-width: 1600px; /* Increased max-width for wider layout */
-        margin: 20px auto;
-        padding: 10px; /* Reduced padding */
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+.container {
+    max-width: 1600px; /* Increased max-width for wider layout */
+    margin: 20px auto;
+    padding: 10px; /* Reduced padding */
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-    header {
-        text-align: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #eee;
-    }
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
 
-    header h1 {
-        font-size: 2.5em;
-        color: #003A52; /* Navy */
-        margin-bottom: 10px;
-        font-weight: 700;
-    }
+header h1 {
+    font-size: 2.5em;
+    color: #003A52; /* Navy */
+    margin-bottom: 10px;
+    font-weight: 700;
+}
 
-    .dashboard-grid {
-        display: grid;
-        grid-template-columns: 2fr 1fr; /* Changed to two columns: 2/3 for main, 1/3 for sidebar */
-        gap: 10px; /* Reduced gap */
-    }
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Changed to single column as sidebar is removed */
+    gap: 10px; /* Reduced gap */
+}
 
-    /* Removed media query for 2-column layout as requested for single column */
-    /* @media (min-width: 768px) {
-        .dashboard-grid {
-            grid-template-columns: 1fr 2fr;
-        }
-    } */
+/* Main content area styles */
+main {
+    padding: 0; /* Remove padding from main to allow full width for its children */
+}
 
-    .sidebar {
-        /* Sidebar is now active and will contain the top info slider */
-        display: block; /* Make sidebar visible */
-        padding: 0; /* Remove padding from sidebar itself, its children will handle */
-    }
+.world-clock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+}
 
-    /* Main content area styles */
-    main {
-        padding: 0; /* Remove padding from main to allow full width for its children */
-    }
+.world-clock-item:last-child {
+    border-bottom: none;
+}
 
+.world-clock-item span {
+    font-weight: 600;
+    color: #003A52;
+}
 
-    .sidebar h2 {
-        font-size: 1.5em;
-        color: #00657e; /* Teal */
-        margin-bottom: 10px;
-        font-weight: 600;
-        border-bottom: 2px solid #00657e;
-        padding-bottom: 5px;
-    }
+/* Chart Section Styles */
+.chart-section {
+    background-color: #fff;
+    padding: 10px; /* Reduced padding */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    /* Removed margin-bottom here as it will be handled by chart-slide gap */
+}
 
-    .world-clock-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 0;
-        border-bottom: 1px dashed #eee;
-    }
+.chart-section h2 {
+    font-size: 1.8em;
+    color: #003A52;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 700;
+}
 
-    .world-clock-item:last-child {
-        border-bottom: none;
-    }
+.chart-container {
+    position: relative;
+    height: 450px; /* Adjusted height for charts */
+    width: 100%;
+    margin: 0 auto;
+}
 
-    .world-clock-item span {
-        font-weight: 600;
-        color: #003A52;
-    }
+.chart-slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #e9ecef;
+    padding: 5px; /* Reduced padding significantly to give charts more space */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 500px; /* Adjusted height for chart slider container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px; /* Add margin to separate from announcements */
+}
 
-    /* Chart Section Styles */
-    .chart-section {
-        background-color: #fff;
-        padding: 10px; /* Reduced padding */
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        margin-bottom: 15px;
-    }
+.chart-slide {
+    width: 100%;
+    height: 100%;
+    display: grid; /* Changed to grid for chart and table side-by-side */
+    grid-template-columns: 2fr 1fr; /* 2/3 for chart, 1/3 for table */
+    gap: 1rem; /* Gap between chart and table */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px; /* Reduced padding significantly */
+    box-sizing: border-box; /* Include padding in element's total width and height */
 
-    .chart-section h2 {
-        font-size: 1.8em;
-        color: #003A52;
-        margin-bottom: 15px;
-        text-align: center;
-        font-weight: 700;
-    }
+    /* Removed flex properties, now using grid */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    z-index: 0;
+}
 
-    .chart-container {
-        position: relative;
-        height: 450px; /* Adjusted height for charts */
-        width: 100%;
-        margin: 0 auto;
-    }
+.chart-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
 
-    .chart-slider-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: 8px;
-        background-color: #e9ecef;
-        padding: 5px; /* Reduced padding significantly to give charts more space */
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        height: 500px; /* Adjusted height for chart slider container */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 15px; /* Add margin to separate from announcements */
-    }
+/* Ensure canvas takes full width/height of its parent container */
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
 
-    .chart-slide {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 5px; /* Reduced padding significantly */
-        box-sizing: border-box; /* Include padding in element's total width and height */
+.placeholder-text {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 30px;
+}
 
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        z-index: 0;
-    }
+footer {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    color: #777;
+    font-size: 0.9em;
+}
 
-    .chart-slide.active {
-        opacity: 1;
-        visibility: visible;
-        z-index: 10;
-    }
+/* Top Info Slider Styles */
+.top-info-slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #e9ecef;
+    padding: 10px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 480px; /* Increased height for top info slider */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px; /* Add margin to separate from charts */
+}
 
-    /* Ensure canvas takes full width/height of its parent container */
-    .chart-container canvas {
-        width: 100% !important;
-        height: 100% !important;
-    }
+.top-info-slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1.1em;
+    color: #003A52;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+}
 
-    .placeholder-text {
-        text-align: center;
-        color: #666;
-        font-style: italic;
-        padding: 30px;
-    }
+.top-info-slide.active {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+}
 
-    footer {
-        text-align: center;
-        margin-top: 30px;
-        padding-top: 15px;
-        border-top: 1px solid #eee;
-        color: #777;
-        font-size: 0.9em;
-    }
+.top-info-slide h3 {
+    font-size: 1.6em;
+    margin-bottom: 8px;
+    color: #00657e;
+}
 
-    /* Top Info Slider Styles */
-    .top-info-slider-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: 8px;
-        background-color: #e9ecef;
-        padding: 10px;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-        height: 480px; /* Increased height for top info slider */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 15px; /* Add margin to separate from charts */
-    }
+.top-info-slide p {
+    font-size: 1em;
+    color: #333;
+}
 
-    .top-info-slide {
-        display: none;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        font-size: 1.1em;
-        color: #003A52;
-        flex-direction: column;
-        justify-content: center;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
-    }
+/* Announcements Section */
+.announcements-section {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px; /* Add margin to separate from top info slider */
+    width: 100%;
+    box-sizing: border-box; /* Include padding in total width */
+}
 
-    .top-info-slide.active {
-        display: flex;
-        opacity: 1;
-        visibility: visible;
-    }
+.announcements-section h2 {
+    font-size: 1.6em;
+    color: #003A52;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 700;
+}
 
-    .top-info-slide h3 {
-        font-size: 1.6em;
-        margin-bottom: 8px;
-        color: #00657e;
-    }
+.announcements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-    .top-info-slide p {
-        font-size: 1em;
-        color: #333;
-    }
+.announcements-list li {
+    padding: 8px 0;
+    border-bottom: 1px dashed #eee;
+    color: #555;
+    font-size: 0.9em;
+    text-align: left; /* Align text to left */
+}
 
-    /* Announcements Section */
-    .announcements-section {
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        margin-bottom: 15px; /* Add margin to separate from top info slider */
-        /* Ensure it takes full width of its parent (main) */
-        width: 100%;
-        box-sizing: border-box; /* Include padding in total width */
-    }
+.announcements-list li:last-child {
+    border-bottom: none;
+}
 
-    .announcements-section h2 {
-        font-size: 1.6em;
-        color: #003A52;
-        margin-bottom: 15px;
-        text-align: center;
-        font-weight: 700;
-    }
+/* Weather Specific Styles */
+.weather-current-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
 
-    .announcements-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
+.weather-current-info #weather-icon-current {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 5px;
+}
 
-    .announcements-list li {
-        padding: 8px 0;
-        border-bottom: 1px dashed #eee;
-        color: #555;
-        font-size: 0.9em;
-        text-align: left; /* Align text to left */
-    }
+.weather-current-info #temperature-current {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #00657e;
+}
 
-    .announcements-list li:last-child {
-        border-bottom: none;
-    }
+.weather-current-info #status-current {
+    font-size: 1.1em;
+    color: #555;
+    text-transform: capitalize;
+}
 
-    /* Weather Specific Styles */
-    .weather-current-info {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 10px;
-    }
+.weather-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 95%; /* Increased width */
+    margin-top: 10px;
+    font-size: 0.8em;
+}
 
-    .weather-current-info #weather-icon-current {
-        width: 70px;
-        height: 70px;
-        margin-bottom: 5px;
-    }
+.weather-details div {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px dotted #ccc;
+}
 
-    .weather-current-info #temperature-current {
-        font-size: 2.5em;
-        font-weight: bold;
-        color: #00657e;
-    }
+.weather-details div:last-child, .weather-details div:nth-last-child(2) {
+    border-bottom: none;
+}
 
-    .weather-current-info #status-current {
-        font-size: 1.1em;
-        color: #555;
-        text-transform: capitalize;
-    }
+.forecast-table {
+    width: 95%; /* Increased width */
+    margin-top: 15px;
+    border-collapse: collapse;
+    font-size: 0.75em;
+}
 
-    .weather-details {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        width: 95%; /* Increased width */
-        margin-top: 10px;
-        font-size: 0.8em;
-    }
+.forecast-table th, .forecast-table td {
+    border: 1px solid #eee;
+    padding: 6px;
+    text-align: center;
+}
 
-    .weather-details div {
-        display: flex;
-        justify-content: space-between;
-        padding: 4px 0;
-        border-bottom: 1px dotted #ccc;
-    }
+.forecast-table th {
+    background-color: #f0f0f0;
+    color: #003A52;
+}
 
-    .weather-details div:last-child, .weather-details div:nth-last-child(2) {
-        border-bottom: none;
-    }
+/* Exchange Rate Specific Styles */
+.exchange-rate-info {
+    margin-bottom: 10px;
+}
 
-    .forecast-table {
-        width: 95%; /* Increased width */
-        margin-top: 15px;
-        border-collapse: collapse;
-        font-size: 0.75em;
-    }
+.exchange-rate-info #current-exchange-rate-value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #00657e;
+    margin-bottom: 8px;
+}
 
-    .forecast-table th, .forecast-table td {
-        border: 1px solid #eee;
-        padding: 6px;
-        text-align: center;
-    }
+.exchange-rate-chart-container {
+    position: relative;
+    height: 200px; /* Increased height for exchange rate chart */
+    width: 95%; /* Increased width */
+    margin: 0 auto;
+}
 
-    .forecast-table th {
-        background-color: #f0f0f0;
-        color: #003A52;
-    }
+/* Ensure canvas inside exchange rate chart container takes full space */
+.exchange-rate-chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
 
-    /* Exchange Rate Specific Styles */
-    .exchange-rate-info {
-        margin-bottom: 10px;
-    }
+/* New styles for table sections */
+.table-section {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow-y: auto; /* Enable scrolling for long tables */
+    max-height: 480px; /* Match chart height for consistent look */
+}
 
-    .exchange-rate-info #current-exchange-rate-value {
-        font-size: 2em;
-        font-weight: bold;
-        color: #00657e;
-        margin-bottom: 8px;
-    }
+.table-section h3 {
+    font-size: 1.2em;
+    color: #003A52;
+    margin-bottom: 10px;
+    text-align: center;
+}
 
-    .exchange-rate-chart-container {
-        position: relative;
-        height: 200px; /* Increased height for exchange rate chart */
-        width: 95%; /* Increased width */
-        margin: 0 auto;
-    }
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85em;
+}
 
-    /* Ensure canvas inside exchange rate chart container takes full space */
-    .exchange-rate-chart-container canvas {
-        width: 100% !important;
-        height: 100% !important;
-    }
+.data-table th, .data-table td {
+    border: 1px solid #e0e0e0;
+    padding: 8px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: #f8f8f8;
+    font-weight: 600;
+    color: #003A52;
+}
+
+.data-table tbody tr:nth-child(even) {
+    background-color: #fdfdfd;
+}
+
+.data-table tbody tr:hover {
+    background-color: #f0f8ff;
+}
+
+/* Tailwind-like classes for text colors (ensure these are applied if not using Tailwind directly) */
+.text-blue-500 {
+    color: #3b82f6; /* A shade of blue for negative change */
+}
+
+.text-red-500 {
+    color: #ef4444; /* A shade of red for positive change */
+}
+
+.text-gray-700 {
+    color: #374151; /* A shade of gray for no change */
+}
