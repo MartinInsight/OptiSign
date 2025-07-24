@@ -336,8 +336,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- Helper function to strip prefix from route names for display ---
+    const stripPrefixFromRouteName = (prefixedRouteName, sectionKey) => {
+        if (prefixedRouteName.startsWith(`${sectionKey}_`)) {
+            return prefixedRouteName.substring(sectionKey.length + 1);
+        }
+        return prefixedRouteName;
+    };
+
     // --- Table Rendering Function ---
-    const renderTable = (containerId, headers, rows) => {
+    const renderTable = (containerId, headers, rows, sectionKey) => {
         const container = document.getElementById(containerId);
         if (!container) {
             console.warn(`Table container with ID ${containerId} not found.`);
@@ -387,7 +395,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else if (header.includes('Previous Index')) {
                     content = rowData.previous_index !== null ? rowData.previous_index.toLocaleString() : '-';
                 } else { // This will cover the "항로" column
-                    content = rowData.route || '-';
+                    // Strip the prefix for display in the table
+                    content = stripPrefixFromRouteName(rowData.route || '-', sectionKey);
                 }
                 
                 td.textContent = content;
@@ -402,115 +411,116 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(table);
     };
 
-    // --- Mapping between table route names and chart data keys ---
-    // The keys here MUST match the 'route' values coming from the Python-generated table_data.rows
-    // which are the Korean names defined in Python's TABLE_DATA_CELL_MAPPINGS['section_key']['route_names'].
+    // --- Mapping between table route names (with prefix) and chart data keys ---
+    // This object needs to be dynamically generated or explicitly defined to match
+    // the prefixed route names from Python's table_data to the chart data keys.
     const routeToDataKeyMap = {
-        KCCI: {
-            "종합지수": "Composite_Index",
-            "미주서안": "US_West_Coast",
-            "미주동안": "US_East_Coast",
-            "유럽": "Europe",
-            "지중해": "Mediterranean",
-            "중동": "Middle_East",
-            "호주": "Australia",
-            "남미동안": "South_America_East_Coast",
-            "남미서안": "South_America_West_Coast",
-            "남아프리카": "South_Africa",
-            "서아프리카": "West_Africa",
-            "중국": "China",
-            "일본": "Japan",
-            "동남아시아": "Southeast_Asia"
-        },
-        SCFI: {
-            // These keys must match the `route` names from Python's SCFI table data (Korean names)
-            "종합지수": "Composite_Index_1",
-            "유럽 (기본항)": "North_Europe",
-            "지중해 (기본항)": "Mediterranean_1",
-            "미주서안 (기본항)": "US_West_Coast_1",
-            "미주동안 (기본항)": "US_East_Coast_1",
-            "페르시아만/홍해 (두바이)": "Middle_East_1",
-            "호주/뉴질랜드 (멜버른)": "Australia_New_Zealand_SCFI",
-            "동/서 아프리카 (라고스)": "East_West_Africa_SCFI",
-            "남아프리카 (더반)": "South_Africa_SCFI",
-            "서일본 (기본항)": "Japan_West_Coast_SCFI",
-            "동일본 (기본항)": "Japan_East_Coast_SCFI",
-            "동남아시아 (싱가포르)": "Southeast_Asia_1",
-            "한국 (부산)": "Korea_SCFI",
-            "중남미서안 (만사니요)": "South_America_SCFI"
-        },
-        WCI: {
-            // These keys must match the `route` names from Python's WCI table data (Korean names)
-            "종합지수": "Composite_Index_2",
-            "상하이-로테르담": "Shanghai_Rotterdam_WCI",
-            "로테르담-상하이": "Rotterdam_Shanghai_WCI",
-            "상하이-제노바": "Shanghai_Genoa_WCI",
-            "상하이-로스엔젤레스": "Shanghai_Los_Angeles_WCI",
-            "로스엔젤레스-상하이": "Los_Angeles_Shanghai_WCI",
-            "상하이-뉴욕": "Shanghai_New_York_WCI",
-            "뉴욕-로테르담": "New_York_Rotterdam_WCI",
-            "로테르담-뉴욕": "Rotterdam_New_York_WCI"
-        },
-        IACI: {
-            // This key must match the `route` name from Python's IACI table data (Korean name)
-            "종합지수": "Composite_Index_3" // Assuming '종합지수' is the route name in JSON for IACI
-        },
-        BLANK_SAILING: {
-            "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
-            "MSC": "MSC_Alliance_Blank_Sailing",
-            "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
-            "Premier Alliance": "Premier_Alliance_Blank_Sailing",
-            "Others/Independent": "Others_Independent_Blank_Sailing",
-            "Total": "Total_Blank_Sailings"
-        },
-        FBX: {
-            // These keys must match the `route` names from Python's FBX table data (Korean names)
-            "글로벌 컨테이너 운임 지수": "Composite_Index_4",
-            "중국/동아시아 - 미주서안": "China_EA_US_West_Coast_FBX",
-            "미주서안 - 중국/동아시아": "US_West_Coast_China_EA_FBX",
-            "중국/동아시아 - 미주동안": "China_EA_US_East_Coast_FBX",
-            "미주동안 - 중국/동아시아": "US_East_Coast_China_EA_FBX",
-            "중국/동아시아 - 북유럽": "China_EA_North_Europe_FBX",
-            "북유럽 - 중국/동아시아": "North_Europe_China_EA_FBX",
-            "중국/동아시아 - 지중해": "China_EA_Mediterranean_FBX",
-            "지중해 - 중국/동아시아": "Mediterranean_China_EA_FBX",
-            "미주동안 - 북유럽": "US_East_Coast_North_Europe_FBX",
-            "북유럽 - 미주동안": "North_Europe_US_East_Coast_FBX",
-            "유럽 - 남미동안": "Europe_South_America_East_Coast_FBX",
-            "유럽 - 남미서안": "Europe_South_America_West_Coast_FBX"
-        },
-        XSI: {
-            // These keys must match the `route` names from Python's XSI table data (Korean names)
-            "극동 - 북유럽": "XSI_East_Asia_North_Europe",
-            "북유럽 - 극동": "XSI_North_Europe_East_Asia",
-            "극동 - 미주서안": "XSI_East_Asia_US_West_Coast",
-            "미주서안 - 극동": "XSI_US_West_Coast_East_Asia",
-            "극동 - 남미동안": "XSI_East_Asia_South_America_East_Coast",
-            "북유럽 - 미주동안": "XSI_North_Europe_US_East_Coast",
-            "미주동안 - 북유럽": "XSI_US_East_Coast_North_Europe",
-            "북유럽 - 남미동안": "XSI_North_Europe_South_America_East_Coast"
-        },
-        MBCI: {
-            // These keys must match the `route` names from Python's MBCI table data (mixed Korean/English)
-            "Index(종합지수)": "MBCI_MBCI_Value",
-            "$/day(정기용선, Time charter)": null // This route is intentionally not charted
-        }
+        // KCCI
+        "KCCI_종합지수": "Composite_Index",
+        "KCCI_미주서안": "US_West_Coast",
+        "KCCI_미주동안": "US_East_Coast",
+        "KCCI_유럽": "Europe",
+        "KCCI_지중해": "Mediterranean",
+        "KCCI_중동": "Middle_East",
+        "KCCI_호주": "Australia",
+        "KCCI_남미동안": "South_America_East_Coast",
+        "KCCI_남미서안": "South_America_West_Coast",
+        "KCCI_남아프리카": "South_Africa",
+        "KCCI_서아프리카": "West_Africa",
+        "KCCI_중국": "China",
+        "KCCI_일본": "Japan",
+        "KCCI_동남아시아": "Southeast_Asia",
+
+        // SCFI
+        "SCFI_종합지수": "Composite_Index_1",
+        "SCFI_유럽 (기본항)": "North_Europe", // Corrected as per Python mapping
+        "SCFI_지중해 (기본항)": "Mediterranean_1", // Corrected as per Python mapping
+        "SCFI_미주서안 (기본항)": "US_West_Coast_1", // Corrected as per Python mapping
+        "SCFI_미주동안 (기본항)": "US_East_Coast_1", // Corrected as per Python mapping
+        "SCFI_페르시아만/홍해 (두바이)": "Middle_East_1", // Corrected as per Python mapping
+        "SCFI_호주/뉴질랜드 (멜버른)": "Australia_New_Zealand_SCFI",
+        "SCFI_동/서 아프리카 (라고스)": "East_West_Africa_SCFI",
+        "SCFI_남아프리카 (더반)": "South_Africa_SCFI",
+        "SCFI_서일본 (기본항)": "Japan_West_Coast_SCFI",
+        "SCFI_동일본 (기본항)": "Japan_East_Coast_SCFI",
+        "SCFI_동남아시아 (싱가포르)": "Southeast_Asia_1",
+        "SCFI_한국 (부산)": "Korea_SCFI",
+        "SCFI_중남미서안 (만사니요)": "South_America_SCFI",
+
+        // WCI
+        "WCI_종합지수": "Composite_Index_2",
+        "WCI_상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
+        "WCI_로테르담 → 상하이": "Rotterdam_Shanghai_WCI",
+        "WCI_상하이 → 제노바": "Shanghai_Genoa_WCI",
+        "WCI_상하이 → 로스엔젤레스": "Shanghai_Los_Angeles_WCI",
+        "WCI_로스엔젤레스 → 상하이": "Los_Angeles_Shanghai_WCI",
+        "WCI_상하이 → 뉴욕": "Shanghai_New_York_WCI",
+        "WCI_뉴욕 → 로테르담": "New_York_Rotterdam_WCI",
+        "WCI_로테르담 → 뉴욕": "Rotterdam_New_York_WCI",
+
+        // IACI
+        "IACI_종합지수": "Composite_Index_3",
+
+        // BLANK_SAILING
+        "BLANK_SAILING_Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
+        "BLANK_SAILING_MSC": "MSC_Alliance_Blank_Sailing",
+        "BLANK_SAILING_OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
+        "BLANK_SAILING_Premier Alliance": "Premier_Alliance_Blank_Sailing",
+        "BLANK_SAILING_Others/Independent": "Others_Independent_Blank_Sailing",
+        "BLANK_SAILING_Total": "Total_Blank_Sailings",
+
+        // FBX
+        "FBX_글로벌 컨테이너 운임 지수": "Composite_Index_4",
+        "FBX_중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
+        "FBX_미주서안 → 중국/동아시아": "US_West_Coast_China_EA_FBX",
+        "FBX_중국/동아시아 → 미주동안": "China_EA_US_East_Coast_FBX",
+        "FBX_미주동안 → 중국/동아시아": "US_East_Coast_China_EA_FBX",
+        "FBX_중국/동아시아 → 북유럽": "China_EA_North_Europe_FBX",
+        "FBX_북유럽 → 중국/동아시아": "North_Europe_China_EA_FBX",
+        "FBX_중국/동아시아 → 지중해": "China_EA_Mediterranean_FBX",
+        "FBX_지중해 → 중국/동아시아": "Mediterranean_China_EA_FBX",
+        "FBX_미주동안 → 북유럽": "US_East_Coast_North_Europe_FBX",
+        "FBX_북유럽 → 미주동안": "North_Europe_US_East_Coast_FBX",
+        "FBX_유럽 → 남미동안": "Europe_South_America_East_Coast_FBX",
+        "FBX_유럽 → 남미서안": "Europe_South_America_West_Coast_FBX",
+
+        // XSI
+        "XSI_동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
+        "XSI_북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
+        "XSI_동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
+        "XSI_미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
+        "XSI_동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
+        "XSI_북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
+        "XSI_미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
+        "XSI_북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast",
+
+        // MBCI
+        "MBCI_Index(종합지수)": "MBCI_MBCI_Value",
+        "MBCI_$/day(정기용선, Time charter)": null // This route is intentionally not charted
     };
 
     // --- Helper function to create datasets based on table rows and chart data ---
     const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
         const datasets = [];
-        const mapping = routeToDataKeyMap[indexType];
-        if (!mapping) {
+        // The mapping now directly uses the prefixed route names as keys
+        // So, we need to filter `routeToDataKeyMap` by the `indexType` prefix
+        const relevantMapping = Object.keys(routeToDataKeyMap)
+                                    .filter(key => key.startsWith(`${indexType}_`))
+                                    .reduce((obj, key) => {
+                                        obj[key] = routeToDataKeyMap[key];
+                                        return obj;
+                                    }, {});
+
+        if (Object.keys(relevantMapping).length === 0) {
             console.warn(`No data key mapping found for index type: ${indexType}`);
             return datasets;
         }
 
         tableRows.forEach(row => {
-            const routeName = row.route;
-            const dataKey = mapping[routeName];
+            const prefixedRouteName = row.route; // This now comes with the prefix
+            const dataKey = relevantMapping[prefixedRouteName];
             
-            console.log(`DEBUG: ${indexType} - Processing route: '${routeName}', mapped to dataKey: '${dataKey}'`);
+            console.log(`DEBUG: ${indexType} - Processing route: '${prefixedRouteName}', mapped to dataKey: '${dataKey}'`);
 
             // Only create a dataset if a corresponding data key exists and current_index is not empty
             // This handles cases like MBCI's second row which has no chart data
@@ -524,23 +534,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Filter out null/undefined y values from the data points for the chart
                 const filteredMappedData = mappedData.filter(dp => dp.y !== null && dp.y !== undefined);
 
-                console.log(`DEBUG: ${indexType} - route: '${routeName}', dataKey: '${dataKey}', filteredMappedData length: ${filteredMappedData.length}`);
+                console.log(`DEBUG: ${indexType} - route: '${prefixedRouteName}', dataKey: '${dataKey}', filteredMappedData length: ${filteredMappedData.length}`);
                 if (filteredMappedData.length > 0) {
                     datasets.push({
-                        label: routeName, // Use the route name directly from the table for the legend
+                        label: stripPrefixFromRouteName(prefixedRouteName, indexType), // Strip prefix for chart legend
                         data: filteredMappedData,
                         backgroundColor: getNextColor(),
                         borderColor: getNextBorderColor(),
-                        borderWidth: (routeName.includes('Composite Index') || routeName.includes('종합지수') || routeName.includes('Global Container Freight Index') || routeName.includes('US$/40ft') || routeName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
+                        borderWidth: (prefixedRouteName.includes('종합지수') || prefixedRouteName.includes('Composite_Index') || prefixedRouteName.includes('글로벌 컨테이너 운임 지수') || prefixedRouteName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
                         fill: false
                     });
                 } else {
-                    console.warn(`WARNING: No valid data points found for ${indexType} - route: '${routeName}' (dataKey: '${dataKey}'). Skipping dataset.`);
+                    console.warn(`WARNING: No valid data points found for ${indexType} - route: '${prefixedRouteName}' (dataKey: '${dataKey}'). Skipping dataset.`);
                 }
             } else if (dataKey === null) {
-                console.log(`INFO: Skipping chart dataset for route '${routeName}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
+                console.log(`INFO: Skipping chart dataset for route '${prefixedRouteName}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
             } else {
-                console.warn(`WARNING: Skipping chart dataset for route '${routeName}' in ${indexType} due to missing dataKey or empty current_index.`);
+                console.warn(`WARNING: Skipping chart dataset for route '${prefixedRouteName}' in ${indexType} due to missing dataKey or empty current_index.`);
             }
         });
         return datasets;
@@ -691,180 +701,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 console.log(`Processing section: ${sectionKey}`);
                 console.log(`Raw Chart Data for ${sectionKey}:`, rawChartData.slice(0, 5)); // Log first 5 entries
-                console.log(`Table Data for ${sectionKey}:`, tableData);
+                console.log(`Table Data for ${sectionKey}:`, tableData.rows.slice(0, 5)); // Log first 5 entries
 
-                if (chartConfig.chartId && rawChartData.length > 0) {
-                    if (sectionKey === "BLANK_SAILING") {
-                        // For Blank Sailing, use aggregated data and bar chart
-                        const { aggregatedData: aggregatedBSData, monthlyLabels: bsLabels } = aggregateDataByMonth(rawChartData, 12);
-                        
-                        // Blank Sailing datasets are still manually defined as they are stacked bar charts
-                        // The labels here are the route names from the Python script's TABLE_DATA_CELL_MAPPINGS
-                        const blankSailingDatasets = [
-                            {
-                                label: 'Gemini Cooperation',
-                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Gemini_Cooperation_Blank_Sailing })),
-                                backgroundColor: 'rgba(0, 101, 126, 0.5)',
-                                borderColor: '#00657e',
-                                borderWidth: 1,
-                                stack: 'blankSailingStack' // Enable stacking
-                            },
-                            {
-                                label: 'MSC',
-                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.MSC_Alliance_Blank_Sailing })),
-                                backgroundColor: 'rgba(0, 58, 82, 0.5)',
-                                borderColor: '#003A52',
-                                borderWidth: 1,
-                                stack: 'blankSailingStack'
-                            },
-                            {
-                                label: 'OCEAN Alliance',
-                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.OCEAN_Alliance_Blank_Sailing })),
-                                backgroundColor: 'rgba(40, 167, 69, 0.5)',
-                                borderColor: '#218838',
-                                borderWidth: 1,
-                                stack: 'blankSailingStack'
-                            },
-                            {
-                                label: 'Premier Alliance',
-                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Premier_Alliance_Blank_Sailing })),
-                                backgroundColor: 'rgba(253, 126, 20, 0.5)',
-                                borderColor: '#e68a00',
-                                borderWidth: 1,
-                                stack: 'blankSailingStack'
-                            },
-                            {
-                                label: 'Others/Independent',
-                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Others_Independent_Blank_Sailing })),
-                                backgroundColor: 'rgba(111, 66, 193, 0.5)',
-                                borderColor: '#5a32b2',
-                                borderWidth: 1,
-                                stack: 'blankSailingStack'
-                            },
-                            {
-                                label: 'Total',
-                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Total_Blank_Sailings })),
-                                backgroundColor: 'rgba(220, 53, 69, 0.5)',
-                                borderColor: '#c82333',
-                                borderWidth: 1,
-                                stack: 'blankSailingStack'
-                            }
-                        ].filter(dataset => dataset.data.some(d => d.y !== null)); // Filter out datasets with no valid data
+                let datasets;
+                let chartType = 'line'; // Default chart type
+                let isAggregatedChart = false; // Default aggregation
 
-                        if (blankSailingDatasets.length > 0) {
-                            blankSailingChart = setupChart(
-                                chartConfig.chartId, 'bar', blankSailingDatasets,
-                                {
-                                    scales: {
-                                        x: { stacked: true },
-                                        y: { stacked: true }
-                                    }
-                                },
-                                true // This chart is aggregated
-                            );
-                        } else {
-                            console.warn(`No valid datasets for Blank Sailing chart. Skipping chart creation.`);
-                        }
-                    } else {
-                        // For other charts, use granular data and line chart
-                        const datasets = createDatasetsFromTableRows(sectionKey, rawChartData, tableData.rows);
-                        if (datasets.length > 0) {
-                            window[`${sectionKey}Chart`] = setupChart(chartConfig.chartId, 'line', datasets, {}, false);
-                        } else {
-                            console.warn(`No valid datasets for ${sectionKey} chart. Skipping chart creation.`);
-                        }
-                    }
+                if (sectionKey === "BLANK_SAILING") {
+                    // Blank Sailing is a bar chart and requires monthly aggregation
+                    const { aggregatedData, monthlyLabels } = aggregateDataByMonth(rawChartData);
+                    console.log(`Aggregated Blank Sailing Data:`, aggregatedData.slice(0, 5));
+                    console.log(`Monthly Labels for Blank Sailing:`, monthlyLabels.slice(0, 5));
+
+                    datasets = createDatasetsFromTableRows(sectionKey, aggregatedData, tableData.rows);
+                    chartType = 'bar';
+                    isAggregatedChart = true;
+
+                    // For bar charts, we need to pass labels in additionalOptions
+                    // And ensure the x-axis type is 'category' or 'time' with appropriate unit
+                    // For aggregated monthly data, 'time' scale with 'month' unit is suitable.
+                    // The labels array generated by aggregateDataByMonth is already in 'YYYY-MM-DD' format,
+                    // so Chart.js time scale can handle it.
+                    // No need for additionalOptions.labels if using time scale.
+                    // However, if we want to force specific labels on the x-axis for bar chart,
+                    // we might need to adjust the x-axis type to 'category' and pass labels.
+                    // For now, let's stick to 'time' scale for consistency with other charts.
+                    // If the user wants categorical labels, this needs to be revisited.
+                    
+                    // For bar chart, it is good to have a fixed barPercentage and categoryPercentage
+                    datasets.forEach(dataset => {
+                        dataset.barPercentage = 0.8;
+                        dataset.categoryPercentage = 0.8;
+                    });
+
                 } else {
-                    console.warn(`No raw chart data found for section: ${sectionKey}. Skipping chart creation.`);
+                    // For other sections, create datasets directly from raw chart data
+                    datasets = createDatasetsFromTableRows(sectionKey, rawChartData, tableData.rows);
                 }
 
-                if (chartConfig.tableId && tableData.rows.length > 0) {
-                    renderTable(chartConfig.tableId, tableData.headers, tableData.rows);
-                } else {
-                    console.warn(`No table data found for section: ${sectionKey}. Skipping table rendering.`);
-                }
+                // Get the global chart variable for the current section
+                const chartVarName = chartConfig.chartId; // e.g., "KCCIChart"
+                // Assign the new Chart.js instance to the global variable
+                window[chartVarName] = setupChart(
+                    chartConfig.chartId,
+                    chartType,
+                    datasets,
+                    {}, // No additional options for now, can be added later if needed
+                    isAggregatedChart
+                );
+
+                // Render the table for the current section
+                renderTable(chartConfig.tableId, tableData.headers, tableData.rows, sectionKey);
             }
 
-            // Initialize carousels
-            const topInfoSlides = document.querySelectorAll('.top-info-slider-container .top-info-slide');
-            let currentTopSlide = 0;
-            const showTopSlide = (index) => {
-                topInfoSlides.forEach((slide, i) => {
-                    if (i === index) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-            };
-            if (topInfoSlides.length > 0) {
-                showTopSlide(currentTopSlide);
-                if (topInfoSlides.length > 1) {
-                    topInfoCarouselInterval = setInterval(() => {
-                        currentTopSlide = (currentTopSlide + 1) % topInfoSlides.length;
-                        showTopSlide(currentTopSlide);
-                    }, 10000);
-                }
-            }
+            // --- Initialize Sliders ---
+            setupSlider('.chart-slide', 5000); // 5 seconds for chart slider
+            setupSlider('.weather-forecast-slide', 5000); // 5 seconds for weather forecast slider
 
-
-            const mainChartSlides = document.querySelectorAll('.chart-slider-container .chart-slide');
-            let currentMainChartSlide = 0;
-            const showMainChartSlide = (index) => {
-                mainChartSlides.forEach((slide, i) => {
-                    if (i === index) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-            };
-            if (mainChartSlides.length > 0) {
-                showMainChartSlide(currentMainChartSlide);
-                if (mainChartSlides.length > 1) {
-                    mainChartsCarouselInterval = setInterval(() => {
-                        currentMainChartSlide = (currentMainChartSlide + 1) % mainChartSlides.length;
-                        showMainChartSlide(currentMainChartSlide);
-                    }, 10000);
-                }
-            }
-
+            // --- Initial World Clock Update and Interval ---
+            updateWorldClocks();
+            setInterval(updateWorldClocks, 1000); // Update every second
 
         } catch (error) {
-            console.error("Failed to load or display dashboard data:", error);
-            // Display a user-friendly error message on the dashboard if data loading fails
-            document.body.innerHTML = '<div class="flex items-center justify-center min-h-screen bg-red-100 text-red-800 text-lg p-4 rounded-lg m-4">데이터를 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.<br>콘솔에서 더 자세한 오류를 확인할 수 있습니다.</div>';
+            console.error("Failed to load or process data:", error);
+            document.querySelector('.chart-slider-container').innerHTML = '<p class="text-red-500 text-center">Error loading data. Please check the console for details.</p>';
         }
     }
 
-    // --- World Timezone Setup (using dayjs timezone plugin) ---
-    // Make sure dayjs timezone plugin is loaded if needed for Intl.DateTimeFormat
-    // For this example, Intl.DateTimeFormat is used directly, which relies on browser's native support.
-    // If dayjs.tz() is to be used, ensure the plugin is loaded:
-    // dayjs.extend(window.dayjs_plugin_utc);
-    // dayjs.extend(window.dayjs_plugin_timezone);
-    // dayjs.tz.setDefault('America/Los_Angeles'); // Example default timezone
-
-    // Call the main function when the DOM is fully loaded
+    // Load data when the DOM is fully loaded
     loadAndDisplayData();
-
-    // Start world clock updates immediately and then every second
-    updateWorldClocks(); // Initial call
-    setInterval(updateWorldClocks, 1000); // Update every second
-
-
-    // Clean up intervals on page unload
-    window.addEventListener('beforeunload', () => {
-        // Clear intervals only if they were successfully set
-        if (typeof topInfoCarouselInterval !== 'undefined') {
-            clearInterval(topInfoCarouselInterval);
-        }
-        if (typeof mainChartsCarouselInterval !== 'undefined') {
-            clearInterval(mainChartsCarouselInterval);
-        }
-        // Clear world clock interval too
-        if (typeof worldClockInterval !== 'undefined') {
-            clearInterval(worldClockInterval);
-        }
-    });
 });
