@@ -557,6 +557,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const exchangeRatesData = allDashboardData.exchange_rates || [];
             const tableDataBySection = allDashboardData.table_data || {}; // New: Get table data
 
+            // Update Last Updated Time
+            const now = new Date();
+            const lastUpdatedElement = document.getElementById('last-updated');
+            if (lastUpdatedElement) {
+                lastUpdatedElement.textContent = `Last Updated: ${now.toLocaleString()}`;
+            } else {
+                console.warn("Element with ID 'last-updated' not found.");
+            }
+
+
             if (Object.keys(chartDataBySection).length === 0) {
                 console.warn("No chart data sections found in the JSON file.");
                 // document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
@@ -573,21 +583,24 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('status-current').textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
             // Simple icon mapping (you might want a more robust one)
             const weatherIconElement = document.getElementById('weather-icon-current');
-            if (currentWeatherData.LA_WeatherStatus) {
-                if (currentWeatherData.LA_WeatherStatus.includes('맑음')) {
-                    weatherIconElement.src = 'https://placehold.co/80x80/00657e/ffffff?text=SUN';
-                } else if (currentWeatherData.LA_WeatherStatus.includes('흐림') || currentWeatherData.LA_WeatherStatus.includes('구름')) {
-                    weatherIconElement.src = 'https://placehold.co/80x80/003A52/ffffff?text=CLOUD';
-                } else if (currentWeatherData.LA_WeatherStatus.includes('비')) {
-                    weatherIconElement.src = 'https://placehold.co/80x80/28A745/ffffff?text=RAIN';
-                } else if (currentWeatherData.LA_WeatherStatus.includes('눈')) {
-                    weatherIconElement.src = 'https://placehold.co/80x80/138496/ffffff?text=SNOW';
+            if (weatherIconElement) { // Check if element exists before setting src
+                if (currentWeatherData.LA_WeatherStatus) {
+                    if (currentWeatherData.LA_WeatherStatus.includes('맑음')) {
+                        weatherIconElement.src = 'https://placehold.co/80x80/00657e/ffffff?text=SUN';
+                    } else if (currentWeatherData.LA_WeatherStatus.includes('흐림') || currentWeatherData.LA_WeatherStatus.includes('구름')) {
+                        weatherIconElement.src = 'https://placehold.co/80x80/003A52/ffffff?text=CLOUD';
+                    } else if (currentWeatherData.LA_WeatherStatus.includes('비')) {
+                        weatherIconElement.src = 'https://placehold.co/80x80/28A745/ffffff?text=RAIN';
+                    } else if (currentWeatherData.LA_WeatherStatus.includes('눈')) {
+                        weatherIconElement.src = 'https://placehold.co/80x80/138496/ffffff?text=SNOW';
+                    } else {
+                        weatherIconElement.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Icon'; // Default unknown
+                    }
                 } else {
-                    weatherIconElement.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Icon'; // Default unknown
+                    weatherIconElement.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Icon';
                 }
-            } else {
-                weatherIconElement.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Icon';
             }
+
 
             document.getElementById('humidity-current').textContent = currentWeatherData.LA_Humidity !== null ? `${currentWeatherData.LA_Humidity}%` : '--%';
             document.getElementById('wind-speed-current').textContent = currentWeatherData.LA_WindSpeed !== null ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
@@ -767,22 +780,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Initialize carousels
-            // The HTML provided by the user has a different structure for sliders.
-            // It uses classes like 'top-info-slide' and 'chart-slide' and a single 'top-info-slider-container'
-            // and 'chart-slider-container' without explicit 'carousel-inner' or 'carousel-dots' elements.
-            // The `setupSlider` function needs to be adapted to this structure.
-            // For now, I will comment out the slider initialization as the HTML structure for it is not fully provided.
-            // If the user wants to re-enable sliders, the HTML for them needs to be consistent with the JS.
-
-            // topInfoCarouselInterval = setupSlider('.top-info-slider-container .top-info-slide', 10000);
-            // mainChartsCarouselInterval = setupSlider('.chart-slider-container .chart-slide', 10000);
-
-            // Re-enabling the slider setup based on the provided HTML structure
-            // The setupSlider function needs to be adapted to manage 'active' class on slides.
-            // The HTML provided by the user does not have `carousel-inner` and `carousel-dots` for the sliders,
-            // but rather individual slide divs with `top-info-slide` and `chart-slide` classes.
-            // The `setupSlider` function needs to be adjusted to work with this.
-
             const topInfoSlides = document.querySelectorAll('.top-info-slider-container .top-info-slide');
             let currentTopSlide = 0;
             const showTopSlide = (index) => {
@@ -845,6 +842,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Call the main function when the DOM is fully loaded
     loadAndDisplayData();
 
+    // Start world clock updates immediately and then every second
+    updateWorldClocks(); // Initial call
+    setInterval(updateWorldClocks, 1000); // Update every second
+
+
     // Clean up intervals on page unload
     window.addEventListener('beforeunload', () => {
         // Clear intervals only if they were successfully set
@@ -853,6 +855,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (typeof mainChartsCarouselInterval !== 'undefined') {
             clearInterval(mainChartsCarouselInterval);
+        }
+        // Clear world clock interval too
+        if (typeof worldClockInterval !== 'undefined') {
+            clearInterval(worldClockInterval);
         }
     });
 });
