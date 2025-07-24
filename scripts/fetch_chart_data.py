@@ -616,21 +616,22 @@ def process_table_data_from_crawling_data2(raw_data):
     scfi_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
     scfi_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
+    # SCFI routes and their corresponding 0-indexed column in the sheet - FIXED KEY-VALUE PAIRS
     scfi_routes_data_cols = {
-        1: "Comprehensive Index", # B column
-        2: "Europe (Base port)", # C column
-        3: "Mediterranean (Base port)", # D column
-        4: "USWC (Base port)", # E column
-        5: "USEC (Base port)", # F column
-        6: "Persian Gulf and Red Sea (Dubai)", # G column
-        7: "Australia/New Zealand (Melbourne)", # H column
-        8: "East/West Africa (Lagos)", # I column
-        9: "South Africa (Durban)", # J column
-        10: "West Japan (Base port)", # K column
-        11: "East Japan (Base port)", # L column
-        12: "Southeast Asia (Singapore)", # M column
-        13: "Korea (Pusan)", # N column
-        14: "Central/South America West Coast(Manzanillo)" # O column
+        "Comprehensive Index": 1, # B column
+        "Europe (Base port)": 2, # C column
+        "Mediterranean (Base port)": 3, # D column
+        "USWC (Base port)": 4, # E column
+        "USEC (Base port)": 5, # F column
+        "Persian Gulf and Red Sea (Dubai)": 6, # G column
+        "Australia/New Zealand (Melbourne)": 7, # H column
+        "East/West Africa (Lagos)": 8, # I column
+        "South Africa (Durban)": 9, # J column
+        "West Japan (Base port)": 10, # K column
+        "East Japan (Base port)": 11, # L column
+        "Southeast Asia (Singapore)": 12, # M column
+        "Korea (Pusan)": 13, # N column
+        "Central/South America West Coast(Manzanillo)": 14 # O column
     }
 
     for route_name, col_idx in scfi_routes_data_cols.items():
@@ -686,16 +687,17 @@ def process_table_data_from_crawling_data2(raw_data):
     wci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
     wci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
+    # WCI routes and their corresponding 0-indexed column in the sheet - FIXED KEY-VALUE PAIRS
     wci_routes_data_cols = {
-        1: "Composite Index", # B column
-        2: "Shanghai-Rotterdam", # C column
-        3: "Rotterdam-Shanghai", # D column
-        4: "Shanghai-Genoa", # E column
-        5: "Shanghai-LosAngeles", # F column
-        6: "LosAngeles-Shanghai", # G column
-        7: "Shanghai-NewYork", # H column
-        8: "NewYork-Rotterdam", # I column
-        9: "Rotterdam-NewYork" # J column
+        "Composite Index": 1, # B column
+        "Shanghai-Rotterdam": 2, # C column
+        "Rotterdam-Shanghai": 3, # D column
+        "Shanghai-Genoa": 4, # E column
+        "Shanghai-LosAngeles": 5, # F column
+        "LosAngeles-Shanghai": 6, # G column
+        "Shanghai-NewYork": 7, # H column
+        "NewYork-Rotterdam": 8, # I column
+        "Rotterdam-NewYork": 9 # J column
     }
 
     for route_name, col_idx in wci_routes_data_cols.items():
@@ -751,8 +753,9 @@ def process_table_data_from_crawling_data2(raw_data):
     iaci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
     iaci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
+    # IACI routes and their corresponding 0-indexed column in the sheet - FIXED KEY-VALUE PAIRS
     iaci_routes_data_cols = {
-        1: "US$/40ft" # B column
+        "US$/40ft": 1 # B column
     }
 
     for route_name, col_idx in iaci_routes_data_cols.items():
@@ -808,13 +811,14 @@ def process_table_data_from_crawling_data2(raw_data):
     blank_sailing_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
     blank_sailing_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
+    # BLANK SAILING routes and their corresponding 0-indexed column in the sheet - FIXED KEY-VALUE PAIRS
     blank_sailing_routes_data_cols = {
-        1: "Gemini Cooperation", # B column
-        2: "MSC", # C column
-        3: "OCEAN Alliance", # D column
-        4: "Premier Alliance", # E column
-        5: "Others/Independent", # F column
-        6: "Total" # G column
+        "Gemini Cooperation": 1, # B column
+        "MSC": 2, # C column
+        "OCEAN Alliance": 3, # D column
+        "Premier Alliance": 4, # E column
+        "Others/Independent": 5, # F column
+        "Total": 6 # G column
     }
 
     for route_name, col_idx in blank_sailing_routes_data_cols.items():
@@ -870,20 +874,21 @@ def process_table_data_from_crawling_data2(raw_data):
     fbx_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
     fbx_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
+    # FBX routes and their corresponding 0-indexed column in the sheet - FIXED KEY-VALUE PAIRS
     fbx_routes_data_cols = {
-        1: "Global Container Freight Index", # B column
-        2: "China/East Asia - North America West Coast", # C column
-        3: "North America West Coast - China/East Asia", # D column
-        4: "China/East Asia - North America East Coast", # E column
-        5: "North America East Coast - China/East Asia", # F column
-        6: "China/East Asia - North Europe", # G column
-        7: "North Europe - China/East Asia", # H column
-        8: "China/East Asia - Mediterranean", # I column
-        9: "Mediterranean - China/East Asia", # J column
-        10: "North America East Coast - North Europe", # K column
-        11: "North Europe - North America East Coast", # L column
-        12: "Europe - South America East Coast", # M column
-        13: "Europe - South America West Coast" # N column
+        "Global Container Freight Index": 1, # B column
+        "China/East Asia - North America West Coast": 2, # C column
+        "North America West Coast - China/East Asia": 3, # D column
+        "China/East Asia - North America East Coast": 4, # E column
+        "North America East Coast - China/East Asia": 5, # F column
+        "China/East Asia - North Europe": 6, # G column
+        "North Europe - China/East Asia": 7, # H column
+        "China/East Asia - Mediterranean": 8, # I column
+        "Mediterranean - China/East Asia": 9, # J column
+        "North America East Coast - North Europe": 10, # K column
+        "North Europe - North America East Coast": 11, # L column
+        "Europe - South America East Coast": 12, # M column
+        "Europe - South America West Coast": 13 # N column
     }
 
     for route_name, col_idx in fbx_routes_data_cols.items():
