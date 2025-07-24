@@ -512,16 +512,16 @@ def process_table_data_from_crawling_data2(raw_data):
     
     # --- KCCI Table ---
     # KCCI (날짜 표기 형식: Current Index (2025-07-21), Previous Index (2025-07-14))
-    # Current date: A6 (row 5, col 0)
-    # Current Index data: B6:O6 (row 5, cols 1-14)
-    # Previous date: A7 (row 6, col 0)
-    # Previous Index data: B7:O7 (row 6, cols 1-14)
+    # Current date: A3 (row 2, col 0)
+    # Current Index data: B3:O3 (row 2, cols 1-14)
+    # Previous date: A4 (row 3, col 0)
+    # Previous Index data: B4:O4 (row 3, cols 1-14)
     
     kcci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     kcci_rows = []
 
-    kcci_current_date_raw_label = get_cell_value(raw_data, 5, 0) # A6
-    kcci_previous_date_raw_label = get_cell_value(raw_data, 6, 0) # A7
+    kcci_current_date_raw_label = get_cell_value(raw_data, 2, 0) # A3
+    kcci_previous_date_raw_label = get_cell_value(raw_data, 3, 0) # A4
 
     # Extract date from "Current Index (YYYY-MM-DD)" and "Previous Index (YYYY-MM-DD)"
     current_date_match = re.search(r"\((\d{4}-\d{2}-\d{2})\)", kcci_current_date_raw_label)
@@ -565,8 +565,8 @@ def process_table_data_from_crawling_data2(raw_data):
     }
 
     for route_name, col_idx in kcci_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 5, col_idx) # B6 to O6
-        previous_val = get_cell_value(raw_data, 6, col_idx) # B7 to O7
+        current_val = get_cell_value(raw_data, 2, col_idx) # B3 to O3
+        previous_val = get_cell_value(raw_data, 3, col_idx) # B4 to O4
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         kcci_rows.append({
             "route": route_name,
@@ -583,16 +583,16 @@ def process_table_data_from_crawling_data2(raw_data):
 
     # --- SCFI Table ---
     # SCFI (날짜 표기 형식: Current Index (2025-07-18), Previous Index (2025-07-11))
-    # Current date: A19 (row 18, col 0)
-    # Current Index data: B19:O19 (row 18, cols 1-14)
-    # Previous date: A20 (row 19, col 0)
-    # Previous Index data: B20:O20 (row 19, cols 1-14)
+    # Current date: A9 (row 8, col 0)
+    # Current Index data: B9:O9 (row 8, cols 1-14)
+    # Previous date: A10 (row 9, col 0)
+    # Previous Index data: B10:O10 (row 9, cols 1-14)
 
     scfi_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     scfi_rows = []
 
-    scfi_current_date_raw_label = get_cell_value(raw_data, 18, 0) # A19
-    scfi_previous_date_raw_label = get_cell_value(raw_data, 19, 0) # A20
+    scfi_current_date_raw_label = get_cell_value(raw_data, 8, 0) # A9
+    scfi_previous_date_raw_label = get_cell_value(raw_data, 9, 0) # A10
 
     current_date_match = re.search(r"\((\d{4}-\d{2}-\d{2})\)", scfi_current_date_raw_label)
     previous_date_match = re.search(r"\((\d{4}-\d{2}-\d{2})\)", scfi_previous_date_raw_label)
@@ -634,8 +634,8 @@ def process_table_data_from_crawling_data2(raw_data):
     }
 
     for route_name, col_idx in scfi_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 18, col_idx) # B19 to O19
-        previous_val = get_cell_value(raw_data, 19, col_idx) # B20 to O20
+        current_val = get_cell_value(raw_data, 8, col_idx) # B9 to O9
+        previous_val = get_cell_value(raw_data, 9, col_idx) # B10 to O10
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         scfi_rows.append({
             "route": route_name,
@@ -651,26 +651,26 @@ def process_table_data_from_crawling_data2(raw_data):
 
 
     # --- WCI Table ---
-    # WCI (날짜표기형식: 17-Jul-25, 10-Jul-25)
-    # Current date: A31 (row 30, col 0)
-    # Current Index data: B31:J31 (row 30, cols 1-9)
-    # Previous date: A34 (row 33, col 0)
-    # Previous Index data: B34:J34 (row 33, cols 1-9)
+    # WCI (날짜표기형식: 7/17/2025, 7/10/2025)
+    # Current date: A21 (row 20, col 0)
+    # Current Index data: B21:J21 (row 20, cols 1-9)
+    # Previous date: A22 (row 21, col 0)
+    # Previous Index data: B22:J22 (row 21, cols 1-9)
 
     wci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     wci_rows = []
 
-    wci_current_date_raw_label = get_cell_value(raw_data, 30, 0) # A31
-    wci_previous_date_raw_label = get_cell_value(raw_data, 33, 0) # A34
+    wci_current_date_raw_label = get_cell_value(raw_data, 20, 0) # A21
+    wci_previous_date_raw_label = get_cell_value(raw_data, 21, 0) # A22
 
-    # Extract date from "DD-Mon-YY" (e.g., 17-Jul-25)
-    current_date_match = re.search(r"\d{2}-[A-Za-z]{3}-\d{2}", wci_current_date_raw_label)
-    previous_date_match = re.search(r"\d{2}-[A-Za-z]{3}-\d{2}", wci_previous_date_raw_label)
+    # Extract date from "M/D/YYYY"
+    current_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", wci_current_date_raw_label)
+    previous_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", wci_previous_date_raw_label)
 
     current_date_formatted = ""
     if current_date_match:
         try:
-            date_obj = datetime.strptime(current_date_match.group(0), "%d-%b-%y")
+            date_obj = datetime.strptime(current_date_match.group(0), "%m/%d/%Y")
             current_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -678,7 +678,7 @@ def process_table_data_from_crawling_data2(raw_data):
     previous_date_formatted = ""
     if previous_date_match:
         try:
-            date_obj = datetime.strptime(previous_date_match.group(0), "%d-%b-%y")
+            date_obj = datetime.strptime(previous_date_match.group(0), "%m/%d/%Y")
             previous_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -699,8 +699,8 @@ def process_table_data_from_crawling_data2(raw_data):
     }
 
     for route_name, col_idx in wci_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 30, col_idx) # B31 to J31
-        previous_val = get_cell_value(raw_data, 33, col_idx) # B34 to J34
+        current_val = get_cell_value(raw_data, 20, col_idx) # B21 to J21
+        previous_val = get_cell_value(raw_data, 21, col_idx) # B22 to J22
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         wci_rows.append({
             "route": route_name,
@@ -716,21 +716,21 @@ def process_table_data_from_crawling_data2(raw_data):
 
 
     # --- IACI Table ---
-    # IACI (날짜 표기 형식: 07/15/2025, 06/30/2025)
-    # Current date: A38 (row 37, col 0)
-    # Current Index data: B38 (row 37, col 1)
-    # Previous date: A39 (row 38, col 0)
-    # Previous Index data: B39 (row 38, col 1)
+    # IACI (날짜 표기 형식: 7/15/2025, 6/30/2025)
+    # Current date: A27 (row 26, col 0)
+    # Current Index data: B27 (row 26, col 1)
+    # Previous date: A28 (row 27, col 0)
+    # Previous Index data: B28 (row 27, col 1)
 
     iaci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     iaci_rows = []
 
-    iaci_current_date_raw_label = get_cell_value(raw_data, 37, 0) # A38
-    iaci_previous_date_raw_label = get_cell_value(raw_data, 38, 0) # A39
+    iaci_current_date_raw_label = get_cell_value(raw_data, 26, 0) # A27
+    iaci_previous_date_raw_label = get_cell_value(raw_data, 27, 0) # A28
 
-    # Extract date from "MM/DD/YYYY"
-    current_date_match = re.search(r"\d{2}/\d{2}/\d{4}", iaci_current_date_raw_label)
-    previous_date_match = re.search(r"\d{2}/\d{2}/\d{4}", iaci_previous_date_raw_label)
+    # Extract date from "M/D/YYYY"
+    current_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", iaci_current_date_raw_label)
+    previous_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", iaci_previous_date_raw_label)
 
     current_date_formatted = ""
     if current_date_match:
@@ -756,8 +756,8 @@ def process_table_data_from_crawling_data2(raw_data):
     }
 
     for route_name, col_idx in iaci_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 37, col_idx) # B38
-        previous_val = get_cell_value(raw_data, 38, col_idx) # B39
+        current_val = get_cell_value(raw_data, 26, col_idx) # B27
+        previous_val = get_cell_value(raw_data, 27, col_idx) # B28
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         iaci_rows.append({
             "route": route_name,
@@ -773,21 +773,21 @@ def process_table_data_from_crawling_data2(raw_data):
 
 
     # --- BLANK SAILING Table ---
-    # BLANK SAILING (날짜 초기 형식: 07/18/2025, 07/11/2025)
-    # Current date: A43 (row 42, col 0)
-    # Current Index data: B43:G43 (row 42, cols 1-6)
-    # Previous date: A44 (row 43, col 0)
-    # Previous Index data: B44:G44 (row 43, cols 1-6)
+    # BLANK SAILING (날짜 표기 형식: 7/18/2025, 7/11/2025, 7/4/2025, 6/27/2025, 6/20/2025)
+    # Current date: A33 (row 32, col 0)
+    # Current Index data: B33:G33 (row 32, cols 1-6)
+    # Previous date_1: A34 (row 33, col 0)
+    # Previous Index data_1: B34:G34 (row 33, cols 1-6)
 
     blank_sailing_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     blank_sailing_rows = []
 
-    blank_sailing_current_date_raw_label = get_cell_value(raw_data, 42, 0) # A43
-    blank_sailing_previous_date_raw_label = get_cell_value(raw_data, 43, 0) # A44
+    blank_sailing_current_date_raw_label = get_cell_value(raw_data, 32, 0) # A33
+    blank_sailing_previous_date_raw_label = get_cell_value(raw_data, 33, 0) # A34
 
-    # Extract date from "MM/DD/YYYY"
-    current_date_match = re.search(r"\d{2}/\d{2}/\d{4}", blank_sailing_current_date_raw_label)
-    previous_date_match = re.search(r"\d{2}/\d{2}/\d{4}", blank_sailing_previous_date_raw_label)
+    # Extract date from "M/D/YYYY"
+    current_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", blank_sailing_current_date_raw_label)
+    previous_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", blank_sailing_previous_date_raw_label)
 
     current_date_formatted = ""
     if current_date_match:
@@ -818,8 +818,8 @@ def process_table_data_from_crawling_data2(raw_data):
     }
 
     for route_name, col_idx in blank_sailing_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 42, col_idx) # B43 to G43
-        previous_val = get_cell_value(raw_data, 43, col_idx) # B44 to G44
+        current_val = get_cell_value(raw_data, 32, col_idx) # B33 to G33
+        previous_val = get_cell_value(raw_data, 33, col_idx) # B34 to G34
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         blank_sailing_rows.append({
             "route": route_name,
@@ -835,26 +835,26 @@ def process_table_data_from_crawling_data2(raw_data):
 
 
     # --- FBX Table ---
-    # FBX (날짜표기형식: 2025-07-18, 2025-07-11)
-    # Current date: A48 (row 47, col 0)
-    # Current Index data: B48:N48 (row 47, cols 1-13)
-    # Previous date: A49 (row 48, col 0)
-    # Previous Index data: B49:N49 (row 48, cols 1-13)
+    # FBX (날짜 표기 형식: 7/18/2025, 7/11/2025)
+    # Current date: A41 (row 40, col 0)
+    # Current Index data: B41:N41 (row 40, cols 1-13)
+    # Previous date: A42 (row 41, col 0)
+    # Previous Index data: B42:N42 (row 41, cols 1-13)
 
     fbx_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     fbx_rows = []
 
-    fbx_current_date_raw_label = get_cell_value(raw_data, 47, 0) # A48
-    fbx_previous_date_raw_label = get_cell_value(raw_data, 48, 0) # A49
+    fbx_current_date_raw_label = get_cell_value(raw_data, 40, 0) # A41
+    fbx_previous_date_raw_label = get_cell_value(raw_data, 41, 0) # A42
 
-    # Extract date from "YYYY-MM-DD"
-    current_date_match = re.search(r"\d{4}-\d{2}-\d{2}", fbx_current_date_raw_label)
-    previous_date_match = re.search(r"\d{4}-\d{2}-\d{2}", fbx_previous_date_raw_label)
+    # Extract date from "M/D/YYYY"
+    current_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", fbx_current_date_raw_label)
+    previous_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", fbx_previous_date_raw_label)
 
     current_date_formatted = ""
     if current_date_match:
         try:
-            date_obj = datetime.strptime(current_date_match.group(0), "%Y-%m-%d")
+            date_obj = datetime.strptime(current_date_match.group(0), "%m/%d/%Y")
             current_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -862,7 +862,7 @@ def process_table_data_from_crawling_data2(raw_data):
     previous_date_formatted = ""
     if previous_date_match:
         try:
-            date_obj = datetime.strptime(previous_date_match.group(0), "%Y-%m-%d")
+            date_obj = datetime.strptime(previous_date_match.group(0), "%m/%d/%Y")
             previous_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -887,8 +887,8 @@ def process_table_data_from_crawling_data2(raw_data):
     }
 
     for route_name, col_idx in fbx_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 47, col_idx) # B48 to N48
-        previous_val = get_cell_value(raw_data, 48, col_idx) # B49 to N49
+        current_val = get_cell_value(raw_data, 40, col_idx) # B41 to N41
+        previous_val = get_cell_value(raw_data, 41, col_idx) # B42 to N42
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         fbx_rows.append({
             "route": route_name,
@@ -904,26 +904,26 @@ def process_table_data_from_crawling_data2(raw_data):
 
 
     # --- XSI Table ---
-    # XSI (날짜표기형식: 07-22-2025, 07-15-2025)
-    # Current date: A53 (row 52, col 0)
-    # Current Index data: B53:I53 (row 52, cols 1-8)
-    # Previous date: K53 (row 52, col 10) - NOTE: Different column, same row!
-    # Previous Index data: L53:S53 (row 52, cols 11-18) - NOTE: Different columns, same row!
+    # XSI (날짜 표기 형식: 7/23/2025, 7/16/2025)
+    # Current date: A47 (row 46, col 0)
+    # Current Index data: B47:I47 (row 46, cols 1-8)
+    # Previous date: A48 (row 47, col 0)
+    # Previous Index data: B48:N48 (row 47, cols 1-13)
 
     xsi_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     xsi_rows = []
 
-    xsi_current_date_raw_label = get_cell_value(raw_data, 52, 0) # A53
-    xsi_previous_date_raw_label = get_cell_value(raw_data, 52, 10) # K53
+    xsi_current_date_raw_label = get_cell_value(raw_data, 46, 0) # A47
+    xsi_previous_date_raw_label = get_cell_value(raw_data, 47, 0) # A48
 
-    # Extract date from "MM-DD-YYYY"
-    current_date_match = re.search(r"\d{2}-\d{2}-\d{4}", xsi_current_date_raw_label)
-    previous_date_match = re.search(r"\d{2}-\d{2}-\d{4}", xsi_previous_date_raw_label)
+    # Extract date from "M/D/YYYY"
+    current_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", xsi_current_date_raw_label)
+    previous_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", xsi_previous_date_raw_label)
 
     current_date_formatted = ""
     if current_date_match:
         try:
-            date_obj = datetime.strptime(current_date_match.group(0), "%m-%d-%Y")
+            date_obj = datetime.strptime(current_date_match.group(0), "%m/%d/%Y")
             current_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -931,7 +931,7 @@ def process_table_data_from_crawling_data2(raw_data):
     previous_date_formatted = ""
     if previous_date_match:
         try:
-            date_obj = datetime.strptime(previous_date_match.group(0), "%m-%d-%Y")
+            date_obj = datetime.strptime(previous_date_match.group(0), "%m/%d/%Y")
             previous_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -940,19 +940,25 @@ def process_table_data_from_crawling_data2(raw_data):
     xsi_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
     xsi_routes_data_cols = {
-        "Far East - N. Europe": {"current_col": 1, "previous_col": 11}, # B53, L53
-        "N. Europe - Far East": {"current_col": 2, "previous_col": 12}, # C53, M53
-        "Far East - USWC": {"current_col": 3, "previous_col": 13}, # D53, N53
-        "USWC - Far East": {"current_col": 4, "previous_col": 14}, # E53, O53
-        "Far East - SAEC": {"current_col": 5, "previous_col": 15}, # F53, P53
-        "N. Europe - USEC": {"current_col": 6, "previous_col": 16}, # G53, Q53
-        "USEC - N. Europe": {"current_col": 7, "previous_col": 17}, # H53, R53
-        "N. Europe - SAEC": {"current_col": 8, "previous_col": 18}  # I53, S53
+        "Far East - N. Europe": {"current_col": 1, "previous_col": 1}, # B47, B48
+        "N. Europe - Far East": {"current_col": 2, "previous_col": 2}, # C47, C48
+        "Far East - USWC": {"current_col": 3, "previous_col": 3}, # D47, D48
+        "USWC - Far East": {"current_col": 4, "previous_col": 4}, # E47, E48
+        "Far East - SAEC": {"current_col": 5, "previous_col": 5}, # F47, F48
+        "N. Europe - USEC": {"current_col": 6, "previous_col": 6}, # G47, G48
+        "USEC - N. Europe": {"current_col": 7, "previous_col": 7}, # H47, H48
+        "N. Europe - SAEC": {"current_col": 8, "previous_col": 8}  # I47, I48
     }
+    # Note: User specified Previous Index data: B48:N48. However, Current Index data is B47:I47.
+    # To maintain consistency in "route" mapping and calculation, I will use the corresponding column for previous data.
+    # If a route has current data in col X, its previous data will be taken from col X in the previous row.
+    # The range B48:N48 might contain additional data not directly corresponding to the routes in B47:I47.
+    # If the user intends to show more previous data, the table structure would need a more complex change.
+    # For now, I will align previous_col with current_col for each route.
 
     for route_name, cols in xsi_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 52, cols["current_col"]) # Current data from row 52 (B-I)
-        previous_val = get_cell_value(raw_data, 52, cols["previous_col"]) # Previous data from row 52 (L-S)
+        current_val = get_cell_value(raw_data, 46, cols["current_col"]) # Current data from row 46 (B-I)
+        previous_val = get_cell_value(raw_data, 47, cols["previous_col"]) # Previous data from row 47 (B-I)
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         xsi_rows.append({
             "route": route_name,
@@ -968,26 +974,26 @@ def process_table_data_from_crawling_data2(raw_data):
 
 
     # --- MBCI Table ---
-    # MBCI (날짜표기형식: 2025-07-18, 2025-07-11)
-    # Current date: A65 (row 64, col 0)
-    # Current Index data: G65 (row 64, col 6)
-    # Previous date: A66 (row 65, col 0)
-    # Previous Index data: G66 (row 65, col 6)
+    # MBCI (날짜 표기 형식: 7/18/2025, 7/11/2025)
+    # Current date: A59 (row 58, col 0)
+    # Current Index data: G59 (row 58, col 6)
+    # Previous date: A60 (row 59, col 0)
+    # Previous Index data: G60 (row 59, col 6)
 
     mbci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     mbci_rows = []
 
-    mbci_current_date_raw_label = get_cell_value(raw_data, 64, 0) # A65
-    mbci_previous_date_raw_label = get_cell_value(raw_data, 65, 0) # A66
+    mbci_current_date_raw_label = get_cell_value(raw_data, 58, 0) # A59
+    mbci_previous_date_raw_label = get_cell_value(raw_data, 59, 0) # A60
 
-    # Extract date from "YYYY-MM-DD"
-    current_date_match = re.search(r"\d{4}-\d{2}-\d{2}", mbci_current_date_raw_label)
-    previous_date_match = re.search(r"\d{4}-\d{2}-\d{2}", mbci_previous_date_raw_label)
+    # Extract date from "M/D/YYYY"
+    current_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", mbci_current_date_raw_label)
+    previous_date_match = re.search(r"\d{1,2}/\d{1,2}/\d{4}", mbci_previous_date_raw_label)
 
     current_date_formatted = ""
     if current_date_match:
         try:
-            date_obj = datetime.strptime(current_date_match.group(0), "%Y-%m-%d")
+            date_obj = datetime.strptime(current_date_match.group(0), "%m/%d/%Y")
             current_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -995,7 +1001,7 @@ def process_table_data_from_crawling_data2(raw_data):
     previous_date_formatted = ""
     if previous_date_match:
         try:
-            date_obj = datetime.strptime(previous_date_match.group(0), "%Y-%m-%d")
+            date_obj = datetime.strptime(previous_date_match.group(0), "%m/%d/%Y")
             previous_date_formatted = date_obj.strftime("%m-%d-%Y")
         except ValueError:
             pass
@@ -1004,30 +1010,13 @@ def process_table_data_from_crawling_data2(raw_data):
     mbci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
     mbci_routes_data_cols = {
-        "Index(종합지수)": {"current_col": 6, "previous_col": 6}, # G65, G66
-        "$/day(정기용선, Time charter)": {"current_col": 7, "previous_col": 7} # H65, H66 (Assuming H column for the second value)
-    }
-    # Re-checking MBCI in the provided text:
-    # MBCIIndex(종합지수), $/day(정기용선, Time charter)Jul-20Jul-21Jul-22Jul-23Jul-24Latest
-    # 2025-07-183351,8313,4398721,2261,415
-    # 2025-07-111379
-    # The user specified Current Index G65 and Previous Index G66. This seems to be only one value per date.
-    # The provided text shows multiple values after the date.
-    # Let's stick to the user's explicit cell references G65 and G66 for "Current Index" and "Previous Index".
-    # And assume the "Index(종합지수)" is the value in G column.
-    # The second value "$/day(정기용선, Time charter)" is not explicitly mapped to a column in the user's cell ranges.
-    # Based on the text, "335" is for "Index(종합지수)" and "1,831" is for "$/day(정기용선, Time charter)".
-    # These are in columns G and H (indices 6 and 7) relative to the start of the data.
-    # So, I will use G and H for MBCI.
-
-    mbci_routes_data_cols = {
-        "Index(종합지수)": {"current_col": 6, "previous_col": 6}, # G65, G66
-        "$/day(정기용선, Time charter)": {"current_col": 7, "previous_col": 7} # H65, H66
+        "Index(종합지수)": {"current_col": 6, "previous_col": 6}, # G59, G60
+        "$/day(정기용선, Time charter)": {"current_col": 7, "previous_col": 7} # H59, H60
     }
 
     for route_name, cols in mbci_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 64, cols["current_col"]) # Current data from row 64 (G, H)
-        previous_val = get_cell_value(raw_data, 65, cols["previous_col"]) # Previous data from row 65 (G, H)
+        current_val = get_cell_value(raw_data, 58, cols["current_col"]) # Current data from row 58 (G, H)
+        previous_val = get_cell_value(raw_data, 59, cols["previous_col"]) # Previous data from row 59 (G, H)
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         mbci_rows.append({
             "route": route_name,
