@@ -367,90 +367,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Mapping between table route names and chart data keys ---
     // The keys here MUST match the exact 'route_names' from TABLE_DATA_CELL_MAPPINGS in Python
-    // The values here MUST match the final JSON keys from SECTION_COLUMN_MAPPINGS in Python
+    // The values here MUST exactly match the final JSON keys in the 'chart_data' section.
     const routeToDataKeyMap = {
         KCCI: {
-            "종합지수": "KCCI_Composite_Index",
-            "미주서안": "KCCI_US_West_Coast",
-            "미주동안": "KCCI_US_East_Coast",
-            "유럽": "KCCI_Europe",
-            "지중해": "KCCI_Mediterranean",
-            "중동": "KCCI_Middle_East",
-            "호주": "KCCI_Australia",
-            "남미동안": "KCCI_South_America_East_Coast",
-            "남미서안": "KCCI_South_America_West_Coast",
-            "남아프리카": "KCCI_South_Africa",
-            "서아프리카": "KCCI_West_Africa",
-            "중국": "KCCI_China",
-            "일본": "KCCI_Japan",
-            "동남아시아": "KCCI_Southeast_Asia"
+            "종합지수": "Composite_Index",
+            "미주서안": "US_West_Coast",
+            "미주동안": "US_East_Coast",
+            "유럽": "Europe",
+            "지중해": "Mediterranean",
+            "중동": "Middle_East",
+            "호주": "Australia",
+            "남미동안": "South_America_East_Coast",
+            "남미서안": "South_America_West_Coast",
+            "남아프리카": "South_Africa",
+            "서아프리카": "West_Africa",
+            "중국": "China",
+            "일본": "Japan",
+            "동남아시아": "Southeast_Asia"
         },
         SCFI: {
-            "종합지수": "SCFI_Composite_Index",
-            "유럽 (기본항)": "SCFI_North_Europe",
-            "지중해 (기본항)": "SCFI_Mediterranean",
-            "미주서안 (기본항)": "SCFI_US_West_Coast",
-            "미주동안 (기본항)": "SCFI_US_East_Coast",
-            "페르시아만/홍해 (두바이)": "SCFI_Middle_East",
-            "호주/뉴질랜드 (멜버른)": "SCFI_Australia_New_Zealand",
-            "동/서 아프리카 (라고스)": "SCFI_East_West_Africa",
-            "남아프리카 (더반)": "SCFI_South_Africa",
-            "서일본 (기본항)": "SCFI_Japan_West_Coast",
-            "동일본 (기본항)": "SCFI_Japan_East_Coast",
-            "동남아시아 (싱가포르)": "SCFI_Southeast_Asia",
-            "한국 (부산)": "SCFI_Korea",
-            "중남미서안 (만사니요)": "SCFI_South_America"
+            "종합지수": "Composite_Index_1",
+            "유럽 (기본항)": "North_Europe",
+            "지중해 (기본항)": "Mediterranean_1",
+            "미주서안 (기본항)": "US_West_Coast_1",
+            "미주동안 (기본항)": "US_East_Coast_1",
+            "페르시아만/홍해 (두바이)": "Middle_East_1",
+            "호주/뉴질랜드 (멜버른)": "Australia_New_Zealand_SCFI",
+            "동/서 아프리카 (라고스)": "East_West_Africa_SCFI",
+            "남아프리카 (더반)": "South_Africa_SCFI",
+            "서일본 (기본항)": "Japan_West_Coast_SCFI",
+            "동일본 (기본항)": "Japan_East_Coast_SCFI",
+            "동남아시아 (싱가포르)": "Southeast_Asia_1",
+            "한국 (부산)": "Korea_SCFI",
+            "중남미서안 (만사니요)": "South_America_SCFI"
         },
         WCI: {
-            "종합지수": "WCI_Composite_Index",
-            "상하이 → 로테르담": "WCI_Shanghai_Rotterdam",
-            "로테르담 → 상하이": "WCI_Rotterdam_Shanghai",
-            "상하이 → 제노바": "WCI_Shanghai_Genoa",
-            "상하이 → 로스엔젤레스": "WCI_Shanghai_Los_Angeles",
-            "로스엔젤레스 → 상하이": "WCI_Los_Angeles_Shanghai",
-            "상하이 → 뉴욕": "WCI_Shanghai_New_York",
-            "뉴욕 → 로테르담": "WCI_New_York_Rotterdam",
-            "로테르담 → 뉴욕": "WCI_Rotterdam_New_York",
+            "종합지수": "Composite_Index_2",
+            "상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
+            "로테르담 → 상하이": "Rotterdam_Shanghai_WCI",
+            "상하이 → 제노바": "Shanghai_Genoa_WCI",
+            "상하이 → 로스엔젤레스": "Shanghai_Los_Angeles_WCI",
+            "로스엔젤레스 → 상하이": "Los_Angeles_Shanghai_WCI",
+            "상하이 → 뉴욕": "Shanghai_New_York_WCI",
+            "뉴욕 → 로테르담": "New_York_Rotterdam_WCI",
+            "로테르담 → 뉴욕": "Rotterdam_New_York_WCI",
         },
         IACI: {
-            "종합지수": "IACI_Composite_Index"
+            "종합지수": "Composite_Index_3"
         },
         BLANK_SAILING: {
-            "Gemini Cooperation": "BLANK_SAILING_Gemini_Cooperation",
-            "MSC": "BLANK_SAILING_MSC", 
-            "OCEAN Alliance": "BLANK_SAILING_OCEAN_Alliance",
-            "Premier Alliance": "BLANK_SAILING_Premier_Alliance",
-            "Others/Independent": "BLANK_SAILING_Others_Independent",
-            "Total": "BLANK_SAILING_Total"
+            // These values must match the keys in the JSON's BLANK_SAILING chart_data
+            "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
+            "MSC": "MSC_Alliance_Blank_Sailing", 
+            "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
+            "Premier Alliance": "Premier_Alliance_Blank_Sailing",
+            "Others/Independent": "Others_Independent_Blank_Sailing",
+            "Total": "Total_Blank_Sailings"
         },
         FBX: {
-            "글로벌 컨테이너 운임 지수": "FBX_Composite_Index",
-            "중국/동아시아 → 미주서안": "FBX_China_EA_US_West_Coast",
-            "미주서안 → 중국/동아시아": "FBX_US_West_Coast_China_EA",
-            "중국/동아시아 → 미주동안": "FBX_China_EA_US_East_Coast",
-            "미주동안 → 중국/동아시아": "FBX_US_East_Coast_China_EA",
-            "중국/동아시아 → 북유럽": "FBX_China_EA_North_Europe",
-            "북유럽 → 중국/동아시아": "FBX_North_Europe_China_EA",
-            "중국/동아시아 → 지중해": "FBX_China_EA_Mediterranean",
-            "지중해 → 중국/동아시아": "FBX_Mediterranean_China_EA",
-            "미주동안 → 북유럽": "FBX_US_East_Coast_North_Europe",
-            "북유럽 → 미주동안": "FBX_North_Europe_US_East_Coast",
-            "유럽 → 남미동안": "FBX_Europe_South_America_East_Coast",
-            "유럽 → 남미서안": "FBX_Europe_South_America_West_Coast"
+            "글로벌 컨테이너 운임 지수": "Composite_Index_4",
+            "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
+            "미주서안 → 중국/동아시아": "US_West_Coast_China_EA_FBX",
+            "중국/동아시아 → 미주동안": "China_EA_US_East_Coast_FBX",
+            "미주동안 → 중국/동아시아": "US_East_Coast_China_EA_FBX",
+            "중국/동아시아 → 북유럽": "China_EA_North_Europe_FBX",
+            "북유럽 → 중국/동아시아": "North_Europe_China_EA_FBX",
+            "중국/동아시아 → 지중해": "China_EA_Mediterranean_FBX",
+            "지중해 → 중국/동아시아": "Mediterranean_China_EA_FBX",
+            "미주동안 → 북유럽": "US_East_Coast_North_Europe",
+            "북유럽 → 미주동안": "North_Europe_US_East_Coast",
+            "유럽 → 남미동안": "Europe_South_America_East_Coast",
+            "유럽 → 남미서안": "Europe_South_America_West_Coast"
         },
         XSI: {
-            "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
-            "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
-            "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
-            "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
-            "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
-            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
-            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
-            "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
+            // These values must match the keys in the JSON's XSI chart_data
+            "동아시아 → 북유럽": "East_Asia_North_Europe",
+            "북유럽 → 동아시아": "North_Europe_East_Asia",
+            "동아시아 → 미주서안": "East_Asia_US_West_Coast",
+            "미주서안 → 동아시아": "US_West_Coast_East_Asia",
+            "동아시아 → 남미동안": "East_Asia_South_America_East_Coast",
+            "북유럽 → 미주동안": "North_Europe_US_East_Coast_1", // Matches user's JSON
+            "미주동안 → 북유럽": "US_East_Coast_North_Europe_1", // Matches user's JSON
+            "북유럽 → 남미동안": "North_Europe_South_America_East_Coast"
         },
         MBCI: {
+            // These values must match the keys in the JSON's MBCI chart_data
             "MBCI": "MBCI_Value", 
-            "$/day(정기용선, Time charter)": "MBCI_Time_Charter" 
+            "$/day(정기용선, Time charter)": "Time_Charter" 
         }
     };
 
@@ -671,42 +674,42 @@ document.addEventListener('DOMContentLoaded', () => {
             const blankSailingDatasets = [
                 {
                     label: 'Gemini Cooperation', 
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })), // Corrected key
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Gemini_Cooperation_Blank_Sailing })), // Corrected key to match JSON
                     backgroundColor: 'rgba(0, 101, 126, 0.5)', 
                     borderColor: '#00657e',
                     borderWidth: 1
                 },
                 {
                     label: 'MSC', 
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })), // Corrected key
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.MSC_Alliance_Blank_Sailing })), // Corrected key to match JSON
                     backgroundColor: 'rgba(0, 58, 82, 0.5)', 
                     borderColor: '#003A52',
                     borderWidth: 1
                 },
                 {
                     label: 'OCEAN Alliance', 
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })), // Corrected key
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.OCEAN_Alliance_Blank_Sailing })), // Corrected key to match JSON
                     backgroundColor: 'rgba(40, 167, 69, 0.5)', 
                     borderColor: '#218838',
                     borderWidth: 1
                 },
                 {
                     label: 'Premier Alliance', 
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })), // Corrected key
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Premier_Alliance_Blank_Sailing })), // Corrected key to match JSON
                     backgroundColor: 'rgba(253, 126, 20, 0.5)', 
                     borderColor: '#e68a00',
                     borderWidth: 1
                 },
                 {
                     label: 'Others/Independent', 
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })), // Corrected key
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Others_Independent_Blank_Sailing })), // Corrected key to match JSON
                     backgroundColor: 'rgba(111, 66, 193, 0.5)', 
                     borderColor: '#5a32b2',
                     borderWidth: 1
                 },
                 {
                     label: 'Total', 
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Total })), // Corrected key
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Total_Blank_Sailings })), // Corrected key to match JSON
                     backgroundColor: 'rgba(220, 53, 69, 0.5)', 
                     borderColor: '#c82333',
                     borderWidth: 1
