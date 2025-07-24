@@ -6963,14 +6963,14 @@
         "forecast": [
             {
                 "date": "7/24/2025",
-                "min_temp": 66.3,
-                "max_temp": 78.2,
+                "min_temp": 63.1,
+                "max_temp": 77.6,
                 "status": "맑음(clear sky)",
                 "icon": ""
             },
             {
                 "date": "7/25/2025",
-                "min_temp": 66.6,
+                "min_temp": 61.8,
                 "max_temp": 79.8,
                 "status": "맑음(clear sky)",
                 "icon": ""
