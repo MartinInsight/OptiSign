@@ -318,27 +318,30 @@ def fetch_and_process_data():
 
                 # 이 섹션의 숫자 데이터 컬럼 추출
                 # data_cols_map의 예상 헤더를 반복 (날짜 제외)
-                for raw_header_name, final_json_key in data_cols_map.items():
-                    if raw_header_name == "날짜": # 날짜는 date_col_idx로 처리되었으므로 건너뜀
-                        continue
+                # 이제 raw_headers_full_charts.index()를 사용하지 않고,
+                # data_start_col_idx를 기준으로 상대적 위치를 사용합니다.
+                
+                # data_cols_map에서 '날짜' 키를 제외한 데이터 컬럼의 순서
+                data_cols_map_keys_for_data = [k for k in data_cols_map.keys() if k != "날짜"]
 
-                    # 전체 원본 헤더에서 이 특정 헤더의 컬럼 인덱스 찾기
-                    col_idx_in_sheet = -1
-                    try:
-                        col_idx_in_sheet = raw_headers_full_charts.index(raw_header_name)
-                    except ValueError:
-                        print(f"경고: '{section_key}' 차트의 시트 범위에서 헤더 '{raw_header_name}'를 찾을 수 없습니다. 이 컬럼은 차트 데이터에서 건너뜁니다.")
-                        continue # 헤더를 찾을 수 없으면 이 헤더 건너뛰기
+                for i, raw_header_name in enumerate(data_cols_map_keys_for_data):
+                    final_json_key = data_cols_map[raw_header_name]
+                    
+                    # 실제 시트 컬럼 인덱스는 섹션의 시작 인덱스 + data_cols_map 내의 상대적 위치
+                    col_idx_in_sheet = data_start_col_idx + i
 
-                    # 찾은 컬럼 인덱스가 섹션의 정의된 데이터 범위 내에 있는지 확인 (날짜 컬럼 제외)
-                    if col_idx_in_sheet >= data_start_col_idx and col_idx_in_sheet <= data_end_col_idx:
+                    # 컬럼 인덱스가 정의된 섹션 범위 내에 있는지 확인
+                    if col_idx_in_sheet <= data_end_col_idx:
                         if col_idx_in_sheet < len(row_data):
                             val = str(row_data[col_idx_in_sheet]).strip().replace(',', '')
                             current_record[final_json_key] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
                         else:
                             current_record[final_json_key] = None
+                            print(f"경고: '{section_key}' 섹션의 '{raw_header_name}' 데이터 컬럼 (인덱스 {col_idx_in_sheet})이 행 데이터 범위를 벗어났습니다. None으로 설정합니다.")
                     else:
-                        print(f"경고: 헤더 '{raw_header_name}'가 시트 인덱스 {col_idx_in_sheet}에서 발견되었지만, '{section_key}'의 예상 데이터 범위({data_start_col_idx}-{data_end_col_idx}) 밖에 있습니다. 건너뜁니다.")
+                        # 이 경우는 data_cols_map의 정의가 data_end_col_idx를 초과할 때 발생할 수 있습니다.
+                        # 사용자 정의가 정확하다고 가정하면 이 경고는 발생하지 않아야 합니다.
+                        print(f"경고: '{section_key}' 차트의 헤더 '{raw_header_name}'에 대한 계산된 시트 인덱스 {col_idx_in_sheet}가 정의된 데이터 범위({data_start_col_idx}-{data_end_col_idx}) 밖에 있습니다. 건너뜁니다.")
             
                 section_chart_data.append(current_record)
             
