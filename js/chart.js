@@ -159,11 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return color;
     };
 
-    // --- Helper function to clean label names ---
-    const cleanLabel = (fullLabel) => {
-        // Remove prefixes like "KCCI ", "SCFI ", "WCI ", "FBX ", "XSI ", "MBCI "
-        return fullLabel.replace(/^(KCCI|SCFI|WCI|FBX|XSI|MBCI)\s/i, '');
-    };
+    // --- Helper function to clean label names (no longer needed for chart labels) ---
+    // const cleanLabel = (fullLabel) => {
+    //     // Remove prefixes like "KCCI ", "SCFI ", "WCI ", "FBX ", "XSI ", "MBCI "
+    //     return fullLabel.replace(/^(KCCI|SCFI|WCI|FBX|XSI|MBCI)\s/i, '');
+    // };
 
     // --- Helper function to aggregate data by month ---
     // This function will now only be used for the Blank Sailing bar chart
@@ -365,6 +365,116 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(table);
     };
 
+    // --- Mapping between table route names and chart data keys ---
+    const routeToDataKeyMap = {
+        KCCI: {
+            "종합지수": "Composite_Index",
+            "미주서안": "US_West_Coast",
+            "미주동안": "US_East_Coast",
+            "유럽": "Europe",
+            "지중해": "Mediterranean",
+            "중동": "Middle_East",
+            "호주": "Australia",
+            "남미동안": "South_America_East_Coast",
+            "남미서안": "South_America_West_Coast",
+            "남아프리카": "South_Africa",
+            "서아프리카": "West_Africa",
+            "중국": "China",
+            "일본": "Japan",
+            "동남아시아": "Southeast_Asia"
+        },
+        SCFI: {
+            "Comprehensive Index": "Composite_Index_1",
+            "Europe (Base port)": "North_Europe", // Assuming this mapping based on previous code
+            "Mediterranean (Base port)": "Mediterranean_1",
+            "USWC (Base port)": "US_West_Coast_1",
+            "USEC (Base port)": "US_East_Coast_1",
+            "Persian Gulf and Red Sea (Dubai)": "Middle_East_1",
+            "Australia/New Zealand (Melbourne)": "Australia_New_Zealand_SCFI",
+            "East/West Africa (Lagos)": "East_West_Africa_SCFI",
+            "South Africa (Durban)": "South_Africa_SCFI",
+            "West Japan (Base port)": "Japan_West_Coast_SCFI",
+            "East Japan (Base port)": "Japan_East_Coast_SCFI",
+            "Southeast Asia (Singapore)": "Southeast_Asia_1",
+            "Korea (Pusan)": "Korea_SCFI",
+            "Central/South America West Coast(Manzanillo)": "South_America_SCFI" // Assuming this mapping
+        },
+        WCI: {
+            "Composite Index": "Composite_Index_2",
+            "Shanghai-Rotterdam": "Shanghai_Rotterdam_WCI",
+            "Rotterdam-Shanghai": "Rotterdam_Shanghai_WCI",
+            "Shanghai-Genoa": "Shanghai_Genoa_WCI",
+            "Shanghai-LosAngeles": "Shanghai_Los_Angeles_WCI",
+            "LosAngeles-Shanghai": "Los_Angeles_Shanghai_WCI",
+            "Shanghai-NewYork": "Shanghai_New_York_WCI",
+            "NewYork-Rotterdam": "New_York_Rotterdam_WCI",
+            "Rotterdam-NewYork": "Rotterdam_New_York_WCI",
+            "Europe - South America East Coast": "Europe_South_America_East_Coast_WCI", // Placeholder, verify actual key
+            "Europe - South America West Coast": "Europe_South_America_West_Coast_WCI" // Placeholder, verify actual key
+        },
+        IACI: {
+            "US$/40ft": "Composite_Index_3"
+        },
+        FBX: {
+            "Global Container Freight Index": "Composite_Index_4",
+            "China/East Asia - North America West Coast": "China_EA_US_West_Coast_FBX",
+            "North America West Coast - China/East Asia": "US_West_Coast_China_EA_FBX",
+            "China/East Asia - North America East Coast": "China_EA_US_East_Coast_FBX",
+            "North America East Coast - China/East Asia": "US_East_Coast_China_EA_FBX",
+            "China/East Asia - North Europe": "China_EA_North_Europe_FBX",
+            "North Europe - China/East Asia": "North_Europe_China_EA_FBX",
+            "China/East Asia - Mediterranean": "China_EA_Mediterranean_FBX",
+            "Mediterranean - China/East Asia": "Mediterranean_China_EA_FBX",
+            "North America East Coast - North Europe": "North_America_East_Coast_North_Europe_FBX", // Placeholder
+            "North Europe - North America East Coast": "North_Europe_North_America_East_Coast_FBX", // Placeholder
+            "Europe - South America East Coast": "Europe_South_America_East_Coast_FBX", // Placeholder
+            "Europe - South America West Coast": "Europe_South_America_West_Coast_FBX" // Placeholder
+        },
+        XSI: {
+            "Far East - N. Europe": "XSI_East_Asia_North_Europe",
+            "N. Europe - Far East": "XSI_North_Europe_East_Asia",
+            "Far East - USWC": "XSI_East_Asia_US_West_Coast",
+            "USWC - Far East": "XSI_US_West_Coast_East_Asia",
+            "Far East - SAEC": "XSI_East_Asia_South_America_East_Coast",
+            "N. Europe - USEC": "XSI_North_Europe_US_East_Coast",
+            "USEC - N. Europe": "XSI_US_East_Coast_North_Europe",
+            "N. Europe - SAEC": "XSI_North_Europe_South_America_East_Coast"
+        },
+        MBCI: {
+            "Index(종합지수)": "MBCI_MBCI_Value",
+            // "$/day(정기용선, Time charter)": No corresponding chart data, so it will be skipped
+        }
+    };
+
+    // --- Helper function to create datasets based on table rows and chart data ---
+    const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
+        const datasets = [];
+        const mapping = routeToDataKeyMap[indexType];
+        if (!mapping) {
+            console.warn(`No data key mapping found for index type: ${indexType}`);
+            return datasets;
+        }
+
+        tableRows.forEach(row => {
+            const routeName = row.route;
+            const dataKey = mapping[routeName];
+            
+            // Only create a dataset if a corresponding data key exists and current_index is not empty
+            // This handles cases like MBCI's second row which has no chart data
+            if (dataKey && row.current_index !== "") { 
+                datasets.push({
+                    label: routeName, // Use the route name directly from the table for the legend
+                    data: chartData.map(item => ({ x: item.date, y: item[dataKey] })),
+                    backgroundColor: getNextColor(),
+                    borderColor: getNextBorderColor(),
+                    borderWidth: (routeName.includes('Composite Index') || routeName.includes('종합지수') || routeName.includes('Global Container Freight Index') || routeName.includes('US$/40ft') || routeName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
+                    fill: false
+                });
+            }
+        });
+        return datasets;
+    };
+
 
     // --- Data Loading and Dashboard Update Function ---
     async function loadAndDisplayData() {
@@ -475,120 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Chart 1: KCCI - All relevant indices (Granular Data)
             const KCCIData = chartDataBySection.KCCI || [];
             KCCIData.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort specific section data
-            const KCCIDatasets = [
-                {
-                    label: cleanLabel('KCCI Composite Index'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.Composite_Index })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 2,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI US West Coast'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.US_West_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI US East Coast'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.US_East_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI Europe'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.Europe })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI Mediterranean'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.Mediterranean })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI Middle East'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.Middle_East })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI Australia'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.Australia })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI South America East Coast'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.South_America_East_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI South America West Coast'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.South_America_West_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI South Africa'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.South_Africa })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI West Africa'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.West_Africa })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI China'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.China })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI Japan'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.Japan })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('KCCI Southeast Asia'),
-                    data: KCCIData.map(item => ({ x: item.date, y: item.Southeast_Asia })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                }
-            ];
+            const KCCIDatasets = createDatasetsFromTableRows('KCCI', KCCIData, tableDataBySection.KCCI.rows);
             KCCIChart = setupChart('KCCIChart', 'line', KCCIDatasets, {}, false);
             renderTable('KCCITableContainer', tableDataBySection.KCCI.headers, tableDataBySection.KCCI.rows);
 
@@ -597,120 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const SCFIData = chartDataBySection.SCFI || [];
             SCFIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const SCFIDatasets = [
-                {
-                    label: cleanLabel('SCFI Composite Index'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Composite_Index_1 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 2,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI US West Coast'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.US_West_Coast_1 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI US East Coast'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.US_East_Coast_1 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI North Europe'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.North_Europe })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI Mediterranean'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Mediterranean_1 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI Southeast Asia'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Southeast_Asia_1 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI Middle East'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Middle_East_1 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI Australia/New Zealand'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Australia_New_Zealand_SCFI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI South America'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.South_America_SCFI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI Japan West Coast'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Japan_West_Coast_SCFI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI Japan East Coast'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Japan_East_Coast_SCFI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI Korea'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.Korea_SCFI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI East/West Africa'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.East_West_Africa_SCFI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('SCFI South Africa'),
-                    data: SCFIData.map(item => ({ x: item.date, y: item.South_Africa_SCFI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                }
-            ];
+            const SCFIDatasets = createDatasetsFromTableRows('SCFI', SCFIData, tableDataBySection.SCFI.rows);
             SCFIChart = setupChart('SCFIChart', 'line', SCFIDatasets, {}, false);
             renderTable('SCFITableContainer', tableDataBySection.SCFI.headers, tableDataBySection.SCFI.rows);
 
@@ -719,80 +603,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const WCIData = chartDataBySection.WCI || [];
             WCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const WCIDatasets = [
-                {
-                    label: cleanLabel('WCI Composite Index'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Composite_Index_2 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 2,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI Shanghai → Rotterdam'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Shanghai_Rotterdam_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI Rotterdam → Shanghai'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Rotterdam_Shanghai_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI Shanghai → Genoa'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Shanghai_Genoa_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI Shanghai → Los Angeles'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Shanghai_Los_Angeles_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI Los Angeles → Shanghai'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Los_Angeles_Shanghai_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI Shanghai → New York'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Shanghai_New_York_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI New York → Rotterdam'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.New_York_Rotterdam_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('WCI Rotterdam → New York'),
-                    data: WCIData.map(item => ({ x: item.date, y: item.Rotterdam_New_York_WCI })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                }
-            ];
+            const WCIDatasets = createDatasetsFromTableRows('WCI', WCIData, tableDataBySection.WCI.rows);
             WCIChart = setupChart('WCIChart', 'line', WCIDatasets, {}, false);
             renderTable('WCITableContainer', tableDataBySection.WCI.headers, tableDataBySection.WCI.rows);
 
@@ -801,18 +612,8 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const IACIData = chartDataBySection.IACI || [];
             IACIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            IACIChart = setupChart(
-                'IACIChart', 'line',
-                [{
-                    label: cleanLabel('IACI Composite Index'),
-                    data: IACIData.map(item => ({ x: item.date, y: item.Composite_Index_3 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 2,
-                    fill: false
-                }],
-                {}, false
-            );
+            const IACIDatasets = createDatasetsFromTableRows('IACI', IACIData, tableDataBySection.IACI.rows);
+            IACIChart = setupChart('IACIChart', 'line', IACIDatasets, {}, false);
             renderTable('IACITableContainer', tableDataBySection.IACI.headers, tableDataBySection.IACI.rows);
 
 
@@ -820,37 +621,38 @@ document.addEventListener('DOMContentLoaded', () => {
             const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
             const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
             
+            // Blank Sailing datasets are still manually defined as they are stacked bar charts
             const blankSailingDatasets = [
                 {
-                    label: cleanLabel('Gemini Cooperation'),
+                    label: 'Gemini Cooperation', // Directly use the label from the table data
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Gemini_Cooperation_Blank_Sailing })),
                     backgroundColor: 'rgba(0, 101, 126, 0.5)', // Light Teal
                     borderColor: '#00657e',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('MSC Alliance'),
+                    label: 'MSC', // Directly use the label from the table data
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.MSC_Alliance_Blank_Sailing })),
                     backgroundColor: 'rgba(0, 58, 82, 0.5)', // Light Navy
                     borderColor: '#003A52',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('OCEAN Alliance'),
+                    label: 'OCEAN Alliance', // Directly use the label from the table data
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.OCEAN_Alliance_Blank_Sailing })),
                     backgroundColor: 'rgba(0, 101, 126, 0.3)', // Lighter Teal
                     borderColor: '#00657e',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('Premier Alliance'),
+                    label: 'Premier Alliance', // Directly use the label from the table data
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Premier_Alliance_Blank_Sailing })),
                     backgroundColor: 'rgba(0, 58, 82, 0.3)', // Lighter Navy
                     borderColor: '#003A52',
                     borderWidth: 1
                 },
                 {
-                    label: cleanLabel('Others/Independent'),
+                    label: 'Others/Independent', // Directly use the label from the table data
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Others_Independent_Blank_Sailing })),
                     backgroundColor: 'rgba(0, 101, 126, 0.2)', // Even Lighter Teal
                     borderColor: '#00657e',
@@ -877,80 +679,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const FBXData = chartDataBySection.FBX || [];
             FBXData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const FBXDatasets = [
-                {
-                    label: cleanLabel('FBX Composite Index'), // Assuming Composite_Index_4 is the composite for FBX
-                    data: FBXData.map(item => ({ x: item.date, y: item.Composite_Index_4 })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 2,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX China/EA → US West Coast'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.China_EA_US_West_Coast_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX US West Coast → China/EA'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.US_West_Coast_China_EA_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX China/EA → US East Coast'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.China_EA_US_East_Coast_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX US East Coast → China/EA'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.US_East_Coast_China_EA_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX China/EA → North Europe'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.China_EA_North_Europe_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX North Europe → China/EA'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.North_Europe_China_EA_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX China/EA → Mediterranean'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.China_EA_Mediterranean_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('FBX Mediterranean → China/EA'),
-                    data: FBXData.map(item => ({ x: item.date, y: item.Mediterranean_China_EA_FBX })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                }
-            ];
+            const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, tableDataBySection.FBX.rows);
             FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
             renderTable('FBXTableContainer', tableDataBySection.FBX.headers, tableDataBySection.FBX.rows);
 
@@ -959,72 +688,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const XSIData = chartDataBySection.XSI || [];
             XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const XSIDatasets = [
-                {
-                    label: cleanLabel('XSI East Asia → North Europe'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_East_Asia_North_Europe })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 2,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('XSI North Europe → East Asia'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_North_Europe_East_Asia })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('XSI East Asia → US West Coast'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_East_Asia_US_West_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('XSI US West Coast → East Asia'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_US_West_Coast_East_Asia })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('XSI East Asia → South America East Coast'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_East_Asia_South_America_East_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('XSI North Europe → US East Coast'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_North_Europe_US_East_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('XSI US East Coast → North Europe'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_US_East_Coast_North_Europe })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                },
-                {
-                    label: cleanLabel('XSI North Europe → South America East Coast'),
-                    data: XSIData.map(item => ({ x: item.date, y: item.XSI_North_Europe_South_America_East_Coast })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 1,
-                    fill: false
-                }
-            ];
+            const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, tableDataBySection.XSI.rows);
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
             renderTable('XSITableContainer', tableDataBySection.XSI.headers, tableDataBySection.XSI.rows);
 
@@ -1033,16 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const MBCIData = chartDataBySection.MBCI || [];
             MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const MBCIDatasets = [
-                {
-                    label: cleanLabel('MBCI Value'),
-                    data: MBCIData.map(item => ({ x: item.date, y: item.MBCI_MBCI_Value })),
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: 2,
-                    fill: false
-                }
-            ];
+            const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, tableDataBySection.MBCI.rows);
             MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
             renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, tableDataBySection.MBCI.rows);
 
