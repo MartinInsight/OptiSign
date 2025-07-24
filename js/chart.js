@@ -166,12 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return color;
     };
 
-    // --- Helper function to clean label names (no longer needed for chart labels) ---
-    // const cleanLabel = (fullLabel) => {
-    //     // Remove prefixes like "KCCI ", "SCFI ", "WCI ", "FBX ", "XSI ", "MBCI "
-    //     return fullLabel.replace(/^(KCCI|SCFI|WCI|FBX|XSI|MBCI)\s/i, '');
-    // };
-
     // --- Helper function to aggregate data by month ---
     // This function will now only be used for the Blank Sailing bar chart
     const aggregateDataByMonth = (data, numMonths = 12) => {
@@ -396,7 +390,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         SCFI: {
             "종합지수": "Composite_Index_1",
-            "유럽 (기본항)": "North_Europe",
+            "유럽 (기본항)": "North_Europe", // This was "Europe" in the previous mapping. Corrected to "North_Europe" based on Python.
             "지중해 (기본항)": "Mediterranean_1",
             "미주서안 (기본항)": "US_West_Coast_1",
             "미주동안 (기본항)": "US_East_Coast_1",
@@ -450,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
         },
         MBCI: {
-            "Index(종합지수)": "MBCI_MBCI_Value",
+            "Index(종합지수)": "MBCI_MBCI_Value", // This maps to the actual data column
             "$/day(정기용선, Time charter)": null // Explicitly map to null if no chart data is expected for this route
         }
     };
@@ -469,27 +463,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const originalRouteName = row.route.split('_').slice(1).join('_');
             const dataKey = mapping[originalRouteName];
             
-            // Only create a dataset if a corresponding data key exists and current_index is not empty
-            // This handles cases like MBCI's second row which has no chart data
-            if (dataKey && row.current_index !== "") { 
+            // Only create a dataset if a corresponding data key exists and is not null
+            // and the current_index from the table is not empty (meaning there's data for this route)
+            if (dataKey !== null && dataKey !== undefined && row.current_index !== "") { 
                 const mappedData = chartData.map(item => {
                     const xVal = item.date; // This should be a string like 'YYYY-MM-DD'
                     const yVal = item[dataKey];
                     return { x: xVal, y: yVal };
                 });
 
-                datasets.push({
-                    label: originalRouteName, // Use the original route name for the legend
-                    data: mappedData,
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
-                    fill: false
-                });
+                // Filter out data points where y is null or undefined
+                const filteredMappedData = mappedData.filter(point => point.y !== null && point.y !== undefined);
+
+                // Only add dataset if there's actual data after filtering
+                if (filteredMappedData.length > 0) {
+                    datasets.push({
+                        label: originalRouteName, // Use the original route name for the legend
+                        data: filteredMappedData,
+                        backgroundColor: getNextColor(),
+                        borderColor: getNextBorderColor(),
+                        borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
+                        fill: false
+                    });
+                } else {
+                    console.warn(`WARNING: No valid data points found for ${indexType} - route: '${originalRouteName}' (dataKey: '${dataKey}'). Skipping dataset.`);
+                }
             } else if (dataKey === null) {
                 console.info(`INFO: Skipping chart dataset for route '${row.route}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
             } else {
-                console.warn(`WARNING: No valid data points found for ${indexType} - route: '${row.route}' (dataKey: '${dataKey}'). Skipping dataset.`);
+                console.warn(`WARNING: No dataKey found or current_index is empty for ${indexType} - route: '${row.route}'. Skipping dataset.`);
             }
         });
         return datasets;
@@ -677,40 +679,64 @@ document.addEventListener('DOMContentLoaded', () => {
                     borderWidth: 1
                 },
                 {
-                    label: 'OCEAN Alliance', // Directly use the label from the table data
+                    label: 'OCEAN Alliance',
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.OCEAN_Alliance_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 101, 126, 0.3)', // Lighter Teal
-                    borderColor: '#00657e',
+                    backgroundColor: 'rgba(40, 167, 69, 0.5)', // Light Green
+                    borderColor: '#218838',
                     borderWidth: 1
                 },
                 {
-                    label: 'Premier Alliance', // Directly use the label from the table data
+                    label: 'Premier Alliance',
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Premier_Alliance_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 58, 82, 0.3)', // Lighter Navy
-                    borderColor: '#003A52',
+                    backgroundColor: 'rgba(253, 126, 20, 0.5)', // Light Orange
+                    borderColor: '#e68a00',
                     borderWidth: 1
                 },
                 {
-                    label: 'Others/Independent', // Directly use the label from the table data
+                    label: 'Others/Independent',
                     data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Others_Independent_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 101, 126, 0.2)', // Even Lighter Teal
-                    borderColor: '#00657e',
+                    backgroundColor: 'rgba(111, 66, 193, 0.5)', // Light Purple
+                    borderColor: '#5a32b2',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Total',
+                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Total_Blank_Sailings })),
+                    backgroundColor: 'rgba(220, 53, 69, 0.5)', // Light Red
+                    borderColor: '#c82333',
                     borderWidth: 1
                 }
             ];
+            console.log("Blank Sailing Raw Data:", blankSailingRawData);
+            console.log("Aggregated Blank Sailing Data:", aggregatedBlankSailingData);
+            console.log("Blank Sailing Chart Dates:", blankSailingChartDates);
 
-            blankSailingChart = setupChart(
-                'blankSailingChart', 'bar', blankSailingDatasets,
-                {
-                    labels: blankSailingChartDates, // Labels for bar chart
-                    scales: {
-                        x: { stacked: true, type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM \'yy' }, tooltipFormat: 'M/d/yyyy' } }, // Explicitly set time scale for x-axis
-                        y: { stacked: true, beginAtZero: true, title: { display: true, text: 'Number of Sailings' }, ticks: { count: 5 } } // Enforce 5 ticks on Y-axis
+            blankSailingChart = setupChart('blankSailingChart', 'bar', blankSailingDatasets, {
+                scales: {
+                    x: {
+                        stacked: true,
+                        type: 'time',
+                        time: {
+                            unit: 'month',
+                            displayFormats: { month: 'MMM \'yy' },
+                            tooltipFormat: 'M/d/yyyy'
+                        },
+                        ticks: {
+                            maxTicksLimit: 12 // Ensure 12 months are displayed
+                        }
                     },
-                    elements: { point: { radius: 0 } }
+                    y: {
+                        stacked: true,
+                        beginAtZero: true
+                    }
                 },
-                true
-            );
+                plugins: {
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                }
+            }, true); // This chart is aggregated
             renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, tableDataBySection.BLANK_SAILING.rows);
 
 
@@ -720,14 +746,10 @@ document.addEventListener('DOMContentLoaded', () => {
             FBXData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const FBXTableRows = tableDataBySection.FBX ? tableDataBySection.FBX.rows : [];
             const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, FBXTableRows);
-            console.log("FBX Raw Data:", FBXData); // Keep this for raw data check
-            console.log("FBX Datasets (before setup):", FBXDatasets);
-            if (FBXDatasets.length > 0 && FBXDatasets[0].data.length > 0) {
-                console.log("FBX Chart Data Sample (first 5 points of first dataset):", FBXDatasets[0].data.slice(0, 5));
-            } else {
-                console.warn("FBX Datasets are empty or have no data.");
-            }
             FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
+            console.log("FBX Raw Data:", FBXData);
+            console.log("FBX Datasets (before setup):", FBXDatasets);
+            console.log("FBX Chart Data Sample (first 5 points of first dataset):", FBXDatasets.length > 0 ? FBXDatasets[0].data.slice(0, 5) : []);
             renderTable('FBXTableContainer', tableDataBySection.FBX.headers, FBXTableRows);
 
 
@@ -737,14 +759,10 @@ document.addEventListener('DOMContentLoaded', () => {
             XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const XSITableRows = tableDataBySection.XSI ? tableDataBySection.XSI.rows : [];
             const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, XSITableRows);
-            console.log("XSI Raw Data:", XSIData); // Keep this for raw data check
-            console.log("XSI Datasets (before setup):", XSIDatasets);
-            if (XSIDatasets.length > 0 && XSIDatasets[0].data.length > 0) {
-                console.log("XSI Chart Data Sample (first 5 points of first dataset):", XSIDatasets[0].data.slice(0, 5));
-            } else {
-                console.warn("XSI Datasets are empty or have no data.");
-            }
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
+            console.log("XSI Raw Data:", XSIData);
+            console.log("XSI Datasets (before setup):", XSIDatasets);
+            console.log("XSI Chart Data Sample (first 5 points of first dataset):", XSIDatasets.length > 0 ? XSIDatasets[0].data.slice(0, 5) : []);
             renderTable('XSITableContainer', tableDataBySection.XSI.headers, XSITableRows);
 
 
@@ -754,34 +772,34 @@ document.addEventListener('DOMContentLoaded', () => {
             MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
             const MBCITableRows = tableDataBySection.MBCI ? tableDataBySection.MBCI.rows : [];
             const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, MBCITableRows);
-            console.log("MBCI Raw Data:", MBCIData); // Keep this for raw data check
-            console.log("MBCI Datasets (before setup):", MBCIDatasets);
-            if (MBCIDatasets.length > 0 && MBCIDatasets[0].data.length > 0) {
-                console.log("MBCI Chart Data Sample (first 5 points of first dataset):", MBCIDatasets[0].data.slice(0, 5));
-            } else {
-                console.warn("MBCI Datasets are empty or have no data.");
-            }
             MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
+            console.log("MBCI Raw Data:", MBCIData);
+            console.log("MBCI Datasets (before setup):", MBCIDatasets);
+            console.log("MBCI Chart Data Sample (first 5 points of first dataset):", MBCIDatasets.length > 0 ? MBCIDatasets[0].data.slice(0, 5) : []);
             renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, MBCITableRows);
 
 
-            // --- Setup and start auto-cycling for both sliders ---
-            setupSlider('.top-info-slide', 10000); // 10 seconds for top info slider
-            setupSlider('.chart-slide', 10000); // 10 seconds for chart slider
+            // --- Update Last Updated Time ---
+            const now = new Date();
+            const lastUpdatedElement = document.getElementById('last-updated');
+            if (lastUpdatedElement) {
+                lastUpdatedElement.textContent = `Last Updated: ${now.toLocaleString()}`;
+            }
 
         } catch (error) {
-            console.error("Error loading or processing JSON data:", error);
-            document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
+            console.error("Failed to load or process dashboard data:", error);
+            document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text text-red-500">Error loading chart data. Please check the console for details.</p>';
+            document.getElementById('last-updated').textContent = 'Last Updated: Failed to load data';
         }
     }
 
-    // Initial world clock update and 1-second interval update
+    // Initial calls to set up dashboard elements
     updateWorldClocks();
-    setInterval(updateWorldClocks, 1000);
+    setInterval(updateWorldClocks, 1000); // Update clocks every second
 
-    // Update last updated time
-    document.getElementById('last-updated').textContent = `Last Updated: ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
+    loadAndDisplayData(); // Load and display all data initially
+    // No setInterval for loadAndDisplayData as it's triggered by Python script update
 
-    // Start loading JSON data and displaying the dashboard
-    loadAndDisplayData();
-});
+    setupSlider('.top-info-slide', 10000); // Top info slider every 10 seconds
+    setupSlider('.chart-slide', 10000); // Chart slider every 10 seconds
+})
