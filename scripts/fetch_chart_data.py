@@ -28,20 +28,17 @@ print(f"DEBUG: GOOGLE_CREDENTIAL_JSON from environment (first 50 chars): {GOOGLE
 # --- End Debugging Prints ---
 
 # Name of the worksheet containing the data
-WORKSHEET_NAME = "Crawling_Data"
+WORKSHEET_NAME = "Crawling_Data" # Assuming the data is still in "Crawling_Data" sheet
 WEATHER_WORKSHEET_NAME = "LA날씨" # New: Weather sheet name
 EXCHANGE_RATE_WORKSHEET_NAME = "환율" # New: Exchange rate sheet name
 OUTPUT_JSON_PATH = "data/crawling_data.json"
 
-# --- Header Mapping Definitions ---
-# This dictionary now defines the exact column indices in the Google Sheet
-# and their corresponding final JSON key names for each section.
-# This makes the mapping explicit and less prone to inference errors.
-# The 'data_start_col_idx' is the 0-indexed column number where the data for this section starts.
-# The 'data_cols_map' maps raw header names (from the main header row) to final JSON keys.
+# --- Header Mapping Definitions for Chart Data (Historical Series) ---
+# These define the column ranges and their corresponding JSON keys for the historical chart data.
 SECTION_COLUMN_MAPPINGS = {
     "KCCI": {
         "data_start_col_idx": 1, # KCCI data starts from '종합지수' at index 1
+        "data_end_col_idx": 14, # Last KCCI data column is '동남아시아' at index 14
         "data_cols_map": {
             "종합지수": "Composite_Index",
             "미주서안": "US_West_Coast",
@@ -61,6 +58,7 @@ SECTION_COLUMN_MAPPINGS = {
     },
     "SCFI": {
         "data_start_col_idx": 17, # SCFI data starts from '종합지수' at index 17
+        "data_end_col_idx": 30, # Last SCFI data column is '남아공' at index 30
         "data_cols_map": {
             "종합지수": "Composite_Index_1",
             "미주서안": "US_West_Coast_1",
@@ -79,7 +77,8 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "WCI": {
-        "data_start_col_idx": 34, # WCI data starts from '종합지수' at index 34
+        "data_start_col_idx": 33, # WCI data starts from '종합지수' at index 33
+        "data_end_col_idx": 41, # Last WCI data column is '로테르담 → 뉴욕' at index 41
         "data_cols_map": {
             "종합지수": "Composite_Index_2",
             "상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
@@ -94,12 +93,14 @@ SECTION_COLUMN_MAPPINGS = {
     },
     "IACI": {
         "data_start_col_idx": 45, # IACI data starts from '종합지수' at index 45
+        "data_end_col_idx": 45, # Last IACI data column is '종합지수' at index 45
         "data_cols_map": {
             "종합지수": "Composite_Index_3"
         }
     },
     "BLANK_SAILING": {
         "data_start_col_idx": 48, # BLANK_SAILING data starts from 'Gemini Cooperation' at index 48
+        "data_end_col_idx": 53, # Last BLANK_SAILING data column is 'Total' at index 53
         "data_cols_map": {
             "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
             "MSC": "MSC_Alliance_Blank_Sailing",
@@ -110,7 +111,8 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "FBX": {
-        "data_start_col_idx": 57, # FBX data starts from '종합지수' at index 57 (Corrected from 56)
+        "data_start_col_idx": 56, # FBX data starts from '종합지수' at index 56 (Corrected from 57)
+        "data_end_col_idx": 65, # Last FBX data column is '지중해 → 중국/동아시아' at index 65
         "data_cols_map": {
             "종합지수": "Composite_Index_4",
             "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
@@ -125,6 +127,7 @@ SECTION_COLUMN_MAPPINGS = {
     },
     "XSI": {
         "data_start_col_idx": 70, # XSI data starts from '동아시아 → 북유럽' at index 70 (Corrected from 71)
+        "data_end_col_idx": 77, # Last XSI data column is '북유럽 → 남미동안' at index 77 (Corrected from 78)
         "data_cols_map": {
             "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
             "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
@@ -137,10 +140,65 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "MBCI": {
-        "data_start_col_idx": 81, # MBCI data starts from 'MBCI' at index 81
+        "data_start_col_idx": 81, # MBCI data starts from 'Index(종합지수), $/day(정기용선, Time ' at index 81 (Corrected from 82)
+        "data_end_col_idx": 81, # Last MBCI data column is 'Index(종합지수), $/day(정기용선, Time ' at index 81
         "data_cols_map": {
-            "MBCI": "MBCI_MBCI_Value",
+            "Index(종합지수), $/day(정기용선, Time ": "MBCI_MBCI_Value", # Corrected full header name
         }
+    }
+}
+
+# --- Specific Cell Mappings for Table Data (Current, Previous, Weekly Change) ---
+# These define the exact 0-indexed row and column for fetching table summary data.
+# The 'data_col_headers' will be used to find the corresponding column indices in raw_headers_full.
+TABLE_DATA_CELL_MAPPINGS = {
+    "KCCI": {
+        "current_index_row": 2, # A3 (0-indexed row 2)
+        "previous_index_row": 3, # A4 (0-indexed row 3)
+        "weekly_change_row": 4, # A5 (0-indexed row 4)
+        "data_col_headers": ["종합지수", "미주서안", "미주동안", "유럽", "지중해", "중동", "호주", "남미동안", "남미서안", "남아프리카", "서아프리카", "중국", "일본", "동남아시아"]
+    },
+    "SCFI": {
+        "current_index_row": 8, # A9
+        "previous_index_row": 9, # A10
+        "weekly_change_row": 10, # A11
+        "data_col_headers": ["종합지수", "미주서안", "미주동안", "북유럽", "지중해", "동남아시아", "중동", "호주/뉴질랜드", "남아메리카", "일본서안", "일본동안", "한국", "동부/서부 아프리카", "남아공"]
+    },
+    "WCI": {
+        "current_index_row": 20, # A21
+        "previous_index_row": 21, # A22
+        "weekly_change_row": 22, # A23
+        "data_col_headers": ["종합지수", "상하이 → 로테르담", "로테르담 → 상하이", "상하이 → 제노바", "상하이 → 로스엔젤레스", "로스엔젤레스 → 상하이", "상하이 → 뉴욕", "뉴욕 → 로테르담", "로테르담 → 뉴욕"]
+    },
+    "IACI": {
+        "current_index_row": 26, # A27
+        "previous_index_row": 27, # A28
+        "weekly_change_row": 28, # A29
+        "data_col_headers": ["종합지수"]
+    },
+    "BLANK_SAILING": {
+        "current_index_row": 32, # A33
+        "previous_index_row": 33, # A34 (Using A34 for previous data for the table)
+        "weekly_change_row": None, # No explicit weekly change row provided for Blank Sailing table, will calculate
+        "data_col_headers": ["Gemini Cooperation", "MSC", "OCEAN Alliance", "Premier Alliance", "Others/Independent", "Total"]
+    },
+    "FBX": {
+        "current_index_row": 40, # A41
+        "previous_index_row": 41, # A42
+        "weekly_change_row": 42, # A43
+        "data_col_headers": ["종합지수", "중국/동아시아 → 미주서안", "미주서안 → 중국/동아시아", "중국/동아시아 → 미주동안", "미주동안 → 중국/동아시아", "중국/동아시아 → 북유럽", "북유럽 → 중국/동아시아", "중국/동아시아 → 지중해", "지중해 → 중국/동아시아"]
+    },
+    "XSI": {
+        "current_index_row": 46, # A47
+        "previous_index_row": 47, # A48
+        "weekly_change_row": 48, # A49
+        "data_col_headers": ["동아시아 → 북유럽", "북유럽 → 동아시아", "동아시아 → 미주서안", "미주서안 → 동아시아", "동아시아 → 남미동안", "북유럽 → 미주동안", "미주동안 → 북유럽", "북유럽 → 남미동안"]
+    },
+    "MBCI": {
+        "current_index_row": 58, # A59
+        "previous_index_row": 59, # A60
+        "weekly_change_row": 60, # A61
+        "data_col_headers": ["Index(종합지수), $/day(정기용선, Time "] # Corrected full header name
     }
 }
 
@@ -215,35 +273,34 @@ def fetch_and_process_data():
         print(f"DEBUG: Universal Date DataFrame shape: {universal_date_df.shape}")
 
 
-        # Iterate through each section and extract its specific data
+        # Iterate through each section and extract its specific data for CHARTS
         for section_key, details in SECTION_COLUMN_MAPPINGS.items():
             data_cols_map = details["data_cols_map"]
             
             cols_to_extract_indices = []
             section_df_columns = []
 
-            # Find indices for data columns based on their raw header names, starting from data_start_col_idx
+            # Find indices for data columns based on their raw header names, within the defined chart data range
             for raw_header_name, final_json_key in data_cols_map.items():
                 found_idx = -1
-                # Search for the header starting from the section's defined start column
-                for idx in range(details["data_start_col_idx"], len(raw_headers_full)):
-                    if raw_headers_full[idx] == raw_header_name:
-                        found_idx = idx
-                        break
+                # Search for the header within the defined section's chart data range
+                for idx_in_full_headers in range(details["data_start_col_idx"], details["data_end_col_idx"] + 1):
+                    if idx_in_full_headers < len(raw_headers_full) and str(raw_headers_full[idx_in_full_headers]).strip() == str(raw_header_name).strip():
+                        found_idx = idx_in_full_headers
+                        break # Found it, break and move to next header
                 
                 if found_idx != -1:
                     cols_to_extract_indices.append(found_idx)
                     section_df_columns.append(final_json_key)
                 else:
-                    print(f"WARNING: Raw header '{raw_header_name}' not found in its expected section range for '{section_key}'. Skipping this column.")
+                    print(f"WARNING: Chart header '{raw_header_name}' not found in its expected section range for '{section_key}'. Skipping this column for chart data.")
 
-            print(f"DEBUG: For section {section_key}: cols_to_extract_indices = {cols_to_extract_indices}, section_df_columns = {section_df_columns}")
+            print(f"DEBUG: For section {section_key} (Chart Data): cols_to_extract_indices = {cols_to_extract_indices}, section_df_columns = {section_df_columns}")
 
 
             if not cols_to_extract_indices:
-                print(f"WARNING: No valid data columns found for section {section_key}. Skipping chart and table data for this section.")
+                print(f"WARNING: No valid data columns found for section {section_key} chart. Skipping chart data for this section.")
                 processed_chart_data_by_section[section_key] = []
-                processed_table_data_by_section[section_key] = {"headers": [], "rows": []}
                 continue
 
             section_raw_rows = []
@@ -258,23 +315,21 @@ def fetch_and_process_data():
                 section_raw_rows.append(extracted_row)
             
             if not section_raw_rows:
-                print(f"WARNING: No data rows found for section {section_key}. Skipping chart and table data for this section.")
+                print(f"WARNING: No data rows found for section {section_key} chart. Skipping chart data for this section.")
                 processed_chart_data_by_section[section_key] = []
-                processed_table_data_by_section[section_key] = {"headers": [], "rows": []}
                 continue
 
             # Create a DataFrame for this section's data columns
             if len(section_raw_rows[0]) != len(section_df_columns):
-                 print(f"ERROR: Mismatch in column count for section {section_key}. Expected {len(section_df_columns)} but got {len(section_raw_rows[0])} in first row.")
-                 print(f"DEBUG: section_df_columns: {section_df_columns}")
-                 print(f"DEBUG: section_raw_rows[0]: {section_raw_rows[0]}")
+                 print(f"ERROR: Mismatch in column count for section {section_key} chart. Expected {len(section_df_columns)} but got {len(section_raw_rows[0])} in first row.")
+                 print(f"DEBUG: section_df_columns (chart): {section_df_columns}")
+                 print(f"DEBUG: section_raw_rows[0] (chart): {section_raw_rows[0]}")
                  processed_chart_data_by_section[section_key] = []
-                 processed_table_data_by_section[section_key] = {"headers": [], "rows": []}
                  continue
 
             df_section_data = pd.DataFrame(section_raw_rows, columns=section_df_columns)
-            print(f"DEBUG: Initial DataFrame for {section_key} shape: {df_section_data.shape}")
-            print(f"DEBUG: Initial DataFrame for {section_key} head:\n{df_section_data.head()}")
+            print(f"DEBUG: Initial DataFrame for {section_key} chart shape: {df_section_data.shape}")
+            print(f"DEBUG: Initial DataFrame for {section_key} chart head:\n{df_section_data.head()}")
 
             # Convert numeric columns for this section
             for col in section_df_columns:
@@ -312,32 +367,89 @@ def fetch_and_process_data():
             processed_chart_data_by_section[section_key] = chart_data_records
             print(f"DEBUG: Processed chart data for {section_key} (first 3 entries): {processed_chart_data_by_section[section_key][:3]}")
 
-            # Prepare table data for this section
-            # Table headers should come from the original mapping keys (Korean names)
-            table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"] # Changed "날짜" to "항로" for consistency
+            # --- Prepare table data for this section using direct cell references ---
+            table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
             table_rows_data = []
 
-            if not df_section.empty:
-                latest_row_data_only = df_section.iloc[-1].to_dict()
-                second_latest_row_data_only = df_section.iloc[-2].to_dict() if len(df_section) > 1 else {}
+            table_details = TABLE_DATA_CELL_MAPPINGS.get(section_key)
+            if table_details:
+                current_row_idx = table_details["current_index_row"]
+                previous_row_idx = table_details["previous_index_row"]
+                weekly_change_row_idx = table_details["weekly_change_row"]
+                data_col_headers_for_table = table_details["data_col_headers"]
 
-                for raw_header_name, final_json_key in data_cols_map.items():
-                    current_index_val = latest_row_data_only.get(final_json_key)
-                    previous_index_val = second_latest_row_data_only.get(final_json_key)
-                    
-                    # Explicitly convert numpy numeric types to native Python types for table data
-                    if isinstance(current_index_val, (np.integer, np.floating)):
-                        current_index_val = current_index_val.item()
-                    elif pd.isna(current_index_val):
-                        current_index_val = None
+                # Find the actual column indices for table data based on their headers in raw_headers_full
+                table_cols_indices = []
+                for header in data_col_headers_for_table:
+                    try:
+                        # Find the index of the header in the full raw headers list
+                        col_idx = raw_headers_full.index(str(header).strip())
+                        table_cols_indices.append(col_idx)
+                    except ValueError:
+                        print(f"WARNING: Table header '{header}' not found in raw_headers_full for '{section_key}'. Skipping this column for table data.")
+                        table_cols_indices.append(None) # Add None to maintain alignment if a header is missing
 
-                    if isinstance(previous_index_val, (np.integer, np.floating)):
-                        previous_index_val = previous_index_val.item()
-                    elif pd.isna(previous_index_val):
-                        previous_index_val = None
+                for i, route_name in enumerate(data_col_headers_for_table):
+                    col_idx_for_data = table_cols_indices[i]
+                    if col_idx_for_data is None: # Skip if header was not found
+                        continue
 
+                    current_index_val = None
+                    previous_index_val = None
                     weekly_change = None
-                    if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
+
+                    # Fetch current index
+                    if current_row_idx < len(all_data) and col_idx_for_data < len(all_data[current_row_idx]):
+                        val = str(all_data[current_row_idx][col_idx_for_data]).strip().replace(',', '')
+                        current_index_val = float(val) if val and val.replace('.', '', 1).isdigit() else None
+
+                    # Fetch previous index
+                    if previous_row_idx is not None and previous_row_idx < len(all_data) and col_idx_for_data < len(all_data[previous_row_idx]):
+                        val = str(all_data[previous_row_idx][col_idx_for_data]).strip().replace(',', '')
+                        previous_index_val = float(val) if val and val.replace('.', '', 1).isdigit() else None
+                    
+                    # Fetch weekly change or calculate it
+                    if weekly_change_row_idx is not None and weekly_change_row_idx < len(all_data) and col_idx_for_data < len(all_data[weekly_change_row_idx]):
+                        val = str(all_data[weekly_change_row_idx][col_idx_for_data]).strip().replace(',', '')
+                        # Weekly change might be a direct value or a string like "X (Y%)"
+                        match = re.match(r'([+\-]?\d+(\.\d+)?)\s*\(([-+]?\d+(\.\d+)?%)\)', val)
+                        if match:
+                            change_value = float(match.group(1))
+                            change_percentage_str = match.group(3)
+                            color_class = "text-gray-700"
+                            if change_value > 0:
+                                color_class = "text-red-500"
+                            elif change_value < 0:
+                                color_class = "text-blue-500"
+                            weekly_change = {
+                                "value": f"{change_value:.2f}",
+                                "percentage": change_percentage_str,
+                                "color_class": color_class
+                            }
+                        elif val and (val.replace('.', '', 1).replace('-', '', 1).isdigit() or (val.endswith('%') and val[:-1].replace('.', '', 1).replace('-', '', 1).isdigit())):
+                            # If it's just a number or a percentage, assume it's the value and calculate percentage if possible
+                            try:
+                                change_val_only = float(val.replace('%', ''))
+                                color_class = "text-gray-700"
+                                if change_val_only > 0:
+                                    color_class = "text-red-500"
+                                elif change_val_only < 0:
+                                    color_class = "text-blue-500"
+                                weekly_change = {
+                                    "value": f"{change_val_only:.2f}",
+                                    "percentage": f"{change_val_only:.2f}%" if '%' not in val else val, # Preserve % if already there
+                                    "color_class": color_class
+                                }
+                                # If we have current and previous, try to get percentage more accurately
+                                if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
+                                    calculated_change_percentage = ((current_index_val - previous_index_val) / previous_index_val) * 100
+                                    weekly_change["percentage"] = f"{calculated_change_percentage:.2f}%"
+                            except ValueError:
+                                weekly_change = None # Cannot parse
+                        else:
+                            weekly_change = None # Not a recognized format
+                    elif weekly_change_row_idx is None and current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
+                        # Calculate weekly change if no explicit row is provided (e.g., Blank Sailing)
                         change_value = current_index_val - previous_index_val
                         change_percentage = (change_value / previous_index_val) * 100
                         color_class = "text-gray-700"
@@ -345,15 +457,14 @@ def fetch_and_process_data():
                             color_class = "text-red-500"
                         elif change_value < 0:
                             color_class = "text-blue-500"
-                        
                         weekly_change = {
                             "value": f"{change_value:.2f}",
                             "percentage": f"{change_percentage:.2f}%",
                             "color_class": color_class
                         }
-                    
+
                     table_rows_data.append({
-                        "route": raw_header_name, # Use the original raw header name (Korean) for the table route
+                        "route": route_name, # Use the original raw header name (Korean) for the table route
                         "current_index": current_index_val,
                         "previous_index": previous_index_val,
                         "weekly_change": weekly_change
