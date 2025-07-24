@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             displayFormats: {
                                 // Updated to 'MMM 'yy' for month unit as per requirements
                                 month: 'MMM \'yy',
-                                // Updated to 'M/dd' for day unit to fix RangeError and ensure two-digit day
+                                // Changed 'MM-dd' to 'MM/dd' to potentially resolve RangeError
                                 day: 'M/dd' 
                             },
                             // Tooltip format updated to 'M/d/yyyy' as per requirements
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     content = rowData.current_index || '-';
                 } else if (header.includes('Previous Index')) {
                     content = rowData.previous_index || '-';
-                } else if (header.includes('항로')) { // Route column
+                } else if (header.includes('항로') || header.includes('route')) { // Route column
                     content = rowData.route || '-';
                 } else {
                     // Fallback for any other unexpected headers
@@ -462,9 +462,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Only create a dataset if a corresponding data key exists and current_index is not empty
             // This handles cases like MBCI's second row which has no chart data
             if (dataKey && row.current_index !== "") { 
+                const mappedData = chartData.map(item => {
+                    const xVal = item.date; // This should be a string like 'YYYY-MM-DD'
+                    const yVal = item[dataKey];
+                    return { x: xVal, y: yVal };
+                });
+
                 datasets.push({
                     label: routeName, // Use the route name directly from the table for the legend
-                    data: chartData.map(item => ({ x: item.date, y: item[dataKey] })),
+                    data: mappedData,
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
                     borderWidth: (routeName.includes('Composite Index') || routeName.includes('종합지수') || routeName.includes('Global Container Freight Index') || routeName.includes('US$/40ft') || routeName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
@@ -506,10 +512,16 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('status-current').textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
             // Simple icon mapping (you might want a more robust one)
             const weatherIconUrl = (status) => {
-                if (status && status.toLowerCase().includes('clear')) return 'https://placehold.co/80x80/00657e/ffffff?text=SUN'; // Example for clear sky
-                if (status && status.toLowerCase().includes('cloud')) return 'https://placehold.co/80x80/003A52/ffffff/ffffff?text=CLOUD'; // Example for clouds
-                if (status && status.toLowerCase().includes('rain')) return 'https://placehold.co/80x80/28A745/ffffff?text=RAIN'; // Example for rain
-                return 'https://placehold.co/80x80/cccccc/ffffff?text=Icon'; // Default placeholder
+                const base = 'https://placehold.co/80x80/';
+                const defaultColor = 'cccccc';
+                const textColor = 'ffffff';
+                if (status) {
+                    const lowerStatus = status.toLowerCase();
+                    if (lowerStatus.includes('clear')) return `${base}00657e/${textColor}?text=SUN`;
+                    if (lowerStatus.includes('cloud')) return `${base}003A52/${textColor}?text=CLOUD`;
+                    if (lowerStatus.includes('rain')) return `${base}28A745/${textColor}?text=RAIN`;
+                }
+                return `${base}${defaultColor}/${textColor}?text=Icon`; // Default placeholder
             };
             document.getElementById('weather-icon-current').src = weatherIconUrl(currentWeatherData.LA_WeatherStatus);
 
@@ -544,6 +556,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-exchange-rate-value').textContent = currentExchangeRate ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...';
 
             if (exchangeRateChart) exchangeRateChart.destroy();
+            
+            // Debugging: Log the datasets for Exchange Rate Chart
+            console.log("Exchange Rate Chart Datasets (before setup):", [{
+                label: 'USD/KRW Exchange Rate',
+                data: filteredExchangeRates.map(item => ({ x: item.date, y: item.rate }))
+            }]);
+
             exchangeRateChart = setupChart(
                 'exchangeRateChartCanvas', 'line',
                 [{
@@ -561,7 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             type: 'time', // Changed to time scale
                             time: { 
                                 unit: 'day', 
-                                displayFormats: { day: 'MM-dd' }, // Fixed DD to dd
+                                displayFormats: { day: 'MM/dd' }, // Changed MM-dd to MM/dd
                                 tooltipFormat: 'M/d/yyyy' // Consistent tooltip format
                             },
                             ticks: { autoSkipPadding: 10 } // Removed maxTicksLimit
@@ -679,7 +698,10 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const FBXData = chartDataBySection.FBX || [];
             FBXData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            // Debugging: Log the datasets for FBX Chart
+            console.log("FBX Raw Data:", FBXData);
             const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, tableDataBySection.FBX.rows);
+            console.log("FBX Datasets (before setup):", FBXDatasets);
             FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
             renderTable('FBXTableContainer', tableDataBySection.FBX.headers, tableDataBySection.FBX.rows);
 
@@ -688,7 +710,10 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const XSIData = chartDataBySection.XSI || [];
             XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            // Debugging: Log the datasets for XSI Chart
+            console.log("XSI Raw Data:", XSIData);
             const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, tableDataBySection.XSI.rows);
+            console.log("XSI Datasets (before setup):", XSIDatasets);
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
             renderTable('XSITableContainer', tableDataBySection.XSI.headers, tableDataBySection.XSI.rows);
 
@@ -697,7 +722,10 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const MBCIData = chartDataBySection.MBCI || [];
             MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
+            // Debugging: Log the datasets for MBCI Chart
+            console.log("MBCI Raw Data:", MBCIData);
             const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, tableDataBySection.MBCI.rows);
+            console.log("MBCI Datasets (before setup):", MBCIDatasets);
             MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
             renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, tableDataBySection.MBCI.rows);
 
