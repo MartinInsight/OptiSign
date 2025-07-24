@@ -3,12 +3,12 @@
         "KCCI": [
             {
                 "date": "2024-07-29",
-                "Composite_Index": 2458.0,
-                "US_West_Coast": 2142.0,
-                "US_East_Coast": 3612.0,
+                "Composite_Index": 2285.0,
+                "US_West_Coast": 2296.0,
+                "US_East_Coast": 3973.0,
                 "Europe": 3410.0,
-                "Mediterranean": 2528.0,
-                "Middle_East": 1321.0,
+                "Mediterranean": 3802.0,
+                "Middle_East": 2624.0,
                 "Australia": 1872.0,
                 "South_America_East_Coast": 6212.0,
                 "South_America_West_Coast": 2661.0,
@@ -16,16 +16,16 @@
                 "West_Africa": 4721.0,
                 "China": 50.0,
                 "Japan": 224.0,
-                "Southeast_Asia": 442.0
+                "Southeast_Asia": 1042.0
             },
             {
                 "date": "2024-08-05",
-                "Composite_Index": 2542.0,
-                "US_West_Coast": 2194.0,
-                "US_East_Coast": 4172.0,
+                "Composite_Index": 2394.0,
+                "US_West_Coast": 2500.0,
+                "US_East_Coast": 4679.0,
                 "Europe": 3285.0,
-                "Mediterranean": 2667.0,
-                "Middle_East": 1607.0,
+                "Mediterranean": 3925.0,
+                "Middle_East": 2662.0,
                 "Australia": 1787.0,
                 "South_America_East_Coast": 6325.0,
                 "South_America_West_Coast": 2880.0,
@@ -33,16 +33,16 @@
                 "West_Africa": 4691.0,
                 "China": 50.0,
                 "Japan": 224.0,
-                "Southeast_Asia": 451.0
+                "Southeast_Asia": 1053.0
             },
             {
                 "date": "2024-08-12",
-                "Composite_Index": 2756.0,
-                "US_West_Coast": 2089.0,
-                "US_East_Coast": 4124.0,
+                "Composite_Index": 2449.0,
+                "US_West_Coast": 2708.0,
+                "US_East_Coast": 4836.0,
                 "Europe": 3265.0,
-                "Mediterranean": 2869.0,
-                "Middle_East": 1916.0,
+                "Mediterranean": 4015.0,
+                "Middle_East": 2690.0,
                 "Australia": 1733.0,
                 "South_America_East_Coast": 6263.0,
                 "South_America_West_Coast": 3084.0,
@@ -50,16 +50,16 @@
                 "West_Africa": 4608.0,
                 "China": 50.0,
                 "Japan": 225.0,
-                "Southeast_Asia": 453.0
+                "Southeast_Asia": 1065.0
             },
             {
                 "date": "2024-08-19",
-                "Composite_Index": 2894.0,
-                "US_West_Coast": 2578.0,
-                "US_East_Coast": 4717.0,
+                "Composite_Index": 2590.0,
+                "US_West_Coast": 3371.0,
+                "US_East_Coast": 5461.0,
                 "Europe": 3075.0,
-                "Mediterranean": 2985.0,
-                "Middle_East": 2060.0,
+                "Mediterranean": 4374.0,
+                "Middle_East": 2641.0,
                 "Australia": 1685.0,
                 "South_America_East_Coast": 5636.0,
                 "South_America_West_Coast": 3564.0,
@@ -67,16 +67,16 @@
                 "West_Africa": 4411.0,
                 "China": 48.0,
                 "Japan": 240.0,
-                "Southeast_Asia": 456.0
+                "Southeast_Asia": 1110.0
             },
             {
                 "date": "2024-08-26",
-                "Composite_Index": 3603.0,
-                "US_West_Coast": 2772.0,
-                "US_East_Coast": 5352.0,
+                "Composite_Index": 2711.0,
+                "US_West_Coast": 3963.0,
+                "US_East_Coast": 6195.0,
                 "Europe": 2932.0,
-                "Mediterranean": 3063.0,
-                "Middle_East": 2122.0,
+                "Mediterranean": 4490.0,
+                "Middle_East": 2636.0,
                 "Australia": 1676.0,
                 "South_America_East_Coast": 4841.0,
                 "South_America_West_Coast": 3978.0,
@@ -84,16 +84,16 @@
                 "West_Africa": 4280.0,
                 "China": 48.0,
                 "Japan": 243.0,
-                "Southeast_Asia": 460.0
+                "Southeast_Asia": 1119.0
             },
             {
                 "date": "2024-09-02",
-                "Composite_Index": 3704.0,
-                "US_West_Coast": 4120.0,
-                "US_East_Coast": 6745.0,
+                "Composite_Index": 2827.0,
+                "US_West_Coast": 4921.0,
+                "US_East_Coast": 6382.0,
                 "Europe": 2677.0,
-                "Mediterranean": 3190.0,
-                "Middle_East": 2083.0,
+                "Mediterranean": 4533.0,
+                "Middle_East": 2536.0,
                 "Australia": 1661.0,
                 "South_America_East_Coast": 4105.0,
                 "South_America_West_Coast": 4425.0,
@@ -101,16 +101,16 @@
                 "West_Africa": 3982.0,
                 "China": 46.0,
                 "Japan": 244.0,
-                "Southeast_Asia": 455.0
+                "Southeast_Asia": 1132.0
             },
             {
                 "date": "2024-09-09",
-                "Composite_Index": 3398.0,
-                "US_West_Coast": 5606.0,
-                "US_East_Coast": 6939.0,
+                "Composite_Index": 2807.0,
+                "US_West_Coast": 5418.0,
+                "US_East_Coast": 6373.0,
                 "Europe": 2540.0,
-                "Mediterranean": 3302.0,
-                "Middle_East": 1929.0,
+                "Mediterranean": 4361.0,
+                "Middle_East": 2510.0,
                 "Australia": 1648.0,
                 "South_America_East_Coast": 3294.0,
                 "South_America_West_Coast": 4008.0,
@@ -118,16 +118,16 @@
                 "West_Africa": 3751.0,
                 "China": 46.0,
                 "Japan": 245.0,
-                "Southeast_Asia": 446.0
+                "Southeast_Asia": 1139.0
             },
             {
                 "date": "2024-09-23",
-                "Composite_Index": 2231.0,
-                "US_West_Coast": 5172.0,
-                "US_East_Coast": 6243.0,
+                "Composite_Index": 2186.0,
+                "US_West_Coast": 3785.0,
+                "US_East_Coast": 4860.0,
                 "Europe": 2083.0,
-                "Mediterranean": 3061.0,
-                "Middle_East": 1692.0,
+                "Mediterranean": 3319.0,
+                "Middle_East": 2276.0,
                 "Australia": 1699.0,
                 "South_America_East_Coast": 2455.0,
                 "South_America_West_Coast": 2743.0,
@@ -135,16 +135,16 @@
                 "West_Africa": 3304.0,
                 "China": 46.0,
                 "Japan": 246.0,
-                "Southeast_Asia": 441.0
+                "Southeast_Asia": 1143.0
             },
             {
                 "date": "2024-09-30",
-                "Composite_Index": 2237.0,
-                "US_West_Coast": 3275.0,
-                "US_East_Coast": 4284.0,
+                "Composite_Index": 1906.0,
+                "US_West_Coast": 3076.0,
+                "US_East_Coast": 4142.0,
                 "Europe": 2012.0,
-                "Mediterranean": 2328.0,
-                "Middle_East": 1387.0,
+                "Mediterranean": 2950.0,
+                "Middle_East": 2208.0,
                 "Australia": 1739.0,
                 "South_America_East_Coast": 2009.0,
                 "South_America_West_Coast": 1960.0,
@@ -152,16 +152,16 @@
                 "West_Africa": 3096.0,
                 "China": 46.0,
                 "Japan": 250.0,
-                "Southeast_Asia": 440.0
+                "Southeast_Asia": 1149.0
             },
             {
                 "date": "2024-10-07",
-                "Composite_Index": 2090.0,
-                "US_West_Coast": 3091.0,
-                "US_East_Coast": 4069.0,
+                "Composite_Index": 1849.0,
+                "US_West_Coast": 2898.0,
+                "US_East_Coast": 3947.0,
                 "Europe": 2023.0,
-                "Mediterranean": 2082.0,
-                "Middle_East": 1191.0,
+                "Mediterranean": 2946.0,
+                "Middle_East": 2199.0,
                 "Australia": 1684.0,
                 "South_America_East_Coast": 1874.0,
                 "South_America_West_Coast": 1816.0,
@@ -169,16 +169,16 @@
                 "West_Africa": 3107.0,
                 "China": 47.0,
                 "Japan": 250.0,
-                "Southeast_Asia": 434.0
+                "Southeast_Asia": 1145.0
             },
             {
                 "date": "2024-10-14",
-                "Composite_Index": 2047.0,
-                "US_West_Coast": 2347.0,
-                "US_East_Coast": 3335.0,
+                "Composite_Index": 1752.0,
+                "US_West_Coast": 2514.0,
+                "US_East_Coast": 3495.0,
                 "Europe": 2068.0,
-                "Mediterranean": 2089.0,
-                "Middle_East": 1145.0,
+                "Mediterranean": 2976.0,
+                "Middle_East": 2211.0,
                 "Australia": 1712.0,
                 "South_America_East_Coast": 1821.0,
                 "South_America_West_Coast": 1757.0,
@@ -186,16 +186,16 @@
                 "West_Africa": 3161.0,
                 "China": 47.0,
                 "Japan": 252.0,
-                "Southeast_Asia": 430.0
+                "Southeast_Asia": 1143.0
             },
             {
                 "date": "2024-10-21",
-                "Composite_Index": 2014.0,
-                "US_West_Coast": 2272.0,
-                "US_East_Coast": 3283.0,
+                "Composite_Index": 1758.0,
+                "US_West_Coast": 2405.0,
+                "US_East_Coast": 3437.0,
                 "Europe": 2215.0,
-                "Mediterranean": 2089.0,
-                "Middle_East": 1122.0,
+                "Mediterranean": 3019.0,
+                "Middle_East": 2206.0,
                 "Australia": 1747.0,
                 "South_America_East_Coast": 1895.0,
                 "South_America_West_Coast": 1837.0,
@@ -203,16 +203,16 @@
                 "West_Africa": 3134.0,
                 "China": 47.0,
                 "Japan": 250.0,
-                "Southeast_Asia": 438.0
+                "Southeast_Asia": 1148.0
             },
             {
                 "date": "2024-10-28",
-                "Composite_Index": 2042.0,
-                "US_West_Coast": 2141.0,
-                "US_East_Coast": 3257.0,
+                "Composite_Index": 1767.0,
+                "US_West_Coast": 2416.0,
+                "US_East_Coast": 3453.0,
                 "Europe": 2235.0,
-                "Mediterranean": 2129.0,
-                "Middle_East": 1161.0,
+                "Mediterranean": 2985.0,
+                "Middle_East": 2222.0,
                 "Australia": 1758.0,
                 "South_America_East_Coast": 1938.0,
                 "South_America_West_Coast": 1860.0,
@@ -220,16 +220,16 @@
                 "West_Africa": 3168.0,
                 "China": 46.0,
                 "Japan": 254.0,
-                "Southeast_Asia": 454.0
+                "Southeast_Asia": 1149.0
             },
             {
                 "date": "2024-11-04",
-                "Composite_Index": 2036.0,
-                "US_West_Coast": 2103.0,
-                "US_East_Coast": 3251.0,
+                "Composite_Index": 1800.0,
+                "US_West_Coast": 2566.0,
+                "US_East_Coast": 3606.0,
                 "Europe": 2162.0,
-                "Mediterranean": 2161.0,
-                "Middle_East": 1266.0,
+                "Mediterranean": 2881.0,
+                "Middle_East": 2226.0,
                 "Australia": 1777.0,
                 "South_America_East_Coast": 1946.0,
                 "South_America_West_Coast": 1891.0,
@@ -237,16 +237,16 @@
                 "West_Africa": 3175.0,
                 "China": 48.0,
                 "Japan": 257.0,
-                "Southeast_Asia": 450.0
+                "Southeast_Asia": 1157.0
             },
             {
                 "date": "2024-11-11",
-                "Composite_Index": 2075.0,
-                "US_West_Coast": 2202.0,
-                "US_East_Coast": 3226.0,
+                "Composite_Index": 1829.0,
+                "US_West_Coast": 2529.0,
+                "US_East_Coast": 3575.0,
                 "Europe": 2288.0,
-                "Mediterranean": 2144.0,
-                "Middle_East": 1309.0,
+                "Mediterranean": 3031.0,
+                "Middle_East": 2219.0,
                 "Australia": 1772.0,
                 "South_America_East_Coast": 2226.0,
                 "South_America_West_Coast": 1873.0,
@@ -254,16 +254,16 @@
                 "West_Africa": 3261.0,
                 "China": 49.0,
                 "Japan": 259.0,
-                "Southeast_Asia": 448.0
+                "Southeast_Asia": 1162.0
             },
             {
                 "date": "2024-11-18",
-                "Composite_Index": 2032.0,
-                "US_West_Coast": 2313.0,
-                "US_East_Coast": 3306.0,
+                "Composite_Index": 1773.0,
+                "US_West_Coast": 2291.0,
+                "US_East_Coast": 3236.0,
                 "Europe": 2245.0,
-                "Mediterranean": 2028.0,
-                "Middle_East": 1290.0,
+                "Mediterranean": 3116.0,
+                "Middle_East": 2225.0,
                 "Australia": 1795.0,
                 "South_America_East_Coast": 2431.0,
                 "South_America_West_Coast": 1878.0,
@@ -271,16 +271,16 @@
                 "West_Africa": 3241.0,
                 "China": 49.0,
                 "Japan": 244.0,
-                "Southeast_Asia": 445.0
+                "Southeast_Asia": 1165.0
             },
             {
                 "date": "2024-11-25",
-                "Composite_Index": 2050.0,
-                "US_West_Coast": 2177.0,
-                "US_East_Coast": 3194.0,
+                "Composite_Index": 1825.0,
+                "US_West_Coast": 2317.0,
+                "US_East_Coast": 3256.0,
                 "Europe": 2419.0,
-                "Mediterranean": 2076.0,
-                "Middle_East": 1188.0,
+                "Mediterranean": 3294.0,
+                "Middle_East": 2241.0,
                 "Australia": 1915.0,
                 "South_America_East_Coast": 2649.0,
                 "South_America_West_Coast": 1877.0,
@@ -288,16 +288,16 @@
                 "West_Africa": 3326.0,
                 "China": 49.0,
                 "Japan": 244.0,
-                "Southeast_Asia": 433.0
+                "Southeast_Asia": 1166.0
             },
             {
                 "date": "2024-12-02",
-                "Composite_Index": 2094.0,
-                "US_West_Coast": 1872.0,
-                "US_East_Coast": 2866.0,
+                "Composite_Index": 1950.0,
+                "US_West_Coast": 2495.0,
+                "US_East_Coast": 3378.0,
                 "Europe": 2552.0,
-                "Mediterranean": 2195.0,
-                "Middle_East": 1059.0,
+                "Mediterranean": 3679.0,
+                "Middle_East": 2271.0,
                 "Australia": 2171.0,
                 "South_America_East_Coast": 2952.0,
                 "South_America_West_Coast": 2160.0,
@@ -305,16 +305,16 @@
                 "West_Africa": 3491.0,
                 "China": 49.0,
                 "Japan": 248.0,
-                "Southeast_Asia": 446.0
+                "Southeast_Asia": 1176.0
             },
             {
                 "date": "2024-12-09",
-                "Composite_Index": 2221.0,
-                "US_West_Coast": 1965.0,
-                "US_East_Coast": 2977.0,
+                "Composite_Index": 2140.0,
+                "US_West_Coast": 2833.0,
+                "US_East_Coast": 3736.0,
                 "Europe": 2943.0,
-                "Mediterranean": 2295.0,
-                "Middle_East": 976.0,
+                "Mediterranean": 3911.0,
+                "Middle_East": 2328.0,
                 "Australia": 2317.0,
                 "South_America_East_Coast": 3398.0,
                 "South_America_West_Coast": 2416.0,
@@ -322,16 +322,16 @@
                 "West_Africa": 3660.0,
                 "China": 49.0,
                 "Japan": 248.0,
-                "Southeast_Asia": 446.0
+                "Southeast_Asia": 1169.0
             },
             {
                 "date": "2024-12-16",
-                "Composite_Index": 2422.0,
-                "US_West_Coast": 2291.0,
-                "US_East_Coast": 3329.0,
+                "Composite_Index": 2323.0,
+                "US_West_Coast": 3305.0,
+                "US_East_Coast": 4390.0,
                 "Europe": 2904.0,
-                "Mediterranean": 2517.0,
-                "Middle_East": 975.0,
+                "Mediterranean": 3931.0,
+                "Middle_East": 2261.0,
                 "Australia": 2584.0,
                 "South_America_East_Coast": 3732.0,
                 "South_America_West_Coast": 2658.0,
@@ -339,16 +339,16 @@
                 "West_Africa": 3841.0,
                 "China": 49.0,
                 "Japan": 249.0,
-                "Southeast_Asia": 439.0
+                "Southeast_Asia": 1157.0
             },
             {
                 "date": "2024-12-23",
-                "Composite_Index": 2718.0,
-                "US_West_Coast": 2482.0,
-                "US_East_Coast": 3508.0,
+                "Composite_Index": 2530.0,
+                "US_West_Coast": 3893.0,
+                "US_East_Coast": 5020.0,
                 "Europe": 3098.0,
-                "Mediterranean": 2594.0,
-                "Middle_East": 1015.0,
+                "Mediterranean": 4123.0,
+                "Middle_East": 2262.0,
                 "Australia": 2829.0,
                 "South_America_East_Coast": 3883.0,
                 "South_America_West_Coast": 2769.0,
@@ -356,16 +356,16 @@
                 "West_Africa": 3879.0,
                 "China": 49.0,
                 "Japan": 254.0,
-                "Southeast_Asia": 441.0
+                "Southeast_Asia": 1168.0
             },
             {
                 "date": "2024-12-30",
-                "Composite_Index": 3051.0,
-                "US_West_Coast": 2907.0,
-                "US_East_Coast": 3954.0,
+                "Composite_Index": 2693.0,
+                "US_West_Coast": 4299.0,
+                "US_East_Coast": 5460.0,
                 "Europe": 3320.0,
-                "Mediterranean": 2624.0,
-                "Middle_East": 1102.0,
+                "Mediterranean": 4343.0,
+                "Middle_East": 2288.0,
                 "Australia": 3186.0,
                 "South_America_East_Coast": 4122.0,
                 "South_America_West_Coast": 2480.0,
@@ -373,16 +373,16 @@
                 "West_Africa": 3938.0,
                 "China": 49.0,
                 "Japan": 256.0,
-                "Southeast_Asia": 440.0
+                "Southeast_Asia": 1179.0
             },
             {
                 "date": "2025-01-06",
-                "Composite_Index": 3312.0,
-                "US_West_Coast": 3544.0,
-                "US_East_Coast": 4825.0,
+                "Composite_Index": 2801.0,
+                "US_West_Coast": 4555.0,
+                "US_East_Coast": 5870.0,
                 "Europe": 3489.0,
-                "Mediterranean": 2815.0,
-                "Middle_East": 1144.0,
+                "Mediterranean": 4505.0,
+                "Middle_East": 2303.0,
                 "Australia": 3415.0,
                 "South_America_East_Coast": 4184.0,
                 "South_America_West_Coast": 2184.0,
@@ -390,16 +390,16 @@
                 "West_Africa": 3940.0,
                 "China": 49.0,
                 "Japan": 226.0,
-                "Southeast_Asia": 457.0
+                "Southeast_Asia": 1186.0
             },
             {
                 "date": "2025-01-13",
-                "Composite_Index": 3436.0,
-                "US_West_Coast": 3932.0,
-                "US_East_Coast": 5490.0,
+                "Composite_Index": 2951.0,
+                "US_West_Coast": 4603.0,
+                "US_East_Coast": 6029.0,
                 "Europe": 3930.0,
-                "Mediterranean": 3036.0,
-                "Middle_East": 1191.0,
+                "Mediterranean": 4853.0,
+                "Middle_East": 2382.0,
                 "Australia": 3790.0,
                 "South_America_East_Coast": 4620.0,
                 "South_America_West_Coast": 2291.0,
@@ -407,16 +407,16 @@
                 "West_Africa": 4082.0,
                 "China": 49.0,
                 "Japan": 224.0,
-                "Southeast_Asia": 454.0
+                "Southeast_Asia": 1228.0
             },
             {
                 "date": "2025-01-20",
-                "Composite_Index": 3600.0,
-                "US_West_Coast": 4116.0,
-                "US_East_Coast": 5776.0,
+                "Composite_Index": 3191.0,
+                "US_West_Coast": 4957.0,
+                "US_East_Coast": 6192.0,
                 "Europe": 4634.0,
-                "Mediterranean": 3207.0,
-                "Middle_East": 1210.0,
+                "Mediterranean": 5274.0,
+                "Middle_East": 2414.0,
                 "Australia": 4158.0,
                 "South_America_East_Coast": 5182.0,
                 "South_America_West_Coast": 2669.0,
@@ -424,16 +424,16 @@
                 "West_Africa": 4201.0,
                 "China": 49.0,
                 "Japan": 251.0,
-                "Southeast_Asia": 508.0
+                "Southeast_Asia": 1240.0
             },
             {
                 "date": "2025-02-03",
-                "Composite_Index": 3656.0,
-                "US_West_Coast": 4232.0,
-                "US_East_Coast": 5960.0,
+                "Composite_Index": 3378.0,
+                "US_West_Coast": 5195.0,
+                "US_East_Coast": 6313.0,
                 "Europe": 5062.0,
-                "Mediterranean": 3327.0,
-                "Middle_East": 1311.0,
+                "Mediterranean": 5524.0,
+                "Middle_East": 2476.0,
                 "Australia": 4387.0,
                 "South_America_East_Coast": 5829.0,
                 "South_America_West_Coast": 3215.0,
@@ -441,16 +441,16 @@
                 "West_Africa": 4399.0,
                 "China": 49.0,
                 "Japan": 255.0,
-                "Southeast_Asia": 524.0
+                "Southeast_Asia": 1259.0
             },
             {
                 "date": "2025-02-10",
-                "Composite_Index": 3893.0,
-                "US_West_Coast": 4682.0,
-                "US_East_Coast": 6629.0,
+                "Composite_Index": 3480.0,
+                "US_West_Coast": 5429.0,
+                "US_East_Coast": 6467.0,
                 "Europe": 5283.0,
-                "Mediterranean": 3477.0,
-                "Middle_East": 1397.0,
+                "Mediterranean": 5614.0,
+                "Middle_East": 2482.0,
                 "Australia": 4387.0,
                 "South_America_East_Coast": 5951.0,
                 "South_America_West_Coast": 3451.0,
@@ -458,16 +458,16 @@
                 "West_Africa": 4577.0,
                 "China": 49.0,
                 "Japan": 254.0,
-                "Southeast_Asia": 564.0
+                "Southeast_Asia": 1273.0
             },
             {
                 "date": "2025-02-17",
-                "Composite_Index": 4287.0,
-                "US_West_Coast": 4997.0,
-                "US_East_Coast": 6418.0,
+                "Composite_Index": 3333.0,
+                "US_West_Coast": 4786.0,
+                "US_East_Coast": 5926.0,
                 "Europe": 5432.0,
-                "Mediterranean": 3747.0,
-                "Middle_East": 1472.0,
+                "Mediterranean": 5617.0,
+                "Middle_East": 2492.0,
                 "Australia": 4326.0,
                 "South_America_East_Coast": 5871.0,
                 "South_America_West_Coast": 3320.0,
@@ -475,16 +475,16 @@
                 "West_Africa": 4504.0,
                 "China": 44.0,
                 "Japan": 237.0,
-                "Southeast_Asia": 655.0
+                "Southeast_Asia": 1277.0
             },
             {
                 "date": "2025-02-24",
-                "Composite_Index": 4291.0,
-                "US_West_Coast": 4581.0,
-                "US_East_Coast": 6074.0,
+                "Composite_Index": 3265.0,
+                "US_West_Coast": 4500.0,
+                "US_East_Coast": 5693.0,
                 "Europe": 5419.0,
-                "Mediterranean": 3780.0,
-                "Middle_East": 1444.0,
+                "Mediterranean": 5633.0,
+                "Middle_East": 2515.0,
                 "Australia": 4233.0,
                 "South_America_East_Coast": 5844.0,
                 "South_America_West_Coast": 3418.0,
@@ -492,16 +492,16 @@
                 "West_Africa": 4475.0,
                 "China": 44.0,
                 "Japan": 237.0,
-                "Southeast_Asia": 672.0
+                "Southeast_Asia": 1267.0
             },
             {
                 "date": "2025-03-04",
-                "Composite_Index": 3691.0,
-                "US_West_Coast": 4198.0,
-                "US_East_Coast": 5642.0,
+                "Composite_Index": 3140.0,
+                "US_West_Coast": 3971.0,
+                "US_East_Coast": 5285.0,
                 "Europe": 5249.0,
-                "Mediterranean": 3733.0,
-                "Middle_East": 1429.0,
+                "Mediterranean": 5459.0,
+                "Middle_East": 2608.0,
                 "Australia": 4263.0,
                 "South_America_East_Coast": 5943.0,
                 "South_America_West_Coast": 3528.0,
@@ -509,16 +509,16 @@
                 "West_Africa": 4624.0,
                 "China": 44.0,
                 "Japan": 237.0,
-                "Southeast_Asia": 711.0
+                "Southeast_Asia": 1250.0
             },
             {
                 "date": "2025-03-10",
-                "Composite_Index": 3659.0,
-                "US_West_Coast": 4023.0,
-                "US_East_Coast": 5494.0,
+                "Composite_Index": 3032.0,
+                "US_West_Coast": 3606.0,
+                "US_East_Coast": 4987.0,
                 "Europe": 4953.0,
-                "Mediterranean": 3746.0,
-                "Middle_East": 1507.0,
+                "Mediterranean": 5208.0,
+                "Middle_East": 2564.0,
                 "Australia": 4343.0,
                 "South_America_East_Coast": 5971.0,
                 "South_America_West_Coast": 3801.0,
@@ -526,16 +526,16 @@
                 "West_Africa": 4687.0,
                 "China": 44.0,
                 "Japan": 239.0,
-                "Southeast_Asia": 725.0
+                "Southeast_Asia": 1239.0
             },
             {
                 "date": "2025-03-17",
-                "Composite_Index": 3554.0,
-                "US_West_Coast": 3309.0,
-                "US_East_Coast": 4924.0,
+                "Composite_Index": 3013.0,
+                "US_West_Coast": 3898.0,
+                "US_East_Coast": 5073.0,
                 "Europe": 4471.0,
-                "Mediterranean": 3761.0,
-                "Middle_East": 1474.0,
+                "Mediterranean": 4617.0,
+                "Middle_East": 2587.0,
                 "Australia": 4452.0,
                 "South_America_East_Coast": 6021.0,
                 "South_America_West_Coast": 3807.0,
@@ -543,16 +543,16 @@
                 "West_Africa": 4683.0,
                 "China": 49.0,
                 "Japan": 241.0,
-                "Southeast_Asia": 682.0
+                "Southeast_Asia": 1200.0
             },
             {
                 "date": "2025-03-24",
-                "Composite_Index": 3661.0,
-                "US_West_Coast": 3345.0,
-                "US_East_Coast": 4954.0,
+                "Composite_Index": 3089.0,
+                "US_West_Coast": 4379.0,
+                "US_East_Coast": 5261.0,
                 "Europe": 4205.0,
-                "Mediterranean": 3682.0,
-                "Middle_East": 1362.0,
+                "Mediterranean": 4516.0,
+                "Middle_East": 2570.0,
                 "Australia": 4511.0,
                 "South_America_East_Coast": 6164.0,
                 "South_America_West_Coast": 3863.0,
@@ -560,16 +560,16 @@
                 "West_Africa": 4657.0,
                 "China": 49.0,
                 "Japan": 241.0,
-                "Southeast_Asia": 660.0
+                "Southeast_Asia": 1184.0
             },
             {
                 "date": "2025-03-31",
-                "Composite_Index": 3590.0,
-                "US_West_Coast": 3821.0,
-                "US_East_Coast": 4997.0,
+                "Composite_Index": 3183.0,
+                "US_West_Coast": 4814.0,
+                "US_East_Coast": 5360.0,
                 "Europe": 4193.0,
-                "Mediterranean": 3071.0,
-                "Middle_East": 1317.0,
+                "Mediterranean": 4461.0,
+                "Middle_East": 2581.0,
                 "Australia": 4460.0,
                 "South_America_East_Coast": 6348.0,
                 "South_America_West_Coast": 4228.0,
@@ -577,16 +577,16 @@
                 "West_Africa": 4640.0,
                 "China": 49.0,
                 "Japan": 241.0,
-                "Southeast_Asia": 647.0
+                "Southeast_Asia": 1162.0
             },
             {
                 "date": "2025-04-07",
-                "Composite_Index": 3612.0,
-                "US_West_Coast": 4181.0,
-                "US_East_Coast": 5602.0,
+                "Composite_Index": 3256.0,
+                "US_West_Coast": 5068.0,
+                "US_East_Coast": 5704.0,
                 "Europe": 4095.0,
-                "Mediterranean": 3080.0,
-                "Middle_East": 1421.0,
+                "Mediterranean": 4292.0,
+                "Middle_East": 2542.0,
                 "Australia": 4364.0,
                 "South_America_East_Coast": 6631.0,
                 "South_America_West_Coast": 4351.0,
@@ -594,16 +594,16 @@
                 "West_Africa": 4678.0,
                 "China": 49.0,
                 "Japan": 242.0,
-                "Southeast_Asia": 670.0
+                "Southeast_Asia": 1139.0
             },
             {
                 "date": "2025-04-14",
-                "Composite_Index": 3564.0,
-                "US_West_Coast": 4729.0,
-                "US_East_Coast": 5281.0,
+                "Composite_Index": 3259.0,
+                "US_West_Coast": 5149.0,
+                "US_East_Coast": 5759.0,
                 "Europe": 4009.0,
-                "Mediterranean": 3055.0,
-                "Middle_East": 1480.0,
+                "Mediterranean": 4109.0,
+                "Middle_East": 2470.0,
                 "Australia": 4351.0,
                 "South_America_East_Coast": 6720.0,
                 "South_America_West_Coast": 4364.0,
@@ -611,16 +611,16 @@
                 "West_Africa": 4706.0,
                 "China": 47.0,
                 "Japan": 242.0,
-                "Southeast_Asia": 601.0
+                "Southeast_Asia": 1141.0
             },
             {
                 "date": "2025-04-21",
-                "Composite_Index": 3315.0,
-                "US_West_Coast": 4826.0,
-                "US_East_Coast": 5258.0,
+                "Composite_Index": 3188.0,
+                "US_West_Coast": 5158.0,
+                "US_East_Coast": 6127.0,
                 "Europe": 3329.0,
-                "Mediterranean": 2907.0,
-                "Middle_East": 1507.0,
+                "Mediterranean": 3469.0,
+                "Middle_East": 2570.0,
                 "Australia": 4259.0,
                 "South_America_East_Coast": 6731.0,
                 "South_America_West_Coast": 4194.0,
@@ -628,16 +628,16 @@
                 "West_Africa": 4738.0,
                 "China": 47.0,
                 "Japan": 244.0,
-                "Southeast_Asia": 536.0
+                "Southeast_Asia": 1132.0
             },
             {
                 "date": "2025-04-28",
-                "Composite_Index": 3300.0,
-                "US_West_Coast": 4783.0,
-                "US_East_Coast": 5099.0,
+                "Composite_Index": 3209.0,
+                "US_West_Coast": 5157.0,
+                "US_East_Coast": 6156.0,
                 "Europe": 3440.0,
-                "Mediterranean": 2555.0,
-                "Middle_East": 1427.0,
+                "Mediterranean": 3633.0,
+                "Middle_East": 2577.0,
                 "Australia": 4239.0,
                 "South_America_East_Coast": 6779.0,
                 "South_America_West_Coast": 4141.0,
@@ -645,16 +645,16 @@
                 "West_Africa": 4732.0,
                 "China": 48.0,
                 "Japan": 244.0,
-                "Southeast_Asia": 464.0
+                "Southeast_Asia": 1127.0
             },
             {
                 "date": "2025-05-12",
-                "Composite_Index": 3413.0,
-                "US_West_Coast": 4969.0,
-                "US_East_Coast": 4726.0,
+                "Composite_Index": 3327.0,
+                "US_West_Coast": 5246.0,
+                "US_East_Coast": 6335.0,
                 "Europe": 3872.0,
-                "Mediterranean": 2312.0,
-                "Middle_East": 1193.0,
+                "Mediterranean": 4175.0,
+                "Middle_East": 2747.0,
                 "Australia": 4246.0,
                 "South_America_East_Coast": 6948.0,
                 "South_America_West_Coast": 3989.0,
@@ -662,16 +662,16 @@
                 "West_Africa": 4893.0,
                 "China": 48.0,
                 "Japan": 242.0,
-                "Southeast_Asia": 420.0
+                "Southeast_Asia": 1160.0
             },
             {
                 "date": "2025-05-19",
-                "Composite_Index": 3628.0,
-                "US_West_Coast": 4730.0,
-                "US_East_Coast": 5554.0,
+                "Composite_Index": 3451.0,
+                "US_West_Coast": 5299.0,
+                "US_East_Coast": 6764.0,
                 "Europe": 4131.0,
-                "Mediterranean": 2369.0,
-                "Middle_East": 986.0,
+                "Mediterranean": 4324.0,
+                "Middle_East": 2871.0,
                 "Australia": 4293.0,
                 "South_America_East_Coast": 7145.0,
                 "South_America_West_Coast": 4163.0,
@@ -679,16 +679,16 @@
                 "West_Africa": 5095.0,
                 "China": 50.0,
                 "Japan": 242.0,
-                "Southeast_Asia": 389.0
+                "Southeast_Asia": 1179.0
             },
             {
                 "date": "2025-05-26",
-                "Composite_Index": 3798.0,
-                "US_West_Coast": 4852.0,
-                "US_East_Coast": 5626.0,
+                "Composite_Index": 3740.0,
+                "US_West_Coast": 5677.0,
+                "US_East_Coast": 7296.0,
                 "Europe": 4843.0,
-                "Mediterranean": 2541.0,
-                "Middle_East": 962.0,
+                "Mediterranean": 4791.0,
+                "Middle_East": 3069.0,
                 "Australia": 4379.0,
                 "South_America_East_Coast": 7471.0,
                 "South_America_West_Coast": 4818.0,
@@ -696,16 +696,16 @@
                 "West_Africa": 5266.0,
                 "China": 51.0,
                 "Japan": 248.0,
-                "Southeast_Asia": 396.0
+                "Southeast_Asia": 1287.0
             },
             {
                 "date": "2025-06-02",
-                "Composite_Index": 4564.0,
-                "US_West_Coast": 5341.0,
-                "US_East_Coast": 6486.0,
+                "Composite_Index": 4077.0,
+                "US_West_Coast": 5963.0,
+                "US_East_Coast": 8029.0,
                 "Europe": 5855.0,
-                "Mediterranean": 2955.0,
-                "Middle_East": 1147.0,
+                "Mediterranean": 5515.0,
+                "Middle_East": 3381.0,
                 "Australia": 4380.0,
                 "South_America_East_Coast": 7672.0,
                 "South_America_West_Coast": 5460.0,
@@ -713,16 +713,16 @@
                 "West_Africa": 5763.0,
                 "China": 51.0,
                 "Japan": 248.0,
-                "Southeast_Asia": 412.0
+                "Southeast_Asia": 1326.0
             },
             {
                 "date": "2025-06-09",
-                "Composite_Index": 4701.0,
-                "US_West_Coast": 5494.0,
-                "US_East_Coast": 6838.0,
+                "Composite_Index": 4313.0,
+                "US_West_Coast": 6127.0,
+                "US_East_Coast": 8774.0,
                 "Europe": 6754.0,
-                "Mediterranean": 3365.0,
-                "Middle_East": 1264.0,
+                "Mediterranean": 6078.0,
+                "Middle_East": 3538.0,
                 "Australia": 4001.0,
                 "South_America_East_Coast": 7740.0,
                 "South_America_West_Coast": 5557.0,
@@ -730,16 +730,16 @@
                 "West_Africa": 6219.0,
                 "China": 52.0,
                 "Japan": 252.0,
-                "Southeast_Asia": 447.0
+                "Southeast_Asia": 1377.0
             },
             {
                 "date": "2025-06-16",
-                "Composite_Index": 5019.0,
-                "US_West_Coast": 5605.0,
-                "US_East_Coast": 7511.0,
+                "Composite_Index": 4467.0,
+                "US_West_Coast": 6369.0,
+                "US_East_Coast": 9054.0,
                 "Europe": 7479.0,
-                "Mediterranean": 3823.0,
-                "Middle_East": 1509.0,
+                "Mediterranean": 6534.0,
+                "Middle_East": 3788.0,
                 "Australia": 3621.0,
                 "South_America_East_Coast": 7821.0,
                 "South_America_West_Coast": 5209.0,
@@ -747,16 +747,16 @@
                 "West_Africa": 6381.0,
                 "China": 52.0,
                 "Japan": 254.0,
-                "Southeast_Asia": 467.0
+                "Southeast_Asia": 1438.0
             },
             {
                 "date": "2025-06-23",
-                "Composite_Index": 5062.0,
-                "US_West_Coast": 6140.0,
-                "US_East_Coast": 8439.0,
+                "Composite_Index": 4530.0,
+                "US_West_Coast": 6376.0,
+                "US_East_Coast": 9158.0,
                 "Europe": 7816.0,
-                "Mediterranean": 4083.0,
-                "Middle_East": 1756.0,
+                "Mediterranean": 6843.0,
+                "Middle_East": 3938.0,
                 "Australia": 3425.0,
                 "South_America_East_Coast": 7951.0,
                 "South_America_West_Coast": 4923.0,
@@ -764,16 +764,16 @@
                 "West_Africa": 6523.0,
                 "China": 52.0,
                 "Japan": 250.0,
-                "Southeast_Asia": 497.0
+                "Southeast_Asia": 1482.0
             },
             {
                 "date": "2025-06-30",
-                "Composite_Index": 5326.0,
-                "US_West_Coast": 5955.0,
-                "US_East_Coast": 8546.0,
+                "Composite_Index": 4659.0,
+                "US_West_Coast": 6636.0,
+                "US_East_Coast": 9480.0,
                 "Europe": 8106.0,
-                "Mediterranean": 4523.0,
-                "Middle_East": 1969.0,
+                "Mediterranean": 7032.0,
+                "Middle_East": 4070.0,
                 "Australia": 3240.0,
                 "South_America_East_Coast": 8181.0,
                 "South_America_West_Coast": 5093.0,
@@ -781,16 +781,16 @@
                 "West_Africa": 6519.0,
                 "China": 52.0,
                 "Japan": 246.0,
-                "Southeast_Asia": 544.0
+                "Southeast_Asia": 1460.0
             },
             {
                 "date": "2025-07-07",
-                "Composite_Index": 5552.0,
-                "US_West_Coast": 6581.0,
-                "US_East_Coast": 9297.0,
+                "Composite_Index": 4673.0,
+                "US_West_Coast": 6343.0,
+                "US_East_Coast": 9283.0,
                 "Europe": 8390.0,
-                "Mediterranean": 4645.0,
-                "Middle_East": 2139.0,
+                "Mediterranean": 7294.0,
+                "Middle_East": 4237.0,
                 "Australia": 2974.0,
                 "South_America_East_Coast": 8441.0,
                 "South_America_West_Coast": 5460.0,
@@ -798,16 +798,16 @@
                 "West_Africa": 6581.0,
                 "China": 53.0,
                 "Japan": 250.0,
-                "Southeast_Asia": 578.0
+                "Southeast_Asia": 1492.0
             },
             {
                 "date": "2025-07-14",
-                "Composite_Index": 5346.0,
-                "US_West_Coast": 6068.0,
-                "US_East_Coast": 9083.0,
+                "Composite_Index": 4778.0,
+                "US_West_Coast": 6640.0,
+                "US_East_Coast": 9441.0,
                 "Europe": 8479.0,
-                "Mediterranean": 4733.0,
-                "Middle_East": 2208.0,
+                "Mediterranean": 7486.0,
+                "Middle_East": 4286.0,
                 "Australia": 2953.0,
                 "South_America_East_Coast": 8560.0,
                 "South_America_West_Coast": 5804.0,
@@ -815,16 +815,16 @@
                 "West_Africa": 6720.0,
                 "China": 53.0,
                 "Japan": 246.0,
-                "Southeast_Asia": 595.0
+                "Southeast_Asia": 1488.0
             },
             {
                 "date": "2025-07-21",
-                "Composite_Index": 5050.0,
-                "US_West_Coast": 6245.0,
-                "US_East_Coast": 9346.0,
+                "Composite_Index": 4890.0,
+                "US_West_Coast": 6900.0,
+                "US_East_Coast": 9574.0,
                 "Europe": 8508.0,
-                "Mediterranean": 4997.0,
-                "Middle_East": 2217.0,
+                "Mediterranean": 7629.0,
+                "Middle_East": 4404.0,
                 "Australia": 2849.0,
                 "South_America_East_Coast": 8873.0,
                 "South_America_West_Coast": 6419.0,
@@ -832,13 +832,13 @@
                 "West_Africa": 6862.0,
                 "China": 53.0,
                 "Japan": 250.0,
-                "Southeast_Asia": 628.0
+                "Southeast_Asia": 1450.0
             }
         ],
         "SCFI": [
             {
                 "date": "2024-07-29",
-                "Composite_Index_1": 2458.0,
+                "Composite_Index_1": 1647.0,
                 "US_West_Coast_1": 2142.0,
                 "US_East_Coast_1": 3612.0,
                 "North_Europe": 2079.0,
@@ -855,7 +855,7 @@
             },
             {
                 "date": "2024-08-05",
-                "Composite_Index_1": 2542.0,
+                "Composite_Index_1": 1733.0,
                 "US_West_Coast_1": 2194.0,
                 "US_East_Coast_1": 4172.0,
                 "North_Europe": 2099.0,
@@ -872,7 +872,7 @@
             },
             {
                 "date": "2024-08-12",
-                "Composite_Index_1": 2756.0,
+                "Composite_Index_1": 1763.0,
                 "US_West_Coast_1": 2089.0,
                 "US_East_Coast_1": 4124.0,
                 "North_Europe": 2101.0,
@@ -889,7 +889,7 @@
             },
             {
                 "date": "2024-08-19",
-                "Composite_Index_1": 2894.0,
+                "Composite_Index_1": 1862.0,
                 "US_West_Coast_1": 2578.0,
                 "US_East_Coast_1": 4717.0,
                 "North_Europe": 2030.0,
@@ -906,7 +906,7 @@
             },
             {
                 "date": "2024-08-26",
-                "Composite_Index_1": 3603.0,
+                "Composite_Index_1": 1870.0,
                 "US_West_Coast_1": 2772.0,
                 "US_East_Coast_1": 5352.0,
                 "North_Europe": 1835.0,
@@ -923,7 +923,7 @@
             },
             {
                 "date": "2024-09-02",
-                "Composite_Index_1": 3704.0,
+                "Composite_Index_1": 2088.0,
                 "US_West_Coast_1": 4120.0,
                 "US_East_Coast_1": 6745.0,
                 "North_Europe": 1844.0,
@@ -940,7 +940,7 @@
             },
             {
                 "date": "2024-09-09",
-                "Composite_Index_1": 3398.0,
+                "Composite_Index_1": 2240.0,
                 "US_West_Coast_1": 5606.0,
                 "US_East_Coast_1": 6939.0,
                 "North_Europe": 1667.0,
@@ -957,7 +957,7 @@
             },
             {
                 "date": "2024-09-23",
-                "Composite_Index_1": 2231.0,
+                "Composite_Index_1": 2073.0,
                 "US_West_Coast_1": 5172.0,
                 "US_East_Coast_1": 6243.0,
                 "North_Europe": 1587.0,
@@ -974,7 +974,7 @@
             },
             {
                 "date": "2024-09-30",
-                "Composite_Index_1": 2237.0,
+                "Composite_Index_1": 1586.0,
                 "US_West_Coast_1": 3275.0,
                 "US_East_Coast_1": 4284.0,
                 "North_Europe": 1317.0,
@@ -991,7 +991,7 @@
             },
             {
                 "date": "2024-10-07",
-                "Composite_Index_1": 2090.0,
+                "Composite_Index_1": 1479.0,
                 "US_West_Coast_1": 3091.0,
                 "US_East_Coast_1": 4069.0,
                 "North_Europe": 1154.0,
@@ -1008,7 +1008,7 @@
             },
             {
                 "date": "2024-10-14",
-                "Composite_Index_1": 2047.0,
+                "Composite_Index_1": 1345.0,
                 "US_West_Coast_1": 2347.0,
                 "US_East_Coast_1": 3335.0,
                 "North_Europe": 1161.0,
@@ -1025,7 +1025,7 @@
             },
             {
                 "date": "2024-10-21",
-                "Composite_Index_1": 2014.0,
+                "Composite_Index_1": 1341.0,
                 "US_West_Coast_1": 2272.0,
                 "US_East_Coast_1": 3283.0,
                 "North_Europe": 1200.0,
@@ -1042,7 +1042,7 @@
             },
             {
                 "date": "2024-10-28",
-                "Composite_Index_1": 2042.0,
+                "Composite_Index_1": 1348.0,
                 "US_West_Coast_1": 2141.0,
                 "US_East_Coast_1": 3257.0,
                 "North_Europe": 1260.0,
@@ -1059,7 +1059,7 @@
             },
             {
                 "date": "2024-11-04",
-                "Composite_Index_1": 2036.0,
+                "Composite_Index_1": 1371.0,
                 "US_West_Coast_1": 2103.0,
                 "US_East_Coast_1": 3251.0,
                 "North_Europe": 1316.0,
@@ -1076,7 +1076,7 @@
             },
             {
                 "date": "2024-11-11",
-                "Composite_Index_1": 2075.0,
+                "Composite_Index_1": 1395.0,
                 "US_West_Coast_1": 2202.0,
                 "US_East_Coast_1": 3226.0,
                 "North_Europe": 1356.0,
@@ -1093,7 +1093,7 @@
             },
             {
                 "date": "2024-11-18",
-                "Composite_Index_1": 2032.0,
+                "Composite_Index_1": 1392.0,
                 "US_West_Coast_1": 2313.0,
                 "US_East_Coast_1": 3306.0,
                 "North_Europe": 1336.0,
@@ -1110,7 +1110,7 @@
             },
             {
                 "date": "2024-11-25",
-                "Composite_Index_1": 2050.0,
+                "Composite_Index_1": 1357.0,
                 "US_West_Coast_1": 2177.0,
                 "US_East_Coast_1": 3194.0,
                 "North_Europe": 1318.0,
@@ -1127,7 +1127,7 @@
             },
             {
                 "date": "2024-12-02",
-                "Composite_Index_1": 2094.0,
+                "Composite_Index_1": 1292.0,
                 "US_West_Coast_1": 1872.0,
                 "US_East_Coast_1": 2866.0,
                 "North_Europe": 1306.0,
@@ -1144,7 +1144,7 @@
             },
             {
                 "date": "2024-12-09",
-                "Composite_Index_1": 2221.0,
+                "Composite_Index_1": 1319.0,
                 "US_West_Coast_1": 1965.0,
                 "US_East_Coast_1": 2977.0,
                 "North_Europe": 1342.0,
@@ -1161,7 +1161,7 @@
             },
             {
                 "date": "2024-12-16",
-                "Composite_Index_1": 2422.0,
+                "Composite_Index_1": 1463.0,
                 "US_West_Coast_1": 2291.0,
                 "US_East_Coast_1": 3329.0,
                 "North_Europe": 1582.0,
@@ -1178,7 +1178,7 @@
             },
             {
                 "date": "2024-12-23",
-                "Composite_Index_1": 2718.0,
+                "Composite_Index_1": 1515.0,
                 "US_West_Coast_1": 2482.0,
                 "US_East_Coast_1": 3508.0,
                 "North_Europe": 1693.0,
@@ -1195,7 +1195,7 @@
             },
             {
                 "date": "2024-12-30",
-                "Composite_Index_1": 3051.0,
+                "Composite_Index_1": 1595.0,
                 "US_West_Coast_1": 2907.0,
                 "US_East_Coast_1": 3954.0,
                 "North_Europe": 1578.0,
@@ -1212,7 +1212,7 @@
             },
             {
                 "date": "2025-01-06",
-                "Composite_Index_1": 3312.0,
+                "Composite_Index_1": 1758.0,
                 "US_West_Coast_1": 3544.0,
                 "US_East_Coast_1": 4825.0,
                 "North_Europe": 1608.0,
@@ -1229,7 +1229,7 @@
             },
             {
                 "date": "2025-01-13",
-                "Composite_Index_1": 3436.0,
+                "Composite_Index_1": 1896.0,
                 "US_West_Coast_1": 3932.0,
                 "US_East_Coast_1": 5490.0,
                 "North_Europe": 1805.0,
@@ -1246,7 +1246,7 @@
             },
             {
                 "date": "2025-01-20",
-                "Composite_Index_1": 3600.0,
+                "Composite_Index_1": 2045.0,
                 "US_West_Coast_1": 4116.0,
                 "US_East_Coast_1": 5776.0,
                 "North_Europe": 2147.0,
@@ -1263,7 +1263,7 @@
             },
             {
                 "date": "2025-02-03",
-                "Composite_Index_1": 3656.0,
+                "Composite_Index_1": 2131.0,
                 "US_West_Coast_1": 4232.0,
                 "US_East_Coast_1": 5960.0,
                 "North_Europe": 2279.0,
@@ -1280,7 +1280,7 @@
             },
             {
                 "date": "2025-02-10",
-                "Composite_Index_1": 3893.0,
+                "Composite_Index_1": 2290.0,
                 "US_West_Coast_1": 4682.0,
                 "US_East_Coast_1": 6629.0,
                 "North_Europe": 2440.0,
@@ -1297,7 +1297,7 @@
             },
             {
                 "date": "2025-02-17",
-                "Composite_Index_1": 4287.0,
+                "Composite_Index_1": 2505.0,
                 "US_West_Coast_1": 4997.0,
                 "US_East_Coast_1": 6418.0,
                 "North_Europe": 2851.0,
@@ -1314,7 +1314,7 @@
             },
             {
                 "date": "2025-02-24",
-                "Composite_Index_1": 4291.0,
+                "Composite_Index_1": 2460.0,
                 "US_West_Coast_1": 4581.0,
                 "US_East_Coast_1": 6074.0,
                 "North_Europe": 2962.0,
@@ -1331,7 +1331,7 @@
             },
             {
                 "date": "2025-03-04",
-                "Composite_Index_1": 3691.0,
+                "Composite_Index_1": 2390.0,
                 "US_West_Coast_1": 4198.0,
                 "US_East_Coast_1": 5642.0,
                 "North_Europe": 2946.0,
@@ -1348,7 +1348,7 @@
             },
             {
                 "date": "2025-03-10",
-                "Composite_Index_1": 3659.0,
+                "Composite_Index_1": 2384.0,
                 "US_West_Coast_1": 4023.0,
                 "US_East_Coast_1": 5494.0,
                 "North_Europe": 2963.0,
@@ -1365,7 +1365,7 @@
             },
             {
                 "date": "2025-03-17",
-                "Composite_Index_1": 3554.0,
+                "Composite_Index_1": 2256.0,
                 "US_West_Coast_1": 3309.0,
                 "US_East_Coast_1": 4924.0,
                 "North_Europe": 3030.0,
@@ -1382,7 +1382,7 @@
             },
             {
                 "date": "2025-03-24",
-                "Composite_Index_1": 3661.0,
+                "Composite_Index_1": 2233.0,
                 "US_West_Coast_1": 3345.0,
                 "US_East_Coast_1": 4954.0,
                 "North_Europe": 3039.0,
@@ -1399,7 +1399,7 @@
             },
             {
                 "date": "2025-03-31",
-                "Composite_Index_1": 3590.0,
+                "Composite_Index_1": 2160.0,
                 "US_West_Coast_1": 3821.0,
                 "US_East_Coast_1": 4997.0,
                 "North_Europe": 2481.0,
@@ -1416,7 +1416,7 @@
             },
             {
                 "date": "2025-04-07",
-                "Composite_Index_1": 3612.0,
+                "Composite_Index_1": 2252.0,
                 "US_West_Coast_1": 4181.0,
                 "US_East_Coast_1": 5602.0,
                 "North_Europe": 2512.0,
@@ -1433,7 +1433,7 @@
             },
             {
                 "date": "2025-04-14",
-                "Composite_Index_1": 3564.0,
+                "Composite_Index_1": 2331.0,
                 "US_West_Coast_1": 4729.0,
                 "US_East_Coast_1": 5281.0,
                 "North_Europe": 2541.0,
@@ -1450,7 +1450,7 @@
             },
             {
                 "date": "2025-04-21",
-                "Composite_Index_1": 3315.0,
+                "Composite_Index_1": 2303.0,
                 "US_West_Coast_1": 4826.0,
                 "US_East_Coast_1": 5258.0,
                 "North_Europe": 2442.0,
@@ -1467,7 +1467,7 @@
             },
             {
                 "date": "2025-04-28",
-                "Composite_Index_1": 3300.0,
+                "Composite_Index_1": 2185.0,
                 "US_West_Coast_1": 4783.0,
                 "US_East_Coast_1": 5099.0,
                 "North_Europe": 2226.0,
@@ -1484,7 +1484,7 @@
             },
             {
                 "date": "2025-05-12",
-                "Composite_Index_1": 3413.0,
+                "Composite_Index_1": 2062.0,
                 "US_West_Coast_1": 4969.0,
                 "US_East_Coast_1": 4726.0,
                 "North_Europe": 1950.0,
@@ -1501,7 +1501,7 @@
             },
             {
                 "date": "2025-05-19",
-                "Composite_Index_1": 3628.0,
+                "Composite_Index_1": 2062.0,
                 "US_West_Coast_1": 4730.0,
                 "US_East_Coast_1": 5554.0,
                 "North_Europe": 2040.0,
@@ -1518,7 +1518,7 @@
             },
             {
                 "date": "2025-05-26",
-                "Composite_Index_1": 3798.0,
+                "Composite_Index_1": 2135.0,
                 "US_West_Coast_1": 4852.0,
                 "US_East_Coast_1": 5626.0,
                 "North_Europe": 2250.0,
@@ -1535,7 +1535,7 @@
             },
             {
                 "date": "2025-06-02",
-                "Composite_Index_1": 4564.0,
+                "Composite_Index_1": 2366.0,
                 "US_West_Coast_1": 5341.0,
                 "US_East_Coast_1": 6486.0,
                 "North_Europe": 2592.0,
@@ -1552,7 +1552,7 @@
             },
             {
                 "date": "2025-06-09",
-                "Composite_Index_1": 4701.0,
+                "Composite_Index_1": 2511.0,
                 "US_West_Coast_1": 5494.0,
                 "US_East_Coast_1": 6838.0,
                 "North_Europe": 2841.0,
@@ -1569,7 +1569,7 @@
             },
             {
                 "date": "2025-06-16",
-                "Composite_Index_1": 5019.0,
+                "Composite_Index_1": 2727.0,
                 "US_West_Coast_1": 5605.0,
                 "US_East_Coast_1": 7511.0,
                 "North_Europe": 3459.0,
@@ -1586,7 +1586,7 @@
             },
             {
                 "date": "2025-06-23",
-                "Composite_Index_1": 5062.0,
+                "Composite_Index_1": 2963.0,
                 "US_West_Coast_1": 6140.0,
                 "US_East_Coast_1": 8439.0,
                 "North_Europe": 3876.0,
@@ -1603,7 +1603,7 @@
             },
             {
                 "date": "2025-06-30",
-                "Composite_Index_1": 5326.0,
+                "Composite_Index_1": 3098.0,
                 "US_West_Coast_1": 5955.0,
                 "US_East_Coast_1": 8546.0,
                 "North_Europe": 4400.0,
@@ -1620,7 +1620,7 @@
             },
             {
                 "date": "2025-07-07",
-                "Composite_Index_1": 5552.0,
+                "Composite_Index_1": 3281.0,
                 "US_West_Coast_1": 6581.0,
                 "US_East_Coast_1": 9297.0,
                 "North_Europe": 4619.0,
@@ -1637,7 +1637,7 @@
             },
             {
                 "date": "2025-07-14",
-                "Composite_Index_1": 5346.0,
+                "Composite_Index_1": 3254.0,
                 "US_West_Coast_1": 6068.0,
                 "US_East_Coast_1": 9083.0,
                 "North_Europe": 4786.0,
@@ -1654,7 +1654,7 @@
             },
             {
                 "date": "2025-07-21",
-                "Composite_Index_1": 5050.0,
+                "Composite_Index_1": 3332.0,
                 "US_West_Coast_1": 6245.0,
                 "US_East_Coast_1": 9346.0,
                 "North_Europe": 4907.0,
@@ -1673,7 +1673,7 @@
         "WCI": [
             {
                 "date": "2024-07-29",
-                "Composite_Index_2": 2458.0,
+                "Composite_Index_2": 705.0,
                 "Shanghai_Rotterdam_WCI": 3334.0,
                 "Rotterdam_Shanghai_WCI": 495.0,
                 "Shanghai_Genoa_WCI": 3450.0,
@@ -1685,7 +1685,7 @@
             },
             {
                 "date": "2024-08-05",
-                "Composite_Index_2": 2542.0,
+                "Composite_Index_2": 814.0,
                 "Shanghai_Rotterdam_WCI": 3384.0,
                 "Rotterdam_Shanghai_WCI": 487.0,
                 "Shanghai_Genoa_WCI": 3491.0,
@@ -1697,7 +1697,7 @@
             },
             {
                 "date": "2024-08-12",
-                "Composite_Index_2": 2756.0,
+                "Composite_Index_2": 657.0,
                 "Shanghai_Rotterdam_WCI": 3468.0,
                 "Rotterdam_Shanghai_WCI": 487.0,
                 "Shanghai_Genoa_WCI": 3751.0,
@@ -1709,7 +1709,7 @@
             },
             {
                 "date": "2024-08-19",
-                "Composite_Index_2": 2894.0,
+                "Composite_Index_2": 706.0,
                 "Shanghai_Rotterdam_WCI": 3204.0,
                 "Rotterdam_Shanghai_WCI": 515.0,
                 "Shanghai_Genoa_WCI": 4100.0,
@@ -1721,7 +1721,7 @@
             },
             {
                 "date": "2024-08-26",
-                "Composite_Index_2": 3603.0,
+                "Composite_Index_2": 668.0,
                 "Shanghai_Rotterdam_WCI": 3171.0,
                 "Rotterdam_Shanghai_WCI": 517.0,
                 "Shanghai_Genoa_WCI": 4075.0,
@@ -1733,7 +1733,7 @@
             },
             {
                 "date": "2024-09-02",
-                "Composite_Index_2": 3704.0,
+                "Composite_Index_2": 601.0,
                 "Shanghai_Rotterdam_WCI": 2837.0,
                 "Rotterdam_Shanghai_WCI": 512.0,
                 "Shanghai_Genoa_WCI": 4054.0,
@@ -1745,7 +1745,7 @@
             },
             {
                 "date": "2024-09-09",
-                "Composite_Index_2": 3398.0,
+                "Composite_Index_2": 604.0,
                 "Shanghai_Rotterdam_WCI": 2845.0,
                 "Rotterdam_Shanghai_WCI": 509.0,
                 "Shanghai_Genoa_WCI": 4068.0,
@@ -1757,7 +1757,7 @@
             },
             {
                 "date": "2024-09-23",
-                "Composite_Index_2": 2231.0,
+                "Composite_Index_2": 615.0,
                 "Shanghai_Rotterdam_WCI": 2159.0,
                 "Rotterdam_Shanghai_WCI": 462.0,
                 "Shanghai_Genoa_WCI": 2939.0,
@@ -1769,7 +1769,7 @@
             },
             {
                 "date": "2024-09-30",
-                "Composite_Index_2": 2237.0,
+                "Composite_Index_2": 667.0,
                 "Shanghai_Rotterdam_WCI": 2030.0,
                 "Rotterdam_Shanghai_WCI": 458.0,
                 "Shanghai_Genoa_WCI": 2841.0,
@@ -1781,7 +1781,7 @@
             },
             {
                 "date": "2024-10-07",
-                "Composite_Index_2": 2090.0,
+                "Composite_Index_2": 726.0,
                 "Shanghai_Rotterdam_WCI": 2035.0,
                 "Rotterdam_Shanghai_WCI": 457.0,
                 "Shanghai_Genoa_WCI": 2742.0,
@@ -1793,7 +1793,7 @@
             },
             {
                 "date": "2024-10-14",
-                "Composite_Index_2": 2047.0,
+                "Composite_Index_2": 828.0,
                 "Shanghai_Rotterdam_WCI": 2046.0,
                 "Rotterdam_Shanghai_WCI": 457.0,
                 "Shanghai_Genoa_WCI": 2766.0,
@@ -1805,7 +1805,7 @@
             },
             {
                 "date": "2024-10-21",
-                "Composite_Index_2": 2014.0,
+                "Composite_Index_2": 879.0,
                 "Shanghai_Rotterdam_WCI": 2202.0,
                 "Rotterdam_Shanghai_WCI": 464.0,
                 "Shanghai_Genoa_WCI": 2889.0,
@@ -1817,7 +1817,7 @@
             },
             {
                 "date": "2024-10-28",
-                "Composite_Index_2": 2042.0,
+                "Composite_Index_2": 934.0,
                 "Shanghai_Rotterdam_WCI": 2312.0,
                 "Rotterdam_Shanghai_WCI": 481.0,
                 "Shanghai_Genoa_WCI": 3012.0,
@@ -1829,7 +1829,7 @@
             },
             {
                 "date": "2024-11-04",
-                "Composite_Index_2": 2036.0,
+                "Composite_Index_2": 864.0,
                 "Shanghai_Rotterdam_WCI": 2344.0,
                 "Rotterdam_Shanghai_WCI": 493.0,
                 "Shanghai_Genoa_WCI": 3018.0,
@@ -1841,7 +1841,7 @@
             },
             {
                 "date": "2024-11-11",
-                "Composite_Index_2": 2075.0,
+                "Composite_Index_2": 829.0,
                 "Shanghai_Rotterdam_WCI": 2392.0,
                 "Rotterdam_Shanghai_WCI": 475.0,
                 "Shanghai_Genoa_WCI": 3071.0,
@@ -1853,7 +1853,7 @@
             },
             {
                 "date": "2024-11-18",
-                "Composite_Index_2": 2032.0,
+                "Composite_Index_2": 573.0,
                 "Shanghai_Rotterdam_WCI": 2304.0,
                 "Rotterdam_Shanghai_WCI": 466.0,
                 "Shanghai_Genoa_WCI": 3031.0,
@@ -1865,7 +1865,7 @@
             },
             {
                 "date": "2024-11-25",
-                "Composite_Index_2": 2050.0,
+                "Composite_Index_2": 500.0,
                 "Shanghai_Rotterdam_WCI": 2370.0,
                 "Rotterdam_Shanghai_WCI": 500.0,
                 "Shanghai_Genoa_WCI": 3171.0,
@@ -1877,7 +1877,7 @@
             },
             {
                 "date": "2024-12-02",
-                "Composite_Index_2": 2094.0,
+                "Composite_Index_2": 589.0,
                 "Shanghai_Rotterdam_WCI": 2463.0,
                 "Rotterdam_Shanghai_WCI": 484.0,
                 "Shanghai_Genoa_WCI": 3286.0,
@@ -1889,7 +1889,7 @@
             },
             {
                 "date": "2024-12-09",
-                "Composite_Index_2": 2221.0,
+                "Composite_Index_2": 668.0,
                 "Shanghai_Rotterdam_WCI": 2512.0,
                 "Rotterdam_Shanghai_WCI": 490.0,
                 "Shanghai_Genoa_WCI": 3333.0,
@@ -1901,7 +1901,7 @@
             },
             {
                 "date": "2024-12-16",
-                "Composite_Index_2": 2422.0,
+                "Composite_Index_2": 894.0,
                 "Shanghai_Rotterdam_WCI": 2636.0,
                 "Rotterdam_Shanghai_WCI": 483.0,
                 "Shanghai_Genoa_WCI": 3745.0,
@@ -1913,7 +1913,7 @@
             },
             {
                 "date": "2024-12-23",
-                "Composite_Index_2": 2718.0,
+                "Composite_Index_2": 907.0,
                 "Shanghai_Rotterdam_WCI": 2586.0,
                 "Rotterdam_Shanghai_WCI": 503.0,
                 "Shanghai_Genoa_WCI": 3747.0,
@@ -1925,7 +1925,7 @@
             },
             {
                 "date": "2024-12-30",
-                "Composite_Index_2": 3051.0,
+                "Composite_Index_2": 929.0,
                 "Shanghai_Rotterdam_WCI": 2618.0,
                 "Rotterdam_Shanghai_WCI": 498.0,
                 "Shanghai_Genoa_WCI": 3837.0,
@@ -1937,7 +1937,7 @@
             },
             {
                 "date": "2025-01-06",
-                "Composite_Index_2": 3312.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 2887.0,
                 "Rotterdam_Shanghai_WCI": 496.0,
                 "Shanghai_Genoa_WCI": 4163.0,
@@ -1949,7 +1949,7 @@
             },
             {
                 "date": "2025-01-13",
-                "Composite_Index_2": 3436.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3125.0,
                 "Rotterdam_Shanghai_WCI": 498.0,
                 "Shanghai_Genoa_WCI": 4236.0,
@@ -1961,7 +1961,7 @@
             },
             {
                 "date": "2025-01-20",
-                "Composite_Index_2": 3600.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3274.0,
                 "Rotterdam_Shanghai_WCI": 518.0,
                 "Shanghai_Genoa_WCI": 4400.0,
@@ -1973,7 +1973,7 @@
             },
             {
                 "date": "2025-02-03",
-                "Composite_Index_2": 3656.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3434.0,
                 "Rotterdam_Shanghai_WCI": 515.0,
                 "Shanghai_Genoa_WCI": 4562.0,
@@ -1985,7 +1985,7 @@
             },
             {
                 "date": "2025-02-10",
-                "Composite_Index_2": 3893.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4231.0,
                 "Rotterdam_Shanghai_WCI": 518.0,
                 "Shanghai_Genoa_WCI": 5086.0,
@@ -1997,7 +1997,7 @@
             },
             {
                 "date": "2025-02-17",
-                "Composite_Index_2": 4287.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4375.0,
                 "Rotterdam_Shanghai_WCI": 522.0,
                 "Shanghai_Genoa_WCI": 5210.0,
@@ -2009,7 +2009,7 @@
             },
             {
                 "date": "2025-02-24",
-                "Composite_Index_2": 4291.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4774.0,
                 "Rotterdam_Shanghai_WCI": 516.0,
                 "Shanghai_Genoa_WCI": 5420.0,
@@ -2021,7 +2021,7 @@
             },
             {
                 "date": "2025-03-04",
-                "Composite_Index_2": 3691.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4819.0,
                 "Rotterdam_Shanghai_WCI": 508.0,
                 "Shanghai_Genoa_WCI": 5424.0,
@@ -2033,7 +2033,7 @@
             },
             {
                 "date": "2025-03-10",
-                "Composite_Index_2": 3659.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4819.0,
                 "Rotterdam_Shanghai_WCI": 508.0,
                 "Shanghai_Genoa_WCI": 5424.0,
@@ -2045,7 +2045,7 @@
             },
             {
                 "date": "2025-03-17",
-                "Composite_Index_2": 3554.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4855.0,
                 "Rotterdam_Shanghai_WCI": 520.0,
                 "Shanghai_Genoa_WCI": 5526.0,
@@ -2057,7 +2057,7 @@
             },
             {
                 "date": "2025-03-24",
-                "Composite_Index_2": 3661.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4775.0,
                 "Rotterdam_Shanghai_WCI": 514.0,
                 "Shanghai_Genoa_WCI": 5496.0,
@@ -2069,7 +2069,7 @@
             },
             {
                 "date": "2025-03-31",
-                "Composite_Index_2": 3590.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3997.0,
                 "Rotterdam_Shanghai_WCI": 518.0,
                 "Shanghai_Genoa_WCI": 4490.0,
@@ -2081,7 +2081,7 @@
             },
             {
                 "date": "2025-04-07",
-                "Composite_Index_2": 3612.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4071.0,
                 "Rotterdam_Shanghai_WCI": 517.0,
                 "Shanghai_Genoa_WCI": 4520.0,
@@ -2093,7 +2093,7 @@
             },
             {
                 "date": "2025-04-14",
-                "Composite_Index_2": 3564.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4043.0,
                 "Rotterdam_Shanghai_WCI": 521.0,
                 "Shanghai_Genoa_WCI": 4400.0,
@@ -2105,7 +2105,7 @@
             },
             {
                 "date": "2025-04-21",
-                "Composite_Index_2": 3315.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3954.0,
                 "Rotterdam_Shanghai_WCI": 524.0,
                 "Shanghai_Genoa_WCI": 4399.0,
@@ -2117,7 +2117,7 @@
             },
             {
                 "date": "2025-04-28",
-                "Composite_Index_2": 3300.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3396.0,
                 "Rotterdam_Shanghai_WCI": 543.0,
                 "Shanghai_Genoa_WCI": 3648.0,
@@ -2129,7 +2129,7 @@
             },
             {
                 "date": "2025-05-12",
-                "Composite_Index_2": 3413.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3132.0,
                 "Rotterdam_Shanghai_WCI": 548.0,
                 "Shanghai_Genoa_WCI": 3296.0,
@@ -2141,7 +2141,7 @@
             },
             {
                 "date": "2025-05-19",
-                "Composite_Index_2": 3628.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3373.0,
                 "Rotterdam_Shanghai_WCI": 547.0,
                 "Shanghai_Genoa_WCI": 3438.0,
@@ -2153,7 +2153,7 @@
             },
             {
                 "date": "2025-05-26",
-                "Composite_Index_2": 3798.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3591.0,
                 "Rotterdam_Shanghai_WCI": 543.0,
                 "Shanghai_Genoa_WCI": 3784.0,
@@ -2165,7 +2165,7 @@
             },
             {
                 "date": "2025-06-02",
-                "Composite_Index_2": 4564.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 3815.0,
                 "Rotterdam_Shanghai_WCI": 590.0,
                 "Shanghai_Genoa_WCI": 3848.0,
@@ -2177,7 +2177,7 @@
             },
             {
                 "date": "2025-06-09",
-                "Composite_Index_2": 4701.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4157.0,
                 "Rotterdam_Shanghai_WCI": 600.0,
                 "Shanghai_Genoa_WCI": 4212.0,
@@ -2189,7 +2189,7 @@
             },
             {
                 "date": "2025-06-16",
-                "Composite_Index_2": 5019.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 4682.0,
                 "Rotterdam_Shanghai_WCI": 603.0,
                 "Shanghai_Genoa_WCI": 4928.0,
@@ -2201,7 +2201,7 @@
             },
             {
                 "date": "2025-06-23",
-                "Composite_Index_2": 5062.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 5152.0,
                 "Rotterdam_Shanghai_WCI": 606.0,
                 "Shanghai_Genoa_WCI": 5256.0,
@@ -2213,7 +2213,7 @@
             },
             {
                 "date": "2025-06-30",
-                "Composite_Index_2": 5326.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 6219.0,
                 "Rotterdam_Shanghai_WCI": 612.0,
                 "Shanghai_Genoa_WCI": 5842.0,
@@ -2225,7 +2225,7 @@
             },
             {
                 "date": "2025-07-07",
-                "Composite_Index_2": 5552.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 7204.0,
                 "Rotterdam_Shanghai_WCI": 622.0,
                 "Shanghai_Genoa_WCI": 6611.0,
@@ -2237,7 +2237,7 @@
             },
             {
                 "date": "2025-07-14",
-                "Composite_Index_2": 5346.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 7756.0,
                 "Rotterdam_Shanghai_WCI": 630.0,
                 "Shanghai_Genoa_WCI": 7182.0,
@@ -2249,7 +2249,7 @@
             },
             {
                 "date": "2025-07-21",
-                "Composite_Index_2": 5050.0,
+                "Composite_Index_2": null,
                 "Shanghai_Rotterdam_WCI": 7756.0,
                 "Rotterdam_Shanghai_WCI": 630.0,
                 "Shanghai_Genoa_WCI": 7182.0,
@@ -2461,7 +2461,6 @@
         "BLANK_SAILING": [
             {
                 "date": "2024-07-29",
-                "Gemini_Cooperation_Blank_Sailing": 0.0,
                 "MSC_Alliance_Blank_Sailing": 5.0,
                 "OCEAN_Alliance_Blank_Sailing": 7.0,
                 "Premier_Alliance_Blank_Sailing": 6.0,
@@ -2470,7 +2469,6 @@
             },
             {
                 "date": "2024-08-05",
-                "Gemini_Cooperation_Blank_Sailing": 1.0,
                 "MSC_Alliance_Blank_Sailing": 6.0,
                 "OCEAN_Alliance_Blank_Sailing": 9.0,
                 "Premier_Alliance_Blank_Sailing": 7.0,
@@ -2479,7 +2477,6 @@
             },
             {
                 "date": "2024-08-12",
-                "Gemini_Cooperation_Blank_Sailing": 2.0,
                 "MSC_Alliance_Blank_Sailing": 6.0,
                 "OCEAN_Alliance_Blank_Sailing": 11.0,
                 "Premier_Alliance_Blank_Sailing": 11.0,
@@ -2488,7 +2485,6 @@
             },
             {
                 "date": "2024-08-19",
-                "Gemini_Cooperation_Blank_Sailing": 4.0,
                 "MSC_Alliance_Blank_Sailing": 4.0,
                 "OCEAN_Alliance_Blank_Sailing": 13.0,
                 "Premier_Alliance_Blank_Sailing": 8.0,
@@ -2497,7 +2493,6 @@
             },
             {
                 "date": "2024-08-26",
-                "Gemini_Cooperation_Blank_Sailing": 6.0,
                 "MSC_Alliance_Blank_Sailing": 6.0,
                 "OCEAN_Alliance_Blank_Sailing": 8.0,
                 "Premier_Alliance_Blank_Sailing": 13.0,
@@ -2506,7 +2501,6 @@
             },
             {
                 "date": "2024-09-02",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 6.0,
                 "OCEAN_Alliance_Blank_Sailing": 15.0,
                 "Premier_Alliance_Blank_Sailing": 7.0,
@@ -2515,7 +2509,6 @@
             },
             {
                 "date": "2024-09-09",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 5.0,
                 "OCEAN_Alliance_Blank_Sailing": 15.0,
                 "Premier_Alliance_Blank_Sailing": 7.0,
@@ -2524,7 +2517,6 @@
             },
             {
                 "date": "2024-09-23",
-                "Gemini_Cooperation_Blank_Sailing": 0.0,
                 "MSC_Alliance_Blank_Sailing": 5.0,
                 "OCEAN_Alliance_Blank_Sailing": 14.0,
                 "Premier_Alliance_Blank_Sailing": 5.0,
@@ -2533,7 +2525,6 @@
             },
             {
                 "date": "2024-09-30",
-                "Gemini_Cooperation_Blank_Sailing": 2.0,
                 "MSC_Alliance_Blank_Sailing": 2.0,
                 "OCEAN_Alliance_Blank_Sailing": 14.0,
                 "Premier_Alliance_Blank_Sailing": 7.0,
@@ -2542,7 +2533,6 @@
             },
             {
                 "date": "2024-10-07",
-                "Gemini_Cooperation_Blank_Sailing": 0.0,
                 "MSC_Alliance_Blank_Sailing": 11.0,
                 "OCEAN_Alliance_Blank_Sailing": 13.0,
                 "Premier_Alliance_Blank_Sailing": 7.0,
@@ -2551,7 +2541,6 @@
             },
             {
                 "date": "2024-10-14",
-                "Gemini_Cooperation_Blank_Sailing": 2.0,
                 "MSC_Alliance_Blank_Sailing": 13.0,
                 "OCEAN_Alliance_Blank_Sailing": 16.0,
                 "Premier_Alliance_Blank_Sailing": 14.0,
@@ -2560,7 +2549,6 @@
             },
             {
                 "date": "2024-10-21",
-                "Gemini_Cooperation_Blank_Sailing": 1.0,
                 "MSC_Alliance_Blank_Sailing": 11.0,
                 "OCEAN_Alliance_Blank_Sailing": 17.0,
                 "Premier_Alliance_Blank_Sailing": 18.0,
@@ -2569,7 +2557,6 @@
             },
             {
                 "date": "2024-10-28",
-                "Gemini_Cooperation_Blank_Sailing": 1.0,
                 "MSC_Alliance_Blank_Sailing": 11.0,
                 "OCEAN_Alliance_Blank_Sailing": 17.0,
                 "Premier_Alliance_Blank_Sailing": 18.0,
@@ -2578,7 +2565,6 @@
             },
             {
                 "date": "2024-11-04",
-                "Gemini_Cooperation_Blank_Sailing": 0.0,
                 "MSC_Alliance_Blank_Sailing": 9.0,
                 "OCEAN_Alliance_Blank_Sailing": 16.0,
                 "Premier_Alliance_Blank_Sailing": 19.0,
@@ -2587,7 +2573,6 @@
             },
             {
                 "date": "2024-11-11",
-                "Gemini_Cooperation_Blank_Sailing": 1.0,
                 "MSC_Alliance_Blank_Sailing": 15.0,
                 "OCEAN_Alliance_Blank_Sailing": 14.0,
                 "Premier_Alliance_Blank_Sailing": 17.0,
@@ -2596,7 +2581,6 @@
             },
             {
                 "date": "2024-11-18",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 7.0,
                 "OCEAN_Alliance_Blank_Sailing": 9.0,
                 "Premier_Alliance_Blank_Sailing": 10.0,
@@ -2605,7 +2589,6 @@
             },
             {
                 "date": "2024-11-25",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 10.0,
                 "OCEAN_Alliance_Blank_Sailing": 9.0,
                 "Premier_Alliance_Blank_Sailing": 12.0,
@@ -2614,7 +2597,6 @@
             },
             {
                 "date": "2024-12-02",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 9.0,
                 "OCEAN_Alliance_Blank_Sailing": 8.0,
                 "Premier_Alliance_Blank_Sailing": 14.0,
@@ -2623,7 +2605,6 @@
             },
             {
                 "date": "2024-12-09",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 7.0,
                 "OCEAN_Alliance_Blank_Sailing": 8.0,
                 "Premier_Alliance_Blank_Sailing": 8.0,
@@ -2632,7 +2613,6 @@
             },
             {
                 "date": "2024-12-16",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 7.0,
                 "OCEAN_Alliance_Blank_Sailing": 8.0,
                 "Premier_Alliance_Blank_Sailing": 8.0,
@@ -2641,7 +2621,6 @@
             },
             {
                 "date": "2024-12-23",
-                "Gemini_Cooperation_Blank_Sailing": 2.0,
                 "MSC_Alliance_Blank_Sailing": 3.0,
                 "OCEAN_Alliance_Blank_Sailing": 11.0,
                 "Premier_Alliance_Blank_Sailing": 8.0,
@@ -2650,7 +2629,6 @@
             },
             {
                 "date": "2024-12-30",
-                "Gemini_Cooperation_Blank_Sailing": 1.0,
                 "MSC_Alliance_Blank_Sailing": 1.0,
                 "OCEAN_Alliance_Blank_Sailing": 13.0,
                 "Premier_Alliance_Blank_Sailing": 7.0,
@@ -2659,7 +2637,6 @@
             },
             {
                 "date": "2025-01-06",
-                "Gemini_Cooperation_Blank_Sailing": 5.0,
                 "MSC_Alliance_Blank_Sailing": 2.0,
                 "OCEAN_Alliance_Blank_Sailing": 7.0,
                 "Premier_Alliance_Blank_Sailing": 15.0,
@@ -2668,7 +2645,6 @@
             },
             {
                 "date": "2025-01-13",
-                "Gemini_Cooperation_Blank_Sailing": 3.0,
                 "MSC_Alliance_Blank_Sailing": 0.0,
                 "OCEAN_Alliance_Blank_Sailing": 8.0,
                 "Premier_Alliance_Blank_Sailing": 15.0,
@@ -2677,7 +2653,6 @@
             },
             {
                 "date": "2025-01-20",
-                "Gemini_Cooperation_Blank_Sailing": 11.0,
                 "MSC_Alliance_Blank_Sailing": 8.0,
                 "OCEAN_Alliance_Blank_Sailing": 15.0,
                 "Premier_Alliance_Blank_Sailing": 20.0,
@@ -2686,7 +2661,6 @@
             },
             {
                 "date": "2025-02-03",
-                "Gemini_Cooperation_Blank_Sailing": 10.0,
                 "MSC_Alliance_Blank_Sailing": 10.0,
                 "OCEAN_Alliance_Blank_Sailing": 20.0,
                 "Premier_Alliance_Blank_Sailing": 30.0,
@@ -2695,7 +2669,6 @@
             },
             {
                 "date": "2025-02-10",
-                "Gemini_Cooperation_Blank_Sailing": 8.0,
                 "MSC_Alliance_Blank_Sailing": 5.0,
                 "OCEAN_Alliance_Blank_Sailing": 20.0,
                 "Premier_Alliance_Blank_Sailing": 30.0,
@@ -2704,7 +2677,6 @@
             },
             {
                 "date": "2025-02-17",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2713,7 +2685,6 @@
             },
             {
                 "date": "2025-02-24",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2722,7 +2693,6 @@
             },
             {
                 "date": "2025-03-04",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2731,7 +2701,6 @@
             },
             {
                 "date": "2025-03-10",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2740,7 +2709,6 @@
             },
             {
                 "date": "2025-03-17",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2749,7 +2717,6 @@
             },
             {
                 "date": "2025-03-24",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2758,7 +2725,6 @@
             },
             {
                 "date": "2025-03-31",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2767,7 +2733,6 @@
             },
             {
                 "date": "2025-04-07",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2776,7 +2741,6 @@
             },
             {
                 "date": "2025-04-14",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2785,7 +2749,6 @@
             },
             {
                 "date": "2025-04-21",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2794,7 +2757,6 @@
             },
             {
                 "date": "2025-04-28",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2803,7 +2765,6 @@
             },
             {
                 "date": "2025-05-12",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2812,7 +2773,6 @@
             },
             {
                 "date": "2025-05-19",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2821,7 +2781,6 @@
             },
             {
                 "date": "2025-05-26",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2830,7 +2789,6 @@
             },
             {
                 "date": "2025-06-02",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2839,7 +2797,6 @@
             },
             {
                 "date": "2025-06-09",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2848,7 +2805,6 @@
             },
             {
                 "date": "2025-06-16",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2857,7 +2813,6 @@
             },
             {
                 "date": "2025-06-23",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2866,7 +2821,6 @@
             },
             {
                 "date": "2025-06-30",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2875,7 +2829,6 @@
             },
             {
                 "date": "2025-07-07",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2884,7 +2837,6 @@
             },
             {
                 "date": "2025-07-14",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2893,7 +2845,6 @@
             },
             {
                 "date": "2025-07-21",
-                "Gemini_Cooperation_Blank_Sailing": null,
                 "MSC_Alliance_Blank_Sailing": null,
                 "OCEAN_Alliance_Blank_Sailing": null,
                 "Premier_Alliance_Blank_Sailing": null,
@@ -2904,7 +2855,6 @@
         "FBX": [
             {
                 "date": "2024-07-29",
-                "Composite_Index_4": 2458.0,
                 "China_EA_US_West_Coast_FBX": 2325.0,
                 "US_West_Coast_China_EA_FBX": 430.0,
                 "China_EA_US_East_Coast_FBX": 4411.0,
@@ -2916,7 +2866,6 @@
             },
             {
                 "date": "2024-08-05",
-                "Composite_Index_4": 2542.0,
                 "China_EA_US_West_Coast_FBX": 2369.0,
                 "US_West_Coast_China_EA_FBX": 430.0,
                 "China_EA_US_East_Coast_FBX": 4888.0,
@@ -2928,7 +2877,6 @@
             },
             {
                 "date": "2024-08-12",
-                "Composite_Index_4": 2756.0,
                 "China_EA_US_West_Coast_FBX": 3124.0,
                 "US_West_Coast_China_EA_FBX": 445.0,
                 "China_EA_US_East_Coast_FBX": 5159.0,
@@ -2940,7 +2888,6 @@
             },
             {
                 "date": "2024-08-19",
-                "Composite_Index_4": 2894.0,
                 "China_EA_US_West_Coast_FBX": 3389.0,
                 "US_West_Coast_China_EA_FBX": 453.0,
                 "China_EA_US_East_Coast_FBX": 6116.0,
@@ -2952,7 +2899,6 @@
             },
             {
                 "date": "2024-08-26",
-                "Composite_Index_4": 3603.0,
                 "China_EA_US_West_Coast_FBX": 5593.0,
                 "US_West_Coast_China_EA_FBX": 458.0,
                 "China_EA_US_East_Coast_FBX": 7183.0,
@@ -2964,7 +2910,6 @@
             },
             {
                 "date": "2024-09-02",
-                "Composite_Index_4": 3704.0,
                 "China_EA_US_West_Coast_FBX": 5994.0,
                 "US_West_Coast_China_EA_FBX": 460.0,
                 "China_EA_US_East_Coast_FBX": 7099.0,
@@ -2976,7 +2921,6 @@
             },
             {
                 "date": "2024-09-09",
-                "Composite_Index_4": 3398.0,
                 "China_EA_US_West_Coast_FBX": 5488.0,
                 "US_West_Coast_China_EA_FBX": 476.0,
                 "China_EA_US_East_Coast_FBX": 6410.0,
@@ -2988,7 +2932,6 @@
             },
             {
                 "date": "2024-09-23",
-                "Composite_Index_4": 2231.0,
                 "China_EA_US_West_Coast_FBX": 2767.0,
                 "US_West_Coast_China_EA_FBX": 418.0,
                 "China_EA_US_East_Coast_FBX": 3979.0,
@@ -3000,7 +2943,6 @@
             },
             {
                 "date": "2024-09-30",
-                "Composite_Index_4": 2237.0,
                 "China_EA_US_West_Coast_FBX": 2788.0,
                 "US_West_Coast_China_EA_FBX": 429.0,
                 "China_EA_US_East_Coast_FBX": 4223.0,
@@ -3012,7 +2954,6 @@
             },
             {
                 "date": "2024-10-07",
-                "Composite_Index_4": 2090.0,
                 "China_EA_US_West_Coast_FBX": 2462.0,
                 "US_West_Coast_China_EA_FBX": 444.0,
                 "China_EA_US_East_Coast_FBX": 3520.0,
@@ -3024,7 +2965,6 @@
             },
             {
                 "date": "2024-10-14",
-                "Composite_Index_4": 2047.0,
                 "China_EA_US_West_Coast_FBX": 2395.0,
                 "US_West_Coast_China_EA_FBX": 429.0,
                 "China_EA_US_East_Coast_FBX": 3406.0,
@@ -3036,7 +2976,6 @@
             },
             {
                 "date": "2024-10-21",
-                "Composite_Index_4": 2014.0,
                 "China_EA_US_West_Coast_FBX": 2321.0,
                 "US_West_Coast_China_EA_FBX": 424.0,
                 "China_EA_US_East_Coast_FBX": 3386.0,
@@ -3048,7 +2987,6 @@
             },
             {
                 "date": "2024-10-28",
-                "Composite_Index_4": 2042.0,
                 "China_EA_US_West_Coast_FBX": 2328.0,
                 "US_West_Coast_China_EA_FBX": 421.0,
                 "China_EA_US_East_Coast_FBX": 3395.0,
@@ -3060,7 +2998,6 @@
             },
             {
                 "date": "2024-11-04",
-                "Composite_Index_4": 2036.0,
                 "China_EA_US_West_Coast_FBX": 2343.0,
                 "US_West_Coast_China_EA_FBX": 383.0,
                 "China_EA_US_East_Coast_FBX": 3467.0,
@@ -3072,7 +3009,6 @@
             },
             {
                 "date": "2024-11-11",
-                "Composite_Index_4": 2075.0,
                 "China_EA_US_West_Coast_FBX": 2465.0,
                 "US_West_Coast_China_EA_FBX": 423.0,
                 "China_EA_US_East_Coast_FBX": 3647.0,
@@ -3084,7 +3020,6 @@
             },
             {
                 "date": "2024-11-18",
-                "Composite_Index_4": 2032.0,
                 "China_EA_US_West_Coast_FBX": 2246.0,
                 "US_West_Coast_China_EA_FBX": 416.0,
                 "China_EA_US_East_Coast_FBX": 3541.0,
@@ -3096,7 +3031,6 @@
             },
             {
                 "date": "2024-11-25",
-                "Composite_Index_4": 2050.0,
                 "China_EA_US_West_Coast_FBX": 2187.0,
                 "US_West_Coast_China_EA_FBX": 385.0,
                 "China_EA_US_East_Coast_FBX": 3369.0,
@@ -3108,7 +3042,6 @@
             },
             {
                 "date": "2024-12-02",
-                "Composite_Index_4": 2094.0,
                 "China_EA_US_West_Coast_FBX": 2238.0,
                 "US_West_Coast_China_EA_FBX": 375.0,
                 "China_EA_US_East_Coast_FBX": 3343.0,
@@ -3120,7 +3053,6 @@
             },
             {
                 "date": "2024-12-09",
-                "Composite_Index_4": 2221.0,
                 "China_EA_US_West_Coast_FBX": 2397.0,
                 "US_West_Coast_China_EA_FBX": 379.0,
                 "China_EA_US_East_Coast_FBX": 3537.0,
@@ -3132,7 +3064,6 @@
             },
             {
                 "date": "2024-12-16",
-                "Composite_Index_4": 2422.0,
                 "China_EA_US_West_Coast_FBX": 2659.0,
                 "US_West_Coast_China_EA_FBX": 403.0,
                 "China_EA_US_East_Coast_FBX": 3754.0,
@@ -3144,7 +3075,6 @@
             },
             {
                 "date": "2024-12-23",
-                "Composite_Index_4": 2718.0,
                 "China_EA_US_West_Coast_FBX": 3558.0,
                 "US_West_Coast_China_EA_FBX": 467.0,
                 "China_EA_US_East_Coast_FBX": 4490.0,
@@ -3156,7 +3086,6 @@
             },
             {
                 "date": "2024-12-30",
-                "Composite_Index_4": 3051.0,
                 "China_EA_US_West_Coast_FBX": 4362.0,
                 "US_West_Coast_China_EA_FBX": 440.0,
                 "China_EA_US_East_Coast_FBX": 5698.0,
@@ -3168,7 +3097,6 @@
             },
             {
                 "date": "2025-01-06",
-                "Composite_Index_4": 3312.0,
                 "China_EA_US_West_Coast_FBX": 4763.0,
                 "US_West_Coast_China_EA_FBX": 428.0,
                 "China_EA_US_East_Coast_FBX": 6398.0,
@@ -3180,7 +3108,6 @@
             },
             {
                 "date": "2025-01-13",
-                "Composite_Index_4": 3436.0,
                 "China_EA_US_West_Coast_FBX": 4904.0,
                 "US_West_Coast_China_EA_FBX": 438.0,
                 "China_EA_US_East_Coast_FBX": 6656.0,
@@ -3192,7 +3119,6 @@
             },
             {
                 "date": "2025-01-20",
-                "Composite_Index_4": 3600.0,
                 "China_EA_US_West_Coast_FBX": 5078.0,
                 "US_West_Coast_China_EA_FBX": 369.0,
                 "China_EA_US_East_Coast_FBX": 6718.0,
@@ -3204,7 +3130,6 @@
             },
             {
                 "date": "2025-02-03",
-                "Composite_Index_4": 3656.0,
                 "China_EA_US_West_Coast_FBX": 4938.0,
                 "US_West_Coast_China_EA_FBX": 380.0,
                 "China_EA_US_East_Coast_FBX": 6656.0,
@@ -3216,7 +3141,6 @@
             },
             {
                 "date": "2025-02-10",
-                "Composite_Index_4": 3893.0,
                 "China_EA_US_West_Coast_FBX": 5321.0,
                 "US_West_Coast_China_EA_FBX": 391.0,
                 "China_EA_US_East_Coast_FBX": 6715.0,
@@ -3228,7 +3152,6 @@
             },
             {
                 "date": "2025-02-17",
-                "Composite_Index_4": 4287.0,
                 "China_EA_US_West_Coast_FBX": 5924.0,
                 "US_West_Coast_China_EA_FBX": 386.0,
                 "China_EA_US_East_Coast_FBX": 6898.0,
@@ -3240,7 +3163,6 @@
             },
             {
                 "date": "2025-02-24",
-                "Composite_Index_4": 4291.0,
                 "China_EA_US_West_Coast_FBX": 5929.0,
                 "US_West_Coast_China_EA_FBX": 413.0,
                 "China_EA_US_East_Coast_FBX": 6934.0,
@@ -3252,7 +3174,6 @@
             },
             {
                 "date": "2025-03-04",
-                "Composite_Index_4": 3691.0,
                 "China_EA_US_West_Coast_FBX": 4452.0,
                 "US_West_Coast_China_EA_FBX": 335.0,
                 "China_EA_US_East_Coast_FBX": 5932.0,
@@ -3264,7 +3185,6 @@
             },
             {
                 "date": "2025-03-10",
-                "Composite_Index_4": 3659.0,
                 "China_EA_US_West_Coast_FBX": 4301.0,
                 "US_West_Coast_China_EA_FBX": 335.0,
                 "China_EA_US_East_Coast_FBX": 5814.0,
@@ -3276,7 +3196,6 @@
             },
             {
                 "date": "2025-03-17",
-                "Composite_Index_4": 3554.0,
                 "China_EA_US_West_Coast_FBX": 3910.0,
                 "US_West_Coast_China_EA_FBX": 335.0,
                 "China_EA_US_East_Coast_FBX": 5145.0,
@@ -3288,7 +3207,6 @@
             },
             {
                 "date": "2025-03-24",
-                "Composite_Index_4": 3661.0,
                 "China_EA_US_West_Coast_FBX": 4905.0,
                 "US_West_Coast_China_EA_FBX": 336.0,
                 "China_EA_US_East_Coast_FBX": 6095.0,
@@ -3300,7 +3218,6 @@
             },
             {
                 "date": "2025-03-31",
-                "Composite_Index_4": 3590.0,
                 "China_EA_US_West_Coast_FBX": 5122.0,
                 "US_West_Coast_China_EA_FBX": 337.0,
                 "China_EA_US_East_Coast_FBX": 5387.0,
@@ -3312,7 +3229,6 @@
             },
             {
                 "date": "2025-04-07",
-                "Composite_Index_4": 3612.0,
                 "China_EA_US_West_Coast_FBX": 5345.0,
                 "US_West_Coast_China_EA_FBX": 347.0,
                 "China_EA_US_East_Coast_FBX": 5395.0,
@@ -3324,7 +3240,6 @@
             },
             {
                 "date": "2025-04-14",
-                "Composite_Index_4": 3564.0,
                 "China_EA_US_West_Coast_FBX": 5208.0,
                 "US_West_Coast_China_EA_FBX": 362.0,
                 "China_EA_US_East_Coast_FBX": 5468.0,
@@ -3336,7 +3251,6 @@
             },
             {
                 "date": "2025-04-21",
-                "Composite_Index_4": 3315.0,
                 "China_EA_US_West_Coast_FBX": 5403.0,
                 "US_West_Coast_China_EA_FBX": 347.0,
                 "China_EA_US_East_Coast_FBX": 5219.0,
@@ -3348,7 +3262,6 @@
             },
             {
                 "date": "2025-04-28",
-                "Composite_Index_4": 3300.0,
                 "China_EA_US_West_Coast_FBX": 5540.0,
                 "US_West_Coast_China_EA_FBX": 344.0,
                 "China_EA_US_East_Coast_FBX": 5165.0,
@@ -3360,7 +3273,6 @@
             },
             {
                 "date": "2025-05-12",
-                "Composite_Index_4": 3413.0,
                 "China_EA_US_West_Coast_FBX": 5294.0,
                 "US_West_Coast_China_EA_FBX": 486.0,
                 "China_EA_US_East_Coast_FBX": 5935.0,
@@ -3372,7 +3284,6 @@
             },
             {
                 "date": "2025-05-19",
-                "Composite_Index_4": 3628.0,
                 "China_EA_US_West_Coast_FBX": 5565.0,
                 "US_West_Coast_China_EA_FBX": 521.0,
                 "China_EA_US_East_Coast_FBX": 6787.0,
@@ -3384,7 +3295,6 @@
             },
             {
                 "date": "2025-05-26",
-                "Composite_Index_4": 3798.0,
                 "China_EA_US_West_Coast_FBX": 5760.0,
                 "US_West_Coast_China_EA_FBX": 511.0,
                 "China_EA_US_East_Coast_FBX": 6744.0,
@@ -3396,7 +3306,6 @@
             },
             {
                 "date": "2025-06-02",
-                "Composite_Index_4": 4564.0,
                 "China_EA_US_West_Coast_FBX": 6816.0,
                 "US_West_Coast_China_EA_FBX": 471.0,
                 "China_EA_US_East_Coast_FBX": 8693.0,
@@ -3408,7 +3317,6 @@
             },
             {
                 "date": "2025-06-09",
-                "Composite_Index_4": 4701.0,
                 "China_EA_US_West_Coast_FBX": 6875.0,
                 "US_West_Coast_China_EA_FBX": 471.0,
                 "China_EA_US_East_Coast_FBX": 8952.0,
@@ -3420,7 +3328,6 @@
             },
             {
                 "date": "2025-06-16",
-                "Composite_Index_4": 5019.0,
                 "China_EA_US_West_Coast_FBX": 6819.0,
                 "US_West_Coast_China_EA_FBX": 471.0,
                 "China_EA_US_East_Coast_FBX": 9309.0,
@@ -3432,7 +3339,6 @@
             },
             {
                 "date": "2025-06-23",
-                "Composite_Index_4": 5062.0,
                 "China_EA_US_West_Coast_FBX": 6837.0,
                 "US_West_Coast_China_EA_FBX": 441.0,
                 "China_EA_US_East_Coast_FBX": 9130.0,
@@ -3444,7 +3350,6 @@
             },
             {
                 "date": "2025-06-30",
-                "Composite_Index_4": 5326.0,
                 "China_EA_US_West_Coast_FBX": 6858.0,
                 "US_West_Coast_China_EA_FBX": 320.0,
                 "China_EA_US_East_Coast_FBX": 9409.0,
@@ -3456,7 +3361,6 @@
             },
             {
                 "date": "2025-07-07",
-                "Composite_Index_4": 5552.0,
                 "China_EA_US_West_Coast_FBX": 7115.0,
                 "US_West_Coast_China_EA_FBX": 309.0,
                 "China_EA_US_East_Coast_FBX": 9698.0,
@@ -3468,7 +3372,6 @@
             },
             {
                 "date": "2025-07-14",
-                "Composite_Index_4": 5346.0,
                 "China_EA_US_West_Coast_FBX": 6429.0,
                 "US_West_Coast_China_EA_FBX": 289.0,
                 "China_EA_US_East_Coast_FBX": 9411.0,
@@ -3480,7 +3383,6 @@
             },
             {
                 "date": "2025-07-21",
-                "Composite_Index_4": 5050.0,
                 "China_EA_US_West_Coast_FBX": 6459.0,
                 "US_West_Coast_China_EA_FBX": 314.0,
                 "China_EA_US_East_Coast_FBX": 9480.0,
@@ -3494,7 +3396,6 @@
         "XSI": [
             {
                 "date": "2024-07-29",
-                "XSI_East_Asia_North_Europe": 3407,
                 "XSI_North_Europe_East_Asia": 233,
                 "XSI_East_Asia_US_West_Coast": 2248,
                 "XSI_US_West_Coast_East_Asia": 637,
@@ -3505,7 +3406,6 @@
             },
             {
                 "date": "2024-08-05",
-                "XSI_East_Asia_North_Europe": 3407,
                 "XSI_North_Europe_East_Asia": 233,
                 "XSI_East_Asia_US_West_Coast": 2257,
                 "XSI_US_West_Coast_East_Asia": 637,
@@ -3516,7 +3416,6 @@
             },
             {
                 "date": "2024-08-12",
-                "XSI_East_Asia_North_Europe": 3419,
                 "XSI_North_Europe_East_Asia": 236,
                 "XSI_East_Asia_US_West_Coast": 2236,
                 "XSI_US_West_Coast_East_Asia": 639,
@@ -3527,7 +3426,6 @@
             },
             {
                 "date": "2024-08-19",
-                "XSI_East_Asia_North_Europe": 3418,
                 "XSI_North_Europe_East_Asia": 236,
                 "XSI_East_Asia_US_West_Coast": 2243,
                 "XSI_US_West_Coast_East_Asia": 641,
@@ -3538,7 +3436,6 @@
             },
             {
                 "date": "2024-08-26",
-                "XSI_East_Asia_North_Europe": 3430,
                 "XSI_North_Europe_East_Asia": 239,
                 "XSI_East_Asia_US_West_Coast": 2204,
                 "XSI_US_West_Coast_East_Asia": 646,
@@ -3549,7 +3446,6 @@
             },
             {
                 "date": "2024-09-02",
-                "XSI_East_Asia_North_Europe": 3441,
                 "XSI_North_Europe_East_Asia": 238,
                 "XSI_East_Asia_US_West_Coast": 2204,
                 "XSI_US_West_Coast_East_Asia": 646,
@@ -3560,7 +3456,6 @@
             },
             {
                 "date": "2024-09-09",
-                "XSI_East_Asia_North_Europe": 3432,
                 "XSI_North_Europe_East_Asia": 235,
                 "XSI_East_Asia_US_West_Coast": 2189,
                 "XSI_US_West_Coast_East_Asia": 649,
@@ -3571,7 +3466,6 @@
             },
             {
                 "date": "2024-09-23",
-                "XSI_East_Asia_North_Europe": 3388,
                 "XSI_North_Europe_East_Asia": 238,
                 "XSI_East_Asia_US_West_Coast": 2385,
                 "XSI_US_West_Coast_East_Asia": 648,
@@ -3582,7 +3476,6 @@
             },
             {
                 "date": "2024-09-30",
-                "XSI_East_Asia_North_Europe": 3385,
                 "XSI_North_Europe_East_Asia": 238,
                 "XSI_East_Asia_US_West_Coast": 2392,
                 "XSI_US_West_Coast_East_Asia": 648,
@@ -3593,7 +3486,6 @@
             },
             {
                 "date": "2024-10-07",
-                "XSI_East_Asia_North_Europe": 3378,
                 "XSI_North_Europe_East_Asia": 238,
                 "XSI_East_Asia_US_West_Coast": 2399,
                 "XSI_US_West_Coast_East_Asia": 652,
@@ -3604,7 +3496,6 @@
             },
             {
                 "date": "2024-10-14",
-                "XSI_East_Asia_North_Europe": 3367,
                 "XSI_North_Europe_East_Asia": 238,
                 "XSI_East_Asia_US_West_Coast": 2423,
                 "XSI_US_West_Coast_East_Asia": 652,
@@ -3615,7 +3506,6 @@
             },
             {
                 "date": "2024-10-21",
-                "XSI_East_Asia_North_Europe": 3381,
                 "XSI_North_Europe_East_Asia": 237,
                 "XSI_East_Asia_US_West_Coast": 2449,
                 "XSI_US_West_Coast_East_Asia": 649,
@@ -3626,7 +3516,6 @@
             },
             {
                 "date": "2024-10-28",
-                "XSI_East_Asia_North_Europe": 3373,
                 "XSI_North_Europe_East_Asia": 206,
                 "XSI_East_Asia_US_West_Coast": 2547,
                 "XSI_US_West_Coast_East_Asia": 610,
@@ -3637,7 +3526,6 @@
             },
             {
                 "date": "2024-11-04",
-                "XSI_East_Asia_North_Europe": 3350,
                 "XSI_North_Europe_East_Asia": 216,
                 "XSI_East_Asia_US_West_Coast": 2640,
                 "XSI_US_West_Coast_East_Asia": 614,
@@ -3648,7 +3536,6 @@
             },
             {
                 "date": "2024-11-11",
-                "XSI_East_Asia_North_Europe": 3354,
                 "XSI_North_Europe_East_Asia": 224,
                 "XSI_East_Asia_US_West_Coast": 2677,
                 "XSI_US_West_Coast_East_Asia": 614,
@@ -3659,7 +3546,6 @@
             },
             {
                 "date": "2024-11-18",
-                "XSI_East_Asia_North_Europe": 3348,
                 "XSI_North_Europe_East_Asia": 224,
                 "XSI_East_Asia_US_West_Coast": 2774,
                 "XSI_US_West_Coast_East_Asia": 622,
@@ -3670,7 +3556,6 @@
             },
             {
                 "date": "2024-11-25",
-                "XSI_East_Asia_North_Europe": 3356,
                 "XSI_North_Europe_East_Asia": 229,
                 "XSI_East_Asia_US_West_Coast": 2823,
                 "XSI_US_West_Coast_East_Asia": 622,
@@ -3681,7 +3566,6 @@
             },
             {
                 "date": "2024-12-02",
-                "XSI_East_Asia_North_Europe": 2880,
                 "XSI_North_Europe_East_Asia": 276,
                 "XSI_East_Asia_US_West_Coast": 3130,
                 "XSI_US_West_Coast_East_Asia": 641,
@@ -3692,7 +3576,6 @@
             },
             {
                 "date": "2024-12-09",
-                "XSI_East_Asia_North_Europe": 2872,
                 "XSI_North_Europe_East_Asia": 276,
                 "XSI_East_Asia_US_West_Coast": 3122,
                 "XSI_US_West_Coast_East_Asia": 641,
@@ -3703,7 +3586,6 @@
             },
             {
                 "date": "2024-12-16",
-                "XSI_East_Asia_North_Europe": 2854,
                 "XSI_North_Europe_East_Asia": 278,
                 "XSI_East_Asia_US_West_Coast": 3178,
                 "XSI_US_West_Coast_East_Asia": 645,
@@ -3714,7 +3596,6 @@
             },
             {
                 "date": "2024-12-23",
-                "XSI_East_Asia_North_Europe": 2850,
                 "XSI_North_Europe_East_Asia": 278,
                 "XSI_East_Asia_US_West_Coast": 3319,
                 "XSI_US_West_Coast_East_Asia": 634,
@@ -3725,7 +3606,6 @@
             },
             {
                 "date": "2024-12-30",
-                "XSI_East_Asia_North_Europe": 2841,
                 "XSI_North_Europe_East_Asia": 278,
                 "XSI_East_Asia_US_West_Coast": 3528,
                 "XSI_US_West_Coast_East_Asia": 634,
@@ -3736,7 +3616,6 @@
             },
             {
                 "date": "2025-01-06",
-                "XSI_East_Asia_North_Europe": 2834,
                 "XSI_North_Europe_East_Asia": 278,
                 "XSI_East_Asia_US_West_Coast": 3625,
                 "XSI_US_West_Coast_East_Asia": 634,
@@ -3747,7 +3626,6 @@
             },
             {
                 "date": "2025-01-13",
-                "XSI_East_Asia_North_Europe": 2822,
                 "XSI_North_Europe_East_Asia": 275,
                 "XSI_East_Asia_US_West_Coast": 4195,
                 "XSI_US_West_Coast_East_Asia": 634,
@@ -3758,7 +3636,6 @@
             },
             {
                 "date": "2025-01-20",
-                "XSI_East_Asia_North_Europe": 2809,
                 "XSI_North_Europe_East_Asia": 275,
                 "XSI_East_Asia_US_West_Coast": 4393,
                 "XSI_US_West_Coast_East_Asia": 635,
@@ -3769,7 +3646,6 @@
             },
             {
                 "date": "2025-02-03",
-                "XSI_East_Asia_North_Europe": 2810,
                 "XSI_North_Europe_East_Asia": 275,
                 "XSI_East_Asia_US_West_Coast": 4678,
                 "XSI_US_West_Coast_East_Asia": 635,
@@ -3780,7 +3656,6 @@
             },
             {
                 "date": "2025-02-10",
-                "XSI_East_Asia_North_Europe": 2789,
                 "XSI_North_Europe_East_Asia": 275,
                 "XSI_East_Asia_US_West_Coast": 5051,
                 "XSI_US_West_Coast_East_Asia": 635,
@@ -3791,7 +3666,6 @@
             },
             {
                 "date": "2025-02-17",
-                "XSI_East_Asia_North_Europe": 2762,
                 "XSI_North_Europe_East_Asia": 281,
                 "XSI_East_Asia_US_West_Coast": 5170,
                 "XSI_US_West_Coast_East_Asia": 640,
@@ -3802,7 +3676,6 @@
             },
             {
                 "date": "2025-02-24",
-                "XSI_East_Asia_North_Europe": 2457,
                 "XSI_North_Europe_East_Asia": 281,
                 "XSI_East_Asia_US_West_Coast": 5190,
                 "XSI_US_West_Coast_East_Asia": 637,
@@ -3813,7 +3686,6 @@
             },
             {
                 "date": "2025-03-04",
-                "XSI_East_Asia_North_Europe": 2395,
                 "XSI_North_Europe_East_Asia": 272,
                 "XSI_East_Asia_US_West_Coast": 5270,
                 "XSI_US_West_Coast_East_Asia": 638,
@@ -3824,7 +3696,6 @@
             },
             {
                 "date": "2025-03-10",
-                "XSI_East_Asia_North_Europe": 2398,
                 "XSI_North_Europe_East_Asia": 261,
                 "XSI_East_Asia_US_West_Coast": 5322,
                 "XSI_US_West_Coast_East_Asia": 638,
@@ -3835,7 +3706,6 @@
             },
             {
                 "date": "2025-03-17",
-                "XSI_East_Asia_North_Europe": 2392,
                 "XSI_North_Europe_East_Asia": 256,
                 "XSI_East_Asia_US_West_Coast": 5261,
                 "XSI_US_West_Coast_East_Asia": 632,
@@ -3846,7 +3716,6 @@
             },
             {
                 "date": "2025-03-24",
-                "XSI_East_Asia_North_Europe": 2373,
                 "XSI_North_Europe_East_Asia": 258,
                 "XSI_East_Asia_US_West_Coast": 5194,
                 "XSI_US_West_Coast_East_Asia": 635,
@@ -3857,7 +3726,6 @@
             },
             {
                 "date": "2025-03-31",
-                "XSI_East_Asia_North_Europe": 2353,
                 "XSI_North_Europe_East_Asia": 237,
                 "XSI_East_Asia_US_West_Coast": 5122,
                 "XSI_US_West_Coast_East_Asia": 631,
@@ -3868,7 +3736,6 @@
             },
             {
                 "date": "2025-04-07",
-                "XSI_East_Asia_North_Europe": 2316,
                 "XSI_North_Europe_East_Asia": 239,
                 "XSI_East_Asia_US_West_Coast": 4901,
                 "XSI_US_West_Coast_East_Asia": 631,
@@ -3879,7 +3746,6 @@
             },
             {
                 "date": "2025-04-14",
-                "XSI_East_Asia_North_Europe": 2317,
                 "XSI_North_Europe_East_Asia": 246,
                 "XSI_East_Asia_US_West_Coast": 4263,
                 "XSI_US_West_Coast_East_Asia": 635,
@@ -3890,7 +3756,6 @@
             },
             {
                 "date": "2025-04-21",
-                "XSI_East_Asia_North_Europe": 2311,
                 "XSI_North_Europe_East_Asia": 237,
                 "XSI_East_Asia_US_West_Coast": 3910,
                 "XSI_US_West_Coast_East_Asia": 643,
@@ -3901,7 +3766,6 @@
             },
             {
                 "date": "2025-04-28",
-                "XSI_East_Asia_North_Europe": 1833,
                 "XSI_North_Europe_East_Asia": 215,
                 "XSI_East_Asia_US_West_Coast": 3026,
                 "XSI_US_West_Coast_East_Asia": 635,
@@ -3912,7 +3776,6 @@
             },
             {
                 "date": "2025-05-12",
-                "XSI_East_Asia_North_Europe": 1862,
                 "XSI_North_Europe_East_Asia": 215,
                 "XSI_East_Asia_US_West_Coast": 2986,
                 "XSI_US_West_Coast_East_Asia": 636,
@@ -3923,7 +3786,6 @@
             },
             {
                 "date": "2025-05-19",
-                "XSI_East_Asia_North_Europe": 1862,
                 "XSI_North_Europe_East_Asia": 214,
                 "XSI_East_Asia_US_West_Coast": 2988,
                 "XSI_US_West_Coast_East_Asia": 636,
@@ -3934,7 +3796,6 @@
             },
             {
                 "date": "2025-05-26",
-                "XSI_East_Asia_North_Europe": 1857,
                 "XSI_North_Europe_East_Asia": 217,
                 "XSI_East_Asia_US_West_Coast": 2981,
                 "XSI_US_West_Coast_East_Asia": 635,
@@ -3945,7 +3806,6 @@
             },
             {
                 "date": "2025-06-02",
-                "XSI_East_Asia_North_Europe": 1874,
                 "XSI_North_Europe_East_Asia": 215,
                 "XSI_East_Asia_US_West_Coast": 2970,
                 "XSI_US_West_Coast_East_Asia": 629,
@@ -3956,7 +3816,6 @@
             },
             {
                 "date": "2025-06-09",
-                "XSI_East_Asia_North_Europe": 1877,
                 "XSI_North_Europe_East_Asia": 215,
                 "XSI_East_Asia_US_West_Coast": 2932,
                 "XSI_US_West_Coast_East_Asia": 629,
@@ -3967,7 +3826,6 @@
             },
             {
                 "date": "2025-06-16",
-                "XSI_East_Asia_North_Europe": 1886,
                 "XSI_North_Europe_East_Asia": 214,
                 "XSI_East_Asia_US_West_Coast": 2875,
                 "XSI_US_West_Coast_East_Asia": 629,
@@ -3978,7 +3836,6 @@
             },
             {
                 "date": "2025-06-23",
-                "XSI_East_Asia_North_Europe": 1902,
                 "XSI_North_Europe_East_Asia": 214,
                 "XSI_East_Asia_US_West_Coast": 2812,
                 "XSI_US_West_Coast_East_Asia": 631,
@@ -3989,7 +3846,6 @@
             },
             {
                 "date": "2025-06-30",
-                "XSI_East_Asia_North_Europe": 1909,
                 "XSI_North_Europe_East_Asia": 217,
                 "XSI_East_Asia_US_West_Coast": 2736,
                 "XSI_US_West_Coast_East_Asia": 631,
@@ -4000,7 +3856,6 @@
             },
             {
                 "date": "2025-07-07",
-                "XSI_East_Asia_North_Europe": 1917,
                 "XSI_North_Europe_East_Asia": 213,
                 "XSI_East_Asia_US_West_Coast": 2615,
                 "XSI_US_West_Coast_East_Asia": 631,
@@ -4011,7 +3866,6 @@
             },
             {
                 "date": "2025-07-14",
-                "XSI_East_Asia_North_Europe": 1936,
                 "XSI_North_Europe_East_Asia": 214,
                 "XSI_East_Asia_US_West_Coast": 2592,
                 "XSI_US_West_Coast_East_Asia": 627,
@@ -4022,7 +3876,6 @@
             },
             {
                 "date": "2025-07-21",
-                "XSI_East_Asia_North_Europe": 1995,
                 "XSI_North_Europe_East_Asia": 220,
                 "XSI_East_Asia_US_West_Coast": 2502,
                 "XSI_US_West_Coast_East_Asia": 615,
@@ -4032,204 +3885,7 @@
                 "XSI_North_Europe_South_America_East_Coast": 601
             }
         ],
-        "MBCI": [
-            {
-                "date": "2024-07-29",
-                "MBCI_MBCI_Value": 1415.0
-            },
-            {
-                "date": "2024-08-05",
-                "MBCI_MBCI_Value": 1379.0
-            },
-            {
-                "date": "2024-08-12",
-                "MBCI_MBCI_Value": 1352.0
-            },
-            {
-                "date": "2024-08-19",
-                "MBCI_MBCI_Value": 1294.0
-            },
-            {
-                "date": "2024-08-26",
-                "MBCI_MBCI_Value": 1289.0
-            },
-            {
-                "date": "2024-09-02",
-                "MBCI_MBCI_Value": 1307.0
-            },
-            {
-                "date": "2024-09-09",
-                "MBCI_MBCI_Value": 1319.0
-            },
-            {
-                "date": "2024-09-23",
-                "MBCI_MBCI_Value": 1337.0
-            },
-            {
-                "date": "2024-09-30",
-                "MBCI_MBCI_Value": 1342.0
-            },
-            {
-                "date": "2024-10-07",
-                "MBCI_MBCI_Value": 1373.0
-            },
-            {
-                "date": "2024-10-14",
-                "MBCI_MBCI_Value": 1407.0
-            },
-            {
-                "date": "2024-10-21",
-                "MBCI_MBCI_Value": 1424.0
-            },
-            {
-                "date": "2024-10-28",
-                "MBCI_MBCI_Value": 1424.0
-            },
-            {
-                "date": "2024-11-04",
-                "MBCI_MBCI_Value": 1391.0
-            },
-            {
-                "date": "2024-11-11",
-                "MBCI_MBCI_Value": 1348.0
-            },
-            {
-                "date": "2024-11-18",
-                "MBCI_MBCI_Value": 1333.0
-            },
-            {
-                "date": "2024-11-25",
-                "MBCI_MBCI_Value": 1346.0
-            },
-            {
-                "date": "2024-12-02",
-                "MBCI_MBCI_Value": 1345.0
-            },
-            {
-                "date": "2024-12-09",
-                "MBCI_MBCI_Value": 1335.0
-            },
-            {
-                "date": "2024-12-16",
-                "MBCI_MBCI_Value": 1319.0
-            },
-            {
-                "date": "2024-12-23",
-                "MBCI_MBCI_Value": 1328.0
-            },
-            {
-                "date": "2024-12-30",
-                "MBCI_MBCI_Value": 1323.0
-            },
-            {
-                "date": "2025-01-06",
-                "MBCI_MBCI_Value": 1298.0
-            },
-            {
-                "date": "2025-01-13",
-                "MBCI_MBCI_Value": 1277.0
-            },
-            {
-                "date": "2025-01-20",
-                "MBCI_MBCI_Value": 1265.0
-            },
-            {
-                "date": "2025-02-03",
-                "MBCI_MBCI_Value": 1247.0
-            },
-            {
-                "date": "2025-02-10",
-                "MBCI_MBCI_Value": 1269.0
-            },
-            {
-                "date": "2025-02-17",
-                "MBCI_MBCI_Value": 1294.0
-            },
-            {
-                "date": "2025-02-24",
-                "MBCI_MBCI_Value": 1263.0
-            },
-            {
-                "date": "2025-03-04",
-                "MBCI_MBCI_Value": 1203.0
-            },
-            {
-                "date": "2025-03-10",
-                "MBCI_MBCI_Value": 1234.0
-            },
-            {
-                "date": "2025-03-17",
-                "MBCI_MBCI_Value": 1235.0
-            },
-            {
-                "date": "2025-03-24",
-                "MBCI_MBCI_Value": 1146.0
-            },
-            {
-                "date": "2025-03-31",
-                "MBCI_MBCI_Value": 1159.0
-            },
-            {
-                "date": "2025-04-07",
-                "MBCI_MBCI_Value": 1169.0
-            },
-            {
-                "date": "2025-04-14",
-                "MBCI_MBCI_Value": 1168.0
-            },
-            {
-                "date": "2025-04-21",
-                "MBCI_MBCI_Value": 1169.0
-            },
-            {
-                "date": "2025-04-28",
-                "MBCI_MBCI_Value": 1195.0
-            },
-            {
-                "date": "2025-05-12",
-                "MBCI_MBCI_Value": 1169.0
-            },
-            {
-                "date": "2025-05-19",
-                "MBCI_MBCI_Value": 1183.0
-            },
-            {
-                "date": "2025-05-26",
-                "MBCI_MBCI_Value": 1160.0
-            },
-            {
-                "date": "2025-06-02",
-                "MBCI_MBCI_Value": 1149.0
-            },
-            {
-                "date": "2025-06-09",
-                "MBCI_MBCI_Value": 1097.0
-            },
-            {
-                "date": "2025-06-16",
-                "MBCI_MBCI_Value": 1095.0
-            },
-            {
-                "date": "2025-06-23",
-                "MBCI_MBCI_Value": 1094.0
-            },
-            {
-                "date": "2025-06-30",
-                "MBCI_MBCI_Value": 1147.0
-            },
-            {
-                "date": "2025-07-07",
-                "MBCI_MBCI_Value": 1164.0
-            },
-            {
-                "date": "2025-07-14",
-                "MBCI_MBCI_Value": 1176.0
-            },
-            {
-                "date": "2025-07-21",
-                "MBCI_MBCI_Value": 1195.0
-            }
-        ]
+        "MBCI": []
     },
     "table_data": {
         "KCCI": {
@@ -4242,31 +3898,31 @@
             "rows": [
                 {
                     "route": "종합지수",
-                    "current_index": 5050.0,
-                    "previous_index": 5346.0,
+                    "current_index": 4890.0,
+                    "previous_index": 4778.0,
                     "weekly_change": {
-                        "value": "-296.00",
-                        "percentage": "-5.54%",
-                        "color_class": "text-blue-500"
+                        "value": "112.00",
+                        "percentage": "2.34%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "미주서안",
-                    "current_index": 6245.0,
-                    "previous_index": 6068.0,
+                    "current_index": 6900.0,
+                    "previous_index": 6640.0,
                     "weekly_change": {
-                        "value": "177.00",
-                        "percentage": "2.92%",
+                        "value": "260.00",
+                        "percentage": "3.92%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "미주동안",
-                    "current_index": 9346.0,
-                    "previous_index": 9083.0,
+                    "current_index": 9574.0,
+                    "previous_index": 9441.0,
                     "weekly_change": {
-                        "value": "263.00",
-                        "percentage": "2.90%",
+                        "value": "133.00",
+                        "percentage": "1.41%",
                         "color_class": "text-red-500"
                     }
                 },
@@ -4282,21 +3938,21 @@
                 },
                 {
                     "route": "지중해",
-                    "current_index": 4997.0,
-                    "previous_index": 4733.0,
+                    "current_index": 7629.0,
+                    "previous_index": 7486.0,
                     "weekly_change": {
-                        "value": "264.00",
-                        "percentage": "5.58%",
+                        "value": "143.00",
+                        "percentage": "1.91%",
                         "color_class": "text-red-500"
                     }
                 },
                 {
                     "route": "중동",
-                    "current_index": 2217.0,
-                    "previous_index": 2208.0,
+                    "current_index": 4404.0,
+                    "previous_index": 4286.0,
                     "weekly_change": {
-                        "value": "9.00",
-                        "percentage": "0.41%",
+                        "value": "118.00",
+                        "percentage": "2.75%",
                         "color_class": "text-red-500"
                     }
                 },
@@ -4372,12 +4028,12 @@
                 },
                 {
                     "route": "동남아시아",
-                    "current_index": 628.0,
-                    "previous_index": 595.0,
+                    "current_index": 1450.0,
+                    "previous_index": 1488.0,
                     "weekly_change": {
-                        "value": "33.00",
-                        "percentage": "5.55%",
-                        "color_class": "text-red-500"
+                        "value": "-38.00",
+                        "percentage": "-2.55%",
+                        "color_class": "text-blue-500"
                     }
                 }
             ]
@@ -4392,12 +4048,12 @@
             "rows": [
                 {
                     "route": "종합지수",
-                    "current_index": 5050.0,
-                    "previous_index": 5346.0,
+                    "current_index": 3332.0,
+                    "previous_index": 3254.0,
                     "weekly_change": {
-                        "value": "-296.00",
-                        "percentage": "-5.54%",
-                        "color_class": "text-blue-500"
+                        "value": "78.00",
+                        "percentage": "2.40%",
+                        "color_class": "text-red-500"
                     }
                 },
                 {
@@ -4542,13 +4198,9 @@
             "rows": [
                 {
                     "route": "종합지수",
-                    "current_index": 5050.0,
-                    "previous_index": 5346.0,
-                    "weekly_change": {
-                        "value": "-296.00",
-                        "percentage": "-5.54%",
-                        "color_class": "text-blue-500"
-                    }
+                    "current_index": null,
+                    "previous_index": null,
+                    "weekly_change": null
                 },
                 {
                     "route": "상하이 → 로테르담",
@@ -4708,13 +4360,9 @@
             "rows": [
                 {
                     "route": "종합지수",
-                    "current_index": 5050.0,
-                    "previous_index": 5346.0,
-                    "weekly_change": {
-                        "value": "-296.00",
-                        "percentage": "-5.54%",
-                        "color_class": "text-blue-500"
-                    }
+                    "current_index": null,
+                    "previous_index": null,
+                    "weekly_change": null
                 },
                 {
                     "route": "중국/동아시아 → 미주서안",
@@ -4808,13 +4456,9 @@
             "rows": [
                 {
                     "route": "동아시아 → 북유럽",
-                    "current_index": 1995,
-                    "previous_index": 1936,
-                    "weekly_change": {
-                        "value": "59.00",
-                        "percentage": "3.05%",
-                        "color_class": "text-red-500"
-                    }
+                    "current_index": null,
+                    "previous_index": null,
+                    "weekly_change": null
                 },
                 {
                     "route": "북유럽 → 동아시아",
@@ -4889,33 +4533,17 @@
             ]
         },
         "MBCI": {
-            "headers": [
-                "항로",
-                "Current Index",
-                "Previous Index",
-                "Weekly Change"
-            ],
-            "rows": [
-                {
-                    "route": "MBCI",
-                    "current_index": 1195.0,
-                    "previous_index": 1176.0,
-                    "weekly_change": {
-                        "value": "19.00",
-                        "percentage": "1.62%",
-                        "color_class": "text-red-500"
-                    }
-                }
-            ]
+            "headers": [],
+            "rows": []
         }
     },
     "weather_data": {
         "current": {
-            "LA_WeatherStatus": "구름 많음(broken clouds)",
+            "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 72.77,
-            "LA_Humidity": 70.0,
-            "LA_WindSpeed": 5.75,
+            "LA_Temperature": 72.59,
+            "LA_Humidity": 69.0,
+            "LA_WindSpeed": 6.91,
             "LA_Pressure": 1019.0,
             "LA_Visibility": 6.2,
             "LA_Sunrise": "5:58:44 AM",
