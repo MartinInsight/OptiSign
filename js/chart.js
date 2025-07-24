@@ -42,10 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 // Updated to 'MMM 'yy' for month unit as per requirements
                                 month: 'MMM \'yy',
                                 // Changed 'MM-dd' to 'MM/dd' to potentially resolve RangeError
-                                day: 'M/dd' 
+                                day: 'M/dd'
                             },
                             // Tooltip format updated to 'M/d/yyyy' as per requirements
-                            tooltipFormat: 'M/d/yyyy' 
+                            tooltipFormat: 'M/d/yyyy'
                         },
                         ticks: {
                             source: 'auto',
@@ -61,8 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
                             display: true,
                             text: 'Value' // Default Y-axis title
                         },
+                        ticks: {
+                            maxTicksLimit: 5, // Limit to 5 ticks
+                            color: '#666'
+                        },
                         grid: {
-                            display: false // Remove horizontal grid lines (Y-axis grid)
+                            display: true, // Display Y-axis grid lines
+                            drawOnChartArea: true, // Draw on chart area
+                            drawTicks: false, // Do not draw ticks on grid lines
+                            color: 'rgba(200, 200, 200, 0.2)', // Light grey color
+                            z: -1 // Draw behind the graph
                         }
                     }
                 },
@@ -158,12 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const color = borderColors[colorIndex % borderColors.length]; // Use same index for border color
         return color;
     };
-
-    // --- Helper function to clean label names (no longer needed for chart labels) ---
-    // const cleanLabel = (fullLabel) => {
-    //     // Remove prefixes like "KCCI ", "SCFI ", "WCI ", "FBX ", "XSI ", "MBCI "
-    //     return fullLabel.replace(/^(KCCI|SCFI|WCI|FBX|XSI|MBCI)\s/i, '');
-    // };
 
     // --- Helper function to aggregate data by month ---
     // This function will now only be used for the Blank Sailing bar chart
@@ -313,14 +315,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const table = document.createElement('table');
-        table.classList.add('data-table'); // Add a class for styling
+        table.classList.add('chart-table'); // Use the existing chart-table class for styling
 
         // Create table header
         const thead = document.createElement('thead');
         const headerRow = document.createElement('tr');
         headers.forEach(headerText => {
             const th = document.createElement('th');
-            th.textContent = headerText;
+            th.textContent = headerText; // Use the header text directly from Python (already formatted with dates)
             headerRow.appendChild(th);
         });
         thead.appendChild(headerRow);
@@ -330,9 +332,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const tbody = document.createElement('tbody');
         rows.forEach(rowData => {
             const tr = document.createElement('tr');
+            // Iterate through the headers to ensure correct cell order and content
             headers.forEach(header => {
                 const td = document.createElement('td');
-                // Determine which property to use based on the header
                 let content = '';
                 let colorClass = '';
 
@@ -343,14 +345,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         colorClass = weeklyChange.color_class;
                     }
                 } else if (header.includes('Current Index')) {
-                    content = rowData.current_index || '-';
+                    content = rowData.current_index !== null ? rowData.current_index.toLocaleString() : '-';
                 } else if (header.includes('Previous Index')) {
-                    content = rowData.previous_index || '-';
-                } else if (header.includes('항로') || header.includes('route')) { // Route column
+                    content = rowData.previous_index !== null ? rowData.previous_index.toLocaleString() : '-';
+                } else { // This will cover the "항로" column
                     content = rowData.route || '-';
-                } else {
-                    // Fallback for any other unexpected headers
-                    content = rowData[header.toLowerCase().replace(/\s/g, '_')] || '-';
                 }
                 
                 td.textContent = content;
@@ -366,6 +365,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // --- Mapping between table route names and chart data keys ---
+    // The keys here MUST match the 'route' values coming from the Python-generated table_data.rows
+    // which are the Korean names defined in Python's TABLE_DATA_CELL_MAPPINGS['section_key']['route_names'].
     const routeToDataKeyMap = {
         KCCI: {
             "종합지수": "Composite_Index",
@@ -384,8 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "동남아시아": "Southeast_Asia"
         },
         SCFI: {
-            "Comprehensive Index": "Composite_Index_1",
-            "Europe (Base port)": "North_Europe", // Assuming this mapping based on previous code
+            "종합지수": "Composite_Index_1",
+            "Europe (Base port)": "North_Europe", // Python's route_names for SCFI has English names
             "Mediterranean (Base port)": "Mediterranean_1",
             "USWC (Base port)": "US_West_Coast_1",
             "USEC (Base port)": "US_East_Coast_1",
@@ -397,10 +398,10 @@ document.addEventListener('DOMContentLoaded', () => {
             "East Japan (Base port)": "Japan_East_Coast_SCFI",
             "Southeast Asia (Singapore)": "Southeast_Asia_1",
             "Korea (Pusan)": "Korea_SCFI",
-            "Central/South America West Coast(Manzanillo)": "South_America_SCFI" // Assuming this mapping
+            "Central/South America West Coast(Manzanillo)": "South_America_SCFI"
         },
         WCI: {
-            "Composite Index": "Composite_Index_2",
+            "Composite Index": "Composite_Index_2", // Python's route_names for WCI has English names
             "Shanghai-Rotterdam": "Shanghai_Rotterdam_WCI",
             "Rotterdam-Shanghai": "Rotterdam_Shanghai_WCI",
             "Shanghai-Genoa": "Shanghai_Genoa_WCI",
@@ -408,15 +409,21 @@ document.addEventListener('DOMContentLoaded', () => {
             "LosAngeles-Shanghai": "Los_Angeles_Shanghai_WCI",
             "Shanghai-NewYork": "Shanghai_New_York_WCI",
             "NewYork-Rotterdam": "New_York_Rotterdam_WCI",
-            "Rotterdam-NewYork": "Rotterdam_New_York_WCI",
-            "Europe - South America East Coast": "Europe_South_America_East_Coast_WCI", // Placeholder, verify actual key
-            "Europe - South America West Coast": "Europe_South_America_West_Coast_WCI" // Placeholder, verify actual key
+            "Rotterdam-NewYork": "Rotterdam_New_York_WCI"
         },
         IACI: {
-            "US$/40ft": "Composite_Index_3"
+            "US$/40ft": "Composite_Index_3" // Python's route_names for IACI has "US$/40ft"
+        },
+        BLANK_SAILING: { // These names are already English in Python's TABLE_DATA_CELL_MAPPINGS and SECTION_COLUMN_MAPPINGS
+            "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
+            "MSC": "MSC_Alliance_Blank_Sailing",
+            "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
+            "Premier Alliance": "Premier_Alliance_Blank_Sailing",
+            "Others/Independent": "Others_Independent_Blank_Sailing",
+            "Total": "Total_Blank_Sailings"
         },
         FBX: {
-            "Global Container Freight Index": "Composite_Index_4",
+            "Global Container Freight Index": "Composite_Index_4", // Python's route_names for FBX has English names
             "China/East Asia - North America West Coast": "China_EA_US_West_Coast_FBX",
             "North America West Coast - China/East Asia": "US_West_Coast_China_EA_FBX",
             "China/East Asia - North America East Coast": "China_EA_US_East_Coast_FBX",
@@ -425,13 +432,13 @@ document.addEventListener('DOMContentLoaded', () => {
             "North Europe - China/East Asia": "North_Europe_China_EA_FBX",
             "China/East Asia - Mediterranean": "China_EA_Mediterranean_FBX",
             "Mediterranean - China/East Asia": "Mediterranean_China_EA_FBX",
-            "North America East Coast - North Europe": "North_America_East_Coast_North_Europe_FBX", // Placeholder
-            "North Europe - North America East Coast": "North_Europe_North_America_East_Coast_FBX", // Placeholder
-            "Europe - South America East Coast": "Europe_South_America_East_Coast_FBX", // Placeholder
-            "Europe - South America West Coast": "Europe_South_America_West_Coast_FBX" // Placeholder
+            "North America East Coast - North Europe": "US_East_Coast_North_Europe_FBX",
+            "North Europe - North America East Coast": "North_Europe_US_East_Coast_FBX",
+            "Europe - South America East Coast": "Europe_South_America_East_Coast_FBX",
+            "Europe - South America West Coast": "Europe_South_America_West_Coast_FBX"
         },
         XSI: {
-            "Far East - N. Europe": "XSI_East_Asia_North_Europe",
+            "Far East - N. Europe": "XSI_East_Asia_North_Europe", // Python's route_names for XSI has English names
             "N. Europe - Far East": "XSI_North_Europe_East_Asia",
             "Far East - USWC": "XSI_East_Asia_US_West_Coast",
             "USWC - Far East": "XSI_US_West_Coast_East_Asia",
@@ -441,8 +448,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "N. Europe - SAEC": "XSI_North_Europe_South_America_East_Coast"
         },
         MBCI: {
-            "Index(종합지수)": "MBCI_MBCI_Value",
-            // "$/day(정기용선, Time charter)": No corresponding chart data, so it will be skipped
+            "Index(종합지수)": "MBCI_MBCI_Value", // Python's route_names for MBCI has English/Korean mixed
+            "$/day(정기용선, Time charter)": null // This route name exists in table, but has no corresponding chart data key. Set to null to explicitly skip.
         }
     };
 
@@ -459,23 +466,37 @@ document.addEventListener('DOMContentLoaded', () => {
             const routeName = row.route;
             const dataKey = mapping[routeName];
             
+            console.log(`DEBUG: ${indexType} - Processing route: '${routeName}', mapped to dataKey: '${dataKey}'`);
+
             // Only create a dataset if a corresponding data key exists and current_index is not empty
             // This handles cases like MBCI's second row which has no chart data
-            if (dataKey && row.current_index !== "") { 
+            if (dataKey && row.current_index !== null && row.current_index !== undefined && row.current_index !== "") {
                 const mappedData = chartData.map(item => {
                     const xVal = item.date; // This should be a string like 'YYYY-MM-DD'
                     const yVal = item[dataKey];
                     return { x: xVal, y: yVal };
                 });
 
-                datasets.push({
-                    label: routeName, // Use the route name directly from the table for the legend
-                    data: mappedData,
-                    backgroundColor: getNextColor(),
-                    borderColor: getNextBorderColor(),
-                    borderWidth: (routeName.includes('Composite Index') || routeName.includes('종합지수') || routeName.includes('Global Container Freight Index') || routeName.includes('US$/40ft') || routeName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
-                    fill: false
-                });
+                // Filter out null/undefined y values from the data points for the chart
+                const filteredMappedData = mappedData.filter(dp => dp.y !== null && dp.y !== undefined);
+
+                console.log(`DEBUG: ${indexType} - route: '${routeName}', dataKey: '${dataKey}', filteredMappedData length: ${filteredMappedData.length}`);
+                if (filteredMappedData.length > 0) {
+                    datasets.push({
+                        label: routeName, // Use the route name directly from the table for the legend
+                        data: filteredMappedData,
+                        backgroundColor: getNextColor(),
+                        borderColor: getNextBorderColor(),
+                        borderWidth: (routeName.includes('Composite Index') || routeName.includes('종합지수') || routeName.includes('Global Container Freight Index') || routeName.includes('US$/40ft') || routeName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
+                        fill: false
+                    });
+                } else {
+                    console.warn(`WARNING: No valid data points found for ${indexType} - route: '${routeName}' (dataKey: '${dataKey}'). Skipping dataset.`);
+                }
+            } else if (dataKey === null) {
+                console.log(`INFO: Skipping chart dataset for route '${routeName}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
+            } else {
+                console.warn(`WARNING: Skipping chart dataset for route '${routeName}' in ${indexType} due to missing dataKey or empty current_index.`);
             }
         });
         return datasets;
@@ -500,7 +521,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (Object.keys(chartDataBySection).length === 0) {
                 console.warn("No chart data sections found in the JSON file.");
-                document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
+                // document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
+                // Removed this as it might hide other parts of the dashboard
                 return;
             }
 
@@ -508,52 +530,53 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentWeatherData = weatherData.current || {};
             const forecastWeatherData = weatherData.forecast || [];
 
-            document.getElementById('temperature-current').textContent = currentWeatherData.LA_Temperature ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
-            document.getElementById('status-current').textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
+            document.getElementById('laTemperature').textContent = currentWeatherData.LA_Temperature !== null ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
+            document.getElementById('laWeatherStatus').textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
             // Simple icon mapping (you might want a more robust one)
-            const weatherIconUrl = (status) => {
-                const base = 'https://placehold.co/80x80/';
-                const defaultColor = 'cccccc';
-                const textColor = 'ffffff';
-                if (status) {
-                    const lowerStatus = status.toLowerCase();
-                    if (lowerStatus.includes('clear')) return `${base}00657e/${textColor}?text=SUN`;
-                    if (lowerStatus.includes('cloud')) return `${base}003A52/${textColor}?text=CLOUD`;
-                    if (lowerStatus.includes('rain')) return `${base}28A745/${textColor}?text=RAIN`;
+            const weatherIconElement = document.getElementById('weatherIcon');
+            if (currentWeatherData.LA_WeatherStatus) {
+                if (currentWeatherData.LA_WeatherStatus.includes('맑음')) {
+                    weatherIconElement.innerHTML = '☀️';
+                } else if (currentWeatherData.LA_WeatherStatus.includes('흐림') || currentWeatherData.LA_WeatherStatus.includes('구름')) {
+                    weatherIconElement.innerHTML = '☁️';
+                } else if (currentWeatherData.LA_WeatherStatus.includes('비')) {
+                    weatherIconElement.innerHTML = '🌧️';
+                } else if (currentWeatherData.LA_WeatherStatus.includes('눈')) {
+                    weatherIconElement.innerHTML = '❄️';
+                } else {
+                    weatherIconElement.innerHTML = '❓'; // Default unknown
                 }
-                return `${base}${defaultColor}/${textColor}?text=Icon`; // Default placeholder
-            };
-            document.getElementById('weather-icon-current').src = weatherIconUrl(currentWeatherData.LA_WeatherStatus);
+            } else {
+                weatherIconElement.innerHTML = '❓';
+            }
 
-            document.getElementById('humidity-current').textContent = currentWeatherData.LA_Humidity ? `${currentWeatherData.LA_Humidity}%` : '--%';
-            document.getElementById('wind-speed-current').textContent = currentWeatherData.LA_WindSpeed ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
-            document.getElementById('pressure-current').textContent = currentWeatherData.LA_Pressure ? `${currentWeatherData.LA_Pressure} hPa` : '-- hPa';
-            document.getElementById('visibility-current').textContent = currentWeatherData.LA_Visibility ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
-            document.getElementById('sunrise-time').textContent = currentWeatherData.LA_Sunrise || '--';
-            document.getElementById('sunset-time').textContent = currentWeatherData.LA_Sunset || '--';
+            document.getElementById('laHumidity').textContent = currentWeatherData.LA_Humidity !== null ? `${currentWeatherData.LA_Humidity}%` : '--%';
+            document.getElementById('laWindSpeed').textContent = currentWeatherData.LA_WindSpeed !== null ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
+            document.getElementById('laPressure').textContent = currentWeatherData.LA_Pressure !== null ? `${currentWeatherData.LA_Pressure} hPa` : '-- hPa';
+            document.getElementById('laVisibility').textContent = currentWeatherData.LA_Visibility !== null ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
+            document.getElementById('laSunrise').textContent = currentWeatherData.LA_Sunrise || '--';
+            document.getElementById('laSunset').textContent = currentWeatherData.LA_Sunset || '--';
 
-            const forecastBody = document.getElementById('forecast-body');
-            forecastBody.innerHTML = ''; // Clear existing rows
+            const forecastTableBody = document.getElementById('forecastTableBody');
+            forecastTableBody.innerHTML = ''; // Clear existing rows
             if (forecastWeatherData.length > 0) {
                 forecastWeatherData.slice(0, 7).forEach(day => { // Display up to 7 days
-                    const row = forecastBody.insertRow();
+                    const row = forecastTableBody.insertRow();
                     row.insertCell().textContent = day.date || '--';
-                    row.insertCell().textContent = day.min_temp ? `${day.min_temp}°F` : '--';
-                    row.insertCell().textContent = day.max_temp ? `${day.max_temp}°F` : '--';
+                    row.insertCell().textContent = day.min_temp !== null ? `${day.min_temp}°F` : '--';
+                    row.insertCell().textContent = day.max_temp !== null ? `${day.max_temp}°F` : '--';
                     row.insertCell().textContent = day.status || '--';
                 });
             } else {
-                forecastBody.innerHTML = '<tr><td colspan="4">No forecast data available.</td></tr>';
+                forecastTableBody.innerHTML = '<tr><td colspan="4">No forecast data available.</td></tr>';
             }
 
 
             // --- Update Exchange Rate Info ---
             const filteredExchangeRates = exchangeRatesData.slice(Math.max(exchangeRatesData.length - 30, 0)); // Latest 1 month (approx 30 days)
-            const exchangeRateLabels = filteredExchangeRates.map(item => item.date);
-            const exchangeRateValues = filteredExchangeRates.map(item => item.rate);
-
-            const currentExchangeRate = exchangeRateValues[exchangeRateValues.length - 1];
-            document.getElementById('current-exchange-rate-value').textContent = currentExchangeRate ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...';
+            
+            const currentExchangeRate = filteredExchangeRates.length > 0 ? filteredExchangeRates[filteredExchangeRates.length - 1].rate : null;
+            document.getElementById('currentExchangeRate').textContent = currentExchangeRate !== null ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...';
 
             if (exchangeRateChart) exchangeRateChart.destroy();
             
@@ -572,7 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             exchangeRateChart = setupChart(
-                'exchangeRateChartCanvas', 'line',
+                'exchangeRateChart', 'line',
                 exchangeRateDatasets,
                 {
                     scales: {
@@ -587,7 +610,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         y: {
                             beginAtZero: false, // Exchange rates might not start at zero
-                            grid: { display: false } // Remove grid lines
+                            grid: { display: true, drawOnChartArea: true, drawTicks: false, color: 'rgba(200, 200, 200, 0.2)', z: -1 }, // Keep Y-axis grid for exchange rate
+                            ticks: { maxTicksLimit: 5 }
                         }
                     },
                     plugins: {
@@ -599,166 +623,135 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             // --- Prepare Chart Data and Initialize Charts ---
-            colorIndex = 0; // Reset color index for each chart initialization
+            // Iterate through each section defined in SECTION_MAPPINGS_FRONTEND
+            for (const sectionKey in SECTION_MAPPINGS_FRONTEND) {
+                colorIndex = 0; // Reset color index for each main chart section
 
-            // Chart 1: KCCI - All relevant indices (Granular Data)
-            const KCCIData = chartDataBySection.KCCI || [];
-            KCCIData.sort((a, b) => new Date(a.date) - new Date(b.date)); // Sort specific section data
-            const KCCIDatasets = createDatasetsFromTableRows('KCCI', KCCIData, tableDataBySection.KCCI.rows);
-            KCCIChart = setupChart('KCCIChart', 'line', KCCIDatasets, {}, false);
-            renderTable('KCCITableContainer', tableDataBySection.KCCI.headers, tableDataBySection.KCCI.rows);
+                const chartConfig = SECTION_MAPPINGS_FRONTEND[sectionKey];
+                const rawChartData = chartDataBySection[sectionKey] || [];
+                const tableData = tableDataBySection[sectionKey] || { headers: [], rows: [] };
 
+                console.log(`Processing section: ${sectionKey}`);
+                console.log(`Raw Chart Data for ${sectionKey}:`, rawChartData.slice(0, 5)); // Log first 5 entries
+                console.log(`Table Data for ${sectionKey}:`, tableData);
 
-            // Chart 2: SCFI - All relevant indices (Granular Data)
-            colorIndex = 0; // Reset color index for each chart
-            const SCFIData = chartDataBySection.SCFI || [];
-            SCFIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const SCFIDatasets = createDatasetsFromTableRows('SCFI', SCFIData, tableDataBySection.SCFI.rows);
-            SCFIChart = setupChart('SCFIChart', 'line', SCFIDatasets, {}, false);
-            renderTable('SCFITableContainer', tableDataBySection.SCFI.headers, tableDataBySection.SCFI.rows);
+                if (chartConfig.chartId && rawChartData.length > 0) {
+                    if (sectionKey === "BLANK_SAILING") {
+                        // For Blank Sailing, use aggregated data and bar chart
+                        const { aggregatedData: aggregatedBSData, monthlyLabels: bsLabels } = aggregateDataByMonth(rawChartData, 12);
+                        
+                        // Blank Sailing datasets are still manually defined as they are stacked bar charts
+                        // The labels here are the route names from the Python script's TABLE_DATA_CELL_MAPPINGS
+                        const blankSailingDatasets = [
+                            {
+                                label: 'Gemini Cooperation',
+                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Gemini_Cooperation_Blank_Sailing })),
+                                backgroundColor: 'rgba(0, 101, 126, 0.5)',
+                                borderColor: '#00657e',
+                                borderWidth: 1,
+                                stack: 'blankSailingStack' // Enable stacking
+                            },
+                            {
+                                label: 'MSC',
+                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.MSC_Alliance_Blank_Sailing })),
+                                backgroundColor: 'rgba(0, 58, 82, 0.5)',
+                                borderColor: '#003A52',
+                                borderWidth: 1,
+                                stack: 'blankSailingStack'
+                            },
+                            {
+                                label: 'OCEAN Alliance',
+                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.OCEAN_Alliance_Blank_Sailing })),
+                                backgroundColor: 'rgba(40, 167, 69, 0.5)',
+                                borderColor: '#218838',
+                                borderWidth: 1,
+                                stack: 'blankSailingStack'
+                            },
+                            {
+                                label: 'Premier Alliance',
+                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Premier_Alliance_Blank_Sailing })),
+                                backgroundColor: 'rgba(253, 126, 20, 0.5)',
+                                borderColor: '#e68a00',
+                                borderWidth: 1,
+                                stack: 'blankSailingStack'
+                            },
+                            {
+                                label: 'Others/Independent',
+                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Others_Independent_Blank_Sailing })),
+                                backgroundColor: 'rgba(111, 66, 193, 0.5)',
+                                borderColor: '#5a32b2',
+                                borderWidth: 1,
+                                stack: 'blankSailingStack'
+                            },
+                            {
+                                label: 'Total',
+                                data: aggregatedBSData.map(item => ({ x: item.date, y: item.Total_Blank_Sailings })),
+                                backgroundColor: 'rgba(220, 53, 69, 0.5)',
+                                borderColor: '#c82333',
+                                borderWidth: 1,
+                                stack: 'blankSailingStack'
+                            }
+                        ].filter(dataset => dataset.data.some(d => d.y !== null)); // Filter out datasets with no valid data
 
-
-            // Chart 3: WCI - All relevant indices (Granular Data)
-            colorIndex = 0; // Reset color index for each chart
-            const WCIData = chartDataBySection.WCI || [];
-            WCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const WCIDatasets = createDatasetsFromTableRows('WCI', WCIData, tableDataBySection.WCI.rows);
-            WCIChart = setupChart('WCIChart', 'line', WCIDatasets, {}, false);
-            renderTable('WCITableContainer', tableDataBySection.WCI.headers, tableDataBySection.WCI.rows);
-
-
-            // Chart 4: IACI Composite Index (Granular Data)
-            colorIndex = 0; // Reset color index for each chart
-            const IACIData = chartDataBySection.IACI || [];
-            IACIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const IACIDatasets = createDatasetsFromTableRows('IACI', IACIData, tableDataBySection.IACI.rows);
-            IACIChart = setupChart('IACIChart', 'line', IACIDatasets, {}, false);
-            renderTable('IACITableContainer', tableDataBySection.IACI.headers, tableDataBySection.IACI.rows);
-
-
-            // Chart 5: BLANK_SAILING Stacked Bar Chart (Keep Aggregated)
-            const blankSailingRawData = chartDataBySection.BLANK_SAILING || [];
-            const { aggregatedData: aggregatedBlankSailingData, monthlyLabels: blankSailingChartDates } = aggregateDataByMonth(blankSailingRawData, 12);
-            
-            // Blank Sailing datasets are still manually defined as they are stacked bar charts
-            const blankSailingDatasets = [
-                {
-                    label: 'Gemini Cooperation', // Directly use the label from the table data
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Gemini_Cooperation_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 101, 126, 0.5)', // Light Teal
-                    borderColor: '#00657e',
-                    borderWidth: 1
-                },
-                {
-                    label: 'MSC', // Directly use the label from the table data
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.MSC_Alliance_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 58, 82, 0.5)', // Light Navy
-                    borderColor: '#003A52',
-                    borderWidth: 1
-                },
-                {
-                    label: 'OCEAN Alliance', // Directly use the label from the table data
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.OCEAN_Alliance_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 101, 126, 0.3)', // Lighter Teal
-                    borderColor: '#00657e',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Premier Alliance', // Directly use the label from the table data
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Premier_Alliance_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 58, 82, 0.3)', // Lighter Navy
-                    borderColor: '#003A52',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Others/Independent', // Directly use the label from the table data
-                    data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.Others_Independent_Blank_Sailing })),
-                    backgroundColor: 'rgba(0, 101, 126, 0.2)', // Even Lighter Teal
-                    borderColor: '#00657e',
-                    borderWidth: 1
+                        if (blankSailingDatasets.length > 0) {
+                            blankSailingChart = setupChart(
+                                chartConfig.chartId, 'bar', blankSailingDatasets,
+                                {
+                                    scales: {
+                                        x: { stacked: true },
+                                        y: { stacked: true }
+                                    }
+                                },
+                                true // This chart is aggregated
+                            );
+                        } else {
+                            console.warn(`No valid datasets for Blank Sailing chart. Skipping chart creation.`);
+                        }
+                    } else {
+                        // For other charts, use granular data and line chart
+                        const datasets = createDatasetsFromTableRows(sectionKey, rawChartData, tableData.rows);
+                        if (datasets.length > 0) {
+                            window[`${sectionKey}Chart`] = setupChart(chartConfig.chartId, 'line', datasets, {}, false);
+                        } else {
+                            console.warn(`No valid datasets for ${sectionKey} chart. Skipping chart creation.`);
+                        }
+                    }
+                } else {
+                    console.warn(`No raw chart data found for section: ${sectionKey}. Skipping chart creation.`);
                 }
-            ];
 
-            blankSailingChart = setupChart(
-                'blankSailingChart', 'bar', blankSailingDatasets,
-                {
-                    labels: blankSailingChartDates, // Labels for bar chart
-                    scales: {
-                        x: { stacked: true, type: 'time', time: { unit: 'month', displayFormats: { month: 'MMM \'yy' }, tooltipFormat: 'M/d/yyyy' } }, // Explicitly set time scale for x-axis
-                        y: { stacked: true, beginAtZero: true, title: { display: true, text: 'Number of Sailings' } }
-                    },
-                    elements: { point: { radius: 0 } }
-                },
-                true
-            );
-            renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, tableDataBySection.BLANK_SAILING.rows);
-
-
-            // Chart 6: FBX - All relevant indices (Granular Data)
-            colorIndex = 0; // Reset color index for each chart
-            const FBXData = chartDataBySection.FBX || [];
-            FBXData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, tableDataBySection.FBX.rows);
-            console.log("FBX Raw Data:", FBXData); // Keep this for raw data check
-            console.log("FBX Datasets (before setup):", FBXDatasets);
-            if (FBXDatasets.length > 0 && FBXDatasets[0].data.length > 0) {
-                console.log("FBX Chart Data Sample (first 5 points of first dataset):", FBXDatasets[0].data.slice(0, 5));
-            } else {
-                console.warn("FBX Datasets are empty or have no data.");
+                if (chartConfig.tableId && tableData.rows.length > 0) {
+                    renderTable(chartConfig.tableId, tableData.headers, tableData.rows);
+                } else {
+                    console.warn(`No table data found for section: ${sectionKey}. Skipping table rendering.`);
+                }
             }
-            FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
-            renderTable('FBXTableContainer', tableDataBySection.FBX.headers, tableDataBySection.FBX.rows);
 
-
-            // Chart 7: XSI - All relevant indices (Granular Data)
-            colorIndex = 0; // Reset color index for each chart
-            const XSIData = chartDataBySection.XSI || [];
-            XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, tableDataBySection.XSI.rows);
-            console.log("XSI Raw Data:", XSIData); // Keep this for raw data check
-            console.log("XSI Datasets (before setup):", XSIDatasets);
-            if (XSIDatasets.length > 0 && XSIDatasets[0].data.length > 0) {
-                console.log("XSI Chart Data Sample (first 5 points of first dataset):", XSIDatasets[0].data.slice(0, 5));
-            } else {
-                console.warn("XSI Datasets are empty or have no data.");
-            }
-            XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
-            renderTable('XSITableContainer', tableDataBySection.XSI.headers, tableDataBySection.XSI.rows);
-
-
-            // Chart 8: MBCI - All relevant indices (Granular Data)
-            colorIndex = 0; // Reset color index for each chart
-            const MBCIData = chartDataBySection.MBCI || [];
-            MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, tableDataBySection.MBCI.rows);
-            console.log("MBCI Raw Data:", MBCIData); // Keep this for raw data check
-            console.log("MBCI Datasets (before setup):", MBCIDatasets);
-            if (MBCIDatasets.length > 0 && MBCIDatasets[0].data.length > 0) {
-                console.log("MBCI Chart Data Sample (first 5 points of first dataset):", MBCIDatasets[0].data.slice(0, 5));
-            } else {
-                console.warn("MBCI Datasets are empty or have no data.");
-            }
-            MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
-            renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, tableDataBySection.MBCI.rows);
-
-
-            // --- Setup and start auto-cycling for both sliders ---
-            setupSlider('.top-info-slide', 10000); // 10 seconds for top info slider
-            setupSlider('.chart-slide', 10000); // 10 seconds for chart slider
+            // Initialize carousels
+            topInfoCarouselInterval = setupSlider('.top-info-carousel .carousel-item', 10000);
+            mainChartsCarouselInterval = setupSlider('.main-charts-carousel .carousel-item', 10000);
 
         } catch (error) {
-            console.error("Error loading or processing JSON data:", error);
-            document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text" style="color: red;">Error loading chart data. Please check the console.</p>';
+            console.error("Failed to load or display dashboard data:", error);
+            // Display a user-friendly error message on the dashboard if data loading fails
+            document.body.innerHTML = '<div class="flex items-center justify-center min-h-screen bg-red-100 text-red-800 text-lg p-4 rounded-lg m-4">데이터를 불러오는 데 실패했습니다. 잠시 후 다시 시도해 주세요.<br>콘솔에서 더 자세한 오류를 확인할 수 있습니다.</div>';
         }
     }
 
-    // Initial world clock update and 1-second interval update
-    updateWorldClocks();
-    setInterval(updateWorldClocks, 1000);
+    // --- World Timezone Setup (using dayjs timezone plugin) ---
+    // Make sure dayjs timezone plugin is loaded if needed for Intl.DateTimeFormat
+    // For this example, Intl.DateTimeFormat is used directly, which relies on browser's native support.
+    // If dayjs.tz() is to be used, ensure the plugin is loaded:
+    // dayjs.extend(window.dayjs_plugin_utc);
+    // dayjs.extend(window.dayjs_plugin_timezone);
+    // dayjs.tz.setDefault('America/Los_Angeles'); // Example default timezone
 
-    // Update last updated time
-    document.getElementById('last-updated').textContent = `Last Updated: ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true })}`;
-
-    // Start loading JSON data and displaying the dashboard
+    // Call the main function when the DOM is fully loaded
     loadAndDisplayData();
+
+    // Clean up intervals on page unload
+    window.addEventListener('beforeunload', () => {
+        clearInterval(topInfoCarouselInterval);
+        clearInterval(mainChartsCarouselInterval);
+    });
 });
