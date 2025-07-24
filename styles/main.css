@@ -384,7 +384,7 @@ footer {
 /* New styles for the top content grid */
 .top-content-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr; /* Announcements (1/3) | Top Info Slider (2/3) */
+    grid-template-columns: 2fr 1fr; /* Announcements (2/3) | Top Info Slider (1/3) */
     gap: 1rem; /* Gap between the two sections */
     margin-bottom: 15px; /* Add margin to separate from chart slider */
 }
