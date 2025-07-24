@@ -463,9 +463,14 @@ def fetch_and_process_data():
 # Helper to safely get a cell value, returning empty string if out of bounds.
 def get_cell_value(data, row_idx, col_idx):
     """Safely retrieves a cell value, returning empty string if out of bounds."""
-    if 0 <= row_idx < len(data) and 0 <= col_idx < len(data[row_idx]):
-        return str(data[row_idx][col_idx]).strip()
-    return ''
+    try:
+        # Attempt to access data[row_idx][col_idx] directly
+        # This will raise IndexError if row_idx or col_idx is out of bounds
+        # It will raise TypeError if data[row_idx] is not a list/tuple
+        value = data[row_idx][col_idx]
+        return str(value).strip()
+    except (IndexError, TypeError):
+        return ''
 
 def calculate_change_and_percentage(current_val_str, previous_val_str):
     """
