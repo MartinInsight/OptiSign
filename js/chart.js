@@ -423,6 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "동남아시아": "Southeast_Asia"
         },
         SCFI: {
+            // These keys must match the `route` names from Python's SCFI table data
             "Comprehensive Index": "Composite_Index_1",
             "Europe (Base port)": "North_Europe",
             "Mediterranean (Base port)": "Mediterranean_1",
@@ -439,6 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Central/South America West Coast(Manzanillo)": "South_America_SCFI"
         },
         WCI: {
+            // These keys must match the `route` names from Python's WCI table data
             "Composite Index": "Composite_Index_2",
             "Shanghai-Rotterdam": "Shanghai_Rotterdam_WCI",
             "Rotterdam-Shanghai": "Rotterdam_Shanghai_WCI",
@@ -450,6 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Rotterdam-NewYork": "Rotterdam_New_York_WCI"
         },
         IACI: {
+            // This key must match the `route` name from Python's IACI table data
             "US$/40ft": "Composite_Index_3"
         },
         BLANK_SAILING: {
@@ -461,6 +464,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Total": "Total_Blank_Sailings"
         },
         FBX: {
+            // These keys must match the `route` names from Python's FBX table data
             "Global Container Freight Index": "Composite_Index_4",
             "China/East Asia - North America West Coast": "China_EA_US_West_Coast_FBX",
             "North America West Coast - China/East Asia": "US_West_Coast_China_EA_FBX",
@@ -476,6 +480,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Europe - South America West Coast": "Europe_South_America_West_Coast_FBX"
         },
         XSI: {
+            // These keys must match the `route` names from Python's XSI table data
             "Far East - N. Europe": "XSI_East_Asia_North_Europe",
             "N. Europe - Far East": "XSI_North_Europe_East_Asia",
             "Far East - USWC": "XSI_East_Asia_US_West_Coast",
@@ -486,8 +491,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "N. Europe - SAEC": "XSI_North_Europe_South_America_East_Coast"
         },
         MBCI: {
+            // These keys must match the `route` names from Python's MBCI table data
             "Index(종합지수)": "MBCI_MBCI_Value",
-            "$/day(정기용선, Time charter)": null
+            "$/day(정기용선, Time charter)": null // This route is intentionally not charted
         }
     };
 
