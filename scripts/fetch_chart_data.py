@@ -139,10 +139,11 @@ SECTION_COLUMN_MAPPINGS = {
             "북유럽 → 중국/동아시아": "North_Europe_China_EA_FBX",
             "중국/동아시아 → 지중해": "China_EA_Mediterranean_FBX",
             "지중해 → 중국/동아시아": "Mediterranean_China_EA_FBX",
-            "미주동안 → 북유럽": "US_East_Coast_North_Europe_FBX",
-            "북유럽 → 미주동안": "North_Europe_US_East_Coast_FBX",
-            "유럽 → 남미동안": "Europe_South_America_East_Coast_FBX",
-            "유럽 → 남미서안": "Europe_South_America_West_Coast_FBX",
+            # Assuming these headers in Google Sheet actually have _1 suffix
+            "미주동안 → 북유럽_1": "US_East_Coast_North_Europe_FBX",
+            "북유럽 → 미주동안_1": "North_Europe_US_East_Coast_FBX",
+            "유럽 → 남미동안_1": "Europe_South_America_East_Coast_FBX",
+            "유럽 → 남미서안_1": "Europe_South_America_West_Coast_FBX",
         }
     },
     "XSI": {
@@ -156,8 +157,9 @@ SECTION_COLUMN_MAPPINGS = {
             "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
             "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
             "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
-            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
-            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
+            # Assuming these headers in Google Sheet actually have _1 suffix
+            "북유럽 → 미주동안_1": "XSI_North_Europe_US_East_Coast",
+            "미주동안 → 북유럽_1": "XSI_US_East_Coast_North_Europe",
             "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
         }
     },
@@ -366,7 +368,10 @@ def fetch_and_process_data():
                 processed_chart_data_by_section[section_key] = []
                 continue
 
+            print(f"DEBUG: {section_key} - Columns selected for section DataFrame: {existing_cols_to_select}")
             df_section = df_raw_full[existing_cols_to_select].copy()
+            print(f"DEBUG: {section_key} - Head of section DataFrame before date parsing:\n{df_section.head()}")
+
 
             # Clean and parse dates for THIS section
             df_section[date_col_name_in_df] = df_section[date_col_name_in_df].astype(str).str.strip()
@@ -395,6 +400,7 @@ def fetch_and_process_data():
             output_cols = ['date'] + section_data_col_names_in_df
             processed_chart_data_by_section[section_key] = df_section[output_cols].to_dict(orient='records')
             print(f"DEBUG: {section_key}의 처리된 차트 데이터 (처음 3개 항목): {processed_chart_data_by_section[section_key][:3]}")
+            print(f"DEBUG: {section_key}의 처리된 차트 데이터 (마지막 3개 항목): {processed_chart_data_by_section[section_key][-3:]}")
 
 
         # --- Crawling_Data2 시트에서 테이블 데이터 가져오기 ---
