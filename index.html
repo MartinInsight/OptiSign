@@ -19,91 +19,94 @@
         <div class="dashboard-grid">
             <!-- Main content area (charts and announcements) -->
             <main>
-                <!-- Announcements Section - Moved to the top of main content -->
-                <div class="announcements-section">
-                    <h2>Announcements</h2>
-                    <ul class="announcements-list">
-                        <li>식사 후 건더기를 제외한 **국물은 그라인더를 켠 상태로 싱크대**에 비워주시고 나머지 **쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통**에 버려주세요.</li>
-                        <li>버리러 갈 때는 **Warehouse 계단이 아닌 Office 계단을 통해 이동**해주시고 한 쪽에 쓰레기가 몰리지 않도록 **2개의 쓰레기 통에 적절히 분배**해주세요.</li>
-                        <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 **본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지**해주세요.</li>
-                        <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 **퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.**</li>
-                        <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 **책상의 먼지 및 얼룩을 닦아서 제거**해주세요.</li>
-                    </ul>
-                </div>
-
-                <!-- Top Info Slider Container (World Clock, Weather, Exchange Rate) -->
-                <div class="top-info-slider-container">
-                    <!-- Slide 1: World Clocks -->
-                    <div class="top-info-slide active" id="top-info-slide-1">
-                        <h3>World Clocks</h3>
-                        <div class="world-clock-item">
-                            <span>Los Angeles</span>
-                            <span id="time-la"></span>
-                        </div>
-                        <div class="world-clock-item">
-                            <span>New York</span>
-                            <span id="time-ny"></span>
-                        </div>
-                        <div class="world-clock-item">
-                            <span>Paris</span>
-                            <span id="time-paris"></span>
-                        </div>
-                        <div class="world-clock-item">
-                            <span>Shanghai</span>
-                            <span id="time-shanghai"></span>
-                        </div>
-                        <div class="world-clock-item">
-                            <span>Seoul</span>
-                            <span id="time-seoul"></span>
-                        </div>
-                        <div class="world-clock-item">
-                            <span>Sydney</span>
-                            <span id="time-sydney"></span>
-                        </div>
+                <!-- New container for Announcements and Top Info Slider -->
+                <div class="top-content-grid">
+                    <!-- Announcements Section -->
+                    <div class="announcements-section">
+                        <h2>Announcements</h2>
+                        <ul class="announcements-list">
+                            <li>식사 후 건더기를 제외한 **국물은 그라인더를 켠 상태로 싱크대**에 비워주시고 나머지 **쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통**에 버려주세요.</li>
+                            <li>버리러 갈 때는 **Warehouse 계단이 아닌 Office 계단을 통해 이동**해주시고 한 쪽에 쓰레기가 몰리지 않도록 **2개의 쓰레기 통에 적절히 분배**해주세요.</li>
+                            <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 **본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지**해주세요.</li>
+                            <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 **퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.**</li>
+                            <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 **책상의 먼지 및 얼룩을 닦아서 제거**해주세요.</li>
+                        </ul>
                     </div>
 
-                    <!-- Slide 2: Weather Info -->
-                    <div class="top-info-slide" id="top-info-slide-2">
-                        <h3>Weather in Los Angeles</h3>
-                        <div class="weather-current-info">
-                            <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
-                            <span id="temperature-current">--°F</span>
-                            <span id="status-current">Loading...</span>
+                    <!-- Top Info Slider Container (World Clock, Weather, Exchange Rate) -->
+                    <div class="top-info-slider-container">
+                        <!-- Slide 1: World Clocks -->
+                        <div class="top-info-slide active" id="top-info-slide-1">
+                            <h3>World Clocks</h3>
+                            <div class="world-clock-item">
+                                <span>Los Angeles</span>
+                                <span id="time-la"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>New York</span>
+                                <span id="time-ny"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Paris</span>
+                                <span id="time-paris"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Shanghai</span>
+                                <span id="time-shanghai"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Seoul</span>
+                                <span id="time-seoul"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Sydney</span>
+                                <span id="time-sydney"></span>
+                            </div>
                         </div>
-                        <div class="weather-details">
-                            <div><span>Humidity:</span> <span id="humidity-current">--%</span></div>
-                            <div><span>Wind:</span> <span id="wind-speed-current">-- mph</span></div>
-                            <div><span>Pressure:</span> <span id="pressure-current">-- hPa</span></div>
-                            <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
-                            <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
-                            <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
-                        </div>
-                        <table class="forecast-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Min</th>
-                                    <th>Max</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="forecast-body">
-                                <!-- Forecast rows will be injected here by JS -->
-                                <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
-                                <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
-                                <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
 
-                    <!-- Slide 3: Exchange Rate Info -->
-                    <div class="top-info-slide" id="top-info-slide-3">
-                        <h3>USD to KRW Exchange Rate</h3>
-                        <div class="exchange-rate-info">
-                            <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
+                        <!-- Slide 2: Weather Info -->
+                        <div class="top-info-slide" id="top-info-slide-2">
+                            <h3>Weather in Los Angeles</h3>
+                            <div class="weather-current-info">
+                                <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
+                                <span id="temperature-current">--°F</span>
+                                <span id="status-current">Loading...</span>
+                            </div>
+                            <div class="weather-details">
+                                <div><span>Humidity:</span> <span id="humidity-current">--%</span></div>
+                                <div><span>Wind:</span> <span id="wind-speed-current">-- mph</span></div>
+                                <div><span>Pressure:</span> <span id="pressure-current">-- hPa</span></div>
+                                <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
+                                <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
+                                <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
+                            </div>
+                            <table class="forecast-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="forecast-body">
+                                    <!-- Forecast rows will be injected here by JS -->
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="exchange-rate-chart-container">
-                            <canvas id="exchangeRateChartCanvas"></canvas>
+
+                        <!-- Slide 3: Exchange Rate Info -->
+                        <div class="top-info-slide" id="top-info-slide-3">
+                            <h3>USD to KRW Exchange Rate</h3>
+                            <div class="exchange-rate-info">
+                                <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
+                            </div>
+                            <div class="exchange-rate-chart-container">
+                                <canvas id="exchangeRateChartCanvas"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -6422,9 +6422,9 @@
         "current": {
             "LA_WeatherStatus": "구름 많음(broken clouds)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 69.21,
-            "LA_Humidity": 76.0,
-            "LA_WindSpeed": 5.75,
+            "LA_Temperature": 70.02,
+            "LA_Humidity": 74.0,
+            "LA_WindSpeed": 4.61,
             "LA_Pressure": 1019.0,
             "LA_Visibility": 6.2,
             "LA_Sunrise": "5:58:44 AM",
