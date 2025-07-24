@@ -45,7 +45,7 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 1, # B열은 종합지수
         "data_end_col_idx": 14, # O열은 동남아시아
         "data_cols_map": {
-            "날짜": "KCCI_Date", # 각 섹션의 날짜 컬럼 명시
+            "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI_Date", # Corrected date header to exact sheet header
             "종합지수": "Composite_Index",
             "미주서안": "US_West_Coast",
             "미주동안": "US_East_Coast",
@@ -67,21 +67,21 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 17, # R열은 종합지수
         "data_end_col_idx": 30, # AE열은 남아공
         "data_cols_map": {
-            "날짜": "SCFI_Date", # 각 섹션의 날짜 컬럼 명시
+            "": "SCFI_Date", # Corrected date header to empty string as per console log
             "종합지수": "Composite_Index_1",
-            "유럽 (기본항)": "North_Europe",
-            "지중해 (기본항)": "Mediterranean_1",
-            "미주서안 (기본항)": "US_West_Coast_1",
-            "미주동안 (기본항)": "US_East_Coast_1",
-            "페르시아만/홍해 (두바이)": "Middle_East_1",
-            "호주/뉴질랜드 (멜버른)": "Australia_New_Zealand_SCFI",
-            "동/서 아프리카 (라고스)": "East_West_Africa_SCFI",
-            "남아프리카 (더반)": "South_Africa_SCFI",
-            "서일본 (기본항)": "Japan_West_Coast_SCFI",
-            "동일본 (기본항)": "Japan_East_Coast_SCFI",
-            "동남아시아 (싱가포르)": "Southeast_Asia_1",
-            "한국 (부산)": "Korea_SCFI",
-            "중남미서안 (만사니요)": "South_America_SCFI"
+            "미주서안": "US_West_Coast_1",
+            "미주동안": "US_East_Coast_1",
+            "북유럽": "North_Europe",
+            "지중해": "Mediterranean_1",
+            "동남아시아": "Southeast_Asia_1",
+            "중동": "Middle_East_1",
+            "호주/뉴질랜드": "Australia_New_Zealand_SCFI",
+            "남아메리카": "South_America_SCFI",
+            "일본서안": "Japan_West_Coast_SCFI",
+            "일본동안": "Japan_East_Coast_SCFI",
+            "한국": "Korea_SCFI",
+            "동부/서부 아프리카": "East_West_Africa_SCFI",
+            "남아공": "South_Africa_SCFI"
         }
     },
     "WCI": {
@@ -89,7 +89,7 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 33, # AH열은 종합지수
         "data_end_col_idx": 41, # AP열은 로테르담 → 뉴욕
         "data_cols_map": {
-            "날짜": "WCI_Date", # 각 섹션의 날짜 컬럼 명시
+            "종합지수와 각 항로별($/FEU)": "WCI_Date", # Corrected date header to exact sheet header
             "종합지수": "Composite_Index_2",
             "상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
             "로테르담 → 상하이": "Rotterdam_Shanghai_WCI",
@@ -106,7 +106,7 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 44, # AS열은 종합지수
         "data_end_col_idx": 44, # AS열
         "data_cols_map": {
-            "날짜": "IACI_Date", # 각 섹션의 날짜 컬럼 명시
+            "date": "IACI_Date", # Corrected date header to exact sheet header
             "종합지수": "Composite_Index_3"
         }
     },
@@ -115,7 +115,7 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 47, # AV열은 Index
         "data_end_col_idx": 52, # BA열은 Total (수정됨, BB가 아닌 BA로)
         "data_cols_map": {
-            "날짜": "Blank_Sailing_Date", # 각 섹션의 날짜 컬럼 명시
+            "Index": "Blank_Sailing_Date", # Corrected date header to exact sheet header
             "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
             "MSC": "MSC_Alliance_Blank_Sailing",
             "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
@@ -129,7 +129,7 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 55, # BD열은 종합지수
         "data_end_col_idx": 67, # BP열은 유럽 → 남미서안
         "data_cols_map": {
-            "날짜": "FBX_Date", # 각 섹션의 날짜 컬럼 명시
+            "종합지수와 각 항로별($/FEU)": "FBX_Date", # Corrected date header to exact sheet header
             "글로벌 컨테이너 운임 지수": "Composite_Index_4",
             "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
             "미주서안 → 중국/동아시아": "US_West_Coast_China_EA_FBX",
@@ -139,11 +139,10 @@ SECTION_COLUMN_MAPPINGS = {
             "북유럽 → 중국/동아시아": "North_Europe_China_EA_FBX",
             "중국/동아시아 → 지중해": "China_EA_Mediterranean_FBX",
             "지중해 → 중국/동아시아": "Mediterranean_China_EA_FBX",
-            # Assuming these headers in Google Sheet actually have _1 suffix
-            "미주동안 → 북유럽_1": "US_East_Coast_North_Europe_FBX",
-            "북유럽 → 미주동안_1": "North_Europe_US_East_Coast_FBX",
-            "유럽 → 남미동안_1": "Europe_South_America_East_Coast_FBX",
-            "유럽 → 남미서안_1": "Europe_South_America_West_Coast_FBX",
+            "미주동안 → 북유럽": "US_East_Coast_North_Europe_FBX", # Reverted _1 suffix as per console log
+            "북유럽 → 미주동안": "North_Europe_US_East_Coast_FBX", # Reverted _1 suffix as per console log
+            "유럽 → 남미동안": "Europe_South_America_East_Coast_FBX", # Reverted _1 suffix as per console log
+            "유럽 → 남미서안": "Europe_South_America_West_Coast_FBX", # Reverted _1 suffix as per console log
         }
     },
     "XSI": {
@@ -151,26 +150,25 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 70, # BS열은 동아시아 → 북유럽
         "data_end_col_idx": 77, # BZ열은 북유럽 → 남미동안
         "data_cols_map": {
-            "날짜": "XSI_Date", # 각 섹션의 날짜 컬럼 명시
+            "각 항로별($/FEU)": "XSI_Date", # Corrected date header to exact sheet header
             "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
             "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
             "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
             "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
             "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
-            # Assuming these headers in Google Sheet actually have _1 suffix
-            "북유럽 → 미주동안_1": "XSI_North_Europe_US_East_Coast",
-            "미주동안 → 북유럽_1": "XSI_US_East_Coast_North_Europe",
+            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast", # Reverted _1 suffix as per console log
+            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe", # Reverted _1 suffix as per console log
             "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
         }
     },
     "MBCI": {
         "date_col_idx": 79, # CB열은 날짜
         "data_start_col_idx": 80, # CC열은 MBCI
-        "data_end_col_idx": 81, # CD열은 $/day (Corrected to include H column)
+        "data_end_col_idx": 80, # Corrected: Only 'MBCI' is a data column, H column is empty
         "data_cols_map": {
-            "날짜": "MBCI_Date", # 각 섹션의 날짜 컬럼 명시
+            "Index(종합지수), $/day(정기용선, Time charter)": "MBCI_Date", # Corrected date header to exact sheet header
             "MBCI": "MBCI_MBCI_Value",
-            "$/day(정기용선, Time charter)": "MBCI_Time_Charter_Value" # Added explicit mapping for the second column
+            # Removed "$/day(정기용선, Time charter)" from data_cols_map as it's part of the date header at col 79
         }
     }
 }
@@ -255,7 +253,9 @@ ORIGINAL_HEADER_TO_FINAL_KEY_MAP = {}
 for section_key, details in SECTION_COLUMN_MAPPINGS.items():
     for original_header, final_key in details["data_cols_map"].items():
         # Ensure '날짜' is mapped to its specific date key (e.g., KCCI_Date)
-        if original_header == "날짜":
+        if original_header == "날짜": # This is a placeholder, actual headers might vary
+            # This part is now less critical because we are mapping exact headers from the sheet
+            # However, if '날짜' is literally a header in some sheet, this mapping is fine.
             ORIGINAL_HEADER_TO_FINAL_KEY_MAP[original_header] = final_key # Store the section-specific date key
         else:
             # For other data columns, store the final_key directly
@@ -349,12 +349,12 @@ def fetch_and_process_data():
 
         # Process each section for chart data
         for section_key, details in SECTION_COLUMN_MAPPINGS.items():
-            date_col_name_in_df = details["data_cols_map"]["날짜"] # e.g., "KCCI_Date"
+            date_col_name_in_df = details["data_cols_map"][list(details["data_cols_map"].keys())[0]] # Get the first key, which is assumed to be the date header
             
             # Get all final JSON keys for data columns in this section (excluding the date column)
             section_data_col_names_in_df = [
                 final_json_key for original_header, final_json_key in details["data_cols_map"].items()
-                if original_header != "날짜"
+                if original_header != list(details["data_cols_map"].keys())[0] # Exclude the first key (date header)
             ]
             
             # Columns to select from the full DataFrame for this specific section
