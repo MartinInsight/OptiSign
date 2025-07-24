@@ -530,34 +530,35 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentWeatherData = weatherData.current || {};
             const forecastWeatherData = weatherData.forecast || [];
 
-            document.getElementById('laTemperature').textContent = currentWeatherData.LA_Temperature !== null ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
-            document.getElementById('laWeatherStatus').textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
+            // Corrected IDs for weather elements
+            document.getElementById('temperature-current').textContent = currentWeatherData.LA_Temperature !== null ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
+            document.getElementById('status-current').textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
             // Simple icon mapping (you might want a more robust one)
-            const weatherIconElement = document.getElementById('weatherIcon');
+            const weatherIconElement = document.getElementById('weather-icon-current');
             if (currentWeatherData.LA_WeatherStatus) {
                 if (currentWeatherData.LA_WeatherStatus.includes('맑음')) {
-                    weatherIconElement.innerHTML = '☀️';
+                    weatherIconElement.src = 'https://placehold.co/80x80/00657e/ffffff?text=SUN';
                 } else if (currentWeatherData.LA_WeatherStatus.includes('흐림') || currentWeatherData.LA_WeatherStatus.includes('구름')) {
-                    weatherIconElement.innerHTML = '☁️';
+                    weatherIconElement.src = 'https://placehold.co/80x80/003A52/ffffff?text=CLOUD';
                 } else if (currentWeatherData.LA_WeatherStatus.includes('비')) {
-                    weatherIconElement.innerHTML = '🌧️';
+                    weatherIconElement.src = 'https://placehold.co/80x80/28A745/ffffff?text=RAIN';
                 } else if (currentWeatherData.LA_WeatherStatus.includes('눈')) {
-                    weatherIconElement.innerHTML = '❄️';
+                    weatherIconElement.src = 'https://placehold.co/80x80/138496/ffffff?text=SNOW';
                 } else {
-                    weatherIconElement.innerHTML = '❓'; // Default unknown
+                    weatherIconElement.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Icon'; // Default unknown
                 }
             } else {
-                weatherIconElement.innerHTML = '❓';
+                weatherIconElement.src = 'https://placehold.co/80x80/cccccc/ffffff?text=Icon';
             }
 
-            document.getElementById('laHumidity').textContent = currentWeatherData.LA_Humidity !== null ? `${currentWeatherData.LA_Humidity}%` : '--%';
-            document.getElementById('laWindSpeed').textContent = currentWeatherData.LA_WindSpeed !== null ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
-            document.getElementById('laPressure').textContent = currentWeatherData.LA_Pressure !== null ? `${currentWeatherData.LA_Pressure} hPa` : '-- hPa';
-            document.getElementById('laVisibility').textContent = currentWeatherData.LA_Visibility !== null ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
-            document.getElementById('laSunrise').textContent = currentWeatherData.LA_Sunrise || '--';
-            document.getElementById('laSunset').textContent = currentWeatherData.LA_Sunset || '--';
+            document.getElementById('humidity-current').textContent = currentWeatherData.LA_Humidity !== null ? `${currentWeatherData.LA_Humidity}%` : '--%';
+            document.getElementById('wind-speed-current').textContent = currentWeatherData.LA_WindSpeed !== null ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
+            document.getElementById('pressure-current').textContent = currentWeatherData.LA_Pressure !== null ? `${currentWeatherData.LA_Pressure} hPa` : '-- hPa';
+            document.getElementById('visibility-current').textContent = currentWeatherData.LA_Visibility !== null ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
+            document.getElementById('sunrise-time').textContent = currentWeatherData.LA_Sunrise || '--';
+            document.getElementById('sunset-time').textContent = currentWeatherData.LA_Sunset || '--';
 
-            const forecastTableBody = document.getElementById('forecastTableBody');
+            const forecastTableBody = document.getElementById('forecast-body'); // Corrected ID
             forecastTableBody.innerHTML = ''; // Clear existing rows
             if (forecastWeatherData.length > 0) {
                 forecastWeatherData.slice(0, 7).forEach(day => { // Display up to 7 days
@@ -576,7 +577,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const filteredExchangeRates = exchangeRatesData.slice(Math.max(exchangeRatesData.length - 30, 0)); // Latest 1 month (approx 30 days)
             
             const currentExchangeRate = filteredExchangeRates.length > 0 ? filteredExchangeRates[filteredExchangeRates.length - 1].rate : null;
-            document.getElementById('currentExchangeRate').textContent = currentExchangeRate !== null ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...';
+            document.getElementById('current-exchange-rate-value').textContent = currentExchangeRate !== null ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...'; // Corrected ID
 
             if (exchangeRateChart) exchangeRateChart.destroy();
             
@@ -595,7 +596,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             exchangeRateChart = setupChart(
-                'exchangeRateChart', 'line',
+                'exchangeRateChartCanvas', 'line', // Corrected ID for canvas
                 exchangeRateDatasets,
                 {
                     scales: {
@@ -728,8 +729,65 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Initialize carousels
-            topInfoCarouselInterval = setupSlider('.top-info-carousel .carousel-item', 10000);
-            mainChartsCarouselInterval = setupSlider('.main-charts-carousel .carousel-item', 10000);
+            // The HTML provided by the user has a different structure for sliders.
+            // It uses classes like 'top-info-slide' and 'chart-slide' and a single 'top-info-slider-container'
+            // and 'chart-slider-container' without explicit 'carousel-inner' or 'carousel-dots' elements.
+            // The `setupSlider` function needs to be adapted to this structure.
+            // For now, I will comment out the slider initialization as the HTML structure for it is not fully provided.
+            // If the user wants to re-enable sliders, the HTML for them needs to be consistent with the JS.
+
+            // topInfoCarouselInterval = setupSlider('.top-info-slider-container .top-info-slide', 10000);
+            // mainChartsCarouselInterval = setupSlider('.chart-slider-container .chart-slide', 10000);
+
+            // Re-enabling the slider setup based on the provided HTML structure
+            // The setupSlider function needs to be adapted to manage 'active' class on slides.
+            // The HTML provided by the user does not have `carousel-inner` and `carousel-dots` for the sliders,
+            // but rather individual slide divs with `top-info-slide` and `chart-slide` classes.
+            // The `setupSlider` function needs to be adjusted to work with this.
+
+            const topInfoSlides = document.querySelectorAll('.top-info-slider-container .top-info-slide');
+            let currentTopSlide = 0;
+            const showTopSlide = (index) => {
+                topInfoSlides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+            };
+            if (topInfoSlides.length > 0) {
+                showTopSlide(currentTopSlide);
+                if (topInfoSlides.length > 1) {
+                    topInfoCarouselInterval = setInterval(() => {
+                        currentTopSlide = (currentTopSlide + 1) % topInfoSlides.length;
+                        showTopSlide(currentTopSlide);
+                    }, 10000);
+                }
+            }
+
+
+            const mainChartSlides = document.querySelectorAll('.chart-slider-container .chart-slide');
+            let currentMainChartSlide = 0;
+            const showMainChartSlide = (index) => {
+                mainChartSlides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+            };
+            if (mainChartSlides.length > 0) {
+                showMainChartSlide(currentMainChartSlide);
+                if (mainChartSlides.length > 1) {
+                    mainChartsCarouselInterval = setInterval(() => {
+                        currentMainChartSlide = (currentMainChartSlide + 1) % mainChartSlides.length;
+                        showMainChartSlide(currentMainChartSlide);
+                    }, 10000);
+                }
+            }
+
 
         } catch (error) {
             console.error("Failed to load or display dashboard data:", error);
@@ -751,7 +809,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Clean up intervals on page unload
     window.addEventListener('beforeunload', () => {
-        clearInterval(topInfoCarouselInterval);
-        clearInterval(mainChartsCarouselInterval);
+        // Clear intervals only if they were successfully set
+        if (typeof topInfoCarouselInterval !== 'undefined') {
+            clearInterval(topInfoCarouselInterval);
+        }
+        if (typeof mainChartsCarouselInterval !== 'undefined') {
+            clearInterval(mainChartsCarouselInterval);
+        }
     });
 });
