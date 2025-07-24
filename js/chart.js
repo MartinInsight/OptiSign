@@ -558,22 +558,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (exchangeRateChart) exchangeRateChart.destroy();
             
             // Debugging: Log the datasets for Exchange Rate Chart
-            console.log("Exchange Rate Chart Datasets (before setup):", [{
+            const exchangeRateDatasets = [{
                 label: 'USD/KRW Exchange Rate',
-                data: filteredExchangeRates.map(item => ({ x: item.date, y: item.rate }))
-            }]);
+                data: filteredExchangeRates.map(item => ({ x: item.date, y: item.rate })), // Use x,y for time scale
+                backgroundColor: 'rgba(253, 126, 20, 0.5)',
+                borderColor: '#e68a00',
+                borderWidth: 2,
+                fill: false,
+                pointRadius: 0 // No points on exchange rate chart
+            }];
+            console.log("Exchange Rate Chart Datasets (before setup):", exchangeRateDatasets);
+            console.log("Exchange Rate Chart Data Sample (first 5 points):", exchangeRateDatasets[0].data.slice(0, 5));
+
 
             exchangeRateChart = setupChart(
                 'exchangeRateChartCanvas', 'line',
-                [{
-                    label: 'USD/KRW Exchange Rate',
-                    data: filteredExchangeRates.map(item => ({ x: item.date, y: item.rate })), // Use x,y for time scale
-                    backgroundColor: 'rgba(253, 126, 20, 0.5)',
-                    borderColor: '#e68a00',
-                    borderWidth: 2,
-                    fill: false,
-                    pointRadius: 0 // No points on exchange rate chart
-                }],
+                exchangeRateDatasets,
                 {
                     scales: {
                         x: {
@@ -698,10 +698,14 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const FBXData = chartDataBySection.FBX || [];
             FBXData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            // Debugging: Log the datasets for FBX Chart
-            console.log("FBX Raw Data:", FBXData);
             const FBXDatasets = createDatasetsFromTableRows('FBX', FBXData, tableDataBySection.FBX.rows);
+            console.log("FBX Raw Data:", FBXData); // Keep this for raw data check
             console.log("FBX Datasets (before setup):", FBXDatasets);
+            if (FBXDatasets.length > 0 && FBXDatasets[0].data.length > 0) {
+                console.log("FBX Chart Data Sample (first 5 points of first dataset):", FBXDatasets[0].data.slice(0, 5));
+            } else {
+                console.warn("FBX Datasets are empty or have no data.");
+            }
             FBXChart = setupChart('FBXChart', 'line', FBXDatasets, {}, false);
             renderTable('FBXTableContainer', tableDataBySection.FBX.headers, tableDataBySection.FBX.rows);
 
@@ -710,10 +714,14 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const XSIData = chartDataBySection.XSI || [];
             XSIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            // Debugging: Log the datasets for XSI Chart
-            console.log("XSI Raw Data:", XSIData);
             const XSIDatasets = createDatasetsFromTableRows('XSI', XSIData, tableDataBySection.XSI.rows);
+            console.log("XSI Raw Data:", XSIData); // Keep this for raw data check
             console.log("XSI Datasets (before setup):", XSIDatasets);
+            if (XSIDatasets.length > 0 && XSIDatasets[0].data.length > 0) {
+                console.log("XSI Chart Data Sample (first 5 points of first dataset):", XSIDatasets[0].data.slice(0, 5));
+            } else {
+                console.warn("XSI Datasets are empty or have no data.");
+            }
             XSIChart = setupChart('XSIChart', 'line', XSIDatasets, {}, false);
             renderTable('XSITableContainer', tableDataBySection.XSI.headers, tableDataBySection.XSI.rows);
 
@@ -722,10 +730,14 @@ document.addEventListener('DOMContentLoaded', () => {
             colorIndex = 0; // Reset color index for each chart
             const MBCIData = chartDataBySection.MBCI || [];
             MBCIData.sort((a, b) => new Date(a.date) - new Date(b.date));
-            // Debugging: Log the datasets for MBCI Chart
-            console.log("MBCI Raw Data:", MBCIData);
             const MBCIDatasets = createDatasetsFromTableRows('MBCI', MBCIData, tableDataBySection.MBCI.rows);
+            console.log("MBCI Raw Data:", MBCIData); // Keep this for raw data check
             console.log("MBCI Datasets (before setup):", MBCIDatasets);
+            if (MBCIDatasets.length > 0 && MBCIDatasets[0].data.length > 0) {
+                console.log("MBCI Chart Data Sample (first 5 points of first dataset):", MBCIDatasets[0].data.slice(0, 5));
+            } else {
+                console.warn("MBCI Datasets are empty or have no data.");
+            }
             MBCIChart = setupChart('MBCIChart', 'line', MBCIDatasets, {}, false);
             renderTable('MBCITableContainer', tableDataBySection.MBCI.headers, tableDataBySection.MBCI.rows);
 
