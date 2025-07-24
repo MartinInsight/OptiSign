@@ -120,8 +120,8 @@ SECTION_COLUMN_MAPPINGS = {
             "MSC": "MSC_Alliance_Blank_Sailing",
             "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
             "Premier Alliance": "Premier_Alliance_Blank_Sailing",
-            "Others/Independent": "Others_Independent_Blank_Sailing",
-            "Total": "Total_Blank_Sailings"
+            "Others/Independent": "Others_Independent_Blank_Sailing"
+            # "Total": "Total_Blank_Sailings" # 'Total' 컬럼은 지정된 데이터 범위 밖에 있으므로 제거
         }
     },
     "FBX": {
