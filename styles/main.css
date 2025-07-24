@@ -160,7 +160,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px; /* Add margin to separate from charts */
+    /* Removed margin-bottom here as it will be handled by top-content-grid gap */
 }
 
 .top-info-slide {
@@ -203,9 +203,11 @@ footer {
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    margin-bottom: 15px; /* Add margin to separate from top info slider */
+    /* Removed margin-bottom here as it will be handled by top-content-grid gap */
     width: 100%;
     box-sizing: border-box; /* Include padding in total width */
+    max-height: 480px; /* Set max-height to match top-info-slider-container */
+    overflow-y: auto; /* Enable scrolling for long announcements */
 }
 
 .announcements-section h2 {
@@ -377,4 +379,12 @@ footer {
 
 .text-gray-700 {
     color: #374151; /* A shade of gray for no change */
+}
+
+/* New styles for the top content grid */
+.top-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Announcements (1/3) | Top Info Slider (2/3) */
+    gap: 1rem; /* Gap between the two sections */
+    margin-bottom: 15px; /* Add margin to separate from chart slider */
 }
