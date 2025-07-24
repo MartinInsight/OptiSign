@@ -63,7 +63,7 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "SCFI": {
-        "date_col_idx": 16, # Q열은 날짜
+        "date_col_idx": 15, # Q열은 날짜 (Adjusted from 16 to 15 to match empty string header)
         "data_start_col_idx": 17, # R열은 종합지수
         "data_end_col_idx": 30, # AE열은 남아공
         "data_cols_map": {
@@ -139,10 +139,10 @@ SECTION_COLUMN_MAPPINGS = {
             "북유럽 → 중국/동아시아": "North_Europe_China_EA_FBX",
             "중국/동아시아 → 지중해": "China_EA_Mediterranean_FBX",
             "지중해 → 중국/동아시아": "Mediterranean_China_EA_FBX",
-            "미주동안 → 북유럽": "US_East_Coast_North_Europe_FBX", # Reverted _1 suffix as per console log
-            "북유럽 → 미주동안": "North_Europe_US_East_Coast_FBX", # Reverted _1 suffix as per console log
-            "유럽 → 남미동안": "Europe_South_America_East_Coast_FBX", # Reverted _1 suffix as per console log
-            "유럽 → 남미서안": "Europe_South_America_West_Coast_FBX", # Reverted _1 suffix as per console log
+            "미주동안 → 북유럽": "US_East_Coast_North_Europe_FBX",
+            "북유럽 → 미주동안": "North_Europe_US_East_Coast_FBX",
+            "유럽 → 남미동안": "Europe_South_America_East_Coast_FBX",
+            "유럽 → 남미서안": "Europe_South_America_West_Coast_FBX",
         }
     },
     "XSI": {
@@ -156,8 +156,8 @@ SECTION_COLUMN_MAPPINGS = {
             "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
             "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
             "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
-            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast", # Reverted _1 suffix as per console log
-            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe", # Reverted _1 suffix as per console log
+            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
+            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
             "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
         }
     },
@@ -173,93 +173,13 @@ SECTION_COLUMN_MAPPINGS = {
     }
 }
 
-# --- Specific Cell Mappings for Table Data (Current, Previous, Weekly Change from Crawling_Data2) ---
-# These define the exact 0-indexed row and column for fetching table summary data.
-# The 'route_names' will be used for the table's "항로" column, matching chart legends.
-TABLE_DATA_CELL_MAPPINGS = {
-    "KCCI": {
-        "current_date_cell": (2,0), # A3 (row 2, col 0)
-        "current_index_cols_range": (1, 14), # B3:O3 (cols 1 to 14)
-        "previous_date_cell": (3,0), # A4 (row 3, col 0)
-        "previous_index_cols_range": (1, 14), # B4:O4 (cols 1 to 14)
-        "weekly_change_cols_range": (1, 14), # B5:O5 (cols 1 to 14)
-        "route_names": ["종합지수", "미주서안", "미주동안", "유럽", "지중해", "중동", "호주", "남미동안", "남미서안", "남아프리카", "서아프리카", "중국", "일본", "동남아시아"]
-    },
-    "SCFI": {
-        "current_date_cell": (8,0), # A9
-        "current_index_cols_range": (1, 14), # B9:O9
-        "previous_date_cell": (9,0), # A10
-        "previous_index_cols_range": (1, 14), # B10:O10
-        "weekly_change_cols_range": (1, 14), # B11:O11
-        "route_names": ["종합지수", "유럽 (기본항)", "지중해 (기본항)", "미주서안 (기본항)", "미주동안 (기본항)", "페르시아만/홍해 (두바이)", "호주/뉴질랜드 (멜버른)", "동/서 아프리카 (라고스)", "남아프리카 (더반)", "서일본 (기본항)", "동일본 (기본항)", "동남아시아 (싱가포르)", "한국 (부산)", "중남미서안 (만사니요)"]
-    },
-    "WCI": {
-        "current_date_cell": (20,0), # A21
-        "current_index_cols_range": (1, 9), # B21:J21
-        "previous_date_cell": (21,0), # A22
-        "previous_index_cols_range": (1, 9), # B22:J22
-        "weekly_change_cols_range": (1, 9), # B23:J23 (Corrected from O23 as per B21:J21 data range)
-        "route_names": ["종합지수", "상하이 → 로테르담", "로테르담 → 상하이", "상하이 → 제노바", "상하이 → 로스엔젤레스", "로스엔젤레스 → 상하이", "상하이 → 뉴욕", "뉴욕 → 로테르담", "로테르담 → 뉴욕"]
-    },
-    "IACI": {
-        "current_date_cell": (26,0), # A27
-        "current_index_cols_range": (1, 1), # B27
-        "previous_date_cell": (27,0), # A28
-        "previous_index_cols_range": (1, 1), # B28
-        "weekly_change_cols_range": (1, 1), # B29
-        "route_names": ["종합지수"]
-    },
-    "BLANK_SAILING": {
-        "current_date_cell": (32,0), # A33
-        "current_index_cols_range": (1, 6), # B33:G33
-        "previous_date_cells_and_ranges": [ # For Blank Sailing, multiple previous dates/data rows
-            {"date_cell": (33,0), "data_range": (1, 6)}, # A34, B34:G34
-            {"date_cell": (34,0), "data_range": (1, 6)}, # A35, B35:G35
-            {"date_cell": (35,0), "data_range": (1, 6)}, # A36, B36:G36
-            {"date_cell": (36,0), "data_range": (1, 6)}, # A37, B37:G37
-        ],
-        "weekly_change_cols_range": None, # No explicit weekly change row provided, will calculate from current/previous
-        "route_names": ["Gemini Cooperation", "MSC", "OCEAN Alliance", "Premier Alliance", "Others/Independent", "Total"]
-    },
-    "FBX": {
-        "current_date_cell": (40,0), # A41
-        "current_index_cols_range": (1, 13), # B41:N41
-        "previous_date_cell": (41,0), # A42
-        "previous_index_cols_range": (1, 13), # B42:N42
-        "weekly_change_cols_range": (1, 13), # B43:N43
-        "route_names": ["글로벌 컨테이너 운임 지수", "중국/동아시아 → 미주서안", "미주서안 → 중국/동아시아", "중국/동아시아 → 미주동안", "미주동안 → 중국/동아시아", "중국/동아시아 → 북유럽", "북유럽 → 중국/동아시아", "중국/동아시아 → 지중해", "지중해 → 중국/동아시아", "미주동안 → 북유럽", "북유럽 → 미주동안", "유럽 → 남미동안", "유럽 → 남미서안"]
-    },
-    "XSI": {
-        "current_date_cell": (46,0), # A47
-        "current_index_cols_range": (1, 8), # B47:I47
-        "previous_date_cell": (47,0), # A48
-        "previous_index_cols_range": (1, 8), # B48:I48 (Corrected from N48 as per B47:I47 data range)
-        "weekly_change_cols_range": (1, 8), # B49:I49 (Corrected from N49 as per B47:I47 data range)
-        "route_names": ["동아시아 → 북유럽", "북유럽 → 동아시아", "동아시아 → 미주서안", "미주서안 → 동아시아", "동아시아 → 남미동안", "북유럽 → 미주동안", "미주동안 → 북유럽", "북유럽 → 남미동안"]
-    },
-    "MBCI": {
-        "current_date_cell": (58,0), # A59
-        "current_index_cols_range": (6, 7), # G59:H59 (MBCI and $/day)
-        "previous_date_cell": (59,0), # A60
-        "previous_index_cols_range": (6, 7), # G60:H60
-        "weekly_change_cols_range": (6, 7), # G61:H61
-        "route_names": ["Index(종합지수)", "$/day(정기용선, Time charter)"] # Corrected to a list of two strings
-    }
-}
-
 # Global dictionary to map original sheet headers to their final JSON keys
 # This will be populated once from SECTION_COLUMN_MAPPINGS
+# This map is now primarily for debugging and reference, as column renaming is done per section DataFrame.
 ORIGINAL_HEADER_TO_FINAL_KEY_MAP = {}
 for section_key, details in SECTION_COLUMN_MAPPINGS.items():
     for original_header, final_key in details["data_cols_map"].items():
-        # Ensure '날짜' is mapped to its specific date key (e.g., KCCI_Date)
-        if original_header == "날짜": # This is a placeholder, actual headers might vary
-            # This part is now less critical because we are mapping exact headers from the sheet
-            # However, if '날짜' is literally a header in some sheet, this mapping is fine.
-            ORIGINAL_HEADER_TO_FINAL_KEY_MAP[original_header] = final_key # Store the section-specific date key
-        else:
-            # For other data columns, store the final_key directly
-            ORIGINAL_HEADER_TO_FINAL_KEY_MAP[original_header] = final_key
+        ORIGINAL_HEADER_TO_FINAL_KEY_MAP[original_header] = final_key
 
 
 def fetch_and_process_data():
@@ -300,105 +220,104 @@ def fetch_and_process_data():
         raw_headers_full_charts = [str(h).strip().replace('"', '') for h in all_data_charts[main_header_row_index]]
         print(f"DEBUG: '{WORKSHEET_NAME_CHARTS}'에서 가져온 원본 헤더 (전체 행): {raw_headers_full_charts}")
 
-        # Create a mapping from raw_header_original index to final desired name
-        col_idx_to_final_header_name = {}
-        
-        # Populate col_idx_to_final_header_name using the global ORIGINAL_HEADER_TO_FINAL_KEY_MAP
-        # This ensures that the column names in the DataFrame are the final desired JSON keys.
-        for i, original_header_name_in_sheet in enumerate(raw_headers_full_charts):
-            final_key = ORIGINAL_HEADER_TO_FINAL_KEY_MAP.get(original_header_name_in_sheet)
-            if final_key:
-                col_idx_to_final_header_name[i] = final_key
-            else:
-                # If an original header is not explicitly mapped, it's an unmapped column.
-                col_idx_to_final_header_name[i] = f"UNMAPPED_COL_{i}"
-                print(f"WARNING: Original header '{original_header_name_in_sheet}' (col {i}) not found in any data_cols_map. Using default name.")
-
-        # Now, create a list of final column names in their original order
-        final_column_names_ordered = [col_idx_to_final_header_name[i] for i in range(len(raw_headers_full_charts))]
-        
-        print(f"DEBUG: Final mapped column names for full DataFrame: {final_column_names_ordered}")
-
-        # Create a DataFrame from all raw data, using the newly ordered final column names
+        # Create a DataFrame from all raw data, using the raw headers as column names.
+        # Pandas will handle rows with fewer columns by filling with NaN if needed.
+        # It will also allow access to columns with duplicate names (e.g., df['종합지수'] will return a DataFrame with all such columns).
         data_rows_for_df = all_data_charts[main_header_row_index + 1:]
-        processed_data_rows_for_df = []
-        num_expected_cols_for_df = len(final_column_names_ordered)
-        for row in data_rows_for_df:
-            cleaned_row = [str(cell) if cell is not None else '' for cell in row]
-            if len(cleaned_row) < num_expected_cols_for_df:
-                padded_row = cleaned_row + [''] * (num_expected_cols_for_df - len(cleaned_row))
-                processed_data_rows_for_df.append(padded_row)
-            elif len(cleaned_row) > num_expected_cols_for_df:
-                truncated_row = cleaned_row[:num_expected_cols_for_df]
-                processed_data_rows_for_df.append(truncated_row)
-            else:
-                processed_data_rows_for_df.append(cleaned_row)
-
-        df_raw_full = pd.DataFrame(processed_data_rows_for_df, columns=final_column_names_ordered)
-        print(f"DEBUG: Raw full DataFrame shape after initial creation: {df_raw_full.shape}")
-
-        # Drop columns that were identified as unmapped placeholders
-        cols_to_drop = [col for col in df_raw_full.columns if col.startswith('UNMAPPED_COL_')]
-        if cols_to_drop:
-            print(f"DEBUG: Dropping unmapped columns: {cols_to_drop}")
-            df_raw_full.drop(columns=cols_to_drop, inplace=True, errors='ignore')
-        print(f"DEBUG: Raw full DataFrame shape after dropping unmapped columns: {df_raw_full.shape}")
-
+        df_raw_full = pd.DataFrame(data_rows_for_df, columns=raw_headers_full_charts)
+        print(f"DEBUG: Raw full DataFrame shape with original headers: {df_raw_full.shape}")
 
         processed_chart_data_by_section = {}
 
         # Process each section for chart data
         for section_key, details in SECTION_COLUMN_MAPPINGS.items():
-            date_col_name_in_df = details["data_cols_map"][list(details["data_cols_map"].keys())[0]] # Get the first key, which is assumed to be the date header
+            date_col_idx_in_raw = details["date_col_idx"]
+            data_start_col_idx_in_raw = details["data_start_col_idx"]
+            data_end_col_idx_in_raw = details["data_end_col_idx"]
             
-            # Get all final JSON keys for data columns in this section (excluding the date column)
-            section_data_col_names_in_df = [
-                final_json_key for original_header, final_json_key in details["data_cols_map"].items()
-                if original_header != list(details["data_cols_map"].keys())[0] # Exclude the first key (date header)
-            ]
+            # 1. Identify the raw column indices for this specific section
+            raw_column_indices_for_section = [date_col_idx_in_raw] + list(range(data_start_col_idx_in_raw, data_end_col_idx_in_raw + 1))
             
-            # Columns to select from the full DataFrame for this specific section
-            cols_to_select = [date_col_name_in_df] + section_data_col_names_in_df
-            
-            # Ensure all selected columns actually exist in df_raw_full
-            existing_cols_to_select = [col for col in cols_to_select if col in df_raw_full.columns]
-            
-            if not existing_cols_to_select:
-                print(f"WARNING: No relevant columns found for section {section_key}. Skipping chart data processing for this section.")
+            # Filter out any indices that are beyond the actual number of columns in raw_headers_full_charts
+            valid_raw_column_indices = [idx for idx in raw_column_indices_for_section if idx < len(raw_headers_full_charts)]
+
+            if not valid_raw_column_indices:
+                print(f"WARNING: No valid column indices found for section {section_key}. Skipping chart data processing for this section.")
                 processed_chart_data_by_section[section_key] = []
                 continue
 
-            print(f"DEBUG: {section_key} - Columns selected for section DataFrame: {existing_cols_to_select}")
-            df_section = df_raw_full[existing_cols_to_select].copy()
-            print(f"DEBUG: {section_key} - Head of section DataFrame before date parsing:\n{df_section.head()}")
-
-
-            # Clean and parse dates for THIS section
-            df_section[date_col_name_in_df] = df_section[date_col_name_in_df].astype(str).str.strip()
+            # 2. Extract the section's data from the full raw DataFrame using integer-location (iloc)
+            # This ensures we get the columns by their position, regardless of duplicate names.
+            df_section_raw_cols = df_raw_full.iloc[:, valid_raw_column_indices].copy()
             
-            df_section['parsed_date'] = pd.to_datetime(df_section[date_col_name_in_df], errors='coerce')
+            # 3. Get the actual raw header names corresponding to the extracted columns
+            actual_raw_headers_in_section_df = [raw_headers_full_charts[idx] for idx in valid_raw_column_indices]
+            df_section_raw_cols.columns = actual_raw_headers_in_section_df # Assign these raw headers to the temporary DataFrame
+
+            print(f"DEBUG: {section_key} - Raw columns in section DataFrame before renaming: {df_section_raw_cols.columns.tolist()}")
+
+            # 4. Create a renaming map from the actual raw headers in df_section_raw_cols to the desired JSON keys
+            rename_map = {}
+            # Iterate through the data_cols_map for this section to build the rename map
+            for original_header_from_map, final_json_key in details["data_cols_map"].items():
+                # Check if this original_header_from_map is actually in the current section's raw headers
+                # (This handles cases where a generic map entry might not apply to a specific section's extracted columns)
+                if original_header_from_map in actual_raw_headers_in_section_df:
+                    rename_map[original_header_from_map] = final_json_key
+                else:
+                    print(f"WARNING: Header '{original_header_from_map}' from SECTION_COLUMN_MAPPINGS for {section_key} was not found in the extracted raw columns. It will not be renamed.")
+
+            # 5. Rename the columns of the section DataFrame to the desired JSON keys
+            df_section = df_section_raw_cols.rename(columns=rename_map)
+            print(f"DEBUG: {section_key} - Columns in section DataFrame after renaming: {df_section.columns.tolist()}")
+
+            # 6. Identify the date column and data columns using their *final JSON keys*
+            # The first key in data_cols_map is always the date column's original header.
+            date_original_header = list(details["data_cols_map"].keys())[0]
+            date_col_final_name = details["data_cols_map"][date_original_header]
             
-            unparseable_dates_series = df_section[df_section['parsed_date'].isna()][date_col_name_in_df]
+            # Collect all final JSON keys for data columns in this section (excluding the date column's final key)
+            section_data_col_final_names = [
+                final_json_key for original_header, final_json_key in details["data_cols_map"].items()
+                if original_header != date_original_header
+            ]
+            
+            # Ensure the date column exists after renaming
+            if date_col_final_name not in df_section.columns:
+                print(f"ERROR: Date column '{date_col_final_name}' not found in section {section_key} after renaming. Skipping.")
+                processed_chart_data_by_section[section_key] = []
+                continue
+
+            # 7. Clean and parse dates
+            df_section[date_col_final_name] = df_section[date_col_final_name].astype(str).str.strip()
+            df_section['parsed_date'] = pd.to_datetime(df_section[date_col_final_name], errors='coerce')
+            
+            unparseable_dates_series = df_section[df_section['parsed_date'].isna()][date_col_final_name]
             num_unparseable_dates = unparseable_dates_series.count()
             if num_unparseable_dates > 0:
-                print(f"WARNING: {num_unparseable_dates} dates could not be parsed for {section_key} and will be dropped. Sample unparseable date strings: {unparseable_dates_series.head().tolist()}")
+                print(f"WARNING: {num_unparseable_dates} dates could not be parsed for {section_key}. Sample unparseable date strings: {unparseable_dates_series.head().tolist()}")
 
             df_section.dropna(subset=['parsed_date'], inplace=True)
             print(f"DEBUG: DataFrame shape for {section_key} after date parsing and dropna: {df_section.shape}")
 
-            # Convert numeric columns for this section
-            for col in section_data_col_names_in_df:
-                df_section[col] = pd.to_numeric(df_section[col].astype(str).str.replace(',', ''), errors='coerce')
+            # 8. Convert numeric columns
+            for col_final_name in section_data_col_final_names:
+                if col_final_name in df_section.columns: # Ensure column exists before converting
+                    df_section[col_final_name] = pd.to_numeric(df_section[col_final_name].astype(str).str.replace(',', ''), errors='coerce')
+                else:
+                    print(f"WARNING: Data column '{col_final_name}' not found in section {section_key} after renaming. It might not be included in the output.")
             
             df_section = df_section.replace({pd.NA: None, float('nan'): None})
 
-            # Sort and format date
+            # 9. Sort and format date for final output
             df_section = df_section.sort_values(by='parsed_date', ascending=True)
             df_section['date'] = df_section['parsed_date'].dt.strftime('%Y-%m-%d')
             
-            # Select final columns for output (rename the specific date column back to 'date')
-            output_cols = ['date'] + section_data_col_names_in_df
-            processed_chart_data_by_section[section_key] = df_section[output_cols].to_dict(orient='records')
+            # 10. Select final columns for output
+            output_cols = ['date'] + section_data_col_final_names
+            existing_output_cols = [col for col in output_cols if col in df_section.columns]
+            
+            processed_chart_data_by_section[section_key] = df_section[existing_output_cols].to_dict(orient='records')
             print(f"DEBUG: {section_key}의 처리된 차트 데이터 (처음 3개 항목): {processed_chart_data_by_section[section_key][:3]}")
             print(f"DEBUG: {section_key}의 처리된 차트 데이터 (마지막 3개 항목): {processed_chart_data_by_section[section_key][-3:]}")
 
@@ -738,7 +657,7 @@ def process_table_data_from_crawling_data2(raw_data):
     # Current date: A3 (row 2, col 0)
     # Current Index data: B3:O3 (row 2, cols 1-14)
     # Previous date: A4 (row 3, col 0)
-    # Previous Index data: B4:O4 (row 3, cols 1-14)
+    # Previous Index data: B4:O4 (cols 1 to 14)
     
     kcci_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     kcci_rows = []
@@ -1066,7 +985,7 @@ def process_table_data_from_crawling_data2(raw_data):
     # Current date: A41 (row 40, col 0)
     # Current Index data: B41:N41 (row 40, cols 1-13)
     # Previous date: A42 (row 41, col 0)
-    # Previous Index data: B42:N42 (row 41, cols 1-13)
+    # Previous Index data: B42:N41 (row 41, cols 1-13)
 
     fbx_display_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
     fbx_rows = []
