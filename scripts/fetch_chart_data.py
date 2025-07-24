@@ -112,7 +112,7 @@ SECTION_COLUMN_MAPPINGS = {
     "BLANK_SAILING": {
         "date_col_idx": 46, # AU열은 날짜
         "data_start_col_idx": 47, # AV열은 Index
-        "data_end_col_idx": 52, # BA열은 Total
+        "data_end_col_idx": 53, # BB열은 Total (수정됨)
         "data_cols_map": {
             "날짜": "date", # 각 섹션의 날짜 컬럼 명시
             "Index": "Index_Blank_Sailing", # 'Index' is the actual header here
@@ -120,8 +120,8 @@ SECTION_COLUMN_MAPPINGS = {
             "MSC": "MSC_Alliance_Blank_Sailing",
             "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
             "Premier Alliance": "Premier_Alliance_Blank_Sailing",
-            "Others/Independent": "Others_Independent_Blank_Sailing"
-            # "Total": "Total_Blank_Sailings" # 'Total' 컬럼은 지정된 데이터 범위 밖에 있으므로 제거
+            "Others/Independent": "Others_Independent_Blank_Sailing",
+            "Total": "Total_Blank_Sailings" # 'Total' 컬럼 다시 추가
         }
     },
     "FBX": {
