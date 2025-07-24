@@ -119,7 +119,7 @@ SECTION_COLUMN_MAPPINGS = {
         "data_cols_map": {
             "Index": "BLANK_SAILING_Date", # Corrected date header to exact sheet header
             "Gemini Cooperation": "BLANK_SAILING_Gemini_Cooperation",
-            "MSC": "BLANK_SAILING_MSC_Alliance",
+            "MSC": "BLANK_SAILING_MSC", # Changed to just MSC, without Alliance
             "OCEAN Alliance": "BLANK_SAILING_OCEAN_Alliance",
             "Premier Alliance": "BLANK_SAILING_Premier_Alliance",
             "Others/Independent": "BLANK_SAILING_Others_Independent",
@@ -132,21 +132,21 @@ SECTION_COLUMN_MAPPINGS = {
         "data_end_col_idx": 67, # BP열은 유럽 → 남미서안
         "data_cols_map": {
             "종합지수와 각 항로별($/FEU)": "FBX_Date", # Date header
-            # These keys MUST match the actual headers in the Google Sheet's row 2 (or what Pandas reads them as).
-            # Based on user's JSON, these are the keys that were generated.
-            "Composite_Index_4": "FBX_Composite_Index",
-            "China_EA_US_West_Coast_FBX": "FBX_China_EA_US_West_Coast",
-            "US_West_Coast_China_EA_FBX": "FBX_US_West_Coast_China_EA",
-            "China_EA_US_East_Coast_FBX": "FBX_China_EA_US_East_Coast",
-            "US_East_Coast_China_EA_FBX": "FBX_US_East_Coast_China_EA",
-            "China_EA_North_Europe_FBX": "FBX_China_EA_North_Europe",
-            "North_Europe_China_EA_FBX": "FBX_North_Europe_China_EA",
-            "China_EA_Mediterranean_FBX": "FBX_China_EA_Mediterranean",
-            "Mediterranean_China_EA_FBX": "FBX_Mediterranean_China_EA",
-            "US_East_Coast_North_Europe": "FBX_US_East_Coast_North_Europe",
-            "North_Europe_US_East_Coast": "FBX_North_Europe_US_East_Coast",
-            "Europe_South_America_East_Coast": "FBX_Europe_South_America_East_Coast",
-            "Europe_South_America_West_Coast": "FBX_Europe_South_America_West_Coast",
+            # These keys MUST match the actual headers in the Google Sheet's row 2.
+            # Values are the desired JSON keys, prefixed with "FBX_".
+            "글로벌 컨테이너 운임 지수": "FBX_Composite_Index",
+            "중국/동아시아 → 미주서안": "FBX_China_EA_US_West_Coast",
+            "미주서안 → 중국/동아시아": "FBX_US_West_Coast_China_EA",
+            "중국/동아시아 → 미주동안": "FBX_China_EA_US_East_Coast",
+            "미주동안 → 중국/동아시아": "FBX_US_East_Coast_China_EA",
+            "중국/동아시아 → 북유럽": "FBX_China_EA_North_Europe",
+            "북유럽 → 중국/동아시아": "FBX_North_Europe_China_EA",
+            "중국/동아시아 → 지중해": "FBX_China_EA_Mediterranean",
+            "지중해 → 중국/동아시아": "FBX_Mediterranean_China_EA",
+            "미주동안 → 북유럽": "FBX_US_East_Coast_North_Europe",
+            "북유럽 → 미주동안": "FBX_North_Europe_US_East_Coast",
+            "유럽 → 남미동안": "FBX_Europe_South_America_East_Coast",
+            "유럽 → 남미서안": "FBX_Europe_South_America_West_Coast",
         }
     },
     "XSI": {
@@ -155,26 +155,26 @@ SECTION_COLUMN_MAPPINGS = {
         "data_end_col_idx": 77, # BZ열은 북유럽 → 남미동안
         "data_cols_map": {
             "각 항로별($/FEU)": "XSI_Date", # Date header
-            # These keys MUST match the actual headers in the Google Sheet's row 2 (or what Pandas reads them as).
-            # Based on user's JSON, these are the keys that were generated.
-            "East_Asia_North_Europe": "XSI_East_Asia_North_Europe",
-            "North_Europe_East_Asia": "XSI_North_Europe_East_Asia",
-            "East_Asia_US_West_Coast": "XSI_East_Asia_US_West_Coast",
-            "US_West_Coast_East_Asia": "XSI_US_West_Coast_East_Asia",
-            "East_Asia_South_America_East_Coast": "XSI_East_Asia_South_America_East_Coast",
-            "North_Europe_US_East_Coast_1": "XSI_North_Europe_US_East_Coast", # Raw header has _1, remove from final key
-            "US_East_Coast_North_Europe_1": "XSI_US_East_Coast_North_Europe", # Raw header has _1, remove from final key
-            "North_Europe_South_America_East_Coast": "XSI_North_South_America_East_Coast" # Corrected to match user's JSON
+            # These keys MUST match the actual headers in the Google Sheet's row 2.
+            # Values are the desired JSON keys, prefixed with "XSI_".
+            "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
+            "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
+            "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
+            "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
+            "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
+            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
+            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
+            "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
         }
     },
     "MBCI": {
         "date_col_idx": 79, # CB열은 날짜
         "data_start_col_idx": 80, # CC열은 MBCI
-        "data_end_col_idx": 81, # Assuming H column is also data, as per `mbci_routes_data_cols` in table processing
+        "data_end_col_idx": 81, # Assuming H column is also data
         "data_cols_map": {
             "Index(종합지수), $/day(정기용선, Time charter)": "MBCI_Date", # Date header
-            "MBCI": "MBCI_Value", # Assuming raw header is "MBCI", and desired JSON key is "MBCI_Value"
-            "$/day(정기용선, Time charter)": "MBCI_Time_Charter" # Assuming raw header is this, and desired JSON key is "MBCI_Time_Charter"
+            "MBCI": "MBCI_Value", # Changed to MBCI_Value (no double prefix)
+            "$/day(정기용선, Time charter)": "MBCI_Time_Charter" # Added this as it's a data column
         }
     }
 }
@@ -1165,7 +1165,7 @@ def process_table_data_from_crawling_data2(raw_data):
     mbci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
     mbci_routes_data_cols = {
-        "Index(종합지수)": {"current_col": 6, "previous_col": 6}, # G59, G60
+        "MBCI": {"current_col": 6, "previous_col": 6}, # G59, G60
         "$/day(정기용선, Time charter)": {"current_col": 7, "previous_col": 7} # H59, H60
     }
 
