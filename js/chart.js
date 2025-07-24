@@ -423,8 +423,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "동남아시아": "Southeast_Asia"
         },
         SCFI: {
-            "종합지수": "Composite_Index_1",
-            "Europe (Base port)": "North_Europe", // Python's route_names for SCFI has English names
+            "Comprehensive Index": "Composite_Index_1",
+            "Europe (Base port)": "North_Europe",
             "Mediterranean (Base port)": "Mediterranean_1",
             "USWC (Base port)": "US_West_Coast_1",
             "USEC (Base port)": "US_East_Coast_1",
@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Central/South America West Coast(Manzanillo)": "South_America_SCFI"
         },
         WCI: {
-            "Composite Index": "Composite_Index_2", // Python's route_names for WCI has English names
+            "Composite Index": "Composite_Index_2",
             "Shanghai-Rotterdam": "Shanghai_Rotterdam_WCI",
             "Rotterdam-Shanghai": "Rotterdam_Shanghai_WCI",
             "Shanghai-Genoa": "Shanghai_Genoa_WCI",
@@ -450,9 +450,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "Rotterdam-NewYork": "Rotterdam_New_York_WCI"
         },
         IACI: {
-            "US$/40ft": "Composite_Index_3" // Python's route_names for IACI has "US$/40ft"
+            "US$/40ft": "Composite_Index_3"
         },
-        BLANK_SAILING: { // These names are already English in Python's TABLE_DATA_CELL_MAPPINGS and SECTION_COLUMN_MAPPINGS
+        BLANK_SAILING: {
             "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
             "MSC": "MSC_Alliance_Blank_Sailing",
             "OCEAN Alliance": "OCEAN_Alliance_Blank_Sailing",
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Total": "Total_Blank_Sailings"
         },
         FBX: {
-            "Global Container Freight Index": "Composite_Index_4", // Python's route_names for FBX has English names
+            "Global Container Freight Index": "Composite_Index_4",
             "China/East Asia - North America West Coast": "China_EA_US_West_Coast_FBX",
             "North America West Coast - China/East Asia": "US_West_Coast_China_EA_FBX",
             "China/East Asia - North America East Coast": "China_EA_US_East_Coast_FBX",
@@ -476,7 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Europe - South America West Coast": "Europe_South_America_West_Coast_FBX"
         },
         XSI: {
-            "Far East - N. Europe": "XSI_East_Asia_North_Europe", // Python's route_names for XSI has English names
+            "Far East - N. Europe": "XSI_East_Asia_North_Europe",
             "N. Europe - Far East": "XSI_North_Europe_East_Asia",
             "Far East - USWC": "XSI_East_Asia_US_West_Coast",
             "USWC - Far East": "XSI_US_West_Coast_East_Asia",
@@ -486,8 +486,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "N. Europe - SAEC": "XSI_North_Europe_South_America_East_Coast"
         },
         MBCI: {
-            "Index(종합지수)": "MBCI_MBCI_Value", // Python's route_names for MBCI has English/Korean mixed
-            "$/day(정기용선, Time charter)": null // This route name exists in table, but has no corresponding chart data key. Set to null to explicitly skip.
+            "Index(종합지수)": "MBCI_MBCI_Value",
+            "$/day(정기용선, Time charter)": null
         }
     };
 
