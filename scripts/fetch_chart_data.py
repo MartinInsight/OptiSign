@@ -79,7 +79,7 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "WCI": {
-        "data_start_col_idx": 33, # WCI data starts from '종합지수' at index 33
+        "data_start_col_idx": 34, # WCI data starts from '종합지수' at index 34 (Corrected from 33)
         "data_cols_map": {
             "종합지수": "Composite_Index_2",
             "상하이 → 로테르담": "Shanghai_Rotterdam_WCI",
@@ -93,7 +93,7 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "IACI": {
-        "data_start_col_idx": 44, # IACI data starts from '종합지수' at index 44
+        "data_start_col_idx": 45, # IACI data starts from '종합지수' at index 45 (Corrected from 44)
         "data_cols_map": {
             "종합지수": "Composite_Index_3"
         }
@@ -110,7 +110,7 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "FBX": {
-        "data_start_col_idx": 55, # FBX data starts from '종합지수' at index 55
+        "data_start_col_idx": 56, # FBX data starts from '종합지수' at index 56 (Corrected from 55)
         "data_cols_map": {
             "종합지수": "Composite_Index_4",
             "중국/동아시아 → 미주서안": "China_EA_US_West_Coast_FBX",
@@ -124,7 +124,7 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "XSI": {
-        "data_start_col_idx": 69, # XSI data starts from '동아시아 → 북유럽' at index 69
+        "data_start_col_idx": 71, # XSI data starts from '동아시아 → 북유럽' at index 71 (Corrected from 69)
         "data_cols_map": {
             "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
             "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
@@ -137,7 +137,7 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "MBCI": {
-        "data_start_col_idx": 80, # MBCI data starts from 'MBCI' at index 80
+        "data_start_col_idx": 81, # MBCI data starts from 'MBCI' at index 81 (Corrected from 80)
         "data_cols_map": {
             "MBCI": "MBCI_MBCI_Value",
         }
@@ -220,17 +220,22 @@ def fetch_and_process_data():
             data_cols_map = details["data_cols_map"]
             
             cols_to_extract_indices = []
-            # Find indices for data columns based on their raw header names
-            raw_header_to_col_idx = {raw_headers_full[i]: i for i in range(len(raw_headers_full))}
-
             section_df_columns = []
 
+            # Find indices for data columns based on their raw header names, starting from data_start_col_idx
             for raw_header_name, final_json_key in data_cols_map.items():
-                if raw_header_name in raw_header_to_col_idx:
-                    cols_to_extract_indices.append(raw_header_to_col_idx[raw_header_name])
+                found_idx = -1
+                # Search for the header starting from the section's defined start column
+                for idx in range(details["data_start_col_idx"], len(raw_headers_full)):
+                    if raw_headers_full[idx] == raw_header_name:
+                        found_idx = idx
+                        break
+                
+                if found_idx != -1:
+                    cols_to_extract_indices.append(found_idx)
                     section_df_columns.append(final_json_key)
                 else:
-                    print(f"WARNING: Raw header '{raw_header_name}' not found for section '{section_key}'. Skipping this column.")
+                    print(f"WARNING: Raw header '{raw_header_name}' not found in its expected section range for '{section_key}'. Skipping this column.")
 
             if not cols_to_extract_indices:
                 print(f"WARNING: No valid data columns found for section {section_key}. Skipping chart and table data for this section.")
