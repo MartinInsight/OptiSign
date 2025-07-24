@@ -4,20 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OptiSign Dashboard</title>
-    <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Link to external custom CSS file -->
     <link rel="stylesheet" href="styles/main.css"> 
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Chart.js Date Adapter for date handling -->
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <!-- Custom chart.js script (now loaded as a module) -->
-    <script src="js/chart.js" type="module"></script>
-    <!-- Favicon to avoid 404 warning -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📈</text></svg>">
 </head>
 <body class="bg-gray-100">
     <div class="container">
@@ -228,11 +218,18 @@
                     </div>
                 </div>
             </main>
+            <!-- Sidebar is now removed as its content has been integrated into the main section -->
         </div>
 
         <footer>
             <p>&copy; 2024 OptiSign. All rights reserved.</p>
         </footer>
     </div>
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <!-- Custom JavaScript for charts and dashboard logic -->
+    <script src="js/chart.js"></script>
 </body>
 </html>
