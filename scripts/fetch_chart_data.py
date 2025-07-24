@@ -317,6 +317,17 @@ def fetch_and_process_data():
                     current_index_val = latest_row_data_only.get(final_json_key)
                     previous_index_val = second_latest_row_data_only.get(final_json_key)
                     
+                    # Explicitly convert numpy numeric types to native Python types for table data
+                    if isinstance(current_index_val, (np.integer, np.floating)):
+                        current_index_val = current_index_val.item()
+                    elif pd.isna(current_index_val):
+                        current_index_val = None
+
+                    if isinstance(previous_index_val, (np.integer, np.floating)):
+                        previous_index_val = previous_index_val.item()
+                    elif pd.isna(previous_index_val):
+                        previous_index_val = None
+
                     weekly_change = None
                     if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
                         change_value = current_index_val - previous_index_val
