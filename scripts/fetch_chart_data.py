@@ -170,9 +170,11 @@ SECTION_COLUMN_MAPPINGS = {
     "MBCI": {
         "date_col_idx": 79, # CB열은 날짜
         "data_start_col_idx": 80, # CC열은 MBCI
-        "data_end_col_idx": 80, # Assuming H column is also data
+        "data_end_col_idx": 81, # Assuming H column is also data
         "data_cols_map": {
+            "Index(종합지수), $/day(정기용선, Time charter)": "MBCI_Date", # Date header
             "MBCI": "MBCI_Value", # Changed to MBCI_Value (no double prefix)
+            "$/day(정기용선, Time charter)": "MBCI_Time_Charter" # Added this as it's a data column
         }
     }
 }
@@ -1164,6 +1166,7 @@ def process_table_data_from_crawling_data2(raw_data):
 
     mbci_routes_data_cols = {
         "MBCI": {"current_col": 6, "previous_col": 6}, # G59, G60
+        "$/day(정기용선, Time charter)": {"current_col": 7, "previous_col": 7} # H59, H60
     }
 
     for route_name, cols in mbci_routes_data_cols.items():
