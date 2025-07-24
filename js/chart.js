@@ -423,37 +423,37 @@ document.addEventListener('DOMContentLoaded', () => {
             "동남아시아": "Southeast_Asia"
         },
         SCFI: {
-            // These keys must match the `route` names from Python's SCFI table data
-            "Comprehensive Index": "Composite_Index_1",
-            "Europe (Base port)": "North_Europe",
-            "Mediterranean (Base port)": "Mediterranean_1",
-            "USWC (Base port)": "US_West_Coast_1",
-            "USEC (Base port)": "US_East_Coast_1",
-            "Persian Gulf and Red Sea (Dubai)": "Middle_East_1",
-            "Australia/New Zealand (Melbourne)": "Australia_New_Zealand_SCFI",
-            "East/West Africa (Lagos)": "East_West_Africa_SCFI",
-            "South Africa (Durban)": "South_Africa_SCFI",
-            "West Japan (Base port)": "Japan_West_Coast_SCFI",
-            "East Japan (Base port)": "Japan_East_Coast_SCFI",
-            "Southeast Asia (Singapore)": "Southeast_Asia_1",
-            "Korea (Pusan)": "Korea_SCFI",
-            "Central/South America West Coast(Manzanillo)": "South_America_SCFI"
+            // These keys must match the `route` names from Python's SCFI table data (Korean names)
+            "종합지수": "Composite_Index_1",
+            "유럽 (기본항)": "North_Europe",
+            "지중해 (기본항)": "Mediterranean_1",
+            "미주서안 (기본항)": "US_West_Coast_1",
+            "미주동안 (기본항)": "US_East_Coast_1",
+            "페르시아만/홍해 (두바이)": "Middle_East_1",
+            "호주/뉴질랜드 (멜버른)": "Australia_New_Zealand_SCFI",
+            "동/서 아프리카 (라고스)": "East_West_Africa_SCFI",
+            "남아프리카 (더반)": "South_Africa_SCFI",
+            "서일본 (기본항)": "Japan_West_Coast_SCFI",
+            "동일본 (기본항)": "Japan_East_Coast_SCFI",
+            "동남아시아 (싱가포르)": "Southeast_Asia_1",
+            "한국 (부산)": "Korea_SCFI",
+            "중남미서안 (만사니요)": "South_America_SCFI"
         },
         WCI: {
-            // These keys must match the `route` names from Python's WCI table data
-            "Composite Index": "Composite_Index_2",
-            "Shanghai-Rotterdam": "Shanghai_Rotterdam_WCI",
-            "Rotterdam-Shanghai": "Rotterdam_Shanghai_WCI",
-            "Shanghai-Genoa": "Shanghai_Genoa_WCI",
-            "Shanghai-LosAngeles": "Shanghai_Los_Angeles_WCI",
-            "LosAngeles-Shanghai": "Los_Angeles_Shanghai_WCI",
-            "Shanghai-NewYork": "Shanghai_New_York_WCI",
-            "NewYork-Rotterdam": "New_York_Rotterdam_WCI",
-            "Rotterdam-NewYork": "Rotterdam_New_York_WCI"
+            // These keys must match the `route` names from Python's WCI table data (Korean names)
+            "종합지수": "Composite_Index_2",
+            "상하이-로테르담": "Shanghai_Rotterdam_WCI",
+            "로테르담-상하이": "Rotterdam_Shanghai_WCI",
+            "상하이-제노바": "Shanghai_Genoa_WCI",
+            "상하이-로스엔젤레스": "Shanghai_Los_Angeles_WCI",
+            "로스엔젤레스-상하이": "Los_Angeles_Shanghai_WCI",
+            "상하이-뉴욕": "Shanghai_New_York_WCI",
+            "뉴욕-로테르담": "New_York_Rotterdam_WCI",
+            "로테르담-뉴욕": "Rotterdam_New_York_WCI"
         },
         IACI: {
-            // This key must match the `route` name from Python's IACI table data
-            "US$/40ft": "Composite_Index_3"
+            // This key must match the `route` name from Python's IACI table data (Korean name)
+            "종합지수": "Composite_Index_3" // Assuming '종합지수' is the route name in JSON for IACI
         },
         BLANK_SAILING: {
             "Gemini Cooperation": "Gemini_Cooperation_Blank_Sailing",
@@ -464,34 +464,34 @@ document.addEventListener('DOMContentLoaded', () => {
             "Total": "Total_Blank_Sailings"
         },
         FBX: {
-            // These keys must match the `route` names from Python's FBX table data
-            "Global Container Freight Index": "Composite_Index_4",
-            "China/East Asia - North America West Coast": "China_EA_US_West_Coast_FBX",
-            "North America West Coast - China/East Asia": "US_West_Coast_China_EA_FBX",
-            "China/East Asia - North America East Coast": "China_EA_US_East_Coast_FBX",
-            "North America East Coast - China/East Asia": "US_East_Coast_China_EA_FBX",
-            "China/East Asia - North Europe": "China_EA_North_Europe_FBX",
-            "North Europe - China/East Asia": "North_Europe_China_EA_FBX",
-            "China/East Asia - Mediterranean": "China_EA_Mediterranean_FBX",
-            "Mediterranean - China/East Asia": "Mediterranean_China_EA_FBX",
-            "North America East Coast - North Europe": "US_East_Coast_North_Europe_FBX",
-            "North Europe - North America East Coast": "North_Europe_US_East_Coast_FBX",
-            "Europe - South America East Coast": "Europe_South_America_East_Coast_FBX",
-            "Europe - South America West Coast": "Europe_South_America_West_Coast_FBX"
+            // These keys must match the `route` names from Python's FBX table data (Korean names)
+            "글로벌 컨테이너 운임 지수": "Composite_Index_4",
+            "중국/동아시아 - 미주서안": "China_EA_US_West_Coast_FBX",
+            "미주서안 - 중국/동아시아": "US_West_Coast_China_EA_FBX",
+            "중국/동아시아 - 미주동안": "China_EA_US_East_Coast_FBX",
+            "미주동안 - 중국/동아시아": "US_East_Coast_China_EA_FBX",
+            "중국/동아시아 - 북유럽": "China_EA_North_Europe_FBX",
+            "북유럽 - 중국/동아시아": "North_Europe_China_EA_FBX",
+            "중국/동아시아 - 지중해": "China_EA_Mediterranean_FBX",
+            "지중해 - 중국/동아시아": "Mediterranean_China_EA_FBX",
+            "미주동안 - 북유럽": "US_East_Coast_North_Europe_FBX",
+            "북유럽 - 미주동안": "North_Europe_US_East_Coast_FBX",
+            "유럽 - 남미동안": "Europe_South_America_East_Coast_FBX",
+            "유럽 - 남미서안": "Europe_South_America_West_Coast_FBX"
         },
         XSI: {
-            // These keys must match the `route` names from Python's XSI table data
-            "Far East - N. Europe": "XSI_East_Asia_North_Europe",
-            "N. Europe - Far East": "XSI_North_Europe_East_Asia",
-            "Far East - USWC": "XSI_East_Asia_US_West_Coast",
-            "USWC - Far East": "XSI_US_West_Coast_East_Asia",
-            "Far East - SAEC": "XSI_East_Asia_South_America_East_Coast",
-            "N. Europe - USEC": "XSI_North_Europe_US_East_Coast",
-            "USEC - N. Europe": "XSI_US_East_Coast_North_Europe",
-            "N. Europe - SAEC": "XSI_North_Europe_South_America_East_Coast"
+            // These keys must match the `route` names from Python's XSI table data (Korean names)
+            "극동 - 북유럽": "XSI_East_Asia_North_Europe",
+            "북유럽 - 극동": "XSI_North_Europe_East_Asia",
+            "극동 - 미주서안": "XSI_East_Asia_US_West_Coast",
+            "미주서안 - 극동": "XSI_US_West_Coast_East_Asia",
+            "극동 - 남미동안": "XSI_East_Asia_South_America_East_Coast",
+            "북유럽 - 미주동안": "XSI_North_Europe_US_East_Coast",
+            "미주동안 - 북유럽": "XSI_US_East_Coast_North_Europe",
+            "북유럽 - 남미동안": "XSI_North_Europe_South_America_East_Coast"
         },
         MBCI: {
-            // These keys must match the `route` names from Python's MBCI table data
+            // These keys must match the `route` names from Python's MBCI table data (mixed Korean/English)
             "Index(종합지수)": "MBCI_MBCI_Value",
             "$/day(정기용선, Time charter)": null // This route is intentionally not charted
         }
