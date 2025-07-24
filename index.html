@@ -1,406 +1,235 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OptiSign 대시보드</title>
-    <!-- Tailwind CSS CDN -->
+    <title>OptiSign Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Noto Sans 폰트 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Day.js for date formatting -->
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.10.7/dayjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-dayjs-3/dist/chartjs-adapter-dayjs-3.min.js"></script>
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
-        }
-        .dashboard-container {
-            display: flex;
-            min-height: 100vh;
-        }
-        .sidebar {
-            width: 280px; /* 고정 너비 */
-            background-color: #2c3e50; /* 어두운 배경 */
-            color: #ecf0f1;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-        .main-content {
-            flex-grow: 1;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .card {
-            background-color: #ffffff;
-            border-radius: 0.75rem; /* rounded-xl */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
-            padding: 1.5rem;
-        }
-        .carousel-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-        .carousel-item {
-            min-width: 100%;
-            box-sizing: border-box;
-            background-color: #ffffff;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-        }
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            padding-top: 1rem;
-        }
-        .dot {
-            height: 10px;
-            width: 10px;
-            margin: 0 5px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-            transition: background-color 0.6s ease;
-        }
-        .dot.active {
-            background-color: #717171;
-        }
-        .chart-table-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .chart-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        .chart-table th, .chart-table td {
-            border: 1px solid #e2e8f0;
-            padding: 0.75rem;
-            text-align: left;
-        }
-        .chart-table th {
-            background-color: #f8faff;
-            font-weight: 600;
-        }
-        .chart-table tr:nth-child(even) {
-            background-color: #fbfdff;
-        }
-        .announcements ul {
-            list-style: none;
-            padding: 0;
-        }
-        .announcements li {
-            background-color: #34495e;
-            margin-bottom: 0.75rem;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-        .announcements li strong {
-            color: #ecf0f1; /* Bold text color in announcements */
-        }
-    </style>
+    <!-- Link to external custom CSS file -->
+    <link rel="stylesheet" href="styles/main.css"> 
 </head>
-<body class="overflow-hidden">
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo-section mb-8">
-                <h1 class="text-3xl font-bold text-white">OptiSign</h1>
-                <p class="text-sm text-gray-300">대시보드</p>
-            </div>
+<body class="bg-gray-100">
+    <div class="container">
+        <header>
+            <h1>Global Shipping Index Dashboard</h1>
+            <p class="text-gray-600" id="last-updated">Last Updated: Loading...</p>
+        </header>
 
-            <!-- Announcements Section -->
-            <div class="announcements flex-grow overflow-y-auto">
-                <h2 class="text-xl font-semibold mb-4 text-white">공지사항</h2>
-                <ul>
-                    <li>식사 후 건더기를 제외한 <strong>국물은 그라인더를 켠 상태로 싱크대</strong>에 비워주시고 나머지 <strong>쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통</strong>에 버려주세요.</li>
-                    <li>버리러 갈 때는 <strong>Warehouse 계단이 아닌 Office 계단을 통해 이동</strong>해주시고 한 쪽에 쓰레기가 몰리지 않도록 <strong>2개의 쓰레기 통에 적절히 분배</strong>해주세요.</li>
-                    <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 <strong>본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지</strong>해주세요.</li>
-                    <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 <strong>퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.</strong></li>
-                    <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 <strong>책상의 먼지 및 얼룩을 닦아서 제거</strong>해주세요.</li>
-                </ul>
-            </div>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Top Information Carousel -->
-            <section class="top-info-carousel carousel-container h-80">
-                <div class="carousel-inner h-full" id="topInfoCarouselInner">
-                    <!-- World Time Slide -->
-                    <div class="carousel-item flex flex-col justify-center items-center text-center h-full">
-                        <h2 class="text-2xl font-bold mb-4">세계 시간</h2>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-lg" id="worldTimeDisplay">
-                            <!-- Times will be dynamically inserted here -->
-                        </div>
+        <div class="dashboard-grid">
+            <!-- Main content area (charts and announcements) -->
+            <main>
+                <!-- New container for Announcements and Top Info Slider -->
+                <div class="top-content-grid">
+                    <!-- Announcements Section -->
+                    <div class="announcements-section">
+                        <h2>Announcements</h2>
+                        <ul class="announcements-list">
+                            <li>식사 후 건더기를 제외한 **국물은 그라인더를 켠 상태로 싱크대**에 비워주시고 나머지 **쓰레기는 1층 Warehouse 남자 화장실 앞 쓰레기 통**에 버려주세요.</li>
+                            <li>버리러 갈 때는 **Warehouse 계단이 아닌 Office 계단을 통해 이동**해주시고 한 쪽에 쓰레기가 몰리지 않도록 **2개의 쓰레기 통에 적절히 분배**해주세요.</li>
+                            <li>건물 내 커피 및 국물 등 액체류를 흘리는 경우 **본인이 즉시 치워서 바닥에 얼룩 지는 일을 방지**해주세요.</li>
+                            <li>쥐, 바퀴 및 파리 등 해충 발생을 방지하기 위해 **퇴근할 때는 과자 등 음식물을 책상에 보관하지 마시고 버리거나 집에 가져가주세요.**</li>
+                            <li>미관과 호흡기 건강을 위해 매주 금요일 퇴근 전에는 본인 및 주변 **책상의 먼지 및 얼룩을 닦아서 제거**해주세요.</li>
+                        </ul>
                     </div>
-                    <!-- LA Weather Slide -->
-                    <div class="carousel-item h-full">
-                        <h2 class="text-2xl font-bold mb-4 text-center">LA 날씨 정보</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
-                            <div class="current-weather bg-blue-50 p-4 rounded-lg flex flex-col items-center justify-center">
-                                <h3 class="text-xl font-semibold mb-2">현재 날씨</h3>
-                                <div id="weatherIcon" class="text-5xl mb-2"></div>
-                                <p class="text-3xl font-bold" id="laTemperature"></p>
-                                <p class="text-lg" id="laWeatherStatus"></p>
-                                <p class="text-md">습도: <span id="laHumidity"></span>%</p>
-                                <p class="text-md">풍속: <span id="laWindSpeed"></span> mph</p>
-                                <p class="text-md">기압: <span id="laPressure"></span> hPa</p>
-                                <p class="text-md">가시거리: <span id="laVisibility"></span> mile</p>
-                                <p class="text-md">일출: <span id="laSunrise"></span></p>
-                                <p class="text-md">일몰: <span id="laSunset"></span></p>
+
+                    <!-- Top Info Slider Container (World Clock, Weather, Exchange Rate) -->
+                    <div class="top-info-slider-container">
+                        <!-- Slide 1: World Clocks -->
+                        <div class="top-info-slide active" id="top-info-slide-1">
+                            <h3>World Clocks</h3>
+                            <div class="world-clock-item">
+                                <span>Los Angeles</span>
+                                <span id="time-la"></span>
                             </div>
-                            <div class="forecast-weather bg-green-50 p-4 rounded-lg overflow-y-auto">
-                                <h3 class="text-xl font-semibold mb-2 text-center">향후 7일 예상 날씨</h3>
-                                <table class="w-full text-left text-sm">
-                                    <thead>
-                                        <tr>
-                                            <th class="py-2 px-1 border-b-2 border-gray-200">날짜</th>
-                                            <th class="py-2 px-1 border-b-2 border-gray-200">최저(°F)</th>
-                                            <th class="py-2 px-1 border-b-2 border-gray-200">최고(°F)</th>
-                                            <th class="py-2 px-1 border-b-2 border-gray-200">상태</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="forecastTableBody">
-                                        <!-- Forecast data will be inserted here -->
-                                    </tbody>
-                                </table>
+                            <div class="world-clock-item">
+                                <span>New York</span>
+                                <span id="time-ny"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Paris</span>
+                                <span id="time-paris"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Shanghai</span>
+                                <span id="time-shanghai"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Seoul</span>
+                                <span id="time-seoul"></span>
+                            </div>
+                            <div class="world-clock-item">
+                                <span>Sydney</span>
+                                <span id="time-sydney"></span>
                             </div>
                         </div>
-                    </div>
-                    <!-- USD-KRW Exchange Rate Slide -->
-                    <div class="carousel-item h-full flex flex-col items-center justify-center">
-                        <h2 class="text-2xl font-bold mb-4">USD-KRW 환율</h2>
-                        <p class="text-4xl font-bold text-blue-600 mb-4" id="currentExchangeRate"></p>
-                        <div class="w-full h-48">
-                            <canvas id="exchangeRateChart"></canvas>
+
+                        <!-- Slide 2: Weather Info -->
+                        <div class="top-info-slide" id="top-info-slide-2">
+                            <h3>Weather in Los Angeles</h3>
+                            <div class="weather-current-info">
+                                <img id="weather-icon-current" src="https://placehold.co/80x80/cccccc/ffffff?text=Icon" alt="Weather Icon">
+                                <span id="temperature-current">--°F</span>
+                                <span id="status-current">Loading...</span>
+                            </div>
+                            <div class="weather-details">
+                                <div><span>Humidity:</span> <span id="humidity-current">--%</span></div>
+                                <div><span>Wind:</span> <span id="wind-speed-current">-- mph</span></div>
+                                <div><span>Pressure:</span> <span id="pressure-current">-- hPa</span></div>
+                                <div><span>Visibility:</span> <span id="visibility-current">-- mile</span></div>
+                                <div><span>Sunrise:</span> <span id="sunrise-time">--</span></div>
+                                <div><span>Sunset:</span> <span id="sunset-time">--</span></div>
+                            </div>
+                            <table class="forecast-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Min</th>
+                                        <th>Max</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="forecast-body">
+                                    <!-- Forecast rows will be injected here by JS -->
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                    <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Slide 3: Exchange Rate Info -->
+                        <div class="top-info-slide" id="top-info-slide-3">
+                            <h3>USD to KRW Exchange Rate</h3>
+                            <div class="exchange-rate-info">
+                                <p>Current Rate: <span id="current-exchange-rate-value">Loading...</span></p>
+                            </div>
+                            <div class="exchange-rate-chart-container">
+                                <canvas id="exchangeRateChartCanvas"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="carousel-dots" id="topInfoCarouselDots"></div>
-            </section>
+                
+                <!-- Chart Slider Container -->
+                <div class="chart-slider-container">
+                    <!-- Chart 1: KCCI Composite Index & Routes -->
+                    <div class="chart-slide active" id="chart-slide-1">
+                        <div class="chart-section">
+                            <h2>KCCI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="KCCIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="KCCITableContainer">
+                            <!-- KCCI Table will be rendered here by JS -->
+                        </div>
+                    </div>
 
-            <!-- Main Charts Carousel -->
-            <section class="main-charts-carousel carousel-container flex-grow">
-                <div class="carousel-inner h-full" id="mainChartsCarouselInner">
-                    <!-- KCCI Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">KCCI 종합지수</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
-                                <canvas id="kcciChart"></canvas>
-                            </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="kcciTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="kcciCurrentHeader">Current Index</th>
-                                            <th id="kcciPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
+                    <!-- Chart 2: SCFI Composite Index & Routes -->
+                    <div class="chart-slide" id="chart-slide-2">
+                        <div class="chart-section">
+                            <h2>SCFI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="SCFIChart"></canvas>
                             </div>
                         </div>
-                    </div>
-                    <!-- SCFI Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">SCFI 종합지수</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
-                                <canvas id="scfiChart"></canvas>
-                            </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="scfiTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="scfiCurrentHeader">Current Index</th>
-                                            <th id="scfiPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="table-section" id="SCFITableContainer">
+                            <!-- SCFI Table will be rendered here by JS -->
                         </div>
                     </div>
-                    <!-- WCI Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">WCI 종합지수</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
-                                <canvas id="wciChart"></canvas>
-                            </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="wciTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="wciCurrentHeader">Current Index</th>
-                                            <th id="wciPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
+
+                    <!-- Chart 3: WCI Composite Index & Routes -->
+                    <div class="chart-slide" id="chart-slide-3">
+                        <div class="chart-section">
+                            <h2>WCI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="WCIChart"></canvas>
                             </div>
                         </div>
-                    </div>
-                    <!-- IACI Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">IACI 종합지수</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
-                                <canvas id="iaciChart"></canvas>
-                            </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="iaciTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="iaciCurrentHeader">Current Index</th>
-                                            <th id="iaciPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="table-section" id="WCITableContainer">
+                            <!-- WCI Table will be rendered here by JS -->
                         </div>
                     </div>
-                    <!-- Blank Sailing Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">Blank Sailing</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
+
+                    <!-- Chart 4: IACI Composite Index -->
+                    <div class="chart-slide" id="chart-slide-4">
+                        <div class="chart-section">
+                            <h2>IACI Composite Index</h2>
+                            <div class="chart-container">
+                                <canvas id="IACIChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="table-section" id="IACITableContainer">
+                            <!-- IACI Table will be rendered here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Chart 5: BLANK_SAILING Stacked Bar Chart -->
+                    <div class="chart-slide" id="chart-slide-5">
+                        <div class="chart-section">
+                            <h2>Blank Sailings by Alliance</h2>
+                            <div class="chart-container">
                                 <canvas id="blankSailingChart"></canvas>
                             </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="blankSailingTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="blankSailingCurrentHeader">Current Index</th>
-                                            <th id="blankSailingPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
-                            </div>
+                        </div>
+                        <div class="table-section" id="BLANK_SAILINGTableContainer">
+                            <!-- BLANK_SAILING Table will be rendered here by JS -->
                         </div>
                     </div>
-                    <!-- FBX Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">FBX 종합지수</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
-                                <canvas id="fbxChart"></canvas>
-                            </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="fbxTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="fbxCurrentHeader">Current Index</th>
-                                            <th id="fbxPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
+
+                    <!-- Chart 6: FBX Indices -->
+                    <div class="chart-slide" id="chart-slide-6">
+                        <div class="chart-section">
+                            <h2>FBX Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="FBXChart"></canvas>
                             </div>
                         </div>
-                    </div>
-                    <!-- XSI Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">XSI 종합지수</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
-                                <canvas id="xsiChart"></canvas>
-                            </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="xsiTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="xsiCurrentHeader">Current Index</th>
-                                            <th id="xsiPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
-                            </div>
+                        <div class="table-section" id="FBXTableContainer">
+                            <!-- FBX Table will be rendered here by JS -->
                         </div>
                     </div>
-                    <!-- MBCI Chart -->
-                    <div class="carousel-item h-full flex flex-col">
-                        <h2 class="text-2xl font-bold mb-4 text-center">MBCI 종합지수</h2>
-                        <div class="chart-table-container flex-grow">
-                            <div class="w-full h-64">
-                                <canvas id="mbciChart"></canvas>
+
+                    <!-- Chart 7: XSI Indices -->
+                    <div class="chart-slide" id="chart-slide-7">
+                        <div class="chart-section">
+                            <h2>XSI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="XSIChart"></canvas>
                             </div>
-                            <div class="flex-grow overflow-auto">
-                                <table class="chart-table w-full text-sm" id="mbciTable">
-                                    <thead>
-                                        <tr>
-                                            <th>항로</th>
-                                            <th id="mbciCurrentHeader">Current Index</th>
-                                            <th id="mbciPreviousHeader">Previous Index</th>
-                                            <th>Weekly Change</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Table data will be inserted here -->
-                                    </tbody>
-                                </table>
+                        </div>
+                        <div class="table-section" id="XSITableContainer">
+                            <!-- XSI Table will be rendered here by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Chart 8: MBCI Indices -->
+                    <div class="chart-slide" id="chart-slide-8">
+                        <div class="chart-section">
+                            <h2>MBCI Indices</h2>
+                            <div class="chart-container">
+                                <canvas id="MBCIChart"></canvas>
                             </div>
+                        </div>
+                        <div class="table-section" id="MBCITableContainer">
+                            <!-- MBCI Table will be rendered here by JS -->
                         </div>
                     </div>
                 </div>
-                <div class="carousel-dots" id="mainChartsCarouselDots"></div>
-            </section>
-        </main>
+            </main>
+            <!-- Sidebar is now removed as its content has been integrated into the main section -->
+        </div>
+
+        <footer>
+            <p>&copy; 2024 OptiSign. All rights reserved.</p>
+        </footer>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <!-- Custom JavaScript for charts and dashboard logic -->
+    <script src="js/chart.js"></script>
 </body>
 </html>
