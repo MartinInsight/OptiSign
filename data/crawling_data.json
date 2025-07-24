@@ -6422,13 +6422,13 @@
         "current": {
             "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 66.16,
-            "LA_Humidity": 83.0,
+            "LA_Temperature": 67.51,
+            "LA_Humidity": 80.0,
             "LA_WindSpeed": 5.75,
             "LA_Pressure": 1019.0,
             "LA_Visibility": 6.2,
-            "LA_Sunrise": "5:58:43 AM",
-            "LA_Sunset": "7:59:55 PM",
+            "LA_Sunrise": "5:58:44 AM",
+            "LA_Sunset": "7:59:56 PM",
             "LA_FineDust": null
         },
         "forecast": [
