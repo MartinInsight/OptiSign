@@ -39,10 +39,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         time: {
                             unit: isAggregated ? 'month' : 'day', // Use 'month' for aggregated, 'day' for granular
                             displayFormats: {
-                                month: 'MMM \'yy', // X-axis labels always show month and two-digit year
-                                day: 'M/d' // Fallback for daily if needed, but 'month' display format should dominate ticks
+                                // Updated to 'MMM 'yy' for month unit as per requirements
+                                month: 'MMM \'yy',
+                                // Updated to 'M/dd' for day unit to fix RangeError and ensure two-digit day
+                                day: 'M/dd' 
                             },
-                            tooltipFormat: 'M/d/yyyy' // Full date in tooltip
+                            // Tooltip format updated to 'M/d/yyyy' as per requirements
+                            tooltipFormat: 'M/d/yyyy' 
                         },
                         ticks: {
                             source: 'auto',
@@ -446,7 +449,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     scales: {
                         x: {
                             type: 'time', // Changed to time scale
-                            time: { unit: 'day', displayFormats: { day: 'MM-DD' } },
+                            time: { 
+                                unit: 'day', 
+                                displayFormats: { day: 'MM-dd' }, // Fixed DD to dd
+                                tooltipFormat: 'M/d/yyyy' // Consistent tooltip format
+                            },
                             ticks: { autoSkipPadding: 10 } // Removed maxTicksLimit
                         },
                         y: {
