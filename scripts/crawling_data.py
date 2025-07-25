@@ -33,32 +33,30 @@ WORKSHEET_NAME_CHARTS = "Crawling_Data"
 OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 # --- Header Mapping Definitions for Chart Data (Historical Series from Crawling_Data) ---
-# These define the column ranges and their corresponding JSON keys for the historical chart data.
-# The 'date_col_idx' specifies the 0-indexed column for the date for THIS section.
-# The 'data_start_col_idx' and 'data_end_col_idx' are 0-indexed for the actual numeric data.
-# The keys in 'data_cols_map' MUST exactly match the headers in the Google Sheet's row 2.
-# The values in 'data_cols_map' are the desired final JSON keys, following the IndexName_RouteName format.
+# 이 매핑은 Google Sheet의 원본 헤더를 최종 JSON 키로 변환하는 방법을 정의합니다.
+# 'data_cols_map'의 키는 Google Sheet의 2행에 있는 원본 헤더와 정확히 일치해야 합니다.
+# 'data_cols_map'의 값은 원하는 최종 JSON 키이며, 이제 섹션 이름과 원본 한글 헤더를 조합하여 사용합니다.
 SECTION_COLUMN_MAPPINGS = {
     "KCCI": {
         "date_col_idx": 0, # A열은 날짜
         "data_start_col_idx": 1, # B열은 종합지수
         "data_end_col_idx": 14, # O열은 동남아시아
         "data_cols_map": {
-            "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI_Date", # Corrected date header to exact sheet header
-            "종합지수": "KCCI_Composite_Index",
-            "미주서안": "KCCI_US_West_Coast",
-            "미주동안": "KCCI_US_East_Coast",
-            "유럽": "KCCI_Europe",
-            "지중해": "KCCI_Mediterranean",
-            "중동": "KCCI_Middle_East",
-            "호주": "KCCI_Australia",
-            "남미동안": "KCCI_South_America_East_Coast",
-            "남미서안": "KCCI_South_America_West_Coast",
-            "남아프리카": "KCCI_South_Africa",
-            "서아프리카": "KCCI_West_Africa",
-            "중국": "KCCI_China",
-            "일본": "KCCI_Japan",
-            "동남아시아": "KCCI_Southeast_Asia"
+            "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI_날짜", # 날짜 헤더
+            "종합지수": "KCCI_종합지수",
+            "미주서안": "KCCI_미주서안",
+            "미주동안": "KCCI_미주동안",
+            "유럽": "KCCI_유럽",
+            "지중해": "KCCI_지중해",
+            "중동": "KCCI_중동",
+            "호주": "KCCI_호주",
+            "남미동안": "KCCI_남미동안",
+            "남미서안": "KCCI_남미서안",
+            "남아프리카": "KCCI_남아프리카",
+            "서아프리카": "KCCI_서아프리카",
+            "중국": "KCCI_중국",
+            "일본": "KCCI_일본",
+            "동남아시아": "KCCI_동남아시아"
         }
     },
     "SCFI": {
@@ -66,21 +64,21 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 17, # R열은 종합지수
         "data_end_col_idx": 30, # AE열은 남아공
         "data_cols_map": {
-            "": "SCFI_Date", # Corrected date header to empty string as per console log
-            "종합지수": "SCFI_Composite_Index",
-            "미주서안": "SCFI_US_West_Coast",
-            "미주동안": "SCFI_US_East_Coast",
-            "북유럽": "SCFI_North_Europe",
-            "지중해": "SCFI_Mediterranean",
-            "동남아시아": "SCFI_Southeast_Asia",
-            "중동": "SCFI_Middle_East",
-            "호주/뉴질랜드": "SCFI_Australia_New_Zealand",
-            "남아메리카": "SCFI_South_America",
-            "일본서안": "SCFI_Japan_West_Coast",
-            "일본동안": "SCFI_Japan_East_Coast",
-            "한국": "SCFI_Korea",
-            "동부/서부 아프리카": "SCFI_East_West_Africa",
-            "남아공": "SCFI_South_Africa"
+            "": "SCFI_날짜", # 원본 헤더가 비어 있으므로 '날짜'로 매핑
+            "종합지수": "SCFI_종합지수",
+            "미주서안": "SCFI_미주서안",
+            "미주동안": "SCFI_미주동안",
+            "북유럽": "SCFI_북유럽",
+            "지중해": "SCFI_지중해",
+            "동남아시아": "SCFI_동남아시아",
+            "중동": "SCFI_중동",
+            "호주/뉴질랜드": "SCFI_호주/뉴질랜드",
+            "남아메리카": "SCFI_남아메리카",
+            "일본서안": "SCFI_일본서안",
+            "일본동안": "SCFI_일본동안",
+            "한국": "SCFI_한국",
+            "동부/서부 아프리카": "SCFI_동부/서부 아프리카",
+            "남아공": "SCFI_남아공"
         }
     },
     "WCI": {
@@ -88,16 +86,16 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 33, # AH열은 종합지수
         "data_end_col_idx": 41, # AP열은 로테르담 → 뉴욕
         "data_cols_map": {
-            "종합지수와 각 항로별($/FEU)": "WCI_Date", # Corrected date header to exact sheet header
-            "종합지수": "WCI_Composite_Index",
-            "상하이 → 로테르담": "WCI_Shanghai_Rotterdam",
-            "로테르담 → 상하이": "WCI_Rotterdam_Shanghai",
-            "상하이 → 제노바": "WCI_Shanghai_Genoa",
-            "상하이 → 로스엔젤레스": "WCI_Shanghai_Los_Angeles",
-            "로스엔젤레스 → 상하이": "WCI_Los_Angeles_Shanghai",
-            "상하이 → 뉴욕": "WCI_Shanghai_New_York",
-            "뉴욕 → 로테르담": "WCI_New_York_Rotterdam",
-            "로테르담 → 뉴욕": "WCI_Rotterdam_New_York",
+            "종합지수와 각 항로별($/FEU)": "WCI_날짜", # 날짜 헤더
+            "종합지수": "WCI_종합지수",
+            "상하이 → 로테르담": "WCI_상하이 → 로테르담",
+            "로테르담 → 상하이": "WCI_로테르담 → 상하이",
+            "상하이 → 제노바": "WCI_상하이 → 제노바",
+            "상하이 → 로스엔젤레스": "WCI_상하이 → 로스엔젤레스",
+            "로스엔젤레스 → 상하이": "WCI_로스엔젤레스 → 상하이",
+            "상하이 → 뉴욕": "WCI_상하이 → 뉴욕",
+            "뉴욕 → 로테르담": "WCI_뉴욕 → 로테르담",
+            "로테르담 → 뉴욕": "WCI_로테르담 → 뉴욕",
         }
     },
     "IACI": {
@@ -105,8 +103,8 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 44, # AS열은 종합지수
         "data_end_col_idx": 44, # AS열
         "data_cols_map": {
-            "date": "IACI_Date", # Corrected date header to exact sheet header
-            "종합지수": "IACI_Composite_Index"
+            "date": "IACI_날짜", # 원본 헤더가 'date'이므로 '날짜'로 매핑
+            "종합지수": "IACI_종합지수"
         }
     },
     "BLANK_SAILING": {
@@ -120,7 +118,7 @@ SECTION_COLUMN_MAPPINGS = {
             "OCEAN Alliance": "BLANK_SAILING_OCEAN_Alliance",
             "Premier Alliance": "BLANK_SAILING_Premier_Alliance",
             "Others/Independent": "BLANK_SAILING_Others_Independent",
-            "Total": "BLANK_SAILING_Total"
+            "Total": "BLANK_SAILING_종합지수"
         }
     },
     "FBX": {
@@ -128,22 +126,22 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 55, # BD열은 종합지수
         "data_end_col_idx": 67, # BP열은 유럽 → 남미서안
         "data_cols_map": {
-            "종합지수와 각 항로별($/FEU)": "FBX_Date", # Date header
+            "종합지수와 각 항로별($/FEU)": "FBX_날짜", # Date header
             # These keys MUST match the actual headers in the Google Sheet's row 2.
             # Values are the desired JSON keys, prefixed with "FBX_".
-            "글로벌 컨테이너 운임 지수": "FBX_Composite_Index",
-            "중국/동아시아 → 미주서안": "FBX_China_EA_US_West_Coast",
-            "미주서안 → 중국/동아시아": "FBX_US_West_Coast_China_EA",
-            "중국/동아시아 → 미주동안": "FBX_China_EA_US_East_Coast",
-            "미주동안 → 중국/동아시아": "FBX_US_East_Coast_China_EA",
-            "중국/동아시아 → 북유럽": "FBX_China_EA_North_Europe",
-            "북유럽 → 중국/동아시아": "FBX_North_Europe_China_EA",
-            "중국/동아시아 → 지중해": "FBX_China_EA_Mediterranean",
-            "지중해 → 중국/동아시아": "FBX_Mediterranean_China_EA",
-            "미주동안 → 북유럽": "FBX_US_East_Coast_North_Europe",
-            "북유럽 → 미주동안": "FBX_North_Europe_US_East_Coast",
-            "유럽 → 남미동안": "FBX_Europe_South_America_East_Coast",
-            "유럽 → 남미서안": "FBX_Europe_South_America_West_Coast",
+            "종합지수": "FBX_종합지수",
+            "중국/동아시아 → 미주서안": "FBX_중국/동아시아 → 미주서안",
+            "미주서안 → 중국/동아시아": "FBX_미주서안 → 중국/동아시아",
+            "중국/동아시아 → 미주동안": "FBX_중국/동아시아 → 미주동안",
+            "미주동안 → 중국/동아시아": "FBX_미주동안 → 중국/동아시아",
+            "중국/동아시아 → 북유럽": "FBX_중국/동아시아 → 북유럽",
+            "북유럽 → 중국/동아시아": "FBX_북유럽 → 중국/동아시아",
+            "중국/동아시아 → 지중해": "FBX_중국/동아시아 → 지중해",
+            "지중해 → 중국/동아시아": "FBX_지중해 → 중국/동아시아",
+            "미주동안 → 북유럽": "FBX_미주동안 → 북유럽",
+            "북유럽 → 미주동안": "FBX_북유럽 → 미주동안",
+            "유럽 → 남미동안": "FBX_유럽 → 남미동안",
+            "유럽 → 남미서안": "FBX_유럽 → 남미서안",
         }
     },
     "XSI": {
@@ -151,17 +149,17 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 70, # BS열은 동아시아 → 북유럽
         "data_end_col_idx": 77, # BZ열은 북유럽 → 남미동안
         "data_cols_map": {
-            "각 항로별($/FEU)": "XSI_Date", # Date header
+            "각 항로별($/FEU)": "XSI_날짜", # Date header
             # These keys MUST match the actual headers in the Google Sheet's row 2.
             # Values are the desired JSON keys, prefixed with "XSI_".
-            "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
-            "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
-            "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
-            "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
-            "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
-            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
-            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
-            "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
+            "동아시아 → 북유럽": "동아시아 → 북유럽",
+            "북유럽 → 동아시아": "XSI_북유럽 → 동아시아",
+            "동아시아 → 미주서안": "XSI_동아시아 → 미주서안",
+            "미주서안 → 동아시아": "XSI_미주서안 → 동아시아",
+            "동아시아 → 남미동안": "XSI_동아시아 → 남미동안",
+            "북유럽 → 미주동안": "XSI_북유럽 → 미주동안",
+            "미주동안 → 북유럽": "XSI_미주동안 → 북유럽",
+            "북유럽 → 남미동안": "XSI_북유럽 → 남미동안"
         }
     },
     "MBCI": {
@@ -169,8 +167,8 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 80, # CC열은 MBCI
         "data_end_col_idx": 80, # Assuming H column is also data
         "data_cols_map": {
-            "Index(종합지수)": "MBCI_Date", # Date header
-            "MBCI": "MBCI_Value", # Changed to MBCI_Value (no double prefix)
+            "Index(종합지수)": "MBCI_날짜", # Date header
+            "MBCI": "MBCI_종합지수", # Changed to MBCI_Value (no double prefix)
         }
     }
 }
