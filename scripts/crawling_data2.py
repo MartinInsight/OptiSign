@@ -446,7 +446,7 @@ def process_table_data_from_crawling_data2(raw_data):
 
     # FBX routes and their corresponding 0-indexed column in the sheet - FIXED KEY-VALUE PAIRS
     fbx_routes_data_cols = {
-        "글로벌 컨테이너 운임 지수": 1, # B column
+        "종합지수": 1, # B column
         "중국/동아시아 → 미주서안": 2, # C column
         "미주서안 → 중국/동아시아": 3, # D column
         "중국/동아시아 → 미주동안": 4, # E column
@@ -584,14 +584,15 @@ def process_table_data_from_crawling_data2(raw_data):
     mbci_display_headers[1] = f"Current Index ({current_date_formatted})" if current_date_formatted else "Current Index"
     mbci_display_headers[2] = f"Previous Index ({previous_date_formatted})" if previous_date_formatted else "Previous Index"
 
+    # MBCI routes and their corresponding 0-indexed column in the sheet
+    # IACI와 동일한 구조로 통일
     mbci_routes_data_cols = {
-        "MBCI": {"current_col": 6, "previous_col": 6}, # G59, G60
-        "Index(종합지수)": {"current_col": 7, "previous_col": 7} # H59, H60
+        "MBCI": 6, # G column
     }
 
-    for route_name, cols in mbci_routes_data_cols.items():
-        current_val = get_cell_value(raw_data, 58, cols["current_col"]) # Current data from row 58 (G, H)
-        previous_val = get_cell_value(raw_data, 59, cols["previous_col"]) # Previous data from row 59 (G, H)
+    for route_name, col_idx in mbci_routes_data_cols.items(): # col_idx를 직접 사용
+        current_val = get_cell_value(raw_data, 58, col_idx) # Current data from row 58 (G)
+        previous_val = get_cell_value(raw_data, 59, col_idx) # Previous data from row 59 (G)
         change_value, percentage_string, color_class = calculate_change_and_percentage(current_val, previous_val)
         mbci_rows.append({
             "route": f"MBCI_{route_name}", # Prefix with section key
