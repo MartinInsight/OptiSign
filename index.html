@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Link to external custom CSS file -->
-    <link rel="stylesheet" href="styles/main.css"> 
+    <link rel="stylesheet" href="styles/main.css">
 </head>
 <body class="bg-gray-100">
     <div class="container">
@@ -229,7 +229,60 @@
     <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-    <!-- Custom JavaScript for charts and dashboard logic -->
-    <script src="js/chart.js"></script>
+    
+    <!-- Custom JavaScript for dashboard logic -->
+    <script type="module" src="js/crawling_data.js"></script>
+    <script type="module" src="js/wether_exchange_time.js"></script>
+    <script type="module">
+        import { initializeCrawlingDataChartsAndTables } from './js/crawling_data.js';
+        import { updateWorldClocks, loadAndDisplayAuxiliaryData } from './js/wether_exchange_time.js';
+
+        // Generic Slider Logic (moved here for orchestration)
+        const setupSlider = (slidesSelector, intervalTime) => {
+            const slides = document.querySelectorAll(slidesSelector);
+            let currentSlide = 0;
+
+            const showSlide = (index) => {
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
+                });
+            };
+
+            const nextSlide = () => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            };
+
+            if (slides.length > 0) {
+                showSlide(currentSlide);
+                if (slides.length > 1) {
+                    setInterval(nextSlide, intervalTime);
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Path to the JSON data files
+            const CRAWLING_DATA_JSON_URL = 'data/crawling_data.json';
+
+            // Load crawling data (charts and tables)
+            await initializeCrawlingDataChartsAndTables(CRAWLING_DATA_JSON_URL);
+
+            // Load and display auxiliary data (weather, exchange rates, world clocks)
+            await loadAndDisplayAuxiliaryData();
+
+            // Initialize sliders after all content is potentially loaded
+            setupSlider('.chart-slide', 5000); // Chart slider
+            setupSlider('.top-info-slide', 7000); // Top Info slider (World Clock, Weather, Exchange Rate)
+            
+            // Update world clocks every second
+            updateWorldClocks();
+            setInterval(updateWorldClocks, 1000);
+        });
+    </script>
 </body>
 </html>
