@@ -373,8 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "상하이 → 로테르담": "WCI_Shanghai_Rotterdam",
             "로테르담 → 상하이": "WCI_Rotterdam_Shanghai",
             "상하이 → 제노바": "WCI_Shanghai_Genoa",
-            "상하이 → 로스엔젤레스": "WCI_Shanghai_Los_Angeles",
-            "로스엔젤레스 → 상하이": "WCI_Los_Angeles_Shanghai",
+            "상하이 → 로스엔젤레스": "WCI_Shanghai_to_Los_Angeles", // Changed to match fetch_chart_data.py
+            "로스엔젤레스 → 상하이": "WCI_Los_Angeles_to_Shanghai", // Changed to match fetch_chart_data.py
             "상하이 → 뉴욕": "WCI_Shanghai_New_York",
             "뉴욕 → 로테르담": "WCI_New_York_Rotterdam",
             "로테르담 → 뉴욕": "WCI_Rotterdam_New_York",
@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "Total": "BLANK_SAILING_Total"
         },
         FBX: {
-            "글로벌 컨테이너 운임 지수": "FBX_Composite_Index",
+            "종합지수": "FBX_Composite_Index", // Changed to match fetch_chart_data.py
             "중국/동아시아 → 미주서안": "FBX_China_EA_US_West_Coast",
             "미주서안 → 중국/동아시아": "FBX_US_West_Coast_China_EA",
             "중국/동아시아 → 미주동안": "FBX_China_EA_US_East_Coast",
