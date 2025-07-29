@@ -94,8 +94,8 @@ SECTION_COLUMN_MAPPINGS = {
             "상하이 → 로테르담": "Shanghai_Rotterdam",
             "로테르담 → 상하이": "Rotterdam_Shanghai",
             "상하이 → 제노바": "Shanghai_Genoa",
-            "상하이 → 로스엔젤레스": "Los_Angeles_Shanghai",
-            "로스엔젤레스 → 상하이": "Los_Angeles_Shanghai",
+            "상하이 → 로스엔젤레스": "Shanghai_to_Los_Angeles", # 고유한 이름으로 변경
+            "로스엔젤레스 → 상하이": "Los_Angeles_to_Shanghai", # 고유한 이름으로 변경
             "상하이 → 뉴욕": "Shanghai_New_York",
             "뉴욕 → 로테르담": "New_York_Rotterdam",
             "로테르담 → 뉴욕": "Rotterdam_New_York",
@@ -377,10 +377,11 @@ def fetch_and_process_data():
 
             for col_final_name in section_data_col_final_names:
                 if col_final_name in df_section.columns:
-                    # pd.to_numeric()를 호출하기 전에 Series에 .str 접근자를 사용하는 것은 올바르지 않습니다.
-                    # 이미 .astype(str)로 문자열로 변환되었으므로, .str.replace()를 직접 호출할 수 있습니다.
-                    # 하지만, to_numeric은 문자열을 직접 처리할 수 있으므로 .str.replace()를 먼저 적용하는 것이 좋습니다.
-                    df_section[col_final_name] = df_section[col_final_name].astype(str).str.replace(',', '', regex=False) # regex=False 추가
+                    # Step 1: Ensure it's string type
+                    df_section[col_final_name] = df_section[col_final_name].astype(str)
+                    # Step 2: Apply string replacement
+                    df_section[col_final_name] = df_section[col_final_name].str.replace(',', '', regex=False)
+                    # Step 3: Convert to numeric
                     df_section[col_final_name] = pd.to_numeric(df_section[col_final_name], errors='coerce')
                 else:
                     print(f"WARNING: Data column '{col_final_name}' not found in section {section_key} after renaming. It might not be included in the output.")
