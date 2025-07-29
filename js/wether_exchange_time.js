@@ -153,7 +153,14 @@ export async function loadAndDisplayAuxiliaryData() {
     } catch (error) {
         console.error("Error loading or processing weather or exchange rate data:", error);
         // Update UI to show error for weather/exchange rate sections
-        document.getElementById('weather-info-container').innerHTML = '<p class="text-red-500">Failed to load weather data.</p>';
-        document.getElementById('exchangeRateChartContainer').innerHTML = '<p class="text-red-500">Failed to load exchange rate data.</p>';
+        // Corrected IDs to match HTML structure
+        const weatherContainer = document.getElementById('top-info-slide-2');
+        if (weatherContainer) {
+            weatherContainer.innerHTML = '<p class="text-red-500 text-center py-4">Failed to load weather data.</p>';
+        }
+        const exchangeRateContainer = document.getElementById('top-info-slide-3');
+        if (exchangeRateContainer) {
+            exchangeRateContainer.innerHTML = '<p class="text-red-500 text-center py-4">Failed to load exchange rate data.</p>';
+        }
     }
 }
