@@ -6,7 +6,6 @@
     <title>OptiSign Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Link to external custom CSS file -->
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body class="bg-gray-100">
@@ -17,11 +16,8 @@
         </header>
 
         <div class="dashboard-grid">
-            <!-- Main content area (charts and announcements) -->
             <main>
-                <!-- New container for Announcements and Top Info Slider -->
                 <div class="top-content-grid">
-                    <!-- Announcements Section -->
                     <div class="announcements-section">
                         <h2>Announcements</h2>
                         <ul class="announcements-list">
@@ -33,9 +29,7 @@
                         </ul>
                     </div>
 
-                    <!-- Top Info Slider Container (World Clock, Weather, Exchange Rate) -->
                     <div class="top-info-slider-container">
-                        <!-- Slide 1: World Clocks -->
                         <div class="top-info-slide active" id="top-info-slide-1">
                             <h3>World Clocks</h3>
                             <div class="world-clock-item">
@@ -64,7 +58,6 @@
                             </div>
                         </div>
 
-                        <!-- Slide 2: Weather Info -->
                         <div class="top-info-slide" id="top-info-slide-2">
                             <h3>Weather in Los Angeles</h3>
                             <div class="weather-current-info">
@@ -90,7 +83,6 @@
                                     </tr>
                                 </thead>
                                 <tbody id="forecast-body">
-                                    <!-- Forecast rows will be injected here by JS -->
                                     <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
                                     <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
                                     <tr><td>--</td><td>--</td><td>--</td><td>--</td></tr>
@@ -98,7 +90,6 @@
                             </table>
                         </div>
 
-                        <!-- Slide 3: Exchange Rate Info -->
                         <div class="top-info-slide" id="top-info-slide-3">
                             <h3>USD to KRW Exchange Rate</h3>
                             <div class="exchange-rate-info">
@@ -111,9 +102,7 @@
                     </div>
                 </div>
                 
-                <!-- Chart Slider Container -->
                 <div class="chart-slider-container">
-                    <!-- Chart 1: KCCI Composite Index & Routes -->
                     <div class="chart-slide active" id="chart-slide-1">
                         <div class="chart-section">
                             <h2>KCCI Indices</h2>
@@ -122,11 +111,9 @@
                             </div>
                         </div>
                         <div class="table-section" id="KCCITableContainer">
-                            <!-- KCCI Table will be rendered here by JS -->
                         </div>
                     </div>
 
-                    <!-- Chart 2: SCFI Composite Index & Routes -->
                     <div class="chart-slide" id="chart-slide-2">
                         <div class="chart-section">
                             <h2>SCFI Indices</h2>
@@ -135,11 +122,9 @@
                             </div>
                         </div>
                         <div class="table-section" id="SCFITableContainer">
-                            <!-- SCFI Table will be rendered here by JS -->
                         </div>
                     </div>
 
-                    <!-- Chart 3: WCI Composite Index & Routes -->
                     <div class="chart-slide" id="chart-slide-3">
                         <div class="chart-section">
                             <h2>WCI Indices</h2>
@@ -148,11 +133,9 @@
                             </div>
                         </div>
                         <div class="table-section" id="WCITableContainer">
-                            <!-- WCI Table will be rendered here by JS -->
                         </div>
                     </div>
 
-                    <!-- Chart 4: IACI Composite Index -->
                     <div class="chart-slide" id="chart-slide-4">
                         <div class="chart-section">
                             <h2>IACI Composite Index</h2>
@@ -161,11 +144,9 @@
                             </div>
                         </div>
                         <div class="table-section" id="IACITableContainer">
-                            <!-- IACI Table will be rendered here by JS -->
                         </div>
                     </div>
 
-                    <!-- Chart 5: BLANK_SAILING Stacked Bar Chart -->
                     <div class="chart-slide" id="chart-slide-5">
                         <div class="chart-section">
                             <h2>Blank Sailings by Alliance</h2>
@@ -174,11 +155,9 @@
                             </div>
                         </div>
                         <div class="table-section" id="BLANK_SAILINGTableContainer">
-                            <!-- BLANK_SAILING Table will be rendered here by JS -->
                         </div>
                     </div>
 
-                    <!-- Chart 6: FBX Indices -->
                     <div class="chart-slide" id="chart-slide-6">
                         <div class="chart-section">
                             <h2>FBX Indices</h2>
@@ -187,11 +166,9 @@
                             </div>
                         </div>
                         <div class="table-section" id="FBXTableContainer">
-                            <!-- FBX Table will be rendered here by JS -->
                         </div>
                     </div>
 
-                    <!-- Chart 7: XSI Indices -->
                     <div class="chart-slide" id="chart-slide-7">
                         <div class="chart-section">
                             <h2>XSI Indices</h2>
@@ -200,11 +177,9 @@
                             </div>
                         </div>
                         <div class="table-section" id="XSITableContainer">
-                            <!-- XSI Table will be rendered here by JS -->
                         </div>
                     </div>
 
-                    <!-- Chart 8: MBCI Indices -->
                     <div class="chart-slide" id="chart-slide-8">
                         <div class="chart-section">
                             <h2>MBCI Indices</h2>
@@ -213,12 +188,10 @@
                             </div>
                         </div>
                         <div class="table-section" id="MBCITableContainer">
-                            <!-- MBCI Table will be rendered here by JS -->
                         </div>
                     </div>
                 </div>
             </main>
-            <!-- Sidebar is now removed as its content has been integrated into the main section -->
         </div>
 
         <footer>
@@ -226,63 +199,9 @@
         </footer>
     </div>
 
-    <!-- Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     
-    <!-- Custom JavaScript for dashboard logic -->
-    <script type="module" src="js/crawling_data.js"></script>
-    <script type="module" src="js/wether_exchange_time.js"></script>
-    <script type="module">
-        import { initializeCrawlingDataChartsAndTables } from './js/crawling_data.js';
-        import { updateWorldClocks, loadAndDisplayAuxiliaryData } from './js/wether_exchange_time.js';
-
-        // Generic Slider Logic (moved here for orchestration)
-        const setupSlider = (slidesSelector, intervalTime) => {
-            const slides = document.querySelectorAll(slidesSelector);
-            let currentSlide = 0;
-
-            const showSlide = (index) => {
-                slides.forEach((slide, i) => {
-                    if (i === index) {
-                        slide.classList.add('active');
-                    } else {
-                        slide.classList.remove('active');
-                    }
-                });
-            };
-
-            const nextSlide = () => {
-                currentSlide = (currentSlide + 1) % slides.length;
-                showSlide(currentSlide);
-            };
-
-            if (slides.length > 0) {
-                showSlide(currentSlide);
-                if (slides.length > 1) {
-                    setInterval(nextSlide, intervalTime);
-                }
-            }
-        };
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Path to the JSON data files
-            const CRAWLING_DATA_JSON_URL = 'data/crawling_data.json';
-
-            // Load crawling data (charts and tables)
-            await initializeCrawlingDataChartsAndTables(CRAWLING_DATA_JSON_URL);
-
-            // Load and display auxiliary data (weather, exchange rates, world clocks)
-            await loadAndDisplayAuxiliaryData();
-
-            // Initialize sliders after all content is potentially loaded
-            setupSlider('.chart-slide', 5000); // Chart slider
-            setupSlider('.top-info-slide', 7000); // Top Info slider (World Clock, Weather, Exchange Rate)
-            
-            // Update world clocks every second
-            updateWorldClocks();
-            setInterval(updateWorldClocks, 1000);
-        });
-    </script>
+    <script type="module" src="js/dashboard.js"></script>
 </body>
 </html>
