@@ -5642,97 +5642,49 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "날씨 아이콘",
-            "LA_WeatherStatus": "",
-            "LA_Humidity": "",
-            "LA_WindSpeed": "",
-            "LA_Pressure": "",
-            "LA_Visibility": "",
-            "LA_Sunrise": null,
-            "LA_Sunset": null
+            "LA_Temperature": "77.74",
+            "LA_WeatherStatus": "맑음(clear sky)",
+            "LA_Humidity": "62",
+            "LA_WindSpeed": "8.05",
+            "LA_Pressure": "1017",
+            "LA_Visibility": "6.2",
+            "LA_Sunrise": "6:02:18 AM",
+            "LA_Sunset": "7:56:20 PM"
         },
         "forecast": [
             {
-                "date": "습도 (%)",
-                "min_temp": "66",
-                "max_temp": "",
-                "status": ""
-            },
-            {
-                "date": "풍속 (mph)",
-                "min_temp": "9.22",
-                "max_temp": "",
-                "status": ""
-            },
-            {
-                "date": "기압 (hPa)",
-                "min_temp": "1017",
-                "max_temp": "",
-                "status": ""
-            },
-            {
-                "date": "가시거리 (mile)",
-                "min_temp": "6.2",
-                "max_temp": "",
-                "status": ""
-            },
-            {
-                "date": "일출 시간",
-                "min_temp": "6:02:18 AM",
-                "max_temp": "6:02:18 AM",
-                "status": ""
-            },
-            {
-                "date": "일몰 시간",
-                "min_temp": "7:56:22 PM",
-                "max_temp": "7:56:22 PM",
-                "status": ""
-            },
-            {
-                "date": "",
-                "min_temp": "",
-                "max_temp": "",
-                "status": ""
-            },
-            {
-                "date": "날짜 (MM/DD)",
-                "min_temp": "최저 온도 (°F)",
-                "max_temp": "최고 온도 (°F)",
-                "status": "날씨 상태"
-            },
-            {
                 "date": "7/29/2025",
                 "min_temp": "67.3",
-                "max_temp": "78.8",
+                "max_temp": "80",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "7/30/2025",
                 "min_temp": "65",
-                "max_temp": "86.7",
+                "max_temp": "85",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "7/31/2025",
-                "min_temp": "70.2",
-                "max_temp": "89.8",
+                "min_temp": "69.5",
+                "max_temp": "89.5",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/1/2025",
-                "min_temp": "71.1",
-                "max_temp": "89.4",
+                "min_temp": "70.8",
+                "max_temp": "88.9",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/2/2025",
-                "min_temp": "72.5",
-                "max_temp": "89.1",
+                "min_temp": "72.3",
+                "max_temp": "89.3",
                 "status": "맑음(clear sky)"
             },
             {
                 "date": "8/3/2025",
-                "min_temp": "73.3",
+                "min_temp": "72.6",
                 "max_temp": "84.5",
                 "status": "맑음(clear sky)"
             }
