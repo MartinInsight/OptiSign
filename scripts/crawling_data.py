@@ -152,7 +152,7 @@ SECTION_COLUMN_MAPPINGS = {
             "각 항로별($/FEU)": "XSI_날짜", # Date header
             # These keys MUST match the actual headers in the Google Sheet's row 2.
             # Values are the desired JSON keys, prefixed with "XSI_".
-            "동아시아 → 북유럽": "동아시아 → 북유럽",
+            "동아시아 → 북유럽": "XSI_동아시아 → 북유럽",
             "북유럽 → 동아시아": "XSI_북유럽 → 동아시아",
             "동아시아 → 미주서안": "XSI_동아시아 → 미주서안",
             "미주서안 → 동아시아": "XSI_미주서안 → 동아시아",
@@ -305,7 +305,17 @@ def fetch_and_process_crawling_data():
             # 8. Convert numeric columns
             for col_final_name in section_data_col_final_names:
                 if col_final_name in df_section.columns: # Ensure column exists before converting
+                    # Add debug print before conversion
+                    print(f"DEBUG: {section_key} - Converting column '{col_final_name}'. Sample values before conversion: {df_section[col_final_name].astype(str).str.replace(',', '').head().tolist()}")
                     df_section[col_final_name] = pd.to_numeric(df_section[col_final_name].astype(str).str.replace(',', ''), errors='coerce')
+                    # Add debug print after conversion to check for NaNs
+                    nan_count = df_section[col_final_name].isna().sum()
+                    if nan_count > 0:
+                        print(f"WARNING: {section_key} - Column '{col_final_name}' has {nan_count} NaN values after numeric conversion. Sample NaN rows (date, value):")
+                        # Print up to 5 rows where this column is NaN
+                        nan_rows = df_section[df_section[col_final_name].isna()][['date', col_final_name]].head(5)
+                        for idx, row in nan_rows.iterrows():
+                            print(f"  Date: {row['date']}, Value: {row[col_final_name]}")
                 else:
                     print(f"WARNING: Data column '{col_final_name}' not found in section {section_key} after renaming. It might not be included in the output.")
             
