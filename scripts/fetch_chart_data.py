@@ -38,11 +38,11 @@ OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 SECTION_COLUMN_MAPPINGS = {
     "KCCI": {
-        "date_col_idx": 0,
-        "data_start_col_idx": 1,
-        "data_end_col_idx": 14,
+        "date_col_idx": 0, # A열
+        "data_start_col_idx": 1, # B열
+        "data_end_col_idx": 14, # O열
         "data_cols_map": {
-            "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI_Date",
+            "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI_Date", # 실제 헤더는 A2셀의 값
             "종합지수": "KCCI_Composite_Index",
             "미주서안": "KCCI_US_West_Coast",
             "미주동안": "KCCI_US_East_Coast",
@@ -60,11 +60,14 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "SCFI": {
-        "date_col_idx": 15,
-        "data_start_col_idx": 17,
-        "data_end_col_idx": 30,
+        "date_col_idx": 16, # Q열 (이전 15에서 수정)
+        "data_start_col_idx": 17, # R열
+        "data_end_col_idx": 30, # AE열
         "data_cols_map": {
-            "": "SCFI_Date",
+            # Q2 셀의 실제 헤더 이름을 확인해야 합니다.
+            # 로그에 따르면 raw_headers_full_charts[16]이 빈 문자열일 수 있습니다.
+            # 만약 Q2 셀이 비어있다면 아래 키를 ""로 유지하고, 다른 이름이라면 그 이름으로 변경해야 합니다.
+            "": "SCFI_Date", # Q2 셀의 헤더
             "종합지수": "SCFI_Composite_Index",
             "미주서안": "SCFI_US_West_Coast",
             "미주동안": "SCFI_US_East_Coast",
@@ -82,11 +85,11 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "WCI": {
-        "date_col_idx": 32,
-        "data_start_col_idx": 33,
-        "data_end_col_idx": 41,
+        "date_col_idx": 32, # AG열
+        "data_start_col_idx": 33, # AH열
+        "data_end_col_idx": 41, # AP열
         "data_cols_map": {
-            "종합지수와 각 항로별($/FEU)": "WCI_Date",
+            "종합지수와 각 항로별($/FEU)": "WCI_Date", # 실제 헤더는 AG2셀의 값
             "종합지수": "WCI_Composite_Index",
             "상하이 → 로테르담": "WCI_Shanghai_Rotterdam",
             "로테르담 → 상하이": "WCI_Rotterdam_Shanghai",
@@ -99,20 +102,20 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "IACI": {
-        "date_col_idx": 43,
-        "data_start_col_idx": 44,
-        "data_end_col_idx": 44,
+        "date_col_idx": 43, # AR열
+        "data_start_col_idx": 44, # AS열
+        "data_end_col_idx": 44, # AS열
         "data_cols_map": {
-            "date": "IACI_Date",
-            "종합지수": "IACI_Composite_Index"
+            "date": "IACI_Date", # 실제 헤더는 AR2셀의 값
+            "종합지수": "IACI_Composite_Index" # 실제 헤더는 AS2셀의 값
         }
     },
     "BLANK_SAILING": {
-        "date_col_idx": 46,
-        "data_start_col_idx": 47,
-        "data_end_col_idx": 52,
+        "date_col_idx": 46, # AU열
+        "data_start_col_idx": 47, # AV열
+        "data_end_col_idx": 52, # BA열
         "data_cols_map": {
-            "Index": "BLANK_SAILING_Date",
+            "Index": "BLANK_SAILING_Date", # 실제 헤더는 AU2셀의 값
             "Gemini Cooperation": "BLANK_SAILING_Gemini_Cooperation",
             "MSC": "BLANK_SAILING_MSC",
             "OCEAN Alliance": "BLANK_SAILING_OCEAN_Alliance",
@@ -122,12 +125,12 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "FBX": {
-        "date_col_idx": 54,
-        "data_start_col_idx": 55,
-        "data_end_col_idx": 67,
+        "date_col_idx": 54, # BC열
+        "data_start_col_idx": 55, # BD열
+        "data_end_col_idx": 67, # BP열
         "data_cols_map": {
-            "종합지수와 각 항로별($/FEU)": "FBX_Date",
-            "글로벌 컨테이너 운임 지수": "FBX_Composite_Index",
+            "종합지수와 각 항로별($/FEU)": "FBX_Date", # 실제 헤더는 BC2셀의 값
+            "종합지수": "FBX_Composite_Index", # "글로벌 컨테이너 운임 지수" 대신 실제 헤더 "종합지수" 사용
             "중국/동아시아 → 미주서안": "FBX_China_EA_US_West_Coast",
             "미주서안 → 중국/동아시아": "FBX_US_West_Coast_China_EA",
             "중국/동아시아 → 미주동안": "FBX_China_EA_US_East_Coast",
@@ -143,11 +146,11 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "XSI": {
-        "date_col_idx": 69,
-        "data_start_col_idx": 70,
-        "data_end_col_idx": 77,
+        "date_col_idx": 69, # BR열
+        "data_start_col_idx": 70, # BS열
+        "data_end_col_idx": 77, # BZ열
         "data_cols_map": {
-            "각 항로별($/FEU)": "XSI_Date",
+            "각 항로별($/FEU)": "XSI_Date", # 실제 헤더는 BR2셀의 값
             "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
             "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
             "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
@@ -159,28 +162,23 @@ SECTION_COLUMN_MAPPINGS = {
         }
     },
     "MBCI": {
-        "date_col_idx": 79,
-        "data_start_col_idx": 80,
-        "data_end_col_idx": 80,
+        "date_col_idx": 79, # CB열
+        "data_start_col_idx": 80, # CC열
+        "data_end_col_idx": 80, # CC열
         "data_cols_map": {
-            "Index(종합지수)": "MBCI_Date",
-            "MBCI": "MBCI_Value",
+            "Index(종합지수)": "MBCI_Date", # 실제 헤더는 CB2셀의 값
+            "MBCI": "MBCI_Value", # 실제 헤더는 CC2셀의 값
         }
     }
 }
 
-ORIGINAL_HEADER_TO_FINAL_KEY_MAP = {}
-for section_key, details in SECTION_COLUMN_MAPPINGS.items():
-    for original_header, final_key in details["data_cols_map"].items():
-        ORIGINAL_HEADER_TO_FINAL_KEY_MAP[original_header] = final_key
-
 TABLE_DATA_CELL_MAPPINGS = {
     "KCCI": {
-        "current_date_cell": (0, 1),
-        "current_index_cols_range": (1, 14),
-        "previous_date_cell": (0, 15),
-        "previous_index_cols_range": (1, 15),
-        "weekly_change_cols_range": (2, 15),
+        "current_date_cell": (2, 0), # A3
+        "current_index_cols_range": (1, 14), # B3:O3
+        "previous_date_cell": (3, 0), # A4
+        "previous_index_cols_range": (1, 14), # B4:O4
+        "weekly_change_row_idx": 4, # B5:O5 (행 인덱스만 지정)
         "route_names": [
             "종합지수", "미주서안", "미주동안", "유럽", "지중해", "중동",
             "호주", "남미동안", "남미서안", "남아프리카", "서아프리카",
@@ -188,11 +186,11 @@ TABLE_DATA_CELL_MAPPINGS = {
         ]
     },
     "SCFI": {
-        "current_date_cell": (0, 16),
-        "current_index_cols_range": (1, 29),
-        "previous_date_cell": (0, 30),
-        "previous_index_cols_range": (1, 30),
-        "weekly_change_cols_range": (2, 30),
+        "current_date_cell": (8, 0), # A9
+        "current_index_cols_range": (1, 14), # B9:O9
+        "previous_date_cell": (9, 0), # A10
+        "previous_index_cols_range": (1, 14), # B10:O10
+        "weekly_change_row_idx": 10, # B11:O11
         "route_names": [
             "종합지수", "미주서안", "미주동안", "북유럽", "지중해", "동남아시아",
             "중동", "호주/뉴질랜드", "남아메리카", "일본서안", "일본동안",
@@ -200,11 +198,11 @@ TABLE_DATA_CELL_MAPPINGS = {
         ]
     },
     "WCI": {
-        "current_date_cell": (0, 31),
-        "current_index_cols_range": (1, 39),
-        "previous_date_cell": (0, 40),
-        "previous_index_cols_range": (1, 40),
-        "weekly_change_cols_range": (2, 40),
+        "current_date_cell": (20, 0), # A21
+        "current_index_cols_range": (1, 9), # B21:J21
+        "previous_date_cell": (21, 0), # A22
+        "previous_index_cols_range": (1, 9), # B22:J22
+        "weekly_change_row_idx": 22, # B23:J23 (O23 대신 J23으로 수정하여 데이터 열 범위와 일치시킴)
         "route_names": [
             "종합지수", "상하이 → 로테르담", "로테르담 → 상하이", "상하이 → 제노바",
             "상하이 → 로스엔젤레스", "로스엔젤레스 → 상하이", "상하이 → 뉴욕",
@@ -212,21 +210,21 @@ TABLE_DATA_CELL_MAPPINGS = {
         ]
     },
     "IACI": {
-        "current_date_cell": (0, 41),
-        "current_index_cols_range": (1, 41),
-        "previous_date_cell": (0, 42),
-        "previous_index_cols_range": (1, 42),
-        "weekly_change_cols_range": (2, 42),
+        "current_date_cell": (26, 0), # A27
+        "current_index_cols_range": (1, 1), # B27
+        "previous_date_cell": (27, 0), # A28
+        "previous_index_cols_range": (1, 1), # B28
+        "weekly_change_row_idx": 28, # B29
         "route_names": ["종합지수"]
     },
     "BLANK_SAILING": {
-        "current_date_cell": (0, 43),
-        "current_index_cols_range": (1, 48),
-        "previous_date_cells_and_ranges": [
-            {"date_cell": (0, 49), "data_range": (1, 54)},
-            {"date_cell": (0, 55), "data_range": (1, 60)},
-            {"date_cell": (0, 61), "data_range": (1, 66)},
-            {"date_cell": (0, 67), "data_range": (1, 72)},
+        "current_date_cell": (32, 0), # A33
+        "current_index_cols_range": (1, 6), # B33:G33
+        "previous_entries": [ # 여러 이전 데이터 지점 처리
+            {"date_cell": (33, 0), "data_range": (1, 6)}, # A34, B34:G34
+            {"date_cell": (34, 0), "data_range": (1, 6)}, # A35, B35:G35
+            {"date_cell": (35, 0), "data_range": (1, 6)}, # A36, B36:G36
+            {"date_cell": (36, 0), "data_range": (1, 6)}, # A37, B37:G37
         ],
         "route_names": [
             "Gemini Cooperation", "MSC", "OCEAN Alliance",
@@ -234,11 +232,11 @@ TABLE_DATA_CELL_MAPPINGS = {
         ]
     },
     "FBX": {
-        "current_date_cell": (0, 73),
-        "current_index_cols_range": (1, 85),
-        "previous_date_cell": (0, 86),
-        "previous_index_cols_range": (1, 86),
-        "weekly_change_cols_range": (2, 86),
+        "current_date_cell": (40, 0), # A41
+        "current_index_cols_range": (1, 13), # B41:N41
+        "previous_date_cell": (41, 0), # A42
+        "previous_index_cols_range": (1, 13), # B42:N42
+        "weekly_change_row_idx": 42, # B43:N43
         "route_names": [
             "글로벌 컨테이너 운임 지수", "중국/동아시아 → 미주서안", "미주서안 → 중국/동아시아",
             "중국/동아시아 → 미주동안", "미주동안 → 중국/동아시아", "중국/동아시아 → 북유럽",
@@ -247,11 +245,11 @@ TABLE_DATA_CELL_MAPPINGS = {
         ]
     },
     "XSI": {
-        "current_date_cell": (0, 87),
-        "current_index_cols_range": (1, 94),
-        "previous_date_cell": (0, 95),
-        "previous_index_cols_range": (1, 95),
-        "weekly_change_cols_range": (2, 95),
+        "current_date_cell": (46, 0), # A47
+        "current_index_cols_range": (1, 8), # B47:I47
+        "previous_date_cell": (47, 0), # A48
+        "previous_index_cols_range": (1, 8), # B48:I48 (N48 대신 I48로 수정하여 데이터 열 범위와 일치시킴)
+        "weekly_change_row_idx": 48, # B49:I49 (N49 대신 I49로 수정하여 데이터 열 범위와 일치시킴)
         "route_names": [
             "동아시아 → 북유럽", "북유럽 → 동아시아", "동아시아 → 미주서안",
             "미주서안 → 동아시아", "동아시아 → 남미동안", "북유럽 → 미주동안",
@@ -259,11 +257,11 @@ TABLE_DATA_CELL_MAPPINGS = {
         ]
     },
     "MBCI": {
-        "current_date_cell": (0, 96),
-        "current_index_cols_range": (1, 96),
-        "previous_date_cell": (0, 97),
-        "previous_index_cols_range": (1, 97),
-        "weekly_change_cols_range": (2, 97),
+        "current_date_cell": (58, 0), # A59
+        "current_index_cols_range": (6, 6), # G59
+        "previous_date_cell": (59, 0), # A60
+        "previous_index_cols_range": (6, 6), # G60
+        "weekly_change_row_idx": 60, # G61
         "route_names": ["MBCI"]
     }
 }
@@ -293,6 +291,7 @@ def fetch_and_process_data():
             print("Error: No data fetched from the main chart sheet.")
             return
 
+        # 헤더는 2행(0-인덱스 기준 1)에 있습니다.
         main_header_row_index = 1 
         if len(all_data_charts) <= main_header_row_index:
             print(f"Error: '{WORKSHEET_NAME_CHARTS}' sheet does not have enough rows for header at index {main_header_row_index}.")
@@ -301,6 +300,7 @@ def fetch_and_process_data():
         raw_headers_full_charts = [str(h).strip().replace('"', '') for h in all_data_charts[main_header_row_index]]
         print(f"DEBUG: '{WORKSHEET_NAME_CHARTS}'에서 가져온 원본 헤더 (전체 행): {raw_headers_full_charts}")
 
+        # 데이터는 3행(0-인덱스 기준 2)부터 시작합니다.
         data_rows_for_df = all_data_charts[main_header_row_index + 1:]
         df_raw_full = pd.DataFrame(data_rows_for_df, columns=raw_headers_full_charts)
         print(f"DEBUG: Raw full DataFrame shape with original headers: {df_raw_full.shape}")
@@ -321,8 +321,10 @@ def fetch_and_process_data():
                 processed_chart_data_by_section[section_key] = []
                 continue
 
+            # 선택된 원본 열만 포함하는 DataFrame 생성
             df_section_raw_cols = df_raw_full.iloc[:, valid_raw_column_indices].copy()
             
+            # 선택된 열의 실제 헤더 이름을 사용하여 DataFrame 열 이름 설정
             actual_raw_headers_in_section_df = [raw_headers_full_charts[idx] for idx in valid_raw_column_indices]
             df_section_raw_cols.columns = actual_raw_headers_in_section_df
 
@@ -340,9 +342,11 @@ def fetch_and_process_data():
             df_section = df_section_raw_cols.rename(columns=rename_map)
             print(f"DEBUG: {section_key} - Columns in section DataFrame after renaming: {df_section.columns.tolist()}")
 
+            # 날짜 열의 원본 헤더와 최종 이름 가져오기
             date_original_header = list(details["data_cols_map"].keys())[0]
             date_col_final_name = details["data_cols_map"][date_original_header]
             
+            # 데이터 열의 최종 이름 가져오기 (날짜 열 제외)
             section_data_col_final_names = [
                 final_json_key for original_header, final_json_key in details["data_cols_map"].items()
                 if original_header != date_original_header
@@ -354,7 +358,8 @@ def fetch_and_process_data():
                 continue
 
             df_section[date_col_final_name] = df_section[date_col_final_name].astype(str).str.strip()
-            df_section['parsed_date'] = pd.to_datetime(df_section[date_col_final_name], errors='coerce')
+            # 날짜 파싱 시 여러 형식 시도 (MM/DD/YYYY, YYYY-MM-DD, YYYY.MM.DD)
+            df_section['parsed_date'] = pd.to_datetime(df_section[date_col_final_name], errors='coerce', dayfirst=False)
             
             unparseable_dates_series = df_section[df_section['parsed_date'].isna()][date_col_final_name]
             num_unparseable_dates = unparseable_dates_series.count()
@@ -396,38 +401,45 @@ def fetch_and_process_data():
             table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
             table_rows_data = []
 
-            if section_key == "BLANK_SAILING" and "previous_date_cells_and_ranges" in table_details:
+            # BLANK_SAILING 섹션은 특별 처리
+            if section_key == "BLANK_SAILING" and "previous_entries" in table_details:
+                blank_sailing_historical_data = []
+                
+                # 현재 데이터 처리
                 current_row_idx = table_details["current_date_cell"][0]
+                current_date_col_idx = table_details["current_date_cell"][1]
                 current_cols_start, current_cols_end = table_details["current_index_cols_range"]
                 route_names = table_details["route_names"]
                 
-                current_data_row = all_data_tables[current_row_idx] if current_row_idx < len(all_data_tables) else []
+                if current_row_idx < len(all_data_tables):
+                    current_data_row = all_data_tables[current_row_idx]
+                    current_bs_entry = {"date": (current_data_row[current_date_col_idx] if current_date_col_idx < len(current_data_row) else "")}
+                    for i, route_name in enumerate(route_names):
+                        col_idx = current_cols_start + i
+                        if col_idx <= current_cols_end and col_idx < len(current_data_row):
+                            val = str(current_data_row[col_idx]).strip().replace(',', '')
+                            current_bs_entry[route_name] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
+                    blank_sailing_historical_data.append(current_bs_entry)
 
-                blank_sailing_historical_data = []
-                
-                current_bs_entry = {"date": (all_data_tables[current_row_idx][table_details["current_date_cell"][1]] if current_row_idx < len(all_data_tables) and table_details["current_date_cell"][1] < len(all_data_tables[current_row_idx]) else "")}
-                for i in range(len(route_names)):
-                    col_idx = current_cols_start + i
-                    if col_idx <= current_cols_end and col_idx < len(current_data_row):
-                        val = str(current_data_row[col_idx]).strip().replace(',', '')
-                        current_bs_entry[route_names[i]] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
-                blank_sailing_historical_data.append(current_bs_entry)
-
-                for prev_entry_details in table_details["previous_date_cells_and_ranges"]:
+                # 이전 데이터 처리
+                for prev_entry_details in table_details["previous_entries"]:
                     prev_row_idx = prev_entry_details["date_cell"][0]
+                    prev_date_col_idx = prev_entry_details["date_cell"][1]
                     prev_cols_start, prev_cols_end = prev_entry_details["data_range"]
                     
                     if prev_row_idx < len(all_data_tables):
                         prev_data_row = all_data_tables[prev_row_idx]
-                        prev_bs_entry = {"date": (all_data_tables[prev_row_idx][prev_entry_details["date_cell"][1]] if prev_row_idx < len(all_data_tables) and prev_entry_details["date_cell"][1] < len(all_data_tables[prev_row_idx]) else "")}
-                        for i in range(len(route_names)):
+                        prev_bs_entry = {"date": (prev_data_row[prev_date_col_idx] if prev_date_col_idx < len(prev_data_row) else "")}
+                        for i, route_name in enumerate(route_names):
                             col_idx = prev_cols_start + i
                             if col_idx <= prev_cols_end and col_idx < len(prev_data_row):
                                 val = str(prev_data_row[col_idx]).strip().replace(',', '')
-                                prev_bs_entry[route_names[i]] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
+                                prev_bs_entry[route_name] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
                         blank_sailing_historical_data.append(prev_bs_entry)
                 
-                blank_sailing_historical_data.sort(key=lambda x: pd.to_datetime(x['date'], errors='coerce', dayfirst=False) if x['date'] else pd.Timestamp.min)
+                # 날짜 파싱 및 정렬 (MM/DD/YYYY 또는 YYYY-MM-DD)
+                # BLANK_SAILING 날짜 형식은 '7/18/2025' 이므로 %m/%d/%Y 사용
+                blank_sailing_historical_data.sort(key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y') if x['date'] else datetime.min)
 
                 if len(blank_sailing_historical_data) >= 2:
                     latest_bs_data = blank_sailing_historical_data[-1]
@@ -458,108 +470,140 @@ def fetch_and_process_data():
                             "weekly_change": weekly_change
                         })
                 else:
-                    current_row_idx = table_details["current_date_cell"][0]
-                    previous_row_idx = table_details["previous_date_cell"][0]
-                    weekly_change_row_idx_info = table_details["weekly_change_cols_range"]
+                    # 데이터가 충분하지 않을 때의 처리 (기존 로직 유지)
+                    print(f"경고: BLANK_SAILING 섹션에 테이블 데이터 생성에 충분한 기록이 없습니다.")
+                    for route_name in route_names:
+                        table_rows_data.append({
+                            "route": f"{section_key}_{route_name}",
+                            "current_index": None,
+                            "previous_index": None,
+                            "weekly_change": None
+                        })
 
-                    current_cols_start, current_cols_end = table_details["current_index_cols_range"]
-                    previous_cols_start, previous_cols_end = table_details["previous_index_cols_range"]
+            else: # BLANK_SAILING을 제외한 일반 섹션 처리
+                current_row_idx = table_details["current_date_cell"][0]
+                previous_row_idx = table_details["previous_date_cell"][0]
+                weekly_change_row_idx = table_details.get("weekly_change_row_idx") # weekly_change_cols_range 대신 weekly_change_row_idx 사용
+
+                current_date_col_idx = table_details["current_date_cell"][1]
+                previous_date_col_idx = table_details["previous_date_cell"][1]
+
+                current_cols_start, current_cols_end = table_details["current_index_cols_range"]
+                previous_cols_start, previous_cols_end = table_details["previous_index_cols_range"]
+                
+                weekly_change_cols_start, weekly_change_cols_end = (None, None)
+                if weekly_change_row_idx is not None:
+                    # weekly_change_row_idx는 행 인덱스만 포함하므로, 열 범위는 current_index_cols_range와 동일하게 가정
+                    weekly_change_cols_start = current_cols_start
+                    weekly_change_cols_end = current_cols_end
+
+
+                route_names = table_details["route_names"]
+
+                if current_row_idx >= len(all_data_tables) or \
+                   previous_row_idx >= len(all_data_tables) or \
+                   (weekly_change_row_idx is not None and weekly_change_row_idx >= len(all_data_tables)):
+                    print(f"경고: '{WORKSHEET_NAME_TABLES}'에 섹션 {section_key}의 테이블 데이터에 충분한 행이 없습니다. 건너뜁니다.")
+                    processed_table_data[section_key] = {"headers": table_headers, "rows": []}
+                    continue
+
+                current_data_row = all_data_tables[current_row_idx]
+                previous_data_row = all_data_tables[previous_row_idx]
+                weekly_change_data_row = all_data_tables[weekly_change_row_idx] if weekly_change_row_idx is not None else None
+
+                num_data_points = len(route_names)
+
+                for i in range(num_data_points):
+                    route_name = route_names[i]
                     
-                    weekly_change_cols_start, weekly_change_cols_end = (None, None)
-                    if weekly_change_row_idx_info is not None:
-                        weekly_change_cols_start, weekly_change_cols_end = weekly_change_row_idx_info
+                    current_index_val = None
+                    previous_index_val = None
+                    weekly_change = None
 
-                    route_names = table_details["route_names"]
+                    col_idx_current = current_cols_start + i
+                    if col_idx_current <= current_cols_end and col_idx_current < len(current_data_row):
+                        val = str(current_data_row[col_idx_current]).strip().replace(',', '')
+                        current_index_val = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
 
-                    if current_row_idx >= len(all_data_tables) or \
-                       previous_row_idx >= len(all_data_tables) or \
-                       (weekly_change_row_idx_info is not None and weekly_change_row_idx_info[0] >= len(all_data_tables)):
-                        print(f"경고: '{WORKSHEET_NAME_TABLES}'에 섹션 {section_key}의 테이블 데이터에 충분한 행이 없습니다. 건너뜁니다.")
-                        processed_table_data[section_key] = {"headers": table_headers, "rows": []}
-                        continue
+                    col_idx_previous = previous_cols_start + i
+                    if col_idx_previous <= previous_cols_end and col_idx_previous < len(previous_data_row):
+                        val = str(previous_data_row[col_idx_previous]).strip().replace(',', '')
+                        previous_index_val = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
+                    
+                    if weekly_change_data_row is not None:
+                        col_idx_weekly_change = weekly_change_cols_start + i
+                        if col_idx_weekly_change <= weekly_change_cols_end and col_idx_weekly_change < len(weekly_change_data_row):
+                            val = str(weekly_change_data_row[col_idx_weekly_change]).strip().replace(',', '')
+                            
+                            # Weekly Change 값을 파싱하는 로직 개선
+                            change_value = None
+                            change_percentage_str = None
+                            color_class = "text-gray-700"
 
-                    current_data_row = all_data_tables[current_row_idx]
-                    previous_data_row = all_data_tables[previous_row_idx]
-                    weekly_change_data_row = all_data_tables[weekly_change_row_idx_info[0]] if weekly_change_row_idx_info is not None else None
-
-                    num_data_points = len(route_names)
-
-                    for i in range(num_data_points):
-                        route_name = route_names[i]
-                        
-                        current_index_val = None
-                        previous_index_val = None
-                        weekly_change = None
-
-                        col_idx_current = current_cols_start + i
-                        if col_idx_current <= current_cols_end and col_idx_current < len(current_data_row):
-                            val = str(current_data_row[col_idx_current]).strip().replace(',', '')
-                            current_index_val = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
-
-                        col_idx_previous = previous_cols_start + i
-                        if col_idx_previous <= previous_cols_end and col_idx_previous < len(previous_data_row):
-                            val = str(previous_data_row[col_idx_previous]).strip().replace(',', '')
-                            previous_index_val = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
-                        
-                        if weekly_change_data_row is not None:
-                            col_idx_weekly_change = weekly_change_cols_start + i
-                            if col_idx_weekly_change <= weekly_change_cols_end and col_idx_weekly_change < len(weekly_change_data_row):
-                                val = str(weekly_change_data_row[col_idx_weekly_change]).strip().replace(',', '')
-                                match = re.match(r'([+\-]?\d+(\.\d+)?)\s*\(([-+]?\d+(\.\d+)?%)\)', val)
-                                if match:
-                                    change_value = float(match.group(1))
-                                    change_percentage_str = match.group(3)
-                                    color_class = "text-gray-700"
-                                    if change_value > 0:
-                                        color_class = "text-red-500"
-                                    elif change_value < 0:
-                                        color_class = "text-blue-500"
-                                    weekly_change = {
-                                        "value": f"{change_value:.2f}",
-                                        "percentage": change_percentage_str,
-                                        "color_class": color_class
-                                    }
-                                elif val and (val.replace('.', '', 1).replace('-', '', 1).isdigit() or (val.endswith('%') and val[:-1].replace('.', '', 1).replace('-', '', 1).isdigit())):
-                                    try:
-                                        change_val_only = float(val.replace('%', ''))
-                                        color_class = "text-gray-700"
-                                        if change_val_only > 0:
-                                            color_class = "text-red-500"
-                                        elif change_val_only < 0:
-                                            color_class = "text-blue-500"
-                                        weekly_change = {
-                                            "value": f"{change_val_only:.2f}",
-                                            "percentage": f"{change_val_only:.2f}%" if '%' not in val else val,
-                                            "color_class": color_class
-                                        }
+                            # (값 (퍼센트%)) 형식 파싱
+                            match = re.match(r'([+\-]?\d+(\.\d+)?)\s*\(([-+]?\d+(\.\d+)?%)\)', val)
+                            if match:
+                                change_value = float(match.group(1))
+                                change_percentage_str = match.group(3)
+                            else:
+                                # 값만 있거나 퍼센트만 있는 경우
+                                try:
+                                    if val.endswith('%'):
+                                        change_percentage_str = val
+                                        change_value_only = float(val[:-1]) # % 제거 후 숫자 변환
                                         if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
-                                            calculated_change_percentage = ((current_index_val - previous_index_val) / previous_index_val) * 100
-                                            weekly_change["percentage"] = f"{calculated_change_percentage:.2f}%"
-                                    except ValueError:
-                                        weekly_change = None
-                                else:
-                                    weekly_change = None
-                        else:
-                            if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
-                                change_value = current_index_val - previous_index_val
-                                change_percentage = (change_value / previous_index_val) * 100
-                                color_class = "text-gray-700"
+                                            change_value = current_index_val - previous_index_val
+                                    else:
+                                        change_value = float(val)
+                                        if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
+                                            calculated_percentage = ((current_index_val - previous_index_val) / previous_index_val) * 100
+                                            change_percentage_str = f"{calculated_percentage:.2f}%"
+                                except ValueError:
+                                    pass # 파싱 실패, None 유지
+
+                            if change_value is not None:
                                 if change_value > 0:
                                     color_class = "text-red-500"
                                 elif change_value < 0:
                                     color_class = "text-blue-500"
                                 weekly_change = {
                                     "value": f"{change_value:.2f}",
-                                    "percentage": f"{change_percentage:.2f}%",
+                                    "percentage": change_percentage_str if change_percentage_str else "N/A",
                                     "color_class": color_class
                                 }
+                            elif change_percentage_str is not None: # 값이 없어도 퍼센트만 있을 경우
+                                weekly_change = {
+                                    "value": "N/A",
+                                    "percentage": change_percentage_str,
+                                    "color_class": color_class
+                                }
+                            else:
+                                weekly_change = None # 파싱된 유효한 데이터가 없는 경우
+                    else:
+                        weekly_change = None # weekly_change_data_row가 없거나 열 인덱스 범위 밖인 경우
+                else:
+                    # weekly_change_data_row가 None인 경우 (즉, weekly_change_row_idx가 설정되지 않은 경우)
+                    # current_index_val과 previous_index_val을 기반으로 계산
+                    if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
+                        change_value = current_index_val - previous_index_val
+                        change_percentage = (change_value / previous_index_val) * 100
+                        color_class = "text-gray-700"
+                        if change_value > 0:
+                            color_class = "text-red-500"
+                        elif change_value < 0:
+                            color_class = "text-blue-500"
+                        weekly_change = {
+                            "value": f"{change_value:.2f}",
+                            "percentage": f"{change_percentage:.2f}%",
+                            "color_class": color_class
+                        }
 
-                        table_rows_data.append({
-                            "route": f"{section_key}_{route_name}",
-                            "current_index": current_index_val,
-                            "previous_index": previous_index_val,
-                            "weekly_change": weekly_change
-                        })
+                    table_rows_data.append({
+                        "route": f"{section_key}_{route_name}",
+                        "current_index": current_index_val,
+                        "previous_index": previous_index_val,
+                        "weekly_change": weekly_change
+                    })
             
             processed_table_data[section_key] = {
                 "headers": table_headers,

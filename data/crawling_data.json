@@ -1817,6 +1817,7 @@
         "FBX": [
             {
                 "date": "2024-08-02",
+                "FBX_Composite_Index": 4924,
                 "FBX_China_EA_US_West_Coast": 6891,
                 "FBX_US_West_Coast_China_EA": 334,
                 "FBX_China_EA_US_East_Coast": 9661,
@@ -1832,6 +1833,7 @@
             },
             {
                 "date": "2024-08-09",
+                "FBX_Composite_Index": 5050,
                 "FBX_China_EA_US_West_Coast": 6459,
                 "FBX_US_West_Coast_China_EA": 314,
                 "FBX_China_EA_US_East_Coast": 9480,
@@ -1847,6 +1849,7 @@
             },
             {
                 "date": "2024-08-16",
+                "FBX_Composite_Index": 5346,
                 "FBX_China_EA_US_West_Coast": 6429,
                 "FBX_US_West_Coast_China_EA": 289,
                 "FBX_China_EA_US_East_Coast": 9411,
@@ -1862,6 +1865,7 @@
             },
             {
                 "date": "2024-08-23",
+                "FBX_Composite_Index": 5552,
                 "FBX_China_EA_US_West_Coast": 7115,
                 "FBX_US_West_Coast_China_EA": 309,
                 "FBX_China_EA_US_East_Coast": 9698,
@@ -1877,6 +1881,7 @@
             },
             {
                 "date": "2024-08-30",
+                "FBX_Composite_Index": 5326,
                 "FBX_China_EA_US_West_Coast": 6858,
                 "FBX_US_West_Coast_China_EA": 320,
                 "FBX_China_EA_US_East_Coast": 9409,
@@ -1892,6 +1897,7 @@
             },
             {
                 "date": "2024-09-06",
+                "FBX_Composite_Index": 5062,
                 "FBX_China_EA_US_West_Coast": 6837,
                 "FBX_US_West_Coast_China_EA": 441,
                 "FBX_China_EA_US_East_Coast": 9130,
@@ -1907,6 +1913,7 @@
             },
             {
                 "date": "2024-09-13",
+                "FBX_Composite_Index": 5019,
                 "FBX_China_EA_US_West_Coast": 6819,
                 "FBX_US_West_Coast_China_EA": 471,
                 "FBX_China_EA_US_East_Coast": 9309,
@@ -1922,6 +1929,7 @@
             },
             {
                 "date": "2024-09-20",
+                "FBX_Composite_Index": 4701,
                 "FBX_China_EA_US_West_Coast": 6875,
                 "FBX_US_West_Coast_China_EA": 471,
                 "FBX_China_EA_US_East_Coast": 8952,
@@ -1937,6 +1945,7 @@
             },
             {
                 "date": "2024-09-27",
+                "FBX_Composite_Index": 4564,
                 "FBX_China_EA_US_West_Coast": 6816,
                 "FBX_US_West_Coast_China_EA": 471,
                 "FBX_China_EA_US_East_Coast": 8693,
@@ -1952,6 +1961,7 @@
             },
             {
                 "date": "2024-10-04",
+                "FBX_Composite_Index": 3798,
                 "FBX_China_EA_US_West_Coast": 5760,
                 "FBX_US_West_Coast_China_EA": 511,
                 "FBX_China_EA_US_East_Coast": 6744,
@@ -1967,6 +1977,7 @@
             },
             {
                 "date": "2024-10-11",
+                "FBX_Composite_Index": 3628,
                 "FBX_China_EA_US_West_Coast": 5565,
                 "FBX_US_West_Coast_China_EA": 521,
                 "FBX_China_EA_US_East_Coast": 6787,
@@ -1982,6 +1993,7 @@
             },
             {
                 "date": "2024-10-18",
+                "FBX_Composite_Index": 3413,
                 "FBX_China_EA_US_West_Coast": 5294,
                 "FBX_US_West_Coast_China_EA": 486,
                 "FBX_China_EA_US_East_Coast": 5935,
@@ -1997,6 +2009,7 @@
             },
             {
                 "date": "2024-10-25",
+                "FBX_Composite_Index": 3300,
                 "FBX_China_EA_US_West_Coast": 5540,
                 "FBX_US_West_Coast_China_EA": 344,
                 "FBX_China_EA_US_East_Coast": 5165,
@@ -2012,6 +2025,7 @@
             },
             {
                 "date": "2024-11-01",
+                "FBX_Composite_Index": 3315,
                 "FBX_China_EA_US_West_Coast": 5403,
                 "FBX_US_West_Coast_China_EA": 347,
                 "FBX_China_EA_US_East_Coast": 5219,
@@ -2027,6 +2041,7 @@
             },
             {
                 "date": "2024-11-08",
+                "FBX_Composite_Index": 3564,
                 "FBX_China_EA_US_West_Coast": 5208,
                 "FBX_US_West_Coast_China_EA": 362,
                 "FBX_China_EA_US_East_Coast": 5468,
@@ -2042,6 +2057,7 @@
             },
             {
                 "date": "2024-11-15",
+                "FBX_Composite_Index": 3612,
                 "FBX_China_EA_US_West_Coast": 5345,
                 "FBX_US_West_Coast_China_EA": 347,
                 "FBX_China_EA_US_East_Coast": 5395,
@@ -2057,6 +2073,7 @@
             },
             {
                 "date": "2024-11-22",
+                "FBX_Composite_Index": 3590,
                 "FBX_China_EA_US_West_Coast": 5122,
                 "FBX_US_West_Coast_China_EA": 337,
                 "FBX_China_EA_US_East_Coast": 5387,
@@ -2072,6 +2089,7 @@
             },
             {
                 "date": "2024-11-29",
+                "FBX_Composite_Index": 3661,
                 "FBX_China_EA_US_West_Coast": 4905,
                 "FBX_US_West_Coast_China_EA": 336,
                 "FBX_China_EA_US_East_Coast": 6095,
@@ -2087,6 +2105,7 @@
             },
             {
                 "date": "2024-12-06",
+                "FBX_Composite_Index": 3554,
                 "FBX_China_EA_US_West_Coast": 3910,
                 "FBX_US_West_Coast_China_EA": 335,
                 "FBX_China_EA_US_East_Coast": 5145,
@@ -2102,6 +2121,7 @@
             },
             {
                 "date": "2024-12-13",
+                "FBX_Composite_Index": 3659,
                 "FBX_China_EA_US_West_Coast": 4301,
                 "FBX_US_West_Coast_China_EA": 335,
                 "FBX_China_EA_US_East_Coast": 5814,
@@ -2117,6 +2137,7 @@
             },
             {
                 "date": "2024-12-20",
+                "FBX_Composite_Index": 3691,
                 "FBX_China_EA_US_West_Coast": 4452,
                 "FBX_US_West_Coast_China_EA": 335,
                 "FBX_China_EA_US_East_Coast": 5932,
@@ -2132,6 +2153,7 @@
             },
             {
                 "date": "2025-01-03",
+                "FBX_Composite_Index": 4291,
                 "FBX_China_EA_US_West_Coast": 5929,
                 "FBX_US_West_Coast_China_EA": 413,
                 "FBX_China_EA_US_East_Coast": 6934,
@@ -2147,6 +2169,7 @@
             },
             {
                 "date": "2025-01-10",
+                "FBX_Composite_Index": 4287,
                 "FBX_China_EA_US_West_Coast": 5924,
                 "FBX_US_West_Coast_China_EA": 386,
                 "FBX_China_EA_US_East_Coast": 6898,
@@ -2162,6 +2185,7 @@
             },
             {
                 "date": "2025-01-17",
+                "FBX_Composite_Index": 3893,
                 "FBX_China_EA_US_West_Coast": 5321,
                 "FBX_US_West_Coast_China_EA": 391,
                 "FBX_China_EA_US_East_Coast": 6715,
@@ -2177,6 +2201,7 @@
             },
             {
                 "date": "2025-01-24",
+                "FBX_Composite_Index": 3656,
                 "FBX_China_EA_US_West_Coast": 4938,
                 "FBX_US_West_Coast_China_EA": 380,
                 "FBX_China_EA_US_East_Coast": 6656,
@@ -2192,6 +2217,7 @@
             },
             {
                 "date": "2025-01-31",
+                "FBX_Composite_Index": 3600,
                 "FBX_China_EA_US_West_Coast": 5078,
                 "FBX_US_West_Coast_China_EA": 369,
                 "FBX_China_EA_US_East_Coast": 6718,
@@ -2207,6 +2233,7 @@
             },
             {
                 "date": "2025-02-07",
+                "FBX_Composite_Index": 3436,
                 "FBX_China_EA_US_West_Coast": 4904,
                 "FBX_US_West_Coast_China_EA": 438,
                 "FBX_China_EA_US_East_Coast": 6656,
@@ -2222,6 +2249,7 @@
             },
             {
                 "date": "2025-02-14",
+                "FBX_Composite_Index": 3312,
                 "FBX_China_EA_US_West_Coast": 4763,
                 "FBX_US_West_Coast_China_EA": 428,
                 "FBX_China_EA_US_East_Coast": 6398,
@@ -2237,6 +2265,7 @@
             },
             {
                 "date": "2025-02-21",
+                "FBX_Composite_Index": 3051,
                 "FBX_China_EA_US_West_Coast": 4362,
                 "FBX_US_West_Coast_China_EA": 440,
                 "FBX_China_EA_US_East_Coast": 5698,
@@ -2252,6 +2281,7 @@
             },
             {
                 "date": "2025-02-28",
+                "FBX_Composite_Index": 2718,
                 "FBX_China_EA_US_West_Coast": 3558,
                 "FBX_US_West_Coast_China_EA": 467,
                 "FBX_China_EA_US_East_Coast": 4490,
@@ -2267,6 +2297,7 @@
             },
             {
                 "date": "2025-03-07",
+                "FBX_Composite_Index": 2422,
                 "FBX_China_EA_US_West_Coast": 2659,
                 "FBX_US_West_Coast_China_EA": 403,
                 "FBX_China_EA_US_East_Coast": 3754,
@@ -2282,6 +2313,7 @@
             },
             {
                 "date": "2025-03-14",
+                "FBX_Composite_Index": 2221,
                 "FBX_China_EA_US_West_Coast": 2397,
                 "FBX_US_West_Coast_China_EA": 379,
                 "FBX_China_EA_US_East_Coast": 3537,
@@ -2297,6 +2329,7 @@
             },
             {
                 "date": "2025-03-21",
+                "FBX_Composite_Index": 2094,
                 "FBX_China_EA_US_West_Coast": 2238,
                 "FBX_US_West_Coast_China_EA": 375,
                 "FBX_China_EA_US_East_Coast": 3343,
@@ -2312,6 +2345,7 @@
             },
             {
                 "date": "2025-03-28",
+                "FBX_Composite_Index": 2050,
                 "FBX_China_EA_US_West_Coast": 2187,
                 "FBX_US_West_Coast_China_EA": 385,
                 "FBX_China_EA_US_East_Coast": 3369,
@@ -2327,6 +2361,7 @@
             },
             {
                 "date": "2025-04-04",
+                "FBX_Composite_Index": 2032,
                 "FBX_China_EA_US_West_Coast": 2246,
                 "FBX_US_West_Coast_China_EA": 416,
                 "FBX_China_EA_US_East_Coast": 3541,
@@ -2342,6 +2377,7 @@
             },
             {
                 "date": "2025-04-11",
+                "FBX_Composite_Index": 2075,
                 "FBX_China_EA_US_West_Coast": 2465,
                 "FBX_US_West_Coast_China_EA": 423,
                 "FBX_China_EA_US_East_Coast": 3647,
@@ -2357,6 +2393,7 @@
             },
             {
                 "date": "2025-04-18",
+                "FBX_Composite_Index": 2036,
                 "FBX_China_EA_US_West_Coast": 2343,
                 "FBX_US_West_Coast_China_EA": 383,
                 "FBX_China_EA_US_East_Coast": 3467,
@@ -2372,6 +2409,7 @@
             },
             {
                 "date": "2025-04-25",
+                "FBX_Composite_Index": 2042,
                 "FBX_China_EA_US_West_Coast": 2328,
                 "FBX_US_West_Coast_China_EA": 421,
                 "FBX_China_EA_US_East_Coast": 3395,
@@ -2387,6 +2425,7 @@
             },
             {
                 "date": "2025-05-02",
+                "FBX_Composite_Index": 2014,
                 "FBX_China_EA_US_West_Coast": 2321,
                 "FBX_US_West_Coast_China_EA": 424,
                 "FBX_China_EA_US_East_Coast": 3386,
@@ -2402,6 +2441,7 @@
             },
             {
                 "date": "2025-05-09",
+                "FBX_Composite_Index": 2047,
                 "FBX_China_EA_US_West_Coast": 2395,
                 "FBX_US_West_Coast_China_EA": 429,
                 "FBX_China_EA_US_East_Coast": 3406,
@@ -2417,6 +2457,7 @@
             },
             {
                 "date": "2025-05-16",
+                "FBX_Composite_Index": 2090,
                 "FBX_China_EA_US_West_Coast": 2462,
                 "FBX_US_West_Coast_China_EA": 444,
                 "FBX_China_EA_US_East_Coast": 3520,
@@ -2432,6 +2473,7 @@
             },
             {
                 "date": "2025-05-23",
+                "FBX_Composite_Index": 2237,
                 "FBX_China_EA_US_West_Coast": 2788,
                 "FBX_US_West_Coast_China_EA": 429,
                 "FBX_China_EA_US_East_Coast": 4223,
@@ -2447,6 +2489,7 @@
             },
             {
                 "date": "2025-05-30",
+                "FBX_Composite_Index": 2231,
                 "FBX_China_EA_US_West_Coast": 2767,
                 "FBX_US_West_Coast_China_EA": 418,
                 "FBX_China_EA_US_East_Coast": 3979,
@@ -2462,6 +2505,7 @@
             },
             {
                 "date": "2025-06-06",
+                "FBX_Composite_Index": 3398,
                 "FBX_China_EA_US_West_Coast": 5488,
                 "FBX_US_West_Coast_China_EA": 476,
                 "FBX_China_EA_US_East_Coast": 6410,
@@ -2477,6 +2521,7 @@
             },
             {
                 "date": "2025-06-13",
+                "FBX_Composite_Index": 3704,
                 "FBX_China_EA_US_West_Coast": 5994,
                 "FBX_US_West_Coast_China_EA": 460,
                 "FBX_China_EA_US_East_Coast": 7099,
@@ -2492,6 +2537,7 @@
             },
             {
                 "date": "2025-06-20",
+                "FBX_Composite_Index": 3603,
                 "FBX_China_EA_US_West_Coast": 5593,
                 "FBX_US_West_Coast_China_EA": 458,
                 "FBX_China_EA_US_East_Coast": 7183,
@@ -2507,6 +2553,7 @@
             },
             {
                 "date": "2025-06-27",
+                "FBX_Composite_Index": 2894,
                 "FBX_China_EA_US_West_Coast": 3389,
                 "FBX_US_West_Coast_China_EA": 453,
                 "FBX_China_EA_US_East_Coast": 6116,
@@ -2522,6 +2569,7 @@
             },
             {
                 "date": "2025-07-04",
+                "FBX_Composite_Index": 2756,
                 "FBX_China_EA_US_West_Coast": 3124,
                 "FBX_US_West_Coast_China_EA": 445,
                 "FBX_China_EA_US_East_Coast": 5159,
@@ -2537,6 +2585,7 @@
             },
             {
                 "date": "2025-07-11",
+                "FBX_Composite_Index": 2542,
                 "FBX_China_EA_US_West_Coast": 2369,
                 "FBX_US_West_Coast_China_EA": 430,
                 "FBX_China_EA_US_East_Coast": 4888,
@@ -2552,6 +2601,7 @@
             },
             {
                 "date": "2025-07-18",
+                "FBX_Composite_Index": 2458,
                 "FBX_China_EA_US_West_Coast": 2325,
                 "FBX_US_West_Coast_China_EA": 430,
                 "FBX_China_EA_US_East_Coast": 4411,
@@ -2567,6 +2617,7 @@
             },
             {
                 "date": "2025-07-25",
+                "FBX_Composite_Index": 2370,
                 "FBX_China_EA_US_West_Coast": 2334,
                 "FBX_US_West_Coast_China_EA": 430,
                 "FBX_China_EA_US_East_Coast": 4113,
@@ -5537,7 +5588,18 @@
                 "Previous Index",
                 "Weekly Change"
             ],
-            "rows": []
+            "rows": [
+                {
+                    "route": "KCCI_동남아시아",
+                    "current_index": 1035.0,
+                    "previous_index": 1042.0,
+                    "weekly_change": {
+                        "value": "-7.00",
+                        "percentage": "-0.67%",
+                        "color_class": "text-blue-500"
+                    }
+                }
+            ]
         },
         "SCFI": {
             "headers": [
@@ -5546,7 +5608,18 @@
                 "Previous Index",
                 "Weekly Change"
             ],
-            "rows": []
+            "rows": [
+                {
+                    "route": "SCFI_남아공",
+                    "current_index": 2961.0,
+                    "previous_index": 2851.0,
+                    "weekly_change": {
+                        "value": "110.00",
+                        "percentage": "3.86%",
+                        "color_class": "text-red-500"
+                    }
+                }
+            ]
         },
         "WCI": {
             "headers": [
@@ -5555,7 +5628,18 @@
                 "Previous Index",
                 "Weekly Change"
             ],
-            "rows": []
+            "rows": [
+                {
+                    "route": "WCI_로테르담 → 뉴욕",
+                    "current_index": 2033.0,
+                    "previous_index": 2001.0,
+                    "weekly_change": {
+                        "value": "32.00",
+                        "percentage": "1.60%",
+                        "color_class": "text-red-500"
+                    }
+                }
+            ]
         },
         "IACI": {
             "headers": [
@@ -5564,7 +5648,18 @@
                 "Previous Index",
                 "Weekly Change"
             ],
-            "rows": []
+            "rows": [
+                {
+                    "route": "IACI_종합지수",
+                    "current_index": 705.0,
+                    "previous_index": 814.0,
+                    "weekly_change": {
+                        "value": "-109.00",
+                        "percentage": "-13.39%",
+                        "color_class": "text-blue-500"
+                    }
+                }
+            ]
         },
         "BLANK_SAILING": {
             "headers": [
@@ -5576,39 +5671,59 @@
             "rows": [
                 {
                     "route": "BLANK_SAILING_Gemini Cooperation",
-                    "current_index": null,
-                    "previous_index": null,
+                    "current_index": 0.0,
+                    "previous_index": 0.0,
                     "weekly_change": null
                 },
                 {
                     "route": "BLANK_SAILING_MSC",
-                    "current_index": null,
-                    "previous_index": null,
-                    "weekly_change": null
+                    "current_index": 8.0,
+                    "previous_index": 5.0,
+                    "weekly_change": {
+                        "value": "3.00",
+                        "percentage": "60.00%",
+                        "color_class": "text-red-500"
+                    }
                 },
                 {
                     "route": "BLANK_SAILING_OCEAN Alliance",
-                    "current_index": null,
-                    "previous_index": null,
-                    "weekly_change": null
+                    "current_index": 10.0,
+                    "previous_index": 7.0,
+                    "weekly_change": {
+                        "value": "3.00",
+                        "percentage": "42.86%",
+                        "color_class": "text-red-500"
+                    }
                 },
                 {
                     "route": "BLANK_SAILING_Premier Alliance",
-                    "current_index": null,
-                    "previous_index": null,
-                    "weekly_change": null
+                    "current_index": 12.0,
+                    "previous_index": 6.0,
+                    "weekly_change": {
+                        "value": "6.00",
+                        "percentage": "100.00%",
+                        "color_class": "text-red-500"
+                    }
                 },
                 {
                     "route": "BLANK_SAILING_Others/Independent",
-                    "current_index": null,
-                    "previous_index": null,
-                    "weekly_change": null
+                    "current_index": 5.0,
+                    "previous_index": 2.0,
+                    "weekly_change": {
+                        "value": "3.00",
+                        "percentage": "150.00%",
+                        "color_class": "text-red-500"
+                    }
                 },
                 {
                     "route": "BLANK_SAILING_Total",
-                    "current_index": null,
-                    "previous_index": null,
-                    "weekly_change": null
+                    "current_index": 7.0,
+                    "previous_index": 4.0,
+                    "weekly_change": {
+                        "value": "3.00",
+                        "percentage": "75.00%",
+                        "color_class": "text-red-500"
+                    }
                 }
             ]
         },
@@ -5619,7 +5734,18 @@
                 "Previous Index",
                 "Weekly Change"
             ],
-            "rows": []
+            "rows": [
+                {
+                    "route": "FBX_유럽 → 남미서안",
+                    "current_index": 3154.0,
+                    "previous_index": 3241.0,
+                    "weekly_change": {
+                        "value": "-87.00",
+                        "percentage": "-2.68%",
+                        "color_class": "text-blue-500"
+                    }
+                }
+            ]
         },
         "XSI": {
             "headers": [
@@ -5628,7 +5754,18 @@
                 "Previous Index",
                 "Weekly Change"
             ],
-            "rows": []
+            "rows": [
+                {
+                    "route": "XSI_북유럽 → 남미동안",
+                    "current_index": 618.0,
+                    "previous_index": 626.0,
+                    "weekly_change": {
+                        "value": "-8.00",
+                        "percentage": "-1.28%",
+                        "color_class": "text-blue-500"
+                    }
+                }
+            ]
         },
         "MBCI": {
             "headers": [
@@ -5637,14 +5774,25 @@
                 "Previous Index",
                 "Weekly Change"
             ],
-            "rows": []
+            "rows": [
+                {
+                    "route": "MBCI_MBCI",
+                    "current_index": 1415.0,
+                    "previous_index": 1379.0,
+                    "weekly_change": {
+                        "value": "36.00",
+                        "percentage": "2.61%",
+                        "color_class": "text-red-500"
+                    }
+                }
+            ]
         }
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "77.54",
+            "LA_Temperature": "79.75",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "61",
+            "LA_Humidity": "57",
             "LA_WindSpeed": "10.36",
             "LA_Pressure": "1017",
             "LA_Visibility": "6.2",
@@ -5655,7 +5803,7 @@
             {
                 "date": "7/29/2025",
                 "min_temp": "67.3",
-                "max_temp": "80",
+                "max_temp": "79.7",
                 "status": "맑음(clear sky)"
             },
             {
