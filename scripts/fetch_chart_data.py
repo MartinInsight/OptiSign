@@ -38,136 +38,141 @@ OUTPUT_JSON_PATH = "data/crawling_data.json"
 
 SECTION_COLUMN_MAPPINGS = {
     "KCCI": {
-        "date_col_idx": 0, # A열
+        "section_name_cell": (0, 0), # A1 (row 0, col 0)
+        "date_col_idx": 0, # A열 (data starts from A3, header from A2)
         "data_start_col_idx": 1, # B열
         "data_end_col_idx": 14, # O열
-        "data_cols_map": {
-            "종합지수(Point)와 그 외 항로별($/FEU)": "KCCI_Date", # 실제 헤더는 A2셀의 값
-            "종합지수": "KCCI_Composite_Index",
-            "미주서안": "KCCI_US_West_Coast",
-            "미주동안": "KCCI_US_East_Coast",
-            "유럽": "KCCI_Europe",
-            "지중해": "KCCI_Mediterranean",
-            "중동": "KCCI_Middle_East",
-            "호주": "KCCI_Australia",
-            "남미동안": "KCCI_South_America_East_Coast",
-            "남미서안": "KCCI_South_America_West_Coast",
-            "남아프리카": "KCCI_South_Africa",
-            "서아프리카": "KCCI_West_Africa",
-            "중국": "KCCI_China",
-            "일본": "KCCI_Japan",
-            "동남아시아": "KCCI_Southeast_Asia"
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "종합지수(Point)와 그 외 항로별($/FEU)": "Date", # A2
+            "종합지수": "Composite_Index", # B2
+            "미주서안": "US_West_Coast", # C2
+            "미주동안": "US_East_Coast",
+            "유럽": "Europe",
+            "지중해": "Mediterranean",
+            "중동": "Middle_East",
+            "호주": "Australia",
+            "남미동안": "South_America_East_Coast",
+            "남미서안": "South_America_West_Coast",
+            "남아프리카": "South_Africa",
+            "서아프리카": "West_Africa",
+            "중국": "China",
+            "일본": "Japan",
+            "동남아시아": "Southeast_Asia"
         }
     },
     "SCFI": {
-        "date_col_idx": 16, # Q열 (이전 15에서 수정)
+        "section_name_cell": (0, 16), # Q1
+        "date_col_idx": 16, # Q열
         "data_start_col_idx": 17, # R열
         "data_end_col_idx": 30, # AE열
-        "data_cols_map": {
-            # Q2 셀의 실제 헤더 이름을 확인해야 합니다.
-            # 로그에 따르면 raw_headers_full_charts[16]이 빈 문자열일 수 있습니다.
-            # 만약 Q2 셀이 비어있다면 아래 키를 ""로 유지하고, 다른 이름이라면 그 이름으로 변경해야 합니다.
-            "": "SCFI_Date", # Q2 셀의 헤더
-            "종합지수": "SCFI_Composite_Index",
-            "미주서안": "SCFI_US_West_Coast",
-            "미주동안": "SCFI_US_East_Coast",
-            "북유럽": "SCFI_North_Europe",
-            "지중해": "SCFI_Mediterranean",
-            "동남아시아": "SCFI_Southeast_Asia",
-            "중동": "SCFI_Middle_East",
-            "호주/뉴질랜드": "SCFI_Australia_New_Zealand",
-            "남아메리카": "SCFI_South_America",
-            "일본서안": "SCFI_Japan_West_Coast",
-            "일본동안": "SCFI_Japan_East_Coast",
-            "한국": "SCFI_Korea",
-            "동부/서부 아프리카": "SCFI_East_West_Africa",
-            "남아공": "SCFI_South_Africa"
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "": "Date", # Q2 is empty based on previous logs, so use empty string as key
+            "종합지수": "Composite_Index", # R2
+            "미주서안": "US_West_Coast",
+            "미주동안": "US_East_Coast",
+            "북유럽": "North_Europe",
+            "지중해": "Mediterranean",
+            "동남아시아": "Southeast_Asia",
+            "중동": "Middle_East",
+            "호주/뉴질랜드": "Australia_New_Zealand",
+            "남아메리카": "South_America",
+            "일본서안": "Japan_West_Coast",
+            "일본동안": "Japan_East_Coast",
+            "한국": "Korea",
+            "동부/서부 아프리카": "East_West_Africa",
+            "남아공": "South_Africa"
         }
     },
     "WCI": {
+        "section_name_cell": (0, 32), # AG1
         "date_col_idx": 32, # AG열
         "data_start_col_idx": 33, # AH열
         "data_end_col_idx": 41, # AP열
-        "data_cols_map": {
-            "종합지수와 각 항로별($/FEU)": "WCI_Date", # 실제 헤더는 AG2셀의 값
-            "종합지수": "WCI_Composite_Index",
-            "상하이 → 로테르담": "WCI_Shanghai_Rotterdam",
-            "로테르담 → 상하이": "WCI_Rotterdam_Shanghai",
-            "상하이 → 제노바": "WCI_Shanghai_Genoa",
-            "상하이 → 로스엔젤레스": "WCI_Shanghai_Los_Angeles",
-            "로스엔젤레스 → 상하이": "WCI_Los_Angeles_Shanghai",
-            "상하이 → 뉴욕": "WCI_Shanghai_New_York",
-            "뉴욕 → 로테르담": "WCI_New_York_Rotterdam",
-            "로테르담 → 뉴욕": "WCI_Rotterdam_New_York",
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "종합지수와 각 항로별($/FEU)": "Date", # AG2
+            "종합지수": "Composite_Index",
+            "상하이 → 로테르담": "Shanghai_Rotterdam",
+            "로테르담 → 상하이": "Rotterdam_Shanghai",
+            "상하이 → 제노바": "Shanghai_Genoa",
+            "상하이 → 로스엔젤레스": "Los_Angeles_Shanghai",
+            "로스엔젤레스 → 상하이": "Los_Angeles_Shanghai",
+            "상하이 → 뉴욕": "Shanghai_New_York",
+            "뉴욕 → 로테르담": "New_York_Rotterdam",
+            "로테르담 → 뉴욕": "Rotterdam_New_York",
         }
     },
     "IACI": {
+        "section_name_cell": (0, 43), # AR1
         "date_col_idx": 43, # AR열
         "data_start_col_idx": 44, # AS열
         "data_end_col_idx": 44, # AS열
-        "data_cols_map": {
-            "date": "IACI_Date", # 실제 헤더는 AR2셀의 값
-            "종합지수": "IACI_Composite_Index" # 실제 헤더는 AS2셀의 값
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "date": "Date", # AR2
+            "종합지수": "Composite_Index" # AS2
         }
     },
     "BLANK_SAILING": {
+        "section_name_cell": (0, 46), # AU1
         "date_col_idx": 46, # AU열
         "data_start_col_idx": 47, # AV열
         "data_end_col_idx": 52, # BA열
-        "data_cols_map": {
-            "Index": "BLANK_SAILING_Date", # 실제 헤더는 AU2셀의 값
-            "Gemini Cooperation": "BLANK_SAILING_Gemini_Cooperation",
-            "MSC": "BLANK_SAILING_MSC",
-            "OCEAN Alliance": "BLANK_SAILING_OCEAN_Alliance",
-            "Premier Alliance": "BLANK_SAILING_Premier_Alliance",
-            "Others/Independent": "BLANK_SAILING_Others_Independent",
-            "Total": "BLANK_SAILING_Total"
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "Index": "Date", # AU2
+            "Gemini Cooperation": "Gemini_Cooperation",
+            "MSC": "MSC",
+            "OCEAN Alliance": "OCEAN_Alliance",
+            "Premier Alliance": "Premier_Alliance",
+            "Others/Independent": "Others_Independent",
+            "Total": "Total"
         }
     },
     "FBX": {
+        "section_name_cell": (0, 54), # BC1
         "date_col_idx": 54, # BC열
         "data_start_col_idx": 55, # BD열
         "data_end_col_idx": 67, # BP열
-        "data_cols_map": {
-            "종합지수와 각 항로별($/FEU)": "FBX_Date", # 실제 헤더는 BC2셀의 값
-            "종합지수": "FBX_Composite_Index", # "글로벌 컨테이너 운임 지수" 대신 실제 헤더 "종합지수" 사용
-            "중국/동아시아 → 미주서안": "FBX_China_EA_US_West_Coast",
-            "미주서안 → 중국/동아시아": "FBX_US_West_Coast_China_EA",
-            "중국/동아시아 → 미주동안": "FBX_China_EA_US_East_Coast",
-            "미주동안 → 중국/동아시아": "FBX_US_East_Coast_China_EA",
-            "중국/동아시아 → 북유럽": "FBX_China_EA_North_Europe",
-            "북유럽 → 중국/동아시아": "FBX_North_Europe_China_EA",
-            "중국/동아시아 → 지중해": "FBX_China_EA_Mediterranean",
-            "지중해 → 중국/동아시아": "FBX_Mediterranean_China_EA",
-            "미주동안 → 북유럽": "FBX_US_East_Coast_North_Europe",
-            "북유럽 → 미주동안": "FBX_North_Europe_US_East_Coast",
-            "유럽 → 남미동안": "FBX_Europe_South_America_East_Coast",
-            "유럽 → 남미서안": "FBX_Europe_South_America_West_Coast",
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "종합지수와 각 항로별($/FEU)": "Date", # BC2
+            "종합지수": "Composite_Index", # BD2
+            "중국/동아시아 → 미주서안": "China_EA_US_West_Coast",
+            "미주서안 → 중국/동아시아": "US_West_Coast_China_EA",
+            "중국/동아시아 → 미주동안": "China_EA_US_East_Coast",
+            "미주동안 → 중국/동아시아": "US_East_Coast_China_EA",
+            "중국/동아시아 → 북유럽": "China_EA_North_Europe",
+            "북유럽 → 중국/동아시아": "North_Europe_China_EA",
+            "중국/동아시아 → 지중해": "China_EA_Mediterranean",
+            "지중해 → 중국/동아시아": "Mediterranean_China_EA",
+            "미주동안 → 북유럽": "US_East_Coast_North_Europe",
+            "북유럽 → 미주동안": "North_Europe_US_East_Coast",
+            "유럽 → 남미동안": "Europe_South_America_East_Coast",
+            "유럽 → 남미서안": "Europe_South_America_West_Coast",
         }
     },
     "XSI": {
+        "section_name_cell": (0, 69), # BR1
         "date_col_idx": 69, # BR열
         "data_start_col_idx": 70, # BS열
         "data_end_col_idx": 77, # BZ열
-        "data_cols_map": {
-            "각 항로별($/FEU)": "XSI_Date", # 실제 헤더는 BR2셀의 값
-            "동아시아 → 북유럽": "XSI_East_Asia_North_Europe",
-            "북유럽 → 동아시아": "XSI_North_Europe_East_Asia",
-            "동아시아 → 미주서안": "XSI_East_Asia_US_West_Coast",
-            "미주서안 → 동아시아": "XSI_US_West_Coast_East_Asia",
-            "동아시아 → 남미동안": "XSI_East_Asia_South_America_East_Coast",
-            "북유럽 → 미주동안": "XSI_North_Europe_US_East_Coast",
-            "미주동안 → 북유럽": "XSI_US_East_Coast_North_Europe",
-            "북유럽 → 남미동안": "XSI_North_Europe_South_America_East_Coast"
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "각 항로별($/FEU)": "Date", # BR2
+            "동아시아 → 북유럽": "East_Asia_North_Europe",
+            "북유럽 → 동아시아": "North_Europe_East_Asia",
+            "동아시아 → 미주서안": "East_Asia_US_West_Coast",
+            "미주서안 → 동아시아": "US_West_Coast_East_Asia",
+            "동아시아 → 남미동안": "East_Asia_South_America_East_Coast",
+            "북유럽 → 미주동안": "North_Europe_US_East_Coast",
+            "미주동안 → 북유럽": "US_East_Coast_North_Europe",
+            "북유럽 → 남미동안": "North_Europe_South_America_East_Coast"
         }
     },
     "MBCI": {
+        "section_name_cell": (0, 79), # CB1
         "date_col_idx": 79, # CB열
         "data_start_col_idx": 80, # CC열
         "data_end_col_idx": 80, # CC열
-        "data_cols_map": {
-            "Index(종합지수)": "MBCI_Date", # 실제 헤더는 CB2셀의 값
-            "MBCI": "MBCI_Value", # 실제 헤더는 CC2셀의 값
+        "sub_headers_map": { # Headers from row 2 (index 1)
+            "Index(종합지수)": "Date", # CB2
+            "MBCI": "Value", # CC2
         }
     }
 }
@@ -238,7 +243,8 @@ TABLE_DATA_CELL_MAPPINGS = {
         "previous_index_cols_range": (1, 13), # B42:N42
         "weekly_change_row_idx": 42, # B43:N43
         "route_names": [
-            "글로벌 컨테이너 운임 지수", "중국/동아시아 → 미주서안", "미주서안 → 중국/동아시아",
+            "종합지수", # "글로벌 컨테이너 운임 지수" 대신 실제 헤더 "종합지수" 사용
+            "중국/동아시아 → 미주서안", "미주서안 → 중국/동아시아",
             "중국/동아시아 → 미주동안", "미주동안 → 중국/동아시아", "중국/동아시아 → 북유럽",
             "북유럽 → 중국/동아시아", "중국/동아시아 → 지중해", "지중해 → 중국/동아시아",
             "미주동안 → 북유럽", "북유럽 → 미주동안", "유럽 → 남미동안", "유럽 → 남미서안"
@@ -311,7 +317,8 @@ def fetch_and_process_data():
             date_col_idx_in_raw = details["date_col_idx"]
             data_start_col_idx_in_raw = details["data_start_col_idx"]
             data_end_col_idx_in_raw = details["data_end_col_idx"]
-            
+            sub_headers_map = details["sub_headers_map"] # New: get sub_headers_map
+
             raw_column_indices_for_section = [date_col_idx_in_raw] + list(range(data_start_col_idx_in_raw, data_end_col_idx_in_raw + 1))
             
             valid_raw_column_indices = [idx for idx in raw_column_indices_for_section if idx < len(raw_headers_full_charts)]
@@ -331,25 +338,24 @@ def fetch_and_process_data():
             print(f"DEBUG: {section_key} - Raw columns in section DataFrame before renaming: {df_section_raw_cols.columns.tolist()}")
 
             rename_map = {}
-            for original_header_from_map, final_json_key in details["data_cols_map"].items():
-                if original_header_from_map in actual_raw_headers_in_section_df:
-                    rename_map[original_header_from_map] = final_json_key
+            for original_sub_header, generic_name in sub_headers_map.items():
+                if original_sub_header in actual_raw_headers_in_section_df:
+                    rename_map[original_sub_header] = f"{section_key}_{generic_name}" # Prepend section_key
                 else:
-                    print(f"WARNING: Header '{original_header_from_map}' from SECTION_COLUMN_MAPPINGS for {section_key} was not found in the extracted raw columns. It will not be renamed.")
+                    print(f"WARNING: Sub-header '{original_sub_header}' from sub_headers_map for {section_key} was not found in the extracted raw columns. It will not be renamed.")
 
             print(f"DEBUG: {section_key} - Constructed rename_map: {rename_map}")
 
             df_section = df_section_raw_cols.rename(columns=rename_map)
             print(f"DEBUG: {section_key} - Columns in section DataFrame after renaming: {df_section.columns.tolist()}")
 
-            # 날짜 열의 원본 헤더와 최종 이름 가져오기
-            date_original_header = list(details["data_cols_map"].keys())[0]
-            date_col_final_name = details["data_cols_map"][date_original_header]
+            # 날짜 열의 최종 이름은 이제 "SECTION_KEY_Date" 형식
+            date_col_final_name = f"{section_key}_Date"
             
-            # 데이터 열의 최종 이름 가져오기 (날짜 열 제외)
+            # 데이터 열의 최종 이름도 "SECTION_KEY_GenericName" 형식
             section_data_col_final_names = [
-                final_json_key for original_header, final_json_key in details["data_cols_map"].items()
-                if original_header != date_original_header
+                f"{section_key}_{generic_name}" for original_sub_header, generic_name in sub_headers_map.items()
+                if generic_name != "Date" # Exclude the date column's generic name
             ]
             
             if date_col_final_name not in df_section.columns:
@@ -398,6 +404,7 @@ def fetch_and_process_data():
 
         processed_table_data = {}
         for section_key, table_details in TABLE_DATA_CELL_MAPPINGS.items():
+            print(f"DEBUG: Processing table section: {section_key}") # 추가된 디버그 로그
             table_headers = ["항로", "Current Index", "Previous Index", "Weekly Change"]
             table_rows_data = []
 
@@ -437,7 +444,7 @@ def fetch_and_process_data():
                                 prev_bs_entry[route_name] = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
                         blank_sailing_historical_data.append(prev_bs_entry)
                 
-                # 날짜 파싱 및 정렬 (MM/DD/YYYY 또는 YYYY-MM-DD)
+                # 날짜 파싱 및 정렬 (MM/DD/YYYY 또는 YYYY-MM/DD)
                 # BLANK_SAILING 날짜 형식은 '7/18/2025' 이므로 %m/%d/%Y 사용
                 blank_sailing_historical_data.sort(key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y') if x['date'] else datetime.min)
 
@@ -503,7 +510,7 @@ def fetch_and_process_data():
                 if current_row_idx >= len(all_data_tables) or \
                    previous_row_idx >= len(all_data_tables) or \
                    (weekly_change_row_idx is not None and weekly_change_row_idx >= len(all_data_tables)):
-                    print(f"경고: '{WORKSHEET_NAME_TABLES}'에 섹션 {section_key}의 테이블 데이터에 충분한 행이 없습니다. 건너뜁니다.")
+                    print(f"경고: '{WORKSHEET_NAME_TABLES}'에 섹션 {section_key}의 테이블 데이터에 충분한 행이 없습니다. 건너_ㅂ니다.")
                     processed_table_data[section_key] = {"headers": table_headers, "rows": []}
                     continue
 
@@ -515,25 +522,33 @@ def fetch_and_process_data():
 
                 for i in range(num_data_points):
                     route_name = route_names[i]
+                    print(f"DEBUG:   Route: {route_name}") # 추가된 디버그 로그
                     
                     current_index_val = None
                     previous_index_val = None
                     weekly_change = None
 
                     col_idx_current = current_cols_start + i
-                    if col_idx_current <= current_cols_end and col_idx_current < len(current_data_row):
+                    if col_idx_current < len(current_data_row): # col_idx_current <= current_cols_end 조건은 이미 current_cols_end가 num_data_points에 맞춰져 있다고 가정
                         val = str(current_data_row[col_idx_current]).strip().replace(',', '')
+                        print(f"DEBUG:     Raw current value: '{val}'") # 추가된 디버그 로그
                         current_index_val = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
+                    else:
+                        print(f"DEBUG:     Raw current value: N/A (Column index {col_idx_current} out of bounds for current_data_row length {len(current_data_row)})")
 
                     col_idx_previous = previous_cols_start + i
-                    if col_idx_previous <= previous_cols_end and col_idx_previous < len(previous_data_row):
+                    if col_idx_previous < len(previous_data_row): # col_idx_previous <= previous_cols_end 조건은 이미 previous_cols_end가 num_data_points에 맞춰져 있다고 가정
                         val = str(previous_data_row[col_idx_previous]).strip().replace(',', '')
+                        print(f"DEBUG:     Raw previous value: '{val}'") # 추가된 디버그 로그
                         previous_index_val = float(val) if val and val.replace('.', '', 1).replace('-', '', 1).isdigit() else None
+                    else:
+                        print(f"DEBUG:     Raw previous value: N/A (Column index {col_idx_previous} out of bounds for previous_data_row length {len(previous_data_row)})")
                     
                     if weekly_change_data_row is not None:
                         col_idx_weekly_change = weekly_change_cols_start + i
-                        if col_idx_weekly_change <= weekly_change_cols_end and col_idx_weekly_change < len(weekly_change_data_row):
+                        if col_idx_weekly_change < len(weekly_change_data_row): # col_idx_weekly_change <= weekly_change_cols_end 조건은 이미 weekly_change_cols_end가 num_data_points에 맞춰져 있다고 가정
                             val = str(weekly_change_data_row[col_idx_weekly_change]).strip().replace(',', '')
+                            print(f"DEBUG:     Raw weekly change value: '{val}'") # 추가된 디버그 로그
                             
                             # Weekly Change 값을 파싱하는 로직 개선
                             change_value = None
@@ -550,7 +565,7 @@ def fetch_and_process_data():
                                 try:
                                     if val.endswith('%'):
                                         change_percentage_str = val
-                                        change_value_only = float(val[:-1]) # % 제거 후 숫자 변환
+                                        # change_value_only = float(val[:-1]) # % 제거 후 숫자 변환 (이 값은 사용되지 않으므로 제거)
                                         if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
                                             change_value = current_index_val - previous_index_val
                                     else:
@@ -579,12 +594,14 @@ def fetch_and_process_data():
                                 }
                             else:
                                 weekly_change = None # 파싱된 유효한 데이터가 없는 경우
+                        else:
+                            print(f"DEBUG:     Raw weekly change value: N/A (Column index {col_idx_weekly_change} out of bounds for weekly_change_data_row length {len(weekly_change_data_row)})")
                     else:
                         weekly_change = None # weekly_change_data_row가 없거나 열 인덱스 범위 밖인 경우
-                else:
+
                     # weekly_change_data_row가 None인 경우 (즉, weekly_change_row_idx가 설정되지 않은 경우)
                     # current_index_val과 previous_index_val을 기반으로 계산
-                    if current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
+                    if weekly_change is None and current_index_val is not None and previous_index_val is not None and previous_index_val != 0:
                         change_value = current_index_val - previous_index_val
                         change_percentage = (change_value / previous_index_val) * 100
                         color_class = "text-gray-700"
@@ -597,7 +614,8 @@ def fetch_and_process_data():
                             "percentage": f"{change_percentage:.2f}%",
                             "color_class": color_class
                         }
-
+                    
+                    print(f"DEBUG:     Parsed current: {current_index_val}, Previous: {previous_index_val}, Weekly Change: {weekly_change}") # 추가된 디버그 로그
                     table_rows_data.append({
                         "route": f"{section_key}_{route_name}",
                         "current_index": current_index_val,
