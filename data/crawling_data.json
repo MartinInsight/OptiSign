@@ -5642,11 +5642,11 @@
     },
     "weather_data": {
         "current": {
-            "LA_WeatherStatus": "구름 중간(scattered clouds)",
+            "LA_WeatherStatus": "맑음(clear sky)",
             "LA_WeatherIcon": "",
-            "LA_Temperature": 72.93,
-            "LA_Humidity": 70.0,
-            "LA_WindSpeed": 5.75,
+            "LA_Temperature": 74.59,
+            "LA_Humidity": 66.0,
+            "LA_WindSpeed": 9.22,
             "LA_Pressure": 1018.0,
             "LA_Visibility": 6.2,
             "LA_Sunrise": "6:02:18 AM",
