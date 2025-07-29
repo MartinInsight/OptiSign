@@ -1,4 +1,4 @@
-// Chart instances global variables
+// Chart instances global variables12
 let KCCIChart;
 let SCFIChart;
 let WCIChart;
