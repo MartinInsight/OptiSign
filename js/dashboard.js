@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         },
                         grid: {
                             display: false
+
                         }
                     }
                 },
@@ -479,15 +480,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (Object.keys(chartDataBySection).length === 0) {
                 console.warn("No chart data sections found in the JSON file.");
-                document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text">No chart data available.</p>';
+                const chartSliderContainer = document.querySelector('.chart-slider-container');
+                if (chartSliderContainer) {
+                    chartSliderContainer.innerHTML = '<p class="placeholder-text">No chart data available.</p>';
+                }
                 return;
             }
 
             const currentWeatherData = weatherData.current || {};
             const forecastWeatherData = weatherData.forecast || [];
 
-            document.getElementById('temperature-current').textContent = currentWeatherData.LA_Temperature ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
-            document.getElementById('status-current').textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
+            // 날씨 정보 업데이트 (요소 존재 여부 확인)
+            const tempCurrent = document.getElementById('temperature-current');
+            if (tempCurrent) tempCurrent.textContent = currentWeatherData.LA_Temperature ? `${currentWeatherData.LA_Temperature}°F` : '--°F';
+            
+            const statusCurrent = document.getElementById('status-current');
+            if (statusCurrent) statusCurrent.textContent = currentWeatherData.LA_WeatherStatus || 'Loading...';
+            
+            const weatherIcon = document.getElementById('weather-icon-current');
             const weatherIconUrl = (status) => {
                 const base = 'https://placehold.co/80x80/';
                 const defaultColor = 'cccccc';
@@ -501,14 +511,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 return `${base}${defaultColor}/${textColor}?text=Icon`;
             };
-            document.getElementById('weather-icon-current').src = weatherIconUrl(currentWeatherData.LA_WeatherStatus);
+            if (weatherIcon) weatherIcon.src = weatherIconUrl(currentWeatherData.LA_WeatherStatus);
 
-            document.getElementById('humidity-current').textContent = currentWeatherData.LA_Humidity ? `${currentWeatherData.LA_Humidity}%` : '--%';
-            document.getElementById('wind-speed-current').textContent = currentWeatherData.LA_WindSpeed ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
-            document.getElementById('pressure-current').textContent = currentWeatherData.LA_Pressure ? `${currentWeatherData.LA_Pressure} hPa` : '-- hPa';
-            document.getElementById('visibility-current').textContent = currentWeatherData.LA_Visibility ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
-            document.getElementById('sunrise-time').textContent = currentWeatherData.LA_Sunrise || '--';
-            document.getElementById('sunset-time').textContent = currentWeatherData.LA_Sunset || '--';
+            const humidityCurrent = document.getElementById('humidity-current');
+            if (humidityCurrent) humidityCurrent.textContent = currentWeatherData.LA_Humidity ? `${currentWeatherData.LA_Humidity}%` : '--%';
+            
+            const windSpeedCurrent = document.getElementById('wind-speed-current');
+            if (windSpeedCurrent) windSpeedCurrent.textContent = currentWeatherData.LA_WindSpeed ? `${currentWeatherData.LA_WindSpeed} mph` : '-- mph';
+            
+            const pressureCurrent = document.getElementById('pressure-current');
+            if (pressureCurrent) pressureCurrent.textContent = currentWeatherData.LA_Pressure ? `${currentWeatherData.LA_Pressure} hPa` : '-- hPa';
+            
+            const visibilityCurrent = document.getElementById('visibility-current');
+            if (visibilityCurrent) visibilityCurrent.textContent = currentWeatherData.LA_Visibility ? `${currentWeatherData.LA_Visibility} mile` : '-- mile';
+            
+            const sunriseTime = document.getElementById('sunrise-time');
+            if (sunriseTime) sunriseTime.textContent = currentWeatherData.LA_Sunrise || '--';
+            
+            const sunsetTime = document.getElementById('sunset-time');
+            if (sunsetTime) sunsetTime.textContent = currentWeatherData.LA_Sunset || '--';
 
             const forecastBody = document.getElementById('forecast-body');
             if (forecastBody) { // Check if forecastBody exists before manipulating
@@ -736,11 +757,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (tableSliderContainer) {
                 tableSliderContainer.innerHTML = '<p class="error-text">Failed to load table data. Please check the data source and console for errors.</p>';
             }
-            
-            // Removed specific weather-info and exchange-rate-info error messages
-            // as these IDs are not in HTML. The individual weather/exchange rate
-            // elements will show '--' or 'Loading...' if data is missing,
-            // which is handled by their respective getElementById checks.
         }
     }
 
