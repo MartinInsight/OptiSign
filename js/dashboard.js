@@ -307,7 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (header.includes('Weekly Change')) {
                     const weeklyChange = rowData.weekly_change;
-                    // Safely access properties using optional chaining and nullish coalescing
                     content = weeklyChange?.value !== undefined && weeklyChange?.percentage !== undefined
                               ? `${weeklyChange.value} (${weeklyChange.percentage})`
                               : '-';
@@ -475,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const chartDataBySection = allDashboardData.chart_data || {};
             const weatherData = allDashboardData.weather_data || {};
-            const exchangeRatesData = allDashboardData.exchange_rate || []; // Corrected key to exchange_rate
+            const exchangeRatesData = allDashboardData.exchange_rate || [];
             const tableDataBySection = allDashboardData.table_data || {};
 
             if (Object.keys(chartDataBySection).length === 0) {
@@ -715,7 +714,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             setupSlider('.chart-slide', 5000);
-            setupSlider('.table-slide', 7000);
+            setupSlider('.top-info-slide', 7000); // Changed to top-info-slide
 
         } catch (error) {
             console.error('Error loading or processing data:', error);
