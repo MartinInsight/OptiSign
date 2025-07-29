@@ -307,19 +307,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (header.includes('Weekly Change')) {
                     const weeklyChange = rowData.weekly_change;
-                    if (weeklyChange) {
-                        content = `${weeklyChange.value} (${weeklyChange.percentage})`;
-                        colorClass = weeklyChange.color_class;
-                    }
+                    // Safely access properties using optional chaining and nullish coalescing
+                    content = weeklyChange?.value !== undefined && weeklyChange?.percentage !== undefined
+                              ? `${weeklyChange.value} (${weeklyChange.percentage})`
+                              : '-';
+                    colorClass = weeklyChange?.color_class || '';
                 } else if (header.includes('Current Index')) {
-                    content = rowData.current_index || '-';
+                    content = rowData.current_index ?? '-';
                 } else if (header.includes('Previous Index')) {
-                    content = rowData.previous_index || '-';
+                    content = rowData.previous_index ?? '-';
                 } else if (header.includes('항로') || header.includes('route')) {
                     const displayRouteName = rowData.route ? rowData.route.split('_').slice(1).join('_') : '-';
                     content = displayRouteName;
                 } else {
-                    content = rowData[header.toLowerCase().replace(/\s/g, '_')] || '-';
+                    content = rowData[header.toLowerCase().replace(/\s/g, '_')] ?? '-';
                 }
                 
                 td.textContent = content;
@@ -474,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const chartDataBySection = allDashboardData.chart_data || {};
             const weatherData = allDashboardData.weather_data || {};
-            const exchangeRatesData = allDashboardData.exchange_rate || [];
+            const exchangeRatesData = allDashboardData.exchange_rate || []; // Corrected key to exchange_rate
             const tableDataBySection = allDashboardData.table_data || {};
 
             if (Object.keys(chartDataBySection).length === 0) {
