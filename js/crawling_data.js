@@ -75,7 +75,11 @@ const routeToDataKeyMap = {
     },
     FBX: {
         // 파이썬의 data_cols_map 값과 정확히 일치하도록 수정
-        "종합지수": "FBX_종합지수", // "글로벌 컨테이너 운임 지수" 대신 "종합지수" 사용
+        // `crawling_data.py`에서 "종합지수"는 "FBX_종합지수"로 매핑됩니다.
+        // `crawling_data2.py`의 `fbx_routes_data_cols`에서 "종합지수" 키를 사용하고 있다면,
+        // `row.route`는 "FBX_종합지수"가 됩니다.
+        // 따라서 `originalRouteNameFromTable`은 "종합지수"가 되므로, 여기에 매핑되는 키가 "종합지수"여야 합니다.
+        "종합지수": "FBX_종합지수",
         "중국/동아시아 → 미주서안": "FBX_중국/동아시아 → 미주서안",
         "미주서안 → 중국/동아시아": "FBX_미주서안 → 중국/동아시아",
         "중국/동아시아 → 미주동안": "FBX_중국/동아시아 → 미주동안",
@@ -100,7 +104,14 @@ const routeToDataKeyMap = {
         "북유럽 → 남미동안": "XSI_북유럽 → 남미동안"
     },
     MBCI: {
-        "MBCI": "MBCI_MBCI" // 파이썬에서 MBCI를 MBCI_MBCI로 매핑
+        // `crawling_data2.py`에서 `row.route`가 "MBCI_Index(종합지수)"로 올 수 있으므로,
+        // 여기에 매핑되는 키를 "Index(종합지수)"로 변경합니다.
+        // `crawling_data.py`에서는 "MBCI"가 "MBCI_종합지수"로 매핑됩니다.
+        "Index(종합지수)": "MBCI_종합지수",
+        // 만약 '$/day(정기용선, Time charter)'도 차트로 그리고 싶다면,
+        // `crawling_data.py`에 해당 데이터 추출 로직을 추가하고 여기에 매핑을 추가해야 합니다.
+        // 현재는 테이블에만 표시되고 차트에는 포함되지 않습니다.
+        "$/day(정기용선, Time charter)": null // 차트로 그리지 않을 경우 null로 명시
     }
 };
 
@@ -134,6 +145,13 @@ const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
             // Filter out data points where y is null or undefined
             const filteredMappedData = mappedData.filter(point => point.y !== null && point.y !== undefined);
 
+            // Add console log for debugging data points
+            if (filteredMappedData.length === 0) {
+                console.warn(`WARNING: No valid data points found for ${indexType} - route: '${originalRouteNameFromTable}' (dataKey: '${dataKey}'). Skipping dataset.`);
+            } else {
+                console.log(`DEBUG: Found ${filteredMappedData.length} valid data points for ${indexType} - route: '${originalRouteNameFromTable}' (dataKey: '${dataKey}').`);
+            }
+
             // Only add dataset if there's actual data after filtering
             if (filteredMappedData.length > 0) {
                 datasets.push({
@@ -141,11 +159,9 @@ const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
                     data: filteredMappedData,
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
-                    borderWidth: (originalRouteNameFromTable.includes('종합지수') || originalRouteNameFromTable.includes('글로벌 컨테이너 운임 지수') || originalRouteNameFromTable.includes('US$/40ft') || originalRouteNameFromTable.includes('MBCI') || originalRouteNameFromTable.includes('Total')) ? 2 : 1, // Make composite index lines thicker
+                    borderWidth: (originalRouteNameFromTable.includes('종합지수') || originalRouteNameFromTable.includes('글로벌 컨테이너 운임 지수') || originalRouteNameFromTable.includes('US$/40ft') || originalRouteNameFromTable.includes('MBCI') || originalRouteNameFromTable.includes('Total') || originalRouteNameFromTable.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
                     fill: false
                 });
-            } else {
-                console.warn(`WARNING: No valid data points found for ${indexType} - route: '${originalRouteNameFromTable}' (dataKey: '${dataKey}'). Skipping dataset.`);
             }
         } else if (dataKey === null) {
             console.info(`INFO: Skipping chart dataset for route '${row.route}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
@@ -263,7 +279,7 @@ export async function initializeCrawlingDataChartsAndTables(dataJsonUrl) {
             },
             true // This chart is aggregated by month
         );
-        renderTable('blankSailingTableContainer', tableDataBySection.BLANK_SAILING.headers, tableDataBySection.BLANK_SAILING.rows);
+        renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, tableDataBySection.BLANK_SAILING.rows);
 
 
         // Chart 6: FBX - All relevant indices (Granular Data)
@@ -297,7 +313,7 @@ export async function initializeCrawlingDataChartsAndTables(dataJsonUrl) {
     } catch (error) {
         console.error("Error loading or processing crawling data:", error);
         document.querySelector('.chart-slider-container').innerHTML = '<p class="placeholder-text text-red-500">Failed to load chart data. Please check the data source.</p>';
-        document.querySelectorAll('.table-container').forEach(container => {
+        document.querySelectorAll('.table-section').forEach(container => { // Changed to .table-section
             container.innerHTML = '<p class="text-red-500 text-center">Failed to load table data.</p>';
         });
     }
