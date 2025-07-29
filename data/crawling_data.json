@@ -5644,5 +5644,9 @@
         "current": {},
         "forecast": []
     },
-    "exchange_rate": {}
+    "exchange_rate": {
+        "날짜": null,
+        "USD to KRW": 1351.0,
+        "": 1351.0
+    }
 }

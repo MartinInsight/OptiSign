@@ -3,11 +3,12 @@ import json
 import os
 import traceback
 
+# EXCHANGE_RATE_WORKSHEET_NAME을 전역으로 정의
 EXCHANGE_RATE_WORKSHEET_NAME = "환율"
 
 def fetch_exchange_data(spreadsheet: gspread.Spreadsheet):
     try:
-        exchange_rate_worksheet = spreadsheet.worksheet(EXCHANGE_RATE_WORKSHE_NAME)
+        exchange_rate_worksheet = spreadsheet.worksheet(EXCHANGE_RATE_WORKSHEET_NAME)
         exchange_rate_data_raw = exchange_rate_worksheet.get_all_values()
 
         exchange_rate = {}
