@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const chartDataBySection = allDashboardData.chart_data || {};
             const weatherData = allDashboardData.weather_data || {};
-            const exchangeRatesData = allDashboardData.exchange_rate || [];
+            const exchangeRatesData = allDashboardData.exchange_rate || []; 
             const tableDataBySection = allDashboardData.table_data || {};
 
             if (Object.keys(chartDataBySection).length === 0) {
@@ -511,30 +511,38 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('sunset-time').textContent = currentWeatherData.LA_Sunset || '--';
 
             const forecastBody = document.getElementById('forecast-body');
-            forecastBody.innerHTML = '';
-            if (forecastWeatherData.length > 0) {
-                forecastWeatherData.slice(0, 7).forEach(day => {
-                    const row = forecastBody.insertRow();
-                    row.insertCell().textContent = day.date || '--';
-                    row.insertCell().textContent = day.min_temp ? `${day.min_temp}°F` : '--';
-                    row.insertCell().textContent = day.max_temp ? `${day.max_temp}°F` : '--';
-                    row.insertCell().textContent = day.status || '--';
-                });
+            if (forecastBody) { // Check if forecastBody exists before manipulating
+                forecastBody.innerHTML = '';
+                if (forecastWeatherData.length > 0) {
+                    forecastWeatherData.slice(0, 7).forEach(day => {
+                        const row = forecastBody.insertRow();
+                        row.insertCell().textContent = day.date || '--';
+                        row.insertCell().textContent = day.min_temp ? `${day.min_temp}°F` : '--';
+                        row.insertCell().textContent = day.max_temp ? `${day.max_temp}°F` : '--';
+                        row.insertCell().textContent = day.status || '--';
+                    });
+                } else {
+                    forecastBody.innerHTML = '<tr><td colspan="4">No forecast data available.</td></tr>';
+                }
             } else {
-                forecastBody.innerHTML = '<tr><td colspan="4">No forecast data available.</td></tr>';
+                console.warn("Element with ID 'forecast-body' not found. Cannot render forecast table.");
             }
 
 
-            const filteredExchangeRates = exchangeRatesData.slice(Math.max(exchangeRatesData.length - 30, 0));
+            const currentExchangeRate = exchangeRatesData.length > 0 ? exchangeRatesData[exchangeRatesData.length - 1].rate : null;
+            const currentExchangeRateElement = document.getElementById('current-exchange-rate-value');
+            if (currentExchangeRateElement) { // Check if element exists
+                currentExchangeRateElement.textContent = currentExchangeRate ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...';
+            } else {
+                console.warn("Element with ID 'current-exchange-rate-value' not found.");
+            }
 
-            const currentExchangeRate = filteredExchangeRates.length > 0 ? filteredExchangeRates[filteredExchangeRates.length - 1].rate : null;
-            document.getElementById('current-exchange-rate-value').textContent = currentExchangeRate ? `${currentExchangeRate.toFixed(2)} KRW` : 'Loading...';
 
             if (exchangeRateChart) exchangeRateChart.destroy();
             
             const exchangeRateDatasets = [{
                 label: 'USD/KRW Exchange Rate',
-                data: filteredExchangeRates.map(item => ({ x: item.date, y: item.rate })),
+                data: exchangeRatesData.map(item => ({ x: item.date, y: item.rate })),
                 backgroundColor: 'rgba(253, 126, 20, 0.5)',
                 borderColor: '#e68a00',
                 borderWidth: 2,
@@ -684,7 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 true
             );
             const blankSailingTableRows = tableDataBySection.BLANK_SAILING ? tableDataBySection.BLANK_SAILING.rows : [];
-            renderTable('blankSailingTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows);
+            renderTable('BLANK_SAILINGTableContainer', tableDataBySection.BLANK_SAILING.headers, blankSailingTableRows);
 
 
             colorIndex = 0;
@@ -714,14 +722,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             setupSlider('.chart-slide', 5000);
-            setupSlider('.top-info-slide', 7000); // Changed to top-info-slide
+            setupSlider('.top-info-slide', 7000);
 
         } catch (error) {
             console.error('Error loading or processing data:', error);
-            document.querySelector('.chart-slider-container').innerHTML = '<p class="error-text">Failed to load chart data. Please check the data source and console for errors.</p>';
-            document.querySelector('.table-slider-container').innerHTML = '<p class="error-text">Failed to load table data. Please check the data source and console for errors.</p>';
-            document.getElementById('weather-info').innerHTML = '<p class="error-text">Failed to load weather data.</p>';
-            document.getElementById('exchange-rate-info').innerHTML = '<p class="error-text">Failed to load exchange rate data.</p>';
+            // Check if elements exist before attempting to modify their innerHTML
+            const chartSliderContainer = document.querySelector('.chart-slider-container');
+            if (chartSliderContainer) {
+                chartSliderContainer.innerHTML = '<p class="error-text">Failed to load chart data. Please check the data source and console for errors.</p>';
+            }
+            
+            const tableSliderContainer = document.querySelector('.table-slider-container');
+            if (tableSliderContainer) {
+                tableSliderContainer.innerHTML = '<p class="error-text">Failed to load table data. Please check the data source and console for errors.</p>';
+            }
+            
+            // Removed specific weather-info and exchange-rate-info error messages
+            // as these IDs are not in HTML. The individual weather/exchange rate
+            // elements will show '--' or 'Loading...' if data is missing,
+            // which is handled by their respective getElementById checks.
         }
     }
 
