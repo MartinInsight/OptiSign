@@ -65,15 +65,17 @@ const routeToDataKeyMap = {
         "종합지수": "IACI_종합지수"
     },
     BLANK_SAILING: {
-        "Gemini Cooperation": "BLANK_SAILING_제미니 협력",
+        // 파이썬의 data_cols_map 값과 정확히 일치하도록 수정
+        "Gemini Cooperation": "BLANK_SAILING_Gemini_Cooperation",
         "MSC": "BLANK_SAILING_MSC",
-        "OCEAN Alliance": "BLANK_SAILING_오션_얼라이언스",
-        "Premier Alliance": "BLANK_SAILING_프리미어_얼라이언스",
-        "Others/Independent": "BLANK_SAILING_기타_독립",
-        "Total": "BLANK_SAILING_총계"
+        "OCEAN Alliance": "BLANK_SAILING_OCEAN_Alliance",
+        "Premier Alliance": "BLANK_SAILING_Premier_Alliance",
+        "Others/Independent": "BLANK_SAILING_Others_Independent",
+        "Total": "BLANK_SAILING_종합지수" // 파이썬에서 Total을 종합지수로 매핑
     },
     FBX: {
-        "글로벌 컨테이너 운임 지수": "FBX_글로벌 컨테이너 운임 지수",
+        // 파이썬의 data_cols_map 값과 정확히 일치하도록 수정
+        "종합지수": "FBX_종합지수", // "글로벌 컨테이너 운임 지수" 대신 "종합지수" 사용
         "중국/동아시아 → 미주서안": "FBX_중국/동아시아 → 미주서안",
         "미주서안 → 중국/동아시아": "FBX_미주서안 → 중국/동아시아",
         "중국/동아시아 → 미주동안": "FBX_중국/동아시아 → 미주동안",
@@ -98,7 +100,7 @@ const routeToDataKeyMap = {
         "북유럽 → 남미동안": "XSI_북유럽 → 남미동안"
     },
     MBCI: {
-        "MBCI": "MBCI_MBCI"
+        "MBCI": "MBCI_MBCI" // 파이썬에서 MBCI를 MBCI_MBCI로 매핑
     }
 };
 
@@ -112,9 +114,13 @@ const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
     }
 
     tableRows.forEach(row => {
-        // Extract the original route name (e.g., "종합지수" from "KCCI_종합지수")
-        const originalRouteName = row.route.split('_').slice(1).join('_');
-        const dataKey = mapping[originalRouteName];
+        // row.route 값은 이미 "KCCI_종합지수"와 같이 섹션_라우트명 형태입니다.
+        // mapping 객체의 키는 "종합지수"와 같이 라우트명만 필요합니다.
+        // 따라서, 섹션 접두사를 제거해야 합니다.
+        const originalRouteNameFromTable = row.route.split('_').slice(1).join('_');
+
+        // 매핑에서 실제 데이터 키를 찾습니다.
+        const dataKey = mapping[originalRouteNameFromTable];
         
         // Only create a dataset if a corresponding data key exists and is not null
         // and the current_index from the table is not empty (meaning there's data for this route)
@@ -131,15 +137,15 @@ const createDatasetsFromTableRows = (indexType, chartData, tableRows) => {
             // Only add dataset if there's actual data after filtering
             if (filteredMappedData.length > 0) {
                 datasets.push({
-                    label: originalRouteName, // Use the original route name for the legend
+                    label: originalRouteNameFromTable, // Use the original route name for the legend
                     data: filteredMappedData,
                     backgroundColor: getNextColor(),
                     borderColor: getNextBorderColor(),
-                    borderWidth: (originalRouteName.includes('종합지수') || originalRouteName.includes('글로벌 컨테이너 운임 지수') || originalRouteName.includes('US$/40ft') || originalRouteName.includes('Index(종합지수)')) ? 2 : 1, // Make composite index lines thicker
+                    borderWidth: (originalRouteNameFromTable.includes('종합지수') || originalRouteNameFromTable.includes('글로벌 컨테이너 운임 지수') || originalRouteNameFromTable.includes('US$/40ft') || originalRouteNameFromTable.includes('MBCI') || originalRouteNameFromTable.includes('Total')) ? 2 : 1, // Make composite index lines thicker
                     fill: false
                 });
             } else {
-                console.warn(`WARNING: No valid data points found for ${indexType} - route: '${originalRouteName}' (dataKey: '${dataKey}'). Skipping dataset.`);
+                console.warn(`WARNING: No valid data points found for ${indexType} - route: '${originalRouteNameFromTable}' (dataKey: '${dataKey}'). Skipping dataset.`);
             }
         } else if (dataKey === null) {
             console.info(`INFO: Skipping chart dataset for route '${row.route}' in ${indexType} as it's explicitly mapped to null (no chart data expected).`);
@@ -216,12 +222,17 @@ export async function initializeCrawlingDataChartsAndTables(dataJsonUrl) {
         // Blank Sailing datasets are still manually defined as they are stacked bar
         resetColorIndex(); // Reset color index for each chart
         const blankSailingDatasets = [
-            { label: 'Gemini Cooperation', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_제미니_협력 })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+            // BLANK_SAILING_제미니_협력 -> BLANK_SAILING_Gemini_Cooperation
+            { label: 'Gemini Cooperation', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Gemini_Cooperation })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
             { label: 'MSC', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_MSC })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
-            { label: 'OCEAN Alliance', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_오션_얼라이언스 })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
-            { label: 'Premier Alliance', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_프리미어_얼라이언스 })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
-            { label: 'Others/Independent', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_기타_독립 })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
-            { label: 'Total', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_총계 })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 }
+            // BLANK_SAILING_오션_얼라이언스 -> BLANK_SAILING_OCEAN_Alliance
+            { label: 'OCEAN Alliance', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_OCEAN_Alliance })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+            // BLANK_SAILING_프리미어_얼라이언스 -> BLANK_SAILING_Premier_Alliance
+            { label: 'Premier Alliance', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Premier_Alliance })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+            // BLANK_SAILING_기타_독립 -> BLANK_SAILING_Others_Independent
+            { label: 'Others/Independent', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_Others_Independent })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 },
+            // BLANK_SAILING_총계 -> BLANK_SAILING_종합지수
+            { label: 'Total', data: aggregatedBlankSailingData.map(item => ({ x: item.date, y: item.BLANK_SAILING_종합지수 })), backgroundColor: getNextColor(), borderColor: getNextBorderColor(), borderWidth: 1 }
         ].filter(dataset => dataset.data.some(point => point.y !== null && point.y !== undefined)); // Filter out datasets with no valid data
 
         blankSailingChart = setupChart(
