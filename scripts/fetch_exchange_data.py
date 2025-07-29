@@ -6,10 +6,11 @@ from datetime import datetime
 
 # EXCHANGE_RATE_WORKSHEET_NAME을 전역으로 정의
 EXCHANGE_RATE_WORKSHEET_NAME = "환율"
+print(f"DEBUG: fetch_exchange_data.py - EXCHANGE_RATE_WORKSHEET_NAME: {EXCHANGE_RATE_WORKSHEET_NAME}")
 
 def fetch_exchange_data(spreadsheet: gspread.Spreadsheet):
     try:
-        exchange_rate_worksheet = spreadsheet.worksheet(EXCHANGE_RATE_WORKSHE_NAME)
+        exchange_rate_worksheet = spreadsheet.worksheet(EXCHANGE_RATE_WORKSHEET_NAME)
         # 모든 값을 가져와서 DataFrame으로 처리하여 날짜별 데이터를 추출
         all_values = exchange_rate_worksheet.get_all_values()
 
@@ -19,6 +20,7 @@ def fetch_exchange_data(spreadsheet: gspread.Spreadsheet):
 
         # 첫 번째 행을 헤더로 사용
         headers = [h.strip() for h in all_values[0]]
+        print(f"DEBUG: fetch_exchange_data.py - Headers: {headers}")
         
         # '날짜' 또는 'Date' 열과 'USD to KRW' 또는 'Rate' 열을 찾음
         date_col_idx = -1
