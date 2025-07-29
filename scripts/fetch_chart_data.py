@@ -6,9 +6,15 @@ import traceback
 import re
 from datetime import datetime
 import numpy as np
+import sys # sys 모듈 임포트
 
-from la_weather_fetcher import fetch_la_weather_data
-from exchange_rate_fetcher import fetch_exchange_rate_data
+# 현재 스크립트의 디렉토리를 sys.path에 추가하여 로컬 모듈을 찾을 수 있도록 함
+script_dir = os.path.dirname(__file__)
+if script_dir not in sys.path:
+    sys.path.append(script_dir)
+
+from fetch_la_weather_data import fetch_la_weather_data
+from fetch_exchange_data import fetch_exchange_data
 
 class NpEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -566,7 +572,7 @@ def fetch_and_process_data():
         current_weather = weather_data.get("current_weather", {})
         forecast_weather = weather_data.get("forecast_weather", [])
 
-        exchange_rate = fetch_exchange_rate_data(spreadsheet)
+        exchange_rate = fetch_exchange_data(spreadsheet)
         
         final_output_data = {
             "chart_data": processed_chart_data_by_section,
