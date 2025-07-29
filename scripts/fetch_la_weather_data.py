@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 import traceback
 
+# WEATHER_WORKSHEET_NAME을 전역으로 정의
 WEATHER_WORKSHEET_NAME = "LA날씨"
 
 def fetch_la_weather_data(spreadsheet: gspread.Spreadsheet):
@@ -15,7 +16,6 @@ def fetch_la_weather_data(spreadsheet: gspread.Spreadsheet):
         forecast_weather = []
 
         if len(weather_data_raw) > 1:
-            # 현재 날씨 데이터 (첫 번째 행)
             current_weather_headers = [h.strip() for h in weather_data_raw[0]]
             current_weather_values = weather_data_raw[1]
 
@@ -30,7 +30,6 @@ def fetch_la_weather_data(spreadsheet: gspread.Spreadsheet):
                 "LA_Sunset": current_weather_values[7].strip() if len(current_weather_values) > 7 else None,
             }
 
-            # 일기 예보 데이터 (세 번째 행부터)
             if len(weather_data_raw) > 2:
                 forecast_headers = [h.strip() for h in weather_data_raw[2]]
                 for row_idx in range(3, len(weather_data_raw)):
