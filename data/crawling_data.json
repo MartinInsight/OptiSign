@@ -852,7 +852,841 @@
                 "KCCI_Southeast_Asia": 1035
             }
         ],
-        "SCFI": [],
+        "SCFI": [
+            {
+                "date": "2024-08-02",
+                "SCFI_Composite_Index": 3332,
+                "SCFI_US_West_Coast": 6245,
+                "SCFI_US_East_Coast": 9346,
+                "SCFI_North_Europe": 4907,
+                "SCFI_Mediterranean": 4997,
+                "SCFI_Southeast_Asia": 628,
+                "SCFI_Middle_East": 2217,
+                "SCFI_Australia_New_Zealand": 1581,
+                "SCFI_South_America": 7867,
+                "SCFI_Japan_West_Coast": 293,
+                "SCFI_Japan_East_Coast": 299,
+                "SCFI_Korea": 162,
+                "SCFI_East_West_Africa": 5064,
+                "SCFI_South_Africa": 4882
+            },
+            {
+                "date": "2024-08-09",
+                "SCFI_Composite_Index": 3254,
+                "SCFI_US_West_Coast": 6068,
+                "SCFI_US_East_Coast": 9083,
+                "SCFI_North_Europe": 4786,
+                "SCFI_Mediterranean": 4733,
+                "SCFI_Southeast_Asia": 595,
+                "SCFI_Middle_East": 2208,
+                "SCFI_Australia_New_Zealand": 1581,
+                "SCFI_South_America": 7987,
+                "SCFI_Japan_West_Coast": 293,
+                "SCFI_Japan_East_Coast": 299,
+                "SCFI_Korea": 162,
+                "SCFI_East_West_Africa": 5068,
+                "SCFI_South_Africa": 4800
+            },
+            {
+                "date": "2024-08-16",
+                "SCFI_Composite_Index": 3281,
+                "SCFI_US_West_Coast": 6581,
+                "SCFI_US_East_Coast": 9297,
+                "SCFI_North_Europe": 4619,
+                "SCFI_Mediterranean": 4645,
+                "SCFI_Southeast_Asia": 578,
+                "SCFI_Middle_East": 2139,
+                "SCFI_Australia_New_Zealand": 1911,
+                "SCFI_South_America": 7730,
+                "SCFI_Japan_West_Coast": 293,
+                "SCFI_Japan_East_Coast": 299,
+                "SCFI_Korea": 162,
+                "SCFI_East_West_Africa": 5015,
+                "SCFI_South_Africa": 4809
+            },
+            {
+                "date": "2024-08-23",
+                "SCFI_Composite_Index": 3098,
+                "SCFI_US_West_Coast": 5955,
+                "SCFI_US_East_Coast": 8546,
+                "SCFI_North_Europe": 4400,
+                "SCFI_Mediterranean": 4523,
+                "SCFI_Southeast_Asia": 544,
+                "SCFI_Middle_East": 1969,
+                "SCFI_Australia_New_Zealand": 2072,
+                "SCFI_South_America": 7562,
+                "SCFI_Japan_West_Coast": 293,
+                "SCFI_Japan_East_Coast": 299,
+                "SCFI_Korea": 162,
+                "SCFI_East_West_Africa": 5004,
+                "SCFI_South_Africa": 4836
+            },
+            {
+                "date": "2024-08-30",
+                "SCFI_Composite_Index": 2963,
+                "SCFI_US_West_Coast": 6140,
+                "SCFI_US_East_Coast": 8439,
+                "SCFI_North_Europe": 3876,
+                "SCFI_Mediterranean": 4083,
+                "SCFI_Southeast_Asia": 497,
+                "SCFI_Middle_East": 1756,
+                "SCFI_Australia_New_Zealand": 2235,
+                "SCFI_South_America": 7698,
+                "SCFI_Japan_West_Coast": 293,
+                "SCFI_Japan_East_Coast": 299,
+                "SCFI_Korea": 161,
+                "SCFI_East_West_Africa": 4873,
+                "SCFI_South_Africa": 4754
+            },
+            {
+                "date": "2024-09-06",
+                "SCFI_Composite_Index": 2727,
+                "SCFI_US_West_Coast": 5605,
+                "SCFI_US_East_Coast": 7511,
+                "SCFI_North_Europe": 3459,
+                "SCFI_Mediterranean": 3823,
+                "SCFI_Southeast_Asia": 467,
+                "SCFI_Middle_East": 1509,
+                "SCFI_Australia_New_Zealand": 2268,
+                "SCFI_South_America": 7523,
+                "SCFI_Japan_West_Coast": 298,
+                "SCFI_Japan_East_Coast": 305,
+                "SCFI_Korea": 139,
+                "SCFI_East_West_Africa": 4850,
+                "SCFI_South_Africa": 4626
+            },
+            {
+                "date": "2024-09-13",
+                "SCFI_Composite_Index": 2511,
+                "SCFI_US_West_Coast": 5494,
+                "SCFI_US_East_Coast": 6838,
+                "SCFI_North_Europe": 2841,
+                "SCFI_Mediterranean": 3365,
+                "SCFI_Southeast_Asia": 447,
+                "SCFI_Middle_East": 1264,
+                "SCFI_Australia_New_Zealand": 2267,
+                "SCFI_South_America": 7301,
+                "SCFI_Japan_West_Coast": 306,
+                "SCFI_Japan_East_Coast": 298,
+                "SCFI_Korea": 147,
+                "SCFI_East_West_Africa": 4656,
+                "SCFI_South_Africa": 4361
+            },
+            {
+                "date": "2024-09-20",
+                "SCFI_Composite_Index": 2366,
+                "SCFI_US_West_Coast": 5341,
+                "SCFI_US_East_Coast": 6486,
+                "SCFI_North_Europe": 2592,
+                "SCFI_Mediterranean": 2955,
+                "SCFI_Southeast_Asia": 412,
+                "SCFI_Middle_East": 1147,
+                "SCFI_Australia_New_Zealand": 2193,
+                "SCFI_South_America": 6990,
+                "SCFI_Japan_West_Coast": 301,
+                "SCFI_Japan_East_Coast": 309,
+                "SCFI_Korea": 141,
+                "SCFI_East_West_Africa": 4589,
+                "SCFI_South_Africa": 4361
+            },
+            {
+                "date": "2024-09-27",
+                "SCFI_Composite_Index": 2135,
+                "SCFI_US_West_Coast": 4852,
+                "SCFI_US_East_Coast": 5626,
+                "SCFI_North_Europe": 2250,
+                "SCFI_Mediterranean": 2541,
+                "SCFI_Southeast_Asia": 396,
+                "SCFI_Middle_East": 962,
+                "SCFI_Australia_New_Zealand": 2008,
+                "SCFI_South_America": 6439,
+                "SCFI_Japan_West_Coast": 301,
+                "SCFI_Japan_East_Coast": 307,
+                "SCFI_Korea": 144,
+                "SCFI_East_West_Africa": 4489,
+                "SCFI_South_Africa": 4245
+            },
+            {
+                "date": "2024-10-11",
+                "SCFI_Composite_Index": 2062,
+                "SCFI_US_West_Coast": 4730,
+                "SCFI_US_East_Coast": 5554,
+                "SCFI_North_Europe": 2040,
+                "SCFI_Mediterranean": 2369,
+                "SCFI_Southeast_Asia": 389,
+                "SCFI_Middle_East": 986,
+                "SCFI_Australia_New_Zealand": 1966,
+                "SCFI_South_America": 6341,
+                "SCFI_Japan_West_Coast": 302,
+                "SCFI_Japan_East_Coast": 304,
+                "SCFI_Korea": 144,
+                "SCFI_East_West_Africa": 4380,
+                "SCFI_South_Africa": 4204
+            },
+            {
+                "date": "2024-10-18",
+                "SCFI_Composite_Index": 2062,
+                "SCFI_US_West_Coast": 4969,
+                "SCFI_US_East_Coast": 4726,
+                "SCFI_North_Europe": 1950,
+                "SCFI_Mediterranean": 2312,
+                "SCFI_Southeast_Asia": 420,
+                "SCFI_Middle_East": 1193,
+                "SCFI_Australia_New_Zealand": 2026,
+                "SCFI_South_America": 6235,
+                "SCFI_Japan_West_Coast": 302,
+                "SCFI_Japan_East_Coast": 304,
+                "SCFI_Korea": 144,
+                "SCFI_East_West_Africa": 4428,
+                "SCFI_South_Africa": 4254
+            },
+            {
+                "date": "2024-10-25",
+                "SCFI_Composite_Index": 2185,
+                "SCFI_US_West_Coast": 4783,
+                "SCFI_US_East_Coast": 5099,
+                "SCFI_North_Europe": 2226,
+                "SCFI_Mediterranean": 2555,
+                "SCFI_Southeast_Asia": 464,
+                "SCFI_Middle_East": 1427,
+                "SCFI_Australia_New_Zealand": 2058,
+                "SCFI_South_America": 6285,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 305,
+                "SCFI_Korea": 146,
+                "SCFI_East_West_Africa": 4504,
+                "SCFI_South_Africa": 4233
+            },
+            {
+                "date": "2024-11-01",
+                "SCFI_Composite_Index": 2303,
+                "SCFI_US_West_Coast": 4826,
+                "SCFI_US_East_Coast": 5258,
+                "SCFI_North_Europe": 2442,
+                "SCFI_Mediterranean": 2907,
+                "SCFI_Southeast_Asia": 536,
+                "SCFI_Middle_East": 1507,
+                "SCFI_Australia_New_Zealand": 2145,
+                "SCFI_South_America": 6359,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 305,
+                "SCFI_Korea": 147,
+                "SCFI_East_West_Africa": 4610,
+                "SCFI_South_Africa": 4296
+            },
+            {
+                "date": "2024-11-08",
+                "SCFI_Composite_Index": 2331,
+                "SCFI_US_West_Coast": 4729,
+                "SCFI_US_East_Coast": 5281,
+                "SCFI_North_Europe": 2541,
+                "SCFI_Mediterranean": 3055,
+                "SCFI_Southeast_Asia": 601,
+                "SCFI_Middle_East": 1480,
+                "SCFI_Australia_New_Zealand": 2190,
+                "SCFI_South_America": 5931,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 305,
+                "SCFI_Korea": 147,
+                "SCFI_East_West_Africa": 4615,
+                "SCFI_South_Africa": 4149
+            },
+            {
+                "date": "2024-11-15",
+                "SCFI_Composite_Index": 2252,
+                "SCFI_US_West_Coast": 4181,
+                "SCFI_US_East_Coast": 5602,
+                "SCFI_North_Europe": 2512,
+                "SCFI_Mediterranean": 3080,
+                "SCFI_Southeast_Asia": 670,
+                "SCFI_Middle_East": 1421,
+                "SCFI_Australia_New_Zealand": 2159,
+                "SCFI_South_America": 5515,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 305,
+                "SCFI_Korea": 138,
+                "SCFI_East_West_Africa": 4546,
+                "SCFI_South_Africa": 4012
+            },
+            {
+                "date": "2024-11-22",
+                "SCFI_Composite_Index": 2160,
+                "SCFI_US_West_Coast": 3821,
+                "SCFI_US_East_Coast": 4997,
+                "SCFI_North_Europe": 2481,
+                "SCFI_Mediterranean": 3071,
+                "SCFI_Southeast_Asia": 647,
+                "SCFI_Middle_East": 1317,
+                "SCFI_Australia_New_Zealand": 2038,
+                "SCFI_South_America": 5259,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 305,
+                "SCFI_Korea": 138,
+                "SCFI_East_West_Africa": 4490,
+                "SCFI_South_Africa": 3868
+            },
+            {
+                "date": "2024-11-29",
+                "SCFI_Composite_Index": 2233,
+                "SCFI_US_West_Coast": 3345,
+                "SCFI_US_East_Coast": 4954,
+                "SCFI_North_Europe": 3039,
+                "SCFI_Mediterranean": 3682,
+                "SCFI_Southeast_Asia": 660,
+                "SCFI_Middle_East": 1362,
+                "SCFI_Australia_New_Zealand": 1850,
+                "SCFI_South_America": 5346,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 307,
+                "SCFI_Korea": 139,
+                "SCFI_East_West_Africa": 4480,
+                "SCFI_South_Africa": 3776
+            },
+            {
+                "date": "2024-12-06",
+                "SCFI_Composite_Index": 2256,
+                "SCFI_US_West_Coast": 3309,
+                "SCFI_US_East_Coast": 4924,
+                "SCFI_North_Europe": 3030,
+                "SCFI_Mediterranean": 3761,
+                "SCFI_Southeast_Asia": 682,
+                "SCFI_Middle_East": 1474,
+                "SCFI_Australia_New_Zealand": 1769,
+                "SCFI_South_America": 5711,
+                "SCFI_Japan_West_Coast": 306,
+                "SCFI_Japan_East_Coast": 309,
+                "SCFI_Korea": 138,
+                "SCFI_East_West_Africa": 4521,
+                "SCFI_South_Africa": 3648
+            },
+            {
+                "date": "2024-12-13",
+                "SCFI_Composite_Index": 2384,
+                "SCFI_US_West_Coast": 4023,
+                "SCFI_US_East_Coast": 5494,
+                "SCFI_North_Europe": 2963,
+                "SCFI_Mediterranean": 3746,
+                "SCFI_Southeast_Asia": 725,
+                "SCFI_Middle_East": 1507,
+                "SCFI_Australia_New_Zealand": 1922,
+                "SCFI_South_America": 5608,
+                "SCFI_Japan_West_Coast": 306,
+                "SCFI_Japan_East_Coast": 309,
+                "SCFI_Korea": 138,
+                "SCFI_East_West_Africa": 4542,
+                "SCFI_South_Africa": 3579
+            },
+            {
+                "date": "2024-12-20",
+                "SCFI_Composite_Index": 2390,
+                "SCFI_US_West_Coast": 4198,
+                "SCFI_US_East_Coast": 5642,
+                "SCFI_North_Europe": 2946,
+                "SCFI_Mediterranean": 3733,
+                "SCFI_Southeast_Asia": 711,
+                "SCFI_Middle_East": 1429,
+                "SCFI_Australia_New_Zealand": 1952,
+                "SCFI_South_America": 5351,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 307,
+                "SCFI_Korea": 140,
+                "SCFI_East_West_Africa": 4522,
+                "SCFI_South_Africa": 3511
+            },
+            {
+                "date": "2024-12-27",
+                "SCFI_Composite_Index": 2460,
+                "SCFI_US_West_Coast": 4581,
+                "SCFI_US_East_Coast": 6074,
+                "SCFI_North_Europe": 2962,
+                "SCFI_Mediterranean": 3780,
+                "SCFI_Southeast_Asia": 672,
+                "SCFI_Middle_East": 1444,
+                "SCFI_Australia_New_Zealand": 2110,
+                "SCFI_South_America": 5468,
+                "SCFI_Japan_West_Coast": 310,
+                "SCFI_Japan_East_Coast": 312,
+                "SCFI_Korea": 140,
+                "SCFI_East_West_Africa": 4521,
+                "SCFI_South_Africa": 3466
+            },
+            {
+                "date": "2025-01-03",
+                "SCFI_Composite_Index": 2505,
+                "SCFI_US_West_Coast": 4997,
+                "SCFI_US_East_Coast": 6418,
+                "SCFI_North_Europe": 2851,
+                "SCFI_Mediterranean": 3747,
+                "SCFI_Southeast_Asia": 655,
+                "SCFI_Middle_East": 1472,
+                "SCFI_Australia_New_Zealand": 2147,
+                "SCFI_South_America": 5344,
+                "SCFI_Japan_West_Coast": 317,
+                "SCFI_Japan_East_Coast": 317,
+                "SCFI_Korea": 141,
+                "SCFI_East_West_Africa": 4521,
+                "SCFI_South_Africa": 3507
+            },
+            {
+                "date": "2025-01-10",
+                "SCFI_Composite_Index": 2290,
+                "SCFI_US_West_Coast": 4682,
+                "SCFI_US_East_Coast": 6629,
+                "SCFI_North_Europe": 2440,
+                "SCFI_Mediterranean": 3477,
+                "SCFI_Southeast_Asia": 564,
+                "SCFI_Middle_East": 1397,
+                "SCFI_Australia_New_Zealand": 1838,
+                "SCFI_South_America": 4637,
+                "SCFI_Japan_West_Coast": 305,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 139,
+                "SCFI_East_West_Africa": 4412,
+                "SCFI_South_Africa": 3405
+            },
+            {
+                "date": "2025-01-17",
+                "SCFI_Composite_Index": 2131,
+                "SCFI_US_West_Coast": 4232,
+                "SCFI_US_East_Coast": 5960,
+                "SCFI_North_Europe": 2279,
+                "SCFI_Mediterranean": 3327,
+                "SCFI_Southeast_Asia": 524,
+                "SCFI_Middle_East": 1311,
+                "SCFI_Australia_New_Zealand": 1478,
+                "SCFI_South_America": 4304,
+                "SCFI_Japan_West_Coast": 305,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 139,
+                "SCFI_East_West_Africa": 4259,
+                "SCFI_South_Africa": 3219
+            },
+            {
+                "date": "2025-01-24",
+                "SCFI_Composite_Index": 2045,
+                "SCFI_US_West_Coast": 4116,
+                "SCFI_US_East_Coast": 5776,
+                "SCFI_North_Europe": 2147,
+                "SCFI_Mediterranean": 3207,
+                "SCFI_Southeast_Asia": 508,
+                "SCFI_Middle_East": 1210,
+                "SCFI_Australia_New_Zealand": 1369,
+                "SCFI_South_America": 3863,
+                "SCFI_Japan_West_Coast": 305,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 139,
+                "SCFI_East_West_Africa": 4213,
+                "SCFI_South_Africa": 3146
+            },
+            {
+                "date": "2025-02-07",
+                "SCFI_Composite_Index": 1896,
+                "SCFI_US_West_Coast": 3932,
+                "SCFI_US_East_Coast": 5490,
+                "SCFI_North_Europe": 1805,
+                "SCFI_Mediterranean": 3036,
+                "SCFI_Southeast_Asia": 454,
+                "SCFI_Middle_East": 1191,
+                "SCFI_Australia_New_Zealand": 1085,
+                "SCFI_South_America": 3435,
+                "SCFI_Japan_West_Coast": 305,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 138,
+                "SCFI_East_West_Africa": 4166,
+                "SCFI_South_Africa": 3011
+            },
+            {
+                "date": "2025-02-14",
+                "SCFI_Composite_Index": 1758,
+                "SCFI_US_West_Coast": 3544,
+                "SCFI_US_East_Coast": 4825,
+                "SCFI_North_Europe": 1608,
+                "SCFI_Mediterranean": 2815,
+                "SCFI_Southeast_Asia": 457,
+                "SCFI_Middle_East": 1144,
+                "SCFI_Australia_New_Zealand": 967,
+                "SCFI_South_America": 3359,
+                "SCFI_Japan_West_Coast": 305,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 137,
+                "SCFI_East_West_Africa": 4074,
+                "SCFI_South_Africa": 2867
+            },
+            {
+                "date": "2025-02-21",
+                "SCFI_Composite_Index": 1595,
+                "SCFI_US_West_Coast": 2907,
+                "SCFI_US_East_Coast": 3954,
+                "SCFI_North_Europe": 1578,
+                "SCFI_Mediterranean": 2624,
+                "SCFI_Southeast_Asia": 440,
+                "SCFI_Middle_East": 1102,
+                "SCFI_Australia_New_Zealand": 826,
+                "SCFI_South_America": 2947,
+                "SCFI_Japan_West_Coast": 305,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 137,
+                "SCFI_East_West_Africa": 3987,
+                "SCFI_South_Africa": 2753
+            },
+            {
+                "date": "2025-02-28",
+                "SCFI_Composite_Index": 1515,
+                "SCFI_US_West_Coast": 2482,
+                "SCFI_US_East_Coast": 3508,
+                "SCFI_North_Europe": 1693,
+                "SCFI_Mediterranean": 2594,
+                "SCFI_Southeast_Asia": 441,
+                "SCFI_Middle_East": 1015,
+                "SCFI_Australia_New_Zealand": 745,
+                "SCFI_South_America": 2770,
+                "SCFI_Japan_West_Coast": 305,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 137,
+                "SCFI_East_West_Africa": 3791,
+                "SCFI_South_Africa": 2526
+            },
+            {
+                "date": "2025-03-07",
+                "SCFI_Composite_Index": 1463,
+                "SCFI_US_West_Coast": 2291,
+                "SCFI_US_East_Coast": 3329,
+                "SCFI_North_Europe": 1582,
+                "SCFI_Mediterranean": 2517,
+                "SCFI_Southeast_Asia": 439,
+                "SCFI_Middle_East": 975,
+                "SCFI_Australia_New_Zealand": 629,
+                "SCFI_South_America": 2422,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 137,
+                "SCFI_East_West_Africa": 3660,
+                "SCFI_South_Africa": 2294
+            },
+            {
+                "date": "2025-03-14",
+                "SCFI_Composite_Index": 1319,
+                "SCFI_US_West_Coast": 1965,
+                "SCFI_US_East_Coast": 2977,
+                "SCFI_North_Europe": 1342,
+                "SCFI_Mediterranean": 2295,
+                "SCFI_Southeast_Asia": 446,
+                "SCFI_Middle_East": 976,
+                "SCFI_Australia_New_Zealand": 735,
+                "SCFI_South_America": 1945,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 308,
+                "SCFI_Korea": 137,
+                "SCFI_East_West_Africa": 3651,
+                "SCFI_South_Africa": 2207
+            },
+            {
+                "date": "2025-03-21",
+                "SCFI_Composite_Index": 1292,
+                "SCFI_US_West_Coast": 1872,
+                "SCFI_US_East_Coast": 2866,
+                "SCFI_North_Europe": 1306,
+                "SCFI_Mediterranean": 2195,
+                "SCFI_Southeast_Asia": 446,
+                "SCFI_Middle_East": 1059,
+                "SCFI_Australia_New_Zealand": 755,
+                "SCFI_South_America": 1680,
+                "SCFI_Japan_West_Coast": 304,
+                "SCFI_Japan_East_Coast": 310,
+                "SCFI_Korea": 137,
+                "SCFI_East_West_Africa": 3634,
+                "SCFI_South_Africa": 2123
+            },
+            {
+                "date": "2025-03-28",
+                "SCFI_Composite_Index": 1357,
+                "SCFI_US_West_Coast": 2177,
+                "SCFI_US_East_Coast": 3194,
+                "SCFI_North_Europe": 1318,
+                "SCFI_Mediterranean": 2076,
+                "SCFI_Southeast_Asia": 433,
+                "SCFI_Middle_East": 1188,
+                "SCFI_Australia_New_Zealand": 828,
+                "SCFI_South_America": 1669,
+                "SCFI_Japan_West_Coast": 319,
+                "SCFI_Japan_East_Coast": 324,
+                "SCFI_Korea": 141,
+                "SCFI_East_West_Africa": 3708,
+                "SCFI_South_Africa": 2172
+            },
+            {
+                "date": "2025-04-04",
+                "SCFI_Composite_Index": 1392,
+                "SCFI_US_West_Coast": 2313,
+                "SCFI_US_East_Coast": 3306,
+                "SCFI_North_Europe": 1336,
+                "SCFI_Mediterranean": 2028,
+                "SCFI_Southeast_Asia": 445,
+                "SCFI_Middle_East": 1290,
+                "SCFI_Australia_New_Zealand": 839,
+                "SCFI_South_America": 1436,
+                "SCFI_Japan_West_Coast": 322,
+                "SCFI_Japan_East_Coast": 327,
+                "SCFI_Korea": 142,
+                "SCFI_East_West_Africa": 3749,
+                "SCFI_South_Africa": 2192
+            },
+            {
+                "date": "2025-04-11",
+                "SCFI_Composite_Index": 1395,
+                "SCFI_US_West_Coast": 2202,
+                "SCFI_US_East_Coast": 3226,
+                "SCFI_North_Europe": 1356,
+                "SCFI_Mediterranean": 2144,
+                "SCFI_Southeast_Asia": 448,
+                "SCFI_Middle_East": 1309,
+                "SCFI_Australia_New_Zealand": 890,
+                "SCFI_South_America": 1566,
+                "SCFI_Japan_West_Coast": 316,
+                "SCFI_Japan_East_Coast": 321,
+                "SCFI_Korea": 142,
+                "SCFI_East_West_Africa": 3894,
+                "SCFI_South_Africa": 2151
+            },
+            {
+                "date": "2025-04-18",
+                "SCFI_Composite_Index": 1371,
+                "SCFI_US_West_Coast": 2103,
+                "SCFI_US_East_Coast": 3251,
+                "SCFI_North_Europe": 1316,
+                "SCFI_Mediterranean": 2161,
+                "SCFI_Southeast_Asia": 450,
+                "SCFI_Middle_East": 1266,
+                "SCFI_Australia_New_Zealand": 891,
+                "SCFI_South_America": 1573,
+                "SCFI_Japan_West_Coast": 316,
+                "SCFI_Japan_East_Coast": 321,
+                "SCFI_Korea": 146,
+                "SCFI_East_West_Africa": 3853,
+                "SCFI_South_Africa": 2076
+            },
+            {
+                "date": "2025-04-25",
+                "SCFI_Composite_Index": 1348,
+                "SCFI_US_West_Coast": 2141,
+                "SCFI_US_East_Coast": 3257,
+                "SCFI_North_Europe": 1260,
+                "SCFI_Mediterranean": 2129,
+                "SCFI_Southeast_Asia": 454,
+                "SCFI_Middle_East": 1161,
+                "SCFI_Australia_New_Zealand": 855,
+                "SCFI_South_America": 1414,
+                "SCFI_Japan_West_Coast": 316,
+                "SCFI_Japan_East_Coast": 321,
+                "SCFI_Korea": 146,
+                "SCFI_East_West_Africa": 3749,
+                "SCFI_South_Africa": 2043
+            },
+            {
+                "date": "2025-04-30",
+                "SCFI_Composite_Index": 1341,
+                "SCFI_US_West_Coast": 2272,
+                "SCFI_US_East_Coast": 3283,
+                "SCFI_North_Europe": 1200,
+                "SCFI_Mediterranean": 2089,
+                "SCFI_Southeast_Asia": 438,
+                "SCFI_Middle_East": 1122,
+                "SCFI_Australia_New_Zealand": 814,
+                "SCFI_South_America": 1393,
+                "SCFI_Japan_West_Coast": 316,
+                "SCFI_Japan_East_Coast": 321,
+                "SCFI_Korea": 147,
+                "SCFI_East_West_Africa": 3729,
+                "SCFI_South_Africa": 2026
+            },
+            {
+                "date": "2025-05-09",
+                "SCFI_Composite_Index": 1345,
+                "SCFI_US_West_Coast": 2347,
+                "SCFI_US_East_Coast": 3335,
+                "SCFI_North_Europe": 1161,
+                "SCFI_Mediterranean": 2089,
+                "SCFI_Southeast_Asia": 430,
+                "SCFI_Middle_East": 1145,
+                "SCFI_Australia_New_Zealand": 771,
+                "SCFI_South_America": 1472,
+                "SCFI_Japan_West_Coast": 316,
+                "SCFI_Japan_East_Coast": 320,
+                "SCFI_Korea": 148,
+                "SCFI_East_West_Africa": 3740,
+                "SCFI_South_Africa": 1975
+            },
+            {
+                "date": "2025-05-16",
+                "SCFI_Composite_Index": 1479,
+                "SCFI_US_West_Coast": 3091,
+                "SCFI_US_East_Coast": 4069,
+                "SCFI_North_Europe": 1154,
+                "SCFI_Mediterranean": 2082,
+                "SCFI_Southeast_Asia": 434,
+                "SCFI_Middle_East": 1191,
+                "SCFI_Australia_New_Zealand": 737,
+                "SCFI_South_America": 1725,
+                "SCFI_Japan_West_Coast": 315,
+                "SCFI_Japan_East_Coast": 320,
+                "SCFI_Korea": 144,
+                "SCFI_East_West_Africa": 3714,
+                "SCFI_South_Africa": 1970
+            },
+            {
+                "date": "2025-05-23",
+                "SCFI_Composite_Index": 1586,
+                "SCFI_US_West_Coast": 3275,
+                "SCFI_US_East_Coast": 4284,
+                "SCFI_North_Europe": 1317,
+                "SCFI_Mediterranean": 2328,
+                "SCFI_Southeast_Asia": 440,
+                "SCFI_Middle_East": 1387,
+                "SCFI_Australia_New_Zealand": 722,
+                "SCFI_South_America": 1934,
+                "SCFI_Japan_West_Coast": 315,
+                "SCFI_Japan_East_Coast": 320,
+                "SCFI_Korea": 140,
+                "SCFI_East_West_Africa": 3776,
+                "SCFI_South_Africa": 1991
+            },
+            {
+                "date": "2025-05-30",
+                "SCFI_Composite_Index": 2073,
+                "SCFI_US_West_Coast": 5172,
+                "SCFI_US_East_Coast": 6243,
+                "SCFI_North_Europe": 1587,
+                "SCFI_Mediterranean": 3061,
+                "SCFI_Southeast_Asia": 441,
+                "SCFI_Middle_East": 1692,
+                "SCFI_Australia_New_Zealand": 709,
+                "SCFI_South_America": 2797,
+                "SCFI_Japan_West_Coast": 315,
+                "SCFI_Japan_East_Coast": 320,
+                "SCFI_Korea": 139,
+                "SCFI_East_West_Africa": 4060,
+                "SCFI_South_Africa": 2242
+            },
+            {
+                "date": "2025-06-05",
+                "SCFI_Composite_Index": 2240,
+                "SCFI_US_West_Coast": 5606,
+                "SCFI_US_East_Coast": 6939,
+                "SCFI_North_Europe": 1667,
+                "SCFI_Mediterranean": 3302,
+                "SCFI_Southeast_Asia": 446,
+                "SCFI_Middle_East": 1929,
+                "SCFI_Australia_New_Zealand": 686,
+                "SCFI_South_America": 3959,
+                "SCFI_Japan_West_Coast": 315,
+                "SCFI_Japan_East_Coast": 320,
+                "SCFI_Korea": 138,
+                "SCFI_East_West_Africa": 4230,
+                "SCFI_South_Africa": 2301
+            },
+            {
+                "date": "2025-06-13",
+                "SCFI_Composite_Index": 2088,
+                "SCFI_US_West_Coast": 4120,
+                "SCFI_US_East_Coast": 6745,
+                "SCFI_North_Europe": 1844,
+                "SCFI_Mediterranean": 3190,
+                "SCFI_Southeast_Asia": 455,
+                "SCFI_Middle_East": 2083,
+                "SCFI_Australia_New_Zealand": 745,
+                "SCFI_South_America": 4724,
+                "SCFI_Japan_West_Coast": 315,
+                "SCFI_Japan_East_Coast": 320,
+                "SCFI_Korea": 136,
+                "SCFI_East_West_Africa": 4382,
+                "SCFI_South_Africa": 2397
+            },
+            {
+                "date": "2025-06-20",
+                "SCFI_Composite_Index": 1870,
+                "SCFI_US_West_Coast": 2772,
+                "SCFI_US_East_Coast": 5352,
+                "SCFI_North_Europe": 1835,
+                "SCFI_Mediterranean": 3063,
+                "SCFI_Southeast_Asia": 460,
+                "SCFI_Middle_East": 2122,
+                "SCFI_Australia_New_Zealand": 763,
+                "SCFI_South_America": 5459,
+                "SCFI_Japan_West_Coast": 315,
+                "SCFI_Japan_East_Coast": 319,
+                "SCFI_Korea": 136,
+                "SCFI_East_West_Africa": 4440,
+                "SCFI_South_Africa": 2476
+            },
+            {
+                "date": "2025-06-27",
+                "SCFI_Composite_Index": 1862,
+                "SCFI_US_West_Coast": 2578,
+                "SCFI_US_East_Coast": 4717,
+                "SCFI_North_Europe": 2030,
+                "SCFI_Mediterranean": 2985,
+                "SCFI_Southeast_Asia": 456,
+                "SCFI_Middle_East": 2060,
+                "SCFI_Australia_New_Zealand": 836,
+                "SCFI_South_America": 6220,
+                "SCFI_Japan_West_Coast": 312,
+                "SCFI_Japan_East_Coast": 321,
+                "SCFI_Korea": 136,
+                "SCFI_East_West_Africa": 4526,
+                "SCFI_South_Africa": 2641
+            },
+            {
+                "date": "2025-07-04",
+                "SCFI_Composite_Index": 1763,
+                "SCFI_US_West_Coast": 2089,
+                "SCFI_US_East_Coast": 4124,
+                "SCFI_North_Europe": 2101,
+                "SCFI_Mediterranean": 2869,
+                "SCFI_Southeast_Asia": 453,
+                "SCFI_Middle_East": 1916,
+                "SCFI_Australia_New_Zealand": 853,
+                "SCFI_South_America": 6374,
+                "SCFI_Japan_West_Coast": 312,
+                "SCFI_Japan_East_Coast": 321,
+                "SCFI_Korea": 136,
+                "SCFI_East_West_Africa": 4500,
+                "SCFI_South_Africa": 2653
+            },
+            {
+                "date": "2025-07-11",
+                "SCFI_Composite_Index": 1733,
+                "SCFI_US_West_Coast": 2194,
+                "SCFI_US_East_Coast": 4172,
+                "SCFI_North_Europe": 2099,
+                "SCFI_Mediterranean": 2667,
+                "SCFI_Southeast_Asia": 451,
+                "SCFI_Middle_East": 1607,
+                "SCFI_Australia_New_Zealand": 1021,
+                "SCFI_South_America": 6221,
+                "SCFI_Japan_West_Coast": 312,
+                "SCFI_Japan_East_Coast": 321,
+                "SCFI_Korea": 136,
+                "SCFI_East_West_Africa": 4437,
+                "SCFI_South_Africa": 2828
+            },
+            {
+                "date": "2025-07-18",
+                "SCFI_Composite_Index": 1647,
+                "SCFI_US_West_Coast": 2142,
+                "SCFI_US_East_Coast": 3612,
+                "SCFI_North_Europe": 2079,
+                "SCFI_Mediterranean": 2528,
+                "SCFI_Southeast_Asia": 442,
+                "SCFI_Middle_East": 1321,
+                "SCFI_Australia_New_Zealand": 1042,
+                "SCFI_South_America": 5628,
+                "SCFI_Japan_West_Coast": 313,
+                "SCFI_Japan_East_Coast": 322,
+                "SCFI_Korea": 136,
+                "SCFI_East_West_Africa": 4312,
+                "SCFI_South_Africa": 2851
+            }
+        ],
         "WCI": [
             {
                 "date": "2024-08-01",
@@ -860,8 +1694,8 @@
                 "WCI_Shanghai_Rotterdam": 8500,
                 "WCI_Rotterdam_Shanghai": 626,
                 "WCI_Shanghai_Genoa": 7610,
-                "WCI_Shanghai_Los_Angeles": 6740,
-                "WCI_Los_Angeles_Shanghai": 707,
+                "WCI_Shanghai_to_Los_Angeles": 6740,
+                "WCI_Los_Angeles_to_Shanghai": 707,
                 "WCI_Shanghai_New_York": 9166,
                 "WCI_New_York_Rotterdam": 768,
                 "WCI_Rotterdam_New_York": 1945
@@ -872,8 +1706,8 @@
                 "WCI_Shanghai_Rotterdam": 7929,
                 "WCI_Rotterdam_Shanghai": 630,
                 "WCI_Shanghai_Genoa": 7309,
-                "WCI_Shanghai_Los_Angeles": 6501,
-                "WCI_Los_Angeles_Shanghai": 707,
+                "WCI_Shanghai_to_Los_Angeles": 6501,
+                "WCI_Los_Angeles_to_Shanghai": 707,
                 "WCI_Shanghai_New_York": 8931,
                 "WCI_New_York_Rotterdam": 766,
                 "WCI_Rotterdam_New_York": 1967
@@ -884,8 +1718,8 @@
                 "WCI_Shanghai_Rotterdam": 7756,
                 "WCI_Rotterdam_Shanghai": 630,
                 "WCI_Shanghai_Genoa": 7182,
-                "WCI_Shanghai_Los_Angeles": 6303,
-                "WCI_Los_Angeles_Shanghai": 707,
+                "WCI_Shanghai_to_Los_Angeles": 6303,
+                "WCI_Los_Angeles_to_Shanghai": 707,
                 "WCI_Shanghai_New_York": 8764,
                 "WCI_New_York_Rotterdam": 762,
                 "WCI_Rotterdam_New_York": 1961
@@ -896,8 +1730,8 @@
                 "WCI_Shanghai_Rotterdam": 7756,
                 "WCI_Rotterdam_Shanghai": 630,
                 "WCI_Shanghai_Genoa": 7182,
-                "WCI_Shanghai_Los_Angeles": 6303,
-                "WCI_Los_Angeles_Shanghai": 707,
+                "WCI_Shanghai_to_Los_Angeles": 6303,
+                "WCI_Los_Angeles_to_Shanghai": 707,
                 "WCI_Shanghai_New_York": 8764,
                 "WCI_New_York_Rotterdam": 762,
                 "WCI_Rotterdam_New_York": 1961
@@ -908,8 +1742,8 @@
                 "WCI_Shanghai_Rotterdam": 7204,
                 "WCI_Rotterdam_Shanghai": 622,
                 "WCI_Shanghai_Genoa": 6611,
-                "WCI_Shanghai_Los_Angeles": 6248,
-                "WCI_Los_Angeles_Shanghai": 710,
+                "WCI_Shanghai_to_Los_Angeles": 6248,
+                "WCI_Los_Angeles_to_Shanghai": 710,
                 "WCI_Shanghai_New_York": 8591,
                 "WCI_New_York_Rotterdam": 743,
                 "WCI_Rotterdam_New_York": 1908
@@ -920,8 +1754,8 @@
                 "WCI_Shanghai_Rotterdam": 6219,
                 "WCI_Rotterdam_Shanghai": 612,
                 "WCI_Shanghai_Genoa": 5842,
-                "WCI_Shanghai_Los_Angeles": 6030,
-                "WCI_Los_Angeles_Shanghai": 714,
+                "WCI_Shanghai_to_Los_Angeles": 6030,
+                "WCI_Los_Angeles_to_Shanghai": 714,
                 "WCI_Shanghai_New_York": 8451,
                 "WCI_New_York_Rotterdam": 732,
                 "WCI_Rotterdam_New_York": 2212
@@ -932,8 +1766,8 @@
                 "WCI_Shanghai_Rotterdam": 5152,
                 "WCI_Rotterdam_Shanghai": 606,
                 "WCI_Shanghai_Genoa": 5256,
-                "WCI_Shanghai_Los_Angeles": 5627,
-                "WCI_Los_Angeles_Shanghai": 718,
+                "WCI_Shanghai_to_Los_Angeles": 5627,
+                "WCI_Los_Angeles_to_Shanghai": 718,
                 "WCI_Shanghai_New_York": 6661,
                 "WCI_New_York_Rotterdam": 704,
                 "WCI_Rotterdam_New_York": 2011
@@ -944,8 +1778,8 @@
                 "WCI_Shanghai_Rotterdam": 4682,
                 "WCI_Rotterdam_Shanghai": 603,
                 "WCI_Shanghai_Genoa": 4928,
-                "WCI_Shanghai_Los_Angeles": 5580,
-                "WCI_Los_Angeles_Shanghai": 717,
+                "WCI_Shanghai_to_Los_Angeles": 5580,
+                "WCI_Los_Angeles_to_Shanghai": 717,
                 "WCI_Shanghai_New_York": 6364,
                 "WCI_New_York_Rotterdam": 713,
                 "WCI_Rotterdam_New_York": 2056
@@ -956,8 +1790,8 @@
                 "WCI_Shanghai_Rotterdam": 4157,
                 "WCI_Rotterdam_Shanghai": 600,
                 "WCI_Shanghai_Genoa": 4212,
-                "WCI_Shanghai_Los_Angeles": 5490,
-                "WCI_Los_Angeles_Shanghai": 717,
+                "WCI_Shanghai_to_Los_Angeles": 5490,
+                "WCI_Los_Angeles_to_Shanghai": 717,
                 "WCI_Shanghai_New_York": 6028,
                 "WCI_New_York_Rotterdam": 722,
                 "WCI_Rotterdam_New_York": 2067
@@ -968,8 +1802,8 @@
                 "WCI_Shanghai_Rotterdam": 3815,
                 "WCI_Rotterdam_Shanghai": 590,
                 "WCI_Shanghai_Genoa": 3848,
-                "WCI_Shanghai_Los_Angeles": 5258,
-                "WCI_Los_Angeles_Shanghai": 715,
+                "WCI_Shanghai_to_Los_Angeles": 5258,
+                "WCI_Los_Angeles_to_Shanghai": 715,
                 "WCI_Shanghai_New_York": 5922,
                 "WCI_New_York_Rotterdam": 724,
                 "WCI_Rotterdam_New_York": 2061
@@ -980,8 +1814,8 @@
                 "WCI_Shanghai_Rotterdam": 3591,
                 "WCI_Rotterdam_Shanghai": 543,
                 "WCI_Shanghai_Genoa": 3784,
-                "WCI_Shanghai_Los_Angeles": 5019,
-                "WCI_Los_Angeles_Shanghai": 716,
+                "WCI_Shanghai_to_Los_Angeles": 5019,
+                "WCI_Los_Angeles_to_Shanghai": 716,
                 "WCI_Shanghai_New_York": 5761,
                 "WCI_New_York_Rotterdam": 730,
                 "WCI_Rotterdam_New_York": 2083
@@ -992,8 +1826,8 @@
                 "WCI_Shanghai_Rotterdam": 3373,
                 "WCI_Rotterdam_Shanghai": 547,
                 "WCI_Shanghai_Genoa": 3438,
-                "WCI_Shanghai_Los_Angeles": 4941,
-                "WCI_Los_Angeles_Shanghai": 716,
+                "WCI_Shanghai_to_Los_Angeles": 4941,
+                "WCI_Los_Angeles_to_Shanghai": 716,
                 "WCI_Shanghai_New_York": 5609,
                 "WCI_New_York_Rotterdam": 729,
                 "WCI_Rotterdam_New_York": 2083
@@ -1004,8 +1838,8 @@
                 "WCI_Shanghai_Rotterdam": 3132,
                 "WCI_Rotterdam_Shanghai": 548,
                 "WCI_Shanghai_Genoa": 3296,
-                "WCI_Shanghai_Los_Angeles": 4814,
-                "WCI_Los_Angeles_Shanghai": 710,
+                "WCI_Shanghai_to_Los_Angeles": 4814,
+                "WCI_Los_Angeles_to_Shanghai": 710,
                 "WCI_Shanghai_New_York": 5266,
                 "WCI_New_York_Rotterdam": 761,
                 "WCI_Rotterdam_New_York": 2663
@@ -1016,8 +1850,8 @@
                 "WCI_Shanghai_Rotterdam": 3396,
                 "WCI_Rotterdam_Shanghai": 543,
                 "WCI_Shanghai_Genoa": 3648,
-                "WCI_Shanghai_Los_Angeles": 4839,
-                "WCI_Los_Angeles_Shanghai": 718,
+                "WCI_Shanghai_to_Los_Angeles": 4839,
+                "WCI_Los_Angeles_to_Shanghai": 718,
                 "WCI_Shanghai_New_York": 5241,
                 "WCI_New_York_Rotterdam": 760,
                 "WCI_Rotterdam_New_York": 2664
@@ -1028,8 +1862,8 @@
                 "WCI_Shanghai_Rotterdam": 3954,
                 "WCI_Rotterdam_Shanghai": 524,
                 "WCI_Shanghai_Genoa": 4399,
-                "WCI_Shanghai_Los_Angeles": 4806,
-                "WCI_Los_Angeles_Shanghai": 720,
+                "WCI_Shanghai_to_Los_Angeles": 4806,
+                "WCI_Los_Angeles_to_Shanghai": 720,
                 "WCI_Shanghai_New_York": 5223,
                 "WCI_New_York_Rotterdam": 785,
                 "WCI_Rotterdam_New_York": 2624
@@ -1040,8 +1874,8 @@
                 "WCI_Shanghai_Rotterdam": 4043,
                 "WCI_Rotterdam_Shanghai": 521,
                 "WCI_Shanghai_Genoa": 4400,
-                "WCI_Shanghai_Los_Angeles": 4700,
-                "WCI_Los_Angeles_Shanghai": 720,
+                "WCI_Shanghai_to_Los_Angeles": 4700,
+                "WCI_Los_Angeles_to_Shanghai": 720,
                 "WCI_Shanghai_New_York": 5222,
                 "WCI_New_York_Rotterdam": 782,
                 "WCI_Rotterdam_New_York": 2658
@@ -1052,8 +1886,8 @@
                 "WCI_Shanghai_Rotterdam": 4071,
                 "WCI_Rotterdam_Shanghai": 517,
                 "WCI_Shanghai_Genoa": 4520,
-                "WCI_Shanghai_Los_Angeles": 4488,
-                "WCI_Los_Angeles_Shanghai": 723,
+                "WCI_Shanghai_to_Los_Angeles": 4488,
+                "WCI_Los_Angeles_to_Shanghai": 723,
                 "WCI_Shanghai_New_York": 5210,
                 "WCI_New_York_Rotterdam": 793,
                 "WCI_Rotterdam_New_York": 2672
@@ -1064,8 +1898,8 @@
                 "WCI_Shanghai_Rotterdam": 3997,
                 "WCI_Rotterdam_Shanghai": 518,
                 "WCI_Shanghai_Genoa": 4490,
-                "WCI_Shanghai_Los_Angeles": 4250,
-                "WCI_Los_Angeles_Shanghai": 721,
+                "WCI_Shanghai_to_Los_Angeles": 4250,
+                "WCI_Los_Angeles_to_Shanghai": 721,
                 "WCI_Shanghai_New_York": 5182,
                 "WCI_New_York_Rotterdam": 789,
                 "WCI_Rotterdam_New_York": 2665
@@ -1076,8 +1910,8 @@
                 "WCI_Shanghai_Rotterdam": 4775,
                 "WCI_Rotterdam_Shanghai": 514,
                 "WCI_Shanghai_Genoa": 5496,
-                "WCI_Shanghai_Los_Angeles": 3719,
-                "WCI_Los_Angeles_Shanghai": 721,
+                "WCI_Shanghai_to_Los_Angeles": 3719,
+                "WCI_Los_Angeles_to_Shanghai": 721,
                 "WCI_Shanghai_New_York": 5160,
                 "WCI_New_York_Rotterdam": 807,
                 "WCI_Rotterdam_New_York": 2649
@@ -1088,8 +1922,8 @@
                 "WCI_Shanghai_Rotterdam": 4855,
                 "WCI_Rotterdam_Shanghai": 520,
                 "WCI_Shanghai_Genoa": 5526,
-                "WCI_Shanghai_Los_Angeles": 3582,
-                "WCI_Los_Angeles_Shanghai": 726,
+                "WCI_Shanghai_to_Los_Angeles": 3582,
+                "WCI_Los_Angeles_to_Shanghai": 726,
                 "WCI_Shanghai_New_York": 5199,
                 "WCI_New_York_Rotterdam": 830,
                 "WCI_Rotterdam_New_York": 2622
@@ -1100,8 +1934,8 @@
                 "WCI_Shanghai_Rotterdam": 4819,
                 "WCI_Rotterdam_Shanghai": 508,
                 "WCI_Shanghai_Genoa": 5424,
-                "WCI_Shanghai_Los_Angeles": 4499,
-                "WCI_Los_Angeles_Shanghai": 726,
+                "WCI_Shanghai_to_Los_Angeles": 4499,
+                "WCI_Los_Angeles_to_Shanghai": 726,
                 "WCI_Shanghai_New_York": 6074,
                 "WCI_New_York_Rotterdam": 824,
                 "WCI_Rotterdam_New_York": 2713
@@ -1112,8 +1946,8 @@
                 "WCI_Shanghai_Rotterdam": 4819,
                 "WCI_Rotterdam_Shanghai": 508,
                 "WCI_Shanghai_Genoa": 5424,
-                "WCI_Shanghai_Los_Angeles": 4499,
-                "WCI_Los_Angeles_Shanghai": 726,
+                "WCI_Shanghai_to_Los_Angeles": 4499,
+                "WCI_Los_Angeles_to_Shanghai": 726,
                 "WCI_Shanghai_New_York": 6074,
                 "WCI_New_York_Rotterdam": 824,
                 "WCI_Rotterdam_New_York": 2713
@@ -1124,8 +1958,8 @@
                 "WCI_Shanghai_Rotterdam": 4774,
                 "WCI_Rotterdam_Shanghai": 516,
                 "WCI_Shanghai_Genoa": 5420,
-                "WCI_Shanghai_Los_Angeles": 4829,
-                "WCI_Los_Angeles_Shanghai": 728,
+                "WCI_Shanghai_to_Los_Angeles": 4829,
+                "WCI_Los_Angeles_to_Shanghai": 728,
                 "WCI_Shanghai_New_York": 6445,
                 "WCI_New_York_Rotterdam": 838,
                 "WCI_Rotterdam_New_York": 2720
@@ -1136,8 +1970,8 @@
                 "WCI_Shanghai_Rotterdam": 4375,
                 "WCI_Rotterdam_Shanghai": 522,
                 "WCI_Shanghai_Genoa": 5210,
-                "WCI_Shanghai_Los_Angeles": 5476,
-                "WCI_Los_Angeles_Shanghai": 719,
+                "WCI_Shanghai_to_Los_Angeles": 5476,
+                "WCI_Los_Angeles_to_Shanghai": 719,
                 "WCI_Shanghai_New_York": 7085,
                 "WCI_New_York_Rotterdam": 828,
                 "WCI_Rotterdam_New_York": 2698
@@ -1148,8 +1982,8 @@
                 "WCI_Shanghai_Rotterdam": 4231,
                 "WCI_Rotterdam_Shanghai": 518,
                 "WCI_Shanghai_Genoa": 5086,
-                "WCI_Shanghai_Los_Angeles": 5228,
-                "WCI_Los_Angeles_Shanghai": 725,
+                "WCI_Shanghai_to_Los_Angeles": 5228,
+                "WCI_Los_Angeles_to_Shanghai": 725,
                 "WCI_Shanghai_New_York": 6825,
                 "WCI_New_York_Rotterdam": 828,
                 "WCI_Rotterdam_New_York": 2798
@@ -1160,8 +1994,8 @@
                 "WCI_Shanghai_Rotterdam": 3434,
                 "WCI_Rotterdam_Shanghai": 515,
                 "WCI_Shanghai_Genoa": 4562,
-                "WCI_Shanghai_Los_Angeles": 4813,
-                "WCI_Los_Angeles_Shanghai": 721,
+                "WCI_Shanghai_to_Los_Angeles": 4813,
+                "WCI_Los_Angeles_to_Shanghai": 721,
                 "WCI_Shanghai_New_York": 6377,
                 "WCI_New_York_Rotterdam": 821,
                 "WCI_Rotterdam_New_York": 2778
@@ -1172,8 +2006,8 @@
                 "WCI_Shanghai_Rotterdam": 3274,
                 "WCI_Rotterdam_Shanghai": 518,
                 "WCI_Shanghai_Genoa": 4400,
-                "WCI_Shanghai_Los_Angeles": 4771,
-                "WCI_Los_Angeles_Shanghai": 721,
+                "WCI_Shanghai_to_Los_Angeles": 4771,
+                "WCI_Los_Angeles_to_Shanghai": 721,
                 "WCI_Shanghai_New_York": 6288,
                 "WCI_New_York_Rotterdam": 839,
                 "WCI_Rotterdam_New_York": 2732
@@ -1184,8 +2018,8 @@
                 "WCI_Shanghai_Rotterdam": 3125,
                 "WCI_Rotterdam_Shanghai": 498,
                 "WCI_Shanghai_Genoa": 4236,
-                "WCI_Shanghai_Los_Angeles": 4717,
-                "WCI_Los_Angeles_Shanghai": 707,
+                "WCI_Shanghai_to_Los_Angeles": 4717,
+                "WCI_Los_Angeles_to_Shanghai": 707,
                 "WCI_Shanghai_New_York": 6212,
                 "WCI_New_York_Rotterdam": 833,
                 "WCI_Rotterdam_New_York": 2469
@@ -1196,8 +2030,8 @@
                 "WCI_Shanghai_Rotterdam": 2887,
                 "WCI_Rotterdam_Shanghai": 496,
                 "WCI_Shanghai_Genoa": 4163,
-                "WCI_Shanghai_Los_Angeles": 4392,
-                "WCI_Los_Angeles_Shanghai": 703,
+                "WCI_Shanghai_to_Los_Angeles": 4392,
+                "WCI_Los_Angeles_to_Shanghai": 703,
                 "WCI_Shanghai_New_York": 5874,
                 "WCI_New_York_Rotterdam": 832,
                 "WCI_Rotterdam_New_York": 2463
@@ -1208,8 +2042,8 @@
                 "WCI_Shanghai_Rotterdam": 2618,
                 "WCI_Rotterdam_Shanghai": 498,
                 "WCI_Shanghai_Genoa": 3837,
-                "WCI_Shanghai_Los_Angeles": 3888,
-                "WCI_Los_Angeles_Shanghai": 701,
+                "WCI_Shanghai_to_Los_Angeles": 3888,
+                "WCI_Los_Angeles_to_Shanghai": 701,
                 "WCI_Shanghai_New_York": 5126,
                 "WCI_New_York_Rotterdam": 829,
                 "WCI_Rotterdam_New_York": 2394
@@ -1220,8 +2054,8 @@
                 "WCI_Shanghai_Rotterdam": 2586,
                 "WCI_Rotterdam_Shanghai": 503,
                 "WCI_Shanghai_Genoa": 3747,
-                "WCI_Shanghai_Los_Angeles": 3477,
-                "WCI_Los_Angeles_Shanghai": 700,
+                "WCI_Shanghai_to_Los_Angeles": 3477,
+                "WCI_Los_Angeles_to_Shanghai": 700,
                 "WCI_Shanghai_New_York": 4593,
                 "WCI_New_York_Rotterdam": 835,
                 "WCI_Rotterdam_New_York": 2374
@@ -1232,8 +2066,8 @@
                 "WCI_Shanghai_Rotterdam": 2636,
                 "WCI_Rotterdam_Shanghai": 483,
                 "WCI_Shanghai_Genoa": 3745,
-                "WCI_Shanghai_Los_Angeles": 3166,
-                "WCI_Los_Angeles_Shanghai": 701,
+                "WCI_Shanghai_to_Los_Angeles": 3166,
+                "WCI_Los_Angeles_to_Shanghai": 701,
                 "WCI_Shanghai_New_York": 4320,
                 "WCI_New_York_Rotterdam": 845,
                 "WCI_Rotterdam_New_York": 2359
@@ -1244,8 +2078,8 @@
                 "WCI_Shanghai_Rotterdam": 2512,
                 "WCI_Rotterdam_Shanghai": 490,
                 "WCI_Shanghai_Genoa": 3333,
-                "WCI_Shanghai_Los_Angeles": 2906,
-                "WCI_Los_Angeles_Shanghai": 702,
+                "WCI_Shanghai_to_Los_Angeles": 2906,
+                "WCI_Los_Angeles_to_Shanghai": 702,
                 "WCI_Shanghai_New_York": 4038,
                 "WCI_New_York_Rotterdam": 854,
                 "WCI_Rotterdam_New_York": 2373
@@ -1256,8 +2090,8 @@
                 "WCI_Shanghai_Rotterdam": 2463,
                 "WCI_Rotterdam_Shanghai": 484,
                 "WCI_Shanghai_Genoa": 3286,
-                "WCI_Shanghai_Los_Angeles": 2658,
-                "WCI_Los_Angeles_Shanghai": 702,
+                "WCI_Shanghai_to_Los_Angeles": 2658,
+                "WCI_Los_Angeles_to_Shanghai": 702,
                 "WCI_Shanghai_New_York": 3774,
                 "WCI_New_York_Rotterdam": 846,
                 "WCI_Rotterdam_New_York": 2316
@@ -1268,8 +2102,8 @@
                 "WCI_Shanghai_Rotterdam": 2370,
                 "WCI_Rotterdam_Shanghai": 500,
                 "WCI_Shanghai_Genoa": 3171,
-                "WCI_Shanghai_Los_Angeles": 2487,
-                "WCI_Los_Angeles_Shanghai": 709,
+                "WCI_Shanghai_to_Los_Angeles": 2487,
+                "WCI_Los_Angeles_to_Shanghai": 709,
                 "WCI_Shanghai_New_York": 3374,
                 "WCI_New_York_Rotterdam": 844,
                 "WCI_Rotterdam_New_York": 2162
@@ -1280,8 +2114,8 @@
                 "WCI_Shanghai_Rotterdam": 2304,
                 "WCI_Rotterdam_Shanghai": 466,
                 "WCI_Shanghai_Genoa": 3031,
-                "WCI_Shanghai_Los_Angeles": 2726,
-                "WCI_Los_Angeles_Shanghai": 705,
+                "WCI_Shanghai_to_Los_Angeles": 2726,
+                "WCI_Los_Angeles_to_Shanghai": 705,
                 "WCI_Shanghai_New_York": 3894,
                 "WCI_New_York_Rotterdam": 831,
                 "WCI_Rotterdam_New_York": 2124
@@ -1292,8 +2126,8 @@
                 "WCI_Shanghai_Rotterdam": 2392,
                 "WCI_Rotterdam_Shanghai": 475,
                 "WCI_Shanghai_Genoa": 3071,
-                "WCI_Shanghai_Los_Angeles": 2815,
-                "WCI_Los_Angeles_Shanghai": 705,
+                "WCI_Shanghai_to_Los_Angeles": 2815,
+                "WCI_Los_Angeles_to_Shanghai": 705,
                 "WCI_Shanghai_New_York": 3976,
                 "WCI_New_York_Rotterdam": 824,
                 "WCI_Rotterdam_New_York": 2153
@@ -1304,8 +2138,8 @@
                 "WCI_Shanghai_Rotterdam": 2344,
                 "WCI_Rotterdam_Shanghai": 493,
                 "WCI_Shanghai_Genoa": 3018,
-                "WCI_Shanghai_Los_Angeles": 2683,
-                "WCI_Los_Angeles_Shanghai": 705,
+                "WCI_Shanghai_to_Los_Angeles": 2683,
+                "WCI_Los_Angeles_to_Shanghai": 705,
                 "WCI_Shanghai_New_York": 3706,
                 "WCI_New_York_Rotterdam": 817,
                 "WCI_Rotterdam_New_York": 2129
@@ -1316,8 +2150,8 @@
                 "WCI_Shanghai_Rotterdam": 2312,
                 "WCI_Rotterdam_Shanghai": 481,
                 "WCI_Shanghai_Genoa": 3012,
-                "WCI_Shanghai_Los_Angeles": 2617,
-                "WCI_Los_Angeles_Shanghai": 705,
+                "WCI_Shanghai_to_Los_Angeles": 2617,
+                "WCI_Los_Angeles_to_Shanghai": 705,
                 "WCI_Shanghai_New_York": 3611,
                 "WCI_New_York_Rotterdam": 825,
                 "WCI_Rotterdam_New_York": 2109
@@ -1328,8 +2162,8 @@
                 "WCI_Shanghai_Rotterdam": 2202,
                 "WCI_Rotterdam_Shanghai": 464,
                 "WCI_Shanghai_Genoa": 2889,
-                "WCI_Shanghai_Los_Angeles": 2590,
-                "WCI_Los_Angeles_Shanghai": 689,
+                "WCI_Shanghai_to_Los_Angeles": 2590,
+                "WCI_Los_Angeles_to_Shanghai": 689,
                 "WCI_Shanghai_New_York": 3500,
                 "WCI_New_York_Rotterdam": 842,
                 "WCI_Rotterdam_New_York": 2041
@@ -1340,8 +2174,8 @@
                 "WCI_Shanghai_Rotterdam": 2046,
                 "WCI_Rotterdam_Shanghai": 457,
                 "WCI_Shanghai_Genoa": 2766,
-                "WCI_Shanghai_Los_Angeles": 2713,
-                "WCI_Los_Angeles_Shanghai": 706,
+                "WCI_Shanghai_to_Los_Angeles": 2713,
+                "WCI_Los_Angeles_to_Shanghai": 706,
                 "WCI_Shanghai_New_York": 3646,
                 "WCI_New_York_Rotterdam": 814,
                 "WCI_Rotterdam_New_York": 1972
@@ -1352,8 +2186,8 @@
                 "WCI_Shanghai_Rotterdam": 2035,
                 "WCI_Rotterdam_Shanghai": 457,
                 "WCI_Shanghai_Genoa": 2742,
-                "WCI_Shanghai_Los_Angeles": 3136,
-                "WCI_Los_Angeles_Shanghai": 709,
+                "WCI_Shanghai_to_Los_Angeles": 3136,
+                "WCI_Los_Angeles_to_Shanghai": 709,
                 "WCI_Shanghai_New_York": 4350,
                 "WCI_New_York_Rotterdam": 824,
                 "WCI_Rotterdam_New_York": 1961
@@ -1364,8 +2198,8 @@
                 "WCI_Shanghai_Rotterdam": 2030,
                 "WCI_Rotterdam_Shanghai": 458,
                 "WCI_Shanghai_Genoa": 2841,
-                "WCI_Shanghai_Los_Angeles": 3197,
-                "WCI_Los_Angeles_Shanghai": 713,
+                "WCI_Shanghai_to_Los_Angeles": 3197,
+                "WCI_Los_Angeles_to_Shanghai": 713,
                 "WCI_Shanghai_New_York": 4527,
                 "WCI_New_York_Rotterdam": 825,
                 "WCI_Rotterdam_New_York": 1952
@@ -1376,8 +2210,8 @@
                 "WCI_Shanghai_Rotterdam": 2159,
                 "WCI_Rotterdam_Shanghai": 462,
                 "WCI_Shanghai_Genoa": 2939,
-                "WCI_Shanghai_Los_Angeles": 3738,
-                "WCI_Los_Angeles_Shanghai": 716,
+                "WCI_Shanghai_to_Los_Angeles": 3738,
+                "WCI_Los_Angeles_to_Shanghai": 716,
                 "WCI_Shanghai_New_York": 5172,
                 "WCI_New_York_Rotterdam": 830,
                 "WCI_Rotterdam_New_York": 1939
@@ -1388,8 +2222,8 @@
                 "WCI_Shanghai_Rotterdam": 2845,
                 "WCI_Rotterdam_Shanghai": 509,
                 "WCI_Shanghai_Genoa": 4068,
-                "WCI_Shanghai_Los_Angeles": 5876,
-                "WCI_Los_Angeles_Shanghai": 716,
+                "WCI_Shanghai_to_Los_Angeles": 5876,
+                "WCI_Los_Angeles_to_Shanghai": 716,
                 "WCI_Shanghai_New_York": 7164,
                 "WCI_New_York_Rotterdam": 821,
                 "WCI_Rotterdam_New_York": 1977
@@ -1400,8 +2234,8 @@
                 "WCI_Shanghai_Rotterdam": 2837,
                 "WCI_Rotterdam_Shanghai": 512,
                 "WCI_Shanghai_Genoa": 4054,
-                "WCI_Shanghai_Los_Angeles": 5914,
-                "WCI_Los_Angeles_Shanghai": 717,
+                "WCI_Shanghai_to_Los_Angeles": 5914,
+                "WCI_Los_Angeles_to_Shanghai": 717,
                 "WCI_Shanghai_New_York": 7285,
                 "WCI_New_York_Rotterdam": 815,
                 "WCI_Rotterdam_New_York": 1982
@@ -1412,8 +2246,8 @@
                 "WCI_Shanghai_Rotterdam": 3171,
                 "WCI_Rotterdam_Shanghai": 517,
                 "WCI_Shanghai_Genoa": 4075,
-                "WCI_Shanghai_Los_Angeles": 4702,
-                "WCI_Los_Angeles_Shanghai": 718,
+                "WCI_Shanghai_to_Los_Angeles": 4702,
+                "WCI_Los_Angeles_to_Shanghai": 718,
                 "WCI_Shanghai_New_York": 6584,
                 "WCI_New_York_Rotterdam": 833,
                 "WCI_Rotterdam_New_York": 1982
@@ -1424,8 +2258,8 @@
                 "WCI_Shanghai_Rotterdam": 3204,
                 "WCI_Rotterdam_Shanghai": 515,
                 "WCI_Shanghai_Genoa": 4100,
-                "WCI_Shanghai_Los_Angeles": 3741,
-                "WCI_Los_Angeles_Shanghai": 717,
+                "WCI_Shanghai_to_Los_Angeles": 3741,
+                "WCI_Los_Angeles_to_Shanghai": 717,
                 "WCI_Shanghai_New_York": 5703,
                 "WCI_New_York_Rotterdam": 826,
                 "WCI_Rotterdam_New_York": 1982
@@ -1436,8 +2270,8 @@
                 "WCI_Shanghai_Rotterdam": 3468,
                 "WCI_Rotterdam_Shanghai": 487,
                 "WCI_Shanghai_Genoa": 3751,
-                "WCI_Shanghai_Los_Angeles": 3180,
-                "WCI_Los_Angeles_Shanghai": 714,
+                "WCI_Shanghai_to_Los_Angeles": 3180,
+                "WCI_Los_Angeles_to_Shanghai": 714,
                 "WCI_Shanghai_New_York": 5070,
                 "WCI_New_York_Rotterdam": 867,
                 "WCI_Rotterdam_New_York": 2119
@@ -1448,8 +2282,8 @@
                 "WCI_Shanghai_Rotterdam": 3384,
                 "WCI_Rotterdam_Shanghai": 487,
                 "WCI_Shanghai_Genoa": 3491,
-                "WCI_Shanghai_Los_Angeles": 2931,
-                "WCI_Los_Angeles_Shanghai": 723,
+                "WCI_Shanghai_to_Los_Angeles": 2931,
+                "WCI_Los_Angeles_to_Shanghai": 723,
                 "WCI_Shanghai_New_York": 4839,
                 "WCI_New_York_Rotterdam": 866,
                 "WCI_Rotterdam_New_York": 1990
@@ -1460,8 +2294,8 @@
                 "WCI_Shanghai_Rotterdam": 3334,
                 "WCI_Rotterdam_Shanghai": 495,
                 "WCI_Shanghai_Genoa": 3450,
-                "WCI_Shanghai_Los_Angeles": 2817,
-                "WCI_Los_Angeles_Shanghai": 720,
+                "WCI_Shanghai_to_Los_Angeles": 2817,
+                "WCI_Los_Angeles_to_Shanghai": 720,
                 "WCI_Shanghai_New_York": 4539,
                 "WCI_New_York_Rotterdam": 876,
                 "WCI_Rotterdam_New_York": 2001
@@ -1472,8 +2306,8 @@
                 "WCI_Shanghai_Rotterdam": 3286,
                 "WCI_Rotterdam_Shanghai": 495,
                 "WCI_Shanghai_Genoa": 3376,
-                "WCI_Shanghai_Los_Angeles": 2675,
-                "WCI_Los_Angeles_Shanghai": 715,
+                "WCI_Shanghai_to_Los_Angeles": 2675,
+                "WCI_Los_Angeles_to_Shanghai": 715,
                 "WCI_Shanghai_New_York": 4210,
                 "WCI_New_York_Rotterdam": 875,
                 "WCI_Rotterdam_New_York": 2033
@@ -5590,12 +6424,142 @@
             ],
             "rows": [
                 {
+                    "route": "KCCI_종합지수",
+                    "current_index": 2199.0,
+                    "previous_index": 2285.0,
+                    "weekly_change": {
+                        "value": "-86.00",
+                        "percentage": "-3.91%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_미주서안",
+                    "current_index": 2126.0,
+                    "previous_index": 2296.0,
+                    "weekly_change": {
+                        "value": "-170.00",
+                        "percentage": "-8.00%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_미주동안",
+                    "current_index": 3652.0,
+                    "previous_index": 3973.0,
+                    "weekly_change": {
+                        "value": "-321.00",
+                        "percentage": "-8.79%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_유럽",
+                    "current_index": 3414.0,
+                    "previous_index": 3410.0,
+                    "weekly_change": {
+                        "value": "4.00",
+                        "percentage": "0.12%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "KCCI_지중해",
+                    "current_index": 3553.0,
+                    "previous_index": 3802.0,
+                    "weekly_change": {
+                        "value": "-249.00",
+                        "percentage": "-7.01%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_중동",
+                    "current_index": 2612.0,
+                    "previous_index": 2624.0,
+                    "weekly_change": {
+                        "value": "-12.00",
+                        "percentage": "-0.46%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_호주",
+                    "current_index": 1919.0,
+                    "previous_index": 1872.0,
+                    "weekly_change": {
+                        "value": "47.00",
+                        "percentage": "2.45%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "KCCI_남미동안",
+                    "current_index": 5888.0,
+                    "previous_index": 6212.0,
+                    "weekly_change": {
+                        "value": "-324.00",
+                        "percentage": "-5.50%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_남미서안",
+                    "current_index": 2645.0,
+                    "previous_index": 2661.0,
+                    "weekly_change": {
+                        "value": "-16.00",
+                        "percentage": "-0.60%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_남아프리카",
+                    "current_index": 3695.0,
+                    "previous_index": 3671.0,
+                    "weekly_change": {
+                        "value": "24.00",
+                        "percentage": "0.65%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "KCCI_서아프리카",
+                    "current_index": 4718.0,
+                    "previous_index": 4721.0,
+                    "weekly_change": {
+                        "value": "-3.00",
+                        "percentage": "-0.06%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "KCCI_중국",
+                    "current_index": 50.0,
+                    "previous_index": 50.0,
+                    "weekly_change": {
+                        "value": "0.00",
+                        "percentage": "0.00%",
+                        "color_class": "text-gray-700"
+                    }
+                },
+                {
+                    "route": "KCCI_일본",
+                    "current_index": 224.0,
+                    "previous_index": 224.0,
+                    "weekly_change": {
+                        "value": "0.00",
+                        "percentage": "0.00%",
+                        "color_class": "text-gray-700"
+                    }
+                },
+                {
                     "route": "KCCI_동남아시아",
                     "current_index": 1035.0,
                     "previous_index": 1042.0,
                     "weekly_change": {
                         "value": "-7.00",
-                        "percentage": "-0.67%",
+                        "percentage": "-0.68%",
                         "color_class": "text-blue-500"
                     }
                 }
@@ -5610,12 +6574,142 @@
             ],
             "rows": [
                 {
+                    "route": "SCFI_종합지수",
+                    "current_index": 1593.0,
+                    "previous_index": 91647.0,
+                    "weekly_change": {
+                        "value": "-90054.00",
+                        "percentage": "-5654.91%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_미주서안",
+                    "current_index": 2067.0,
+                    "previous_index": 2142.0,
+                    "weekly_change": {
+                        "value": "-75.00",
+                        "percentage": "-3.63%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_미주동안",
+                    "current_index": 3378.0,
+                    "previous_index": 3612.0,
+                    "weekly_change": {
+                        "value": "-234.00",
+                        "percentage": "-6.93%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_북유럽",
+                    "current_index": 2090.0,
+                    "previous_index": 2079.0,
+                    "weekly_change": {
+                        "value": "11.00",
+                        "percentage": "0.53%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "SCFI_지중해",
+                    "current_index": 2418.0,
+                    "previous_index": 2528.0,
+                    "weekly_change": {
+                        "value": "-110.00",
+                        "percentage": "-4.55%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_동남아시아",
+                    "current_index": 429.0,
+                    "previous_index": 442.0,
+                    "weekly_change": {
+                        "value": "-13.00",
+                        "percentage": "-3.03%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_중동",
+                    "current_index": 1152.0,
+                    "previous_index": 1321.0,
+                    "weekly_change": {
+                        "value": "-169.00",
+                        "percentage": "-14.67%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_호주/뉴질랜드",
+                    "current_index": 1071.0,
+                    "previous_index": 1042.0,
+                    "weekly_change": {
+                        "value": "29.00",
+                        "percentage": "2.71%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "SCFI_남아메리카",
+                    "current_index": 5188.0,
+                    "previous_index": 5628.0,
+                    "weekly_change": {
+                        "value": "-440.00",
+                        "percentage": "-8.48%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_일본서안",
+                    "current_index": 315.0,
+                    "previous_index": 313.0,
+                    "weekly_change": {
+                        "value": "2.00",
+                        "percentage": "0.63%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "SCFI_일본동안",
+                    "current_index": 324.0,
+                    "previous_index": 322.0,
+                    "weekly_change": {
+                        "value": "2.00",
+                        "percentage": "0.62%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "SCFI_한국",
+                    "current_index": 135.0,
+                    "previous_index": 136.0,
+                    "weekly_change": {
+                        "value": "-1.00",
+                        "percentage": "-0.74%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "SCFI_동부/서부 아프리카",
+                    "current_index": 4273.0,
+                    "previous_index": 4312.0,
+                    "weekly_change": {
+                        "value": "-39.00",
+                        "percentage": "-0.91%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
                     "route": "SCFI_남아공",
                     "current_index": 2961.0,
                     "previous_index": 2851.0,
                     "weekly_change": {
                         "value": "110.00",
-                        "percentage": "3.86%",
+                        "percentage": "3.71%",
                         "color_class": "text-red-500"
                     }
                 }
@@ -5630,12 +6724,92 @@
             ],
             "rows": [
                 {
+                    "route": "WCI_종합지수",
+                    "current_index": 2517.0,
+                    "previous_index": 2602.0,
+                    "weekly_change": {
+                        "value": "-85.00",
+                        "percentage": "-3.38%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "WCI_상하이 → 로테르담",
+                    "current_index": 3286.0,
+                    "previous_index": 3334.0,
+                    "weekly_change": {
+                        "value": "-48.00",
+                        "percentage": "-1.46%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "WCI_로테르담 → 상하이",
+                    "current_index": 495.0,
+                    "previous_index": 495.0,
+                    "weekly_change": {
+                        "value": "0.00",
+                        "percentage": "0.00%",
+                        "color_class": "text-gray-700"
+                    }
+                },
+                {
+                    "route": "WCI_상하이 → 제노바",
+                    "current_index": 3376.0,
+                    "previous_index": 3450.0,
+                    "weekly_change": {
+                        "value": "-74.00",
+                        "percentage": "-2.19%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "WCI_상하이 → 로스엔젤레스",
+                    "current_index": 2675.0,
+                    "previous_index": 2817.0,
+                    "weekly_change": {
+                        "value": "-142.00",
+                        "percentage": "-5.31%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "WCI_로스엔젤레스 → 상하이",
+                    "current_index": 715.0,
+                    "previous_index": 720.0,
+                    "weekly_change": {
+                        "value": "-5.00",
+                        "percentage": "-0.70%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "WCI_상하이 → 뉴욕",
+                    "current_index": 4210.0,
+                    "previous_index": 4539.0,
+                    "weekly_change": {
+                        "value": "-329.00",
+                        "percentage": "-7.81%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "WCI_뉴욕 → 로테르담",
+                    "current_index": 875.0,
+                    "previous_index": 876.0,
+                    "weekly_change": {
+                        "value": "-1.00",
+                        "percentage": "-0.11%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
                     "route": "WCI_로테르담 → 뉴욕",
                     "current_index": 2033.0,
                     "previous_index": 2001.0,
                     "weekly_change": {
                         "value": "32.00",
-                        "percentage": "1.60%",
+                        "percentage": "1.57%",
                         "color_class": "text-red-500"
                     }
                 }
@@ -5655,7 +6829,7 @@
                     "previous_index": 814.0,
                     "weekly_change": {
                         "value": "-109.00",
-                        "percentage": "-13.39%",
+                        "percentage": "-15.42%",
                         "color_class": "text-blue-500"
                     }
                 }
@@ -5736,12 +6910,132 @@
             ],
             "rows": [
                 {
+                    "route": "FBX_종합지수",
+                    "current_index": 2370.0,
+                    "previous_index": 2458.0,
+                    "weekly_change": {
+                        "value": "-88.00",
+                        "percentage": "-3.71%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_중국/동아시아 → 미주서안",
+                    "current_index": 2334.0,
+                    "previous_index": 2325.0,
+                    "weekly_change": {
+                        "value": "9.00",
+                        "percentage": "0.39%",
+                        "color_class": "text-red-500"
+                    }
+                },
+                {
+                    "route": "FBX_미주서안 → 중국/동아시아",
+                    "current_index": 430.0,
+                    "previous_index": 430.0,
+                    "weekly_change": {
+                        "value": "0.00",
+                        "percentage": "0.00%",
+                        "color_class": "text-gray-700"
+                    }
+                },
+                {
+                    "route": "FBX_중국/동아시아 → 미주동안",
+                    "current_index": 4113.0,
+                    "previous_index": 4411.0,
+                    "weekly_change": {
+                        "value": "-298.00",
+                        "percentage": "-7.25%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_미주동안 → 중국/동아시아",
+                    "current_index": 384.0,
+                    "previous_index": 393.0,
+                    "weekly_change": {
+                        "value": "-9.00",
+                        "percentage": "-2.34%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_중국/동아시아 → 북유럽",
+                    "current_index": 3419.0,
+                    "previous_index": 3572.0,
+                    "weekly_change": {
+                        "value": "-153.00",
+                        "percentage": "-4.47%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_북유럽 → 중국/동아시아",
+                    "current_index": 435.0,
+                    "previous_index": 436.0,
+                    "weekly_change": {
+                        "value": "-1.00",
+                        "percentage": "-0.23%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_중국/동아시아 → 지중해",
+                    "current_index": 3399.0,
+                    "previous_index": 3568.0,
+                    "weekly_change": {
+                        "value": "-169.00",
+                        "percentage": "-4.97%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_지중해 → 중국/동아시아",
+                    "current_index": 542.0,
+                    "previous_index": 566.0,
+                    "weekly_change": {
+                        "value": "-24.00",
+                        "percentage": "-4.43%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_미주동안 → 북유럽",
+                    "current_index": 498.0,
+                    "previous_index": 513.0,
+                    "weekly_change": {
+                        "value": "-15.00",
+                        "percentage": "-3.01%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "FBX_북유럽 → 미주동안",
+                    "current_index": 1929.0,
+                    "previous_index": 1929.0,
+                    "weekly_change": {
+                        "value": "0.00",
+                        "percentage": "0.00%",
+                        "color_class": "text-gray-700"
+                    }
+                },
+                {
+                    "route": "FBX_유럽 → 남미동안",
+                    "current_index": 714.0,
+                    "previous_index": 725.0,
+                    "weekly_change": {
+                        "value": "-11.00",
+                        "percentage": "-1.54%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
                     "route": "FBX_유럽 → 남미서안",
                     "current_index": 3154.0,
                     "previous_index": 3241.0,
                     "weekly_change": {
                         "value": "-87.00",
-                        "percentage": "-2.68%",
+                        "percentage": "-2.76%",
                         "color_class": "text-blue-500"
                     }
                 }
@@ -5756,12 +7050,82 @@
             ],
             "rows": [
                 {
+                    "route": "XSI_동아시아 → 북유럽",
+                    "current_index": 3400.0,
+                    "previous_index": 3419.0,
+                    "weekly_change": {
+                        "value": "-19.00",
+                        "percentage": "-0.56%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "XSI_북유럽 → 동아시아",
+                    "current_index": 234.0,
+                    "previous_index": 236.0,
+                    "weekly_change": {
+                        "value": "-2.00",
+                        "percentage": "-0.85%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "XSI_동아시아 → 미주서안",
+                    "current_index": 2228.0,
+                    "previous_index": 2236.0,
+                    "weekly_change": {
+                        "value": "-8.00",
+                        "percentage": "-0.36%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "XSI_미주서안 → 동아시아",
+                    "current_index": 630.0,
+                    "previous_index": 639.0,
+                    "weekly_change": {
+                        "value": "-9.00",
+                        "percentage": "-1.43%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "XSI_동아시아 → 남미동안",
+                    "current_index": 5928.0,
+                    "previous_index": 6749.0,
+                    "weekly_change": {
+                        "value": "-821.00",
+                        "percentage": "-13.85%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "XSI_북유럽 → 미주동안",
+                    "current_index": 1991.0,
+                    "previous_index": 2001.0,
+                    "weekly_change": {
+                        "value": "-10.00",
+                        "percentage": "-0.50%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
+                    "route": "XSI_미주동안 → 북유럽",
+                    "current_index": 645.0,
+                    "previous_index": 669.0,
+                    "weekly_change": {
+                        "value": "-24.00",
+                        "percentage": "-3.72%",
+                        "color_class": "text-blue-500"
+                    }
+                },
+                {
                     "route": "XSI_북유럽 → 남미동안",
                     "current_index": 618.0,
                     "previous_index": 626.0,
                     "weekly_change": {
                         "value": "-8.00",
-                        "percentage": "-1.28%",
+                        "percentage": "-1.29%",
                         "color_class": "text-blue-500"
                     }
                 }
@@ -5781,7 +7145,7 @@
                     "previous_index": 1379.0,
                     "weekly_change": {
                         "value": "36.00",
-                        "percentage": "2.61%",
+                        "percentage": "2.54%",
                         "color_class": "text-red-500"
                     }
                 }
@@ -5790,9 +7154,9 @@
     },
     "weather_data": {
         "current": {
-            "LA_Temperature": "79.75",
+            "LA_Temperature": "78.76",
             "LA_WeatherStatus": "맑음(clear sky)",
-            "LA_Humidity": "57",
+            "LA_Humidity": "59",
             "LA_WindSpeed": "10.36",
             "LA_Pressure": "1017",
             "LA_Visibility": "6.2",
@@ -5803,7 +7167,7 @@
             {
                 "date": "7/29/2025",
                 "min_temp": "67.3",
-                "max_temp": "79.7",
+                "max_temp": "79.8",
                 "status": "맑음(clear sky)"
             },
             {
