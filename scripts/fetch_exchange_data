@@ -1,0 +1,69 @@
+import gspread
+import json
+import os
+import traceback
+
+# 환율 데이터 워크시트 이름 정의
+EXCHANGE_RATE_WORKSHEET_NAME = "환율"
+
+def fetch_exchange_rate_data(spreadsheet: gspread.Spreadsheet):
+    """
+    Google Sheet에서 환율 데이터를 가져와 처리합니다.
+
+    Args:
+        spreadsheet: gspread.Spreadsheet 객체.
+
+    Returns:
+        dict: 환율 데이터를 포함하는 딕셔너리.
+              오류 발생 시 빈 딕셔너리를 반환합니다.
+    """
+    try:
+        exchange_rate_worksheet = spreadsheet.worksheet(EXCHANGE_RATE_WORKSHEET_NAME)
+        exchange_rate_data_raw = exchange_rate_worksheet.get_all_values()
+
+        exchange_rate = {}
+        if len(exchange_rate_data_raw) >= 2: # 헤더와 최소 한 개의 데이터 행이 있는지 확인
+            # 헤더는 첫 번째 행 (인덱스 0)
+            exchange_headers = [h.strip() for h in exchange_rate_data_raw[0]]
+            # 데이터는 두 번째 행 (인덱스 1)
+            exchange_values = exchange_rate_data_raw[1]
+
+            # 각 통화에 대해 데이터 처리
+            for i, header in enumerate(exchange_headers):
+                if i < len(exchange_values):
+                    val = exchange_values[i].strip().replace(',', '')
+                    exchange_rate[header] = float(val) if val and val.replace('.', '', 1).isdigit() else None
+        
+        print(f"DEBUG: Exchange Rate Data: {exchange_rate}")
+        return exchange_rate
+
+    except Exception as e:
+        print(f"환율 데이터를 가져오는 중 오류 발생: {e}")
+        traceback.print_exc()
+        return {}
+
+# 이 파일이 독립적으로 실행될 때를 위한 테스트 코드 (실제 환경에서는 사용되지 않음)
+if __name__ == "__main__":
+    # 실제 환경에서는 환경 변수를 통해 자격 증명을 설정해야 합니다.
+    # 테스트를 위해 더미 값 또는 실제 자격 증명을 여기에 설정할 수 있습니다.
+    # 예: os.environ["SPREADSHEET_ID"] = "YOUR_SPREADSHEET_ID"
+    # 예: os.environ["GOOGLE_CREDENTIAL_JSON"] = json.dumps({"type": "service_account", ...})
+
+    # 이 테스트 코드는 실제 gspread.Spreadsheet 객체가 필요합니다.
+    # 실제 Google Sheet에 연결하려면 아래 주석을 해제하고 유효한 자격 증명을 제공하세요.
+    # try:
+    #     SPREADSHEET_ID = os.environ.get("SPREADSHEET_ID")
+    #     GOOGLE_CREDENTIAL_JSON = os.environ.get("GOOGLE_CREDENTIAL_JSON")
+    #     if SPREADSHEET_ID and GOOGLE_CREDENTIAL_JSON:
+    #         credentials_dict = json.loads(GOOGLE_CREDENTIAL_JSON)
+    #         gc = gspread.service_account_from_dict(credentials_dict)
+    #         spreadsheet = gc.open_by_key(SPREADSHEET_ID)
+    #         exchange_data = fetch_exchange_rate_data(spreadsheet)
+    #         print("\n--- Fetched Exchange Rate Data (Test) ---")
+    #         print(json.dumps(exchange_data, indent=2, ensure_ascii=False))
+    #     else:
+    #         print("환경 변수가 설정되지 않아 환율 데이터를 테스트할 수 없습니다.")
+    # except Exception as e:
+    #     print(f"환율 데이터 테스트 중 오류 발생: {e}")
+    #     traceback.print_exc()
+    pass
