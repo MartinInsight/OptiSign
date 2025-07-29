@@ -6,10 +6,11 @@ import traceback
 
 # WEATHER_WORKSHEET_NAME을 전역으로 정의
 WEATHER_WORKSHEET_NAME = "LA날씨"
+print(f"DEBUG: fetch_la_weather_data.py - WEATHER_WORKSHEET_NAME: {WEATHER_WORKSHEET_NAME}")
 
 def fetch_la_weather_data(spreadsheet: gspread.Spreadsheet):
     try:
-        weather_worksheet = spreadsheet.worksheet(WEATHER_WORKSHE_NAME)
+        weather_worksheet = spreadsheet.worksheet(WEATHER_WORKSHEET_NAME)
         weather_data_raw = weather_worksheet.get_all_values()
 
         current_weather = {}
