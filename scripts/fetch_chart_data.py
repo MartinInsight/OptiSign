@@ -8,7 +8,7 @@ from datetime import datetime
 import numpy as np
 import sys
 
-# 현재 스크립트의 디렉토리를 sys.path에 추가하여 로컬 모듈을 찾을 수 있도록 함2
+# 현재 스크립트의 디렉토리를 sys.path에 추가하여 로컬 모듈을 찾을 수 있도록 함
 script_dir = os.path.dirname(__file__)
 if script_dir not in sys.path:
     sys.path.append(script_dir)
@@ -66,7 +66,7 @@ SECTION_COLUMN_MAPPINGS = {
         "data_start_col_idx": 17, # R열
         "data_end_col_idx": 30, # AE열
         "sub_headers_map": { # Headers from row 2 (index 1)
-            "": "Date", # Q2 is empty based on previous logs, so use empty string as key
+            "종합지수($/TEU), 미주항로별($/FEU), 그 외 항로별($/TEU)": "Date", # Q2 셀의 실제 헤더로 수정
             "종합지수": "Composite_Index", # R2
             "미주서안": "US_West_Coast",
             "미주동안": "US_East_Coast",
@@ -377,7 +377,11 @@ def fetch_and_process_data():
 
             for col_final_name in section_data_col_final_names:
                 if col_final_name in df_section.columns:
-                    df_section[col_final_name] = pd.to_numeric(df_section[col_final_name].astype(str).str.replace(',', ''), errors='coerce')
+                    # pd.to_numeric()를 호출하기 전에 Series에 .str 접근자를 사용하는 것은 올바르지 않습니다.
+                    # 이미 .astype(str)로 문자열로 변환되었으므로, .str.replace()를 직접 호출할 수 있습니다.
+                    # 하지만, to_numeric은 문자열을 직접 처리할 수 있으므로 .str.replace()를 먼저 적용하는 것이 좋습니다.
+                    df_section[col_final_name] = df_section[col_final_name].astype(str).str.replace(',', '', regex=False) # regex=False 추가
+                    df_section[col_final_name] = pd.to_numeric(df_section[col_final_name], errors='coerce')
                 else:
                     print(f"WARNING: Data column '{col_final_name}' not found in section {section_key} after renaming. It might not be included in the output.")
             
