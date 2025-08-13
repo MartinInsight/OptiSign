@@ -8,7 +8,7 @@ from datetime import datetime
 import numpy as np
 import sys
 
-# 현재 스크립트의 디렉토리를 sys.path에 추가하여 로컬 모듈을 찾을 수 있도록 함
+# 현재 스크립트의 디렉토리를 sys.path에 추가하여 로컬 모듈을 찾을 수 있도록 함.
 script_dir = os.path.dirname(__file__)
 if script_dir not in sys.path:
     sys.path.append(script_dir)
